@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      *
      * Danny: test this is me trying Getting new conflict comment
-     * HERE IS the CONFLICT
+     * SON WE HAVE A CONFLICT
      */
 
 
