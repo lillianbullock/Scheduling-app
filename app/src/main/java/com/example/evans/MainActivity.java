@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
      *
      * Danny: test this is me trying Getting new conflict comment
      * SON WE HAVE A CONFLICT
+     * HERE IS the [Danny] this is a new conflict CONFLICT
      */
 
 
