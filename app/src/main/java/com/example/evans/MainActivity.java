@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
    /** 
-   * We can now have a merge ConflicT
+   * We can now have a merge ConflicT adding new conflict
    */
 
     /**
