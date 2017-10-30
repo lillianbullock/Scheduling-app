@@ -25,5 +25,29 @@ public class Customer {
         _phone = "";
     }
 
+    public void setName(String name) {
+        this._name = name;
+    }
 
+    public String getName() {
+        return _name;
+    }
+
+    public void setEmail(String email) {
+        this._email = email;
+    }
+
+    public String getEmail() {
+        return _email;
+    }
+
+    public void setPhone(String phone) {
+        this._phone = phone;
+    }
+
+    public String getPhone() {
+        return _phone;
+    }
+
+    
 }
