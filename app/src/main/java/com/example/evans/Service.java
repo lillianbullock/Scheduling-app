@@ -17,4 +17,27 @@ public class Service {
         _price = 0.0;
     }
 
+    public String getTitle() {
+        return _title;
+    }
+
+    public void setTitle(String title) {
+        this._title = title;
+    }
+
+    public void setDescription(String description) {
+        this._description = description;
+    }
+
+    public String getDescription() {
+        return _description;
+    }
+
+    public void setPrice(Double price) {
+        this._price = price;
+    }
+
+    public Double getPrice() {
+        return _price;
+    }
 }

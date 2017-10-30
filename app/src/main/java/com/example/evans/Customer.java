@@ -25,6 +25,14 @@ public class Customer {
         _phone = "";
     }
 
+    public void setId(String id) {
+        this._id = id;
+    }
+
+    public String getId() {
+        return _id;
+    }
+
     public void setName(String name) {
         this._name = name;
     }
@@ -49,5 +57,5 @@ public class Customer {
         return _phone;
     }
 
-    
+
 }
