@@ -10,6 +10,7 @@ import java.util.List;
  */
 
 public class Customer {
+    String _id;
     String _name;
     String _email;
     String _phone;
@@ -18,6 +19,7 @@ public class Customer {
     List<String> _appointmentsList;
 
     Customer(){
+        _id = "";
         _name = "";
         _email = "";
         _phone = "";
