@@ -1,7 +1,10 @@
 package com.example.evans;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+
 import java.time.LocalDate;
-import java.util.List;
+import java.time.LocalDateTime;
 
 /**
  * Created by Brooke Nelson on 10/30/2017.
@@ -17,25 +20,25 @@ public class Customer {
     String _phone;
 
     //Not really sure about the constructor or this one there were alot of option
-    LocalDate _dateAdded;
+    LocalDateTime _dateAdded;
     //CHANGE TO APPOINTMENT LIST WHEN WE DO APPOINTMENT CLASS
     Appointment _appointments;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     Customer(){
         _id = "";
         _name = "";
         _email = "";
         _phone = "";
-        _dateAdded = LocalDate.of(int date; int date1; int date2);
-
-        _appointments = new Appointment();
+        _dateAdded = LocalDateTime.now();
+        _appointments = null;
     }
 
-    public LocalDate getDateAdded() {
+    public LocalDateTime getDateAdded() {
         return _dateAdded;
     }
 
-    public void setDateAdded(LocalDate dateAdded) {
+    public void setDateAdded(LocalDateTime dateAdded) {
         this._dateAdded = dateAdded;
     }
 
