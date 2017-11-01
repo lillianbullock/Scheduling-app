@@ -1,5 +1,9 @@
 package com.example.evans;
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -10,56 +14,65 @@ import java.time.LocalDateTime;
  */
 
 public class Customer {
-    private String _id;
-    private String _name;
-    private String _email;
-    private String _phone;
+    String _id;
+    String _name;
+    String _email;
+    String _phone;
 
     //Not really sure about the constructor or this one there were alot of option
-    private LocalDateTime _dateAdded;
+    LocalDateTime _dateAdded;
     //CHANGE TO APPOINTMENT LIST WHEN WE DO APPOINTMENT CLASS
-    private Appointment _appointments;
+    Appointment _appointments;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     Customer(){
         _id = "";
         _name = "";
         _email = "";
         _phone = "";
-
+        _dateAdded = LocalDateTime.now();
         _appointments = null;
-        _dateAdded = null;
     }
 
     public LocalDateTime getDateAdded() {
         return _dateAdded;
     }
-    public void setId(String id) {
-        this._id = id;
-    }
-    public void setName(String name) {
-        this._name = name;
-    }
-    public void setEmail(String email) {
-        this._email = email;
-    }
-    public void setPhone(String phone) {
-        this._phone = phone;
-    }
-
 
     public void setDateAdded(LocalDateTime dateAdded) {
         this._dateAdded = dateAdded;
     }
+
+    public void setId(String id) {
+        this._id = id;
+    }
+
     public String getId() {
         return _id;
     }
+
+    public void setName(String name) {
+        this._name = name;
+    }
+
     public String getName() {
         return _name;
     }
+
+    public void setEmail(String email) {
+        this._email = email;
+    }
+
     public String getEmail() {
         return _email;
     }
+
+    public void setPhone(String phone) {
+        this._phone = phone;
+    }
+
     public String getPhone() {
         return _phone;
     }
+
+
 }
