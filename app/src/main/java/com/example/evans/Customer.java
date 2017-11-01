@@ -1,5 +1,6 @@
 package com.example.evans;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -15,14 +16,27 @@ public class Customer {
     String _email;
     String _phone;
 
+    //Not really sure about the constructor or this one there were alot of option
+    LocalDate _dateAdded;
     //CHANGE TO APPOINTMENT LIST WHEN WE DO APPOINTMENT CLASS
-    List<String> _appointmentsList;
+    Appointment _appointments;
 
     Customer(){
         _id = "";
         _name = "";
         _email = "";
         _phone = "";
+        _dateAdded = LocalDate.of(int date; int date1; int date2);
+
+        _appointments = new Appointment();
+    }
+
+    public LocalDate getDateAdded() {
+        return _dateAdded;
+    }
+
+    public void setDateAdded(LocalDate dateAdded) {
+        this._dateAdded = dateAdded;
     }
 
     public void setId(String id) {
