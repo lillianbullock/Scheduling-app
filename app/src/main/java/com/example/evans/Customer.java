@@ -34,45 +34,23 @@ public class Customer {
         _appointments = null;
     }
 
-    public LocalDateTime getDateAdded() {
-        return _dateAdded;
+    Customer(String name, String email, String phone){
+        _name = name;
+
     }
 
-    public void setDateAdded(LocalDateTime dateAdded) {
-        this._dateAdded = dateAdded;
-    }
+    public LocalDateTime getDateAdded() { return _dateAdded; }
+    public void setDateAdded(LocalDateTime dateAdded) { this._dateAdded = dateAdded; }
 
-    public void setId(String id) {
-        this._id = id;
-    }
+    public void setId(String id) { this._id = id; }
+    public String getId() { return _id; }
 
-    public String getId() {
-        return _id;
-    }
+    public void setName(String name) { this._name = name; }
+    public String getName() { return _name; }
 
-    public void setName(String name) {
-        this._name = name;
-    }
+    public void setEmail(String email) { this._email = email; }
+    public String getEmail() { return _email; }
 
-    public String getName() {
-        return _name;
-    }
-
-    public void setEmail(String email) {
-        this._email = email;
-    }
-
-    public String getEmail() {
-        return _email;
-    }
-
-    public void setPhone(String phone) {
-        this._phone = phone;
-    }
-
-    public String getPhone() {
-        return _phone;
-    }
-
-
+    public void setPhone(String phone) { this._phone = phone; }
+    public String getPhone() { return _phone; }
 }
