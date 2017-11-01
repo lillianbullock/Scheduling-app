@@ -11,16 +11,5 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-   /** 
-   * We can now have a merge ConflicT adding new conflict
-   */
-
-    /**
-     *
-     * Danny: test this is me trying Getting new conflict comment
-     * SON WE HAVE A CONFLICT
-     * HERE IS the [Danny] this is a new conflict CONFLICT
-     */
-
 
 }
