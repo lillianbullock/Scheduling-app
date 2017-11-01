@@ -1,5 +1,8 @@
 package com.example.evans;
 
+import android.annotation.TargetApi;
+import android.os.Build;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,9 +19,10 @@ class Appointment {
     private Boolean _succeed;
     private Boolean _hasPaid;
 
+    @TargetApi(Build.VERSION_CODES.O)
     Appointment() {
         _title = "";
-        _date = null;
+        _date = LocalDateTime.now();
         _customer = null;
         _due = false;
         _service = null;
@@ -26,50 +30,30 @@ class Appointment {
         _hasPaid = false;
     }
 
-    public String getTitle() {
-        return _title;
-    }
-    public LocalDateTime getDate() {
-        return _date;
-    }
-    public Customer getCustomer() {
-        return _customer;
-    }
-    public Boolean isDue() {
-        return _due;
-    }
-    public Service getService() {
-        return _service;
-    }
-    public Boolean isSucceed() {
-        return _succeed;
-    }
-    public Boolean isHasPaid() {
-        return _hasPaid;
-    }
-
-
-    public void setTitle(String title) {
+    Appointment(String title, LocalDateTime date, Customer customer, Boolean due,
+                Service service, Boolean succeed, Boolean hasPaid) {
         this._title = title;
-    }
-    public void setDate(LocalDateTime date) {
         this._date = date;
-    }
-    public void setCustomer(Customer customer) {
         this._customer = customer;
-    }
-    public void setDue(Boolean due) {
         this._due = due;
-    }
-    public void setService(Service service) {
         this._service = service;
-    }
-    public void setSucceed(Boolean succeed) {
         this._succeed = succeed;
-    }
-    public void setHasPaid(Boolean hasPaid) {
         this._hasPaid = hasPaid;
     }
 
-    List<Appointment> getAppointmentsForCurrentWeek() {return null;}
+    public String getTitle() { return _title; }
+    public LocalDateTime getDate() { return _date; }
+    public Customer getCustomer() { return _customer; }
+    public Boolean isDue() { return _due; }
+    public Service getService() { return _service; }
+    public Boolean isSucceed() { return _succeed; }
+    public Boolean isHasPaid() { return _hasPaid; }
+
+    public void setTitle(String title) { this._title = title; }
+    public void setDate(LocalDateTime date) { this._date = date; }
+    public void setCustomer(Customer customer) { this._customer = customer; }
+    public void setDue(Boolean due) { this._due = due; }
+    public void setService(Service service) { this._service = service; }
+    public void setSucceed(Boolean succeed) { this._succeed = succeed; }
+    public void setHasPaid(Boolean hasPaid) { this._hasPaid = hasPaid; }
 }
