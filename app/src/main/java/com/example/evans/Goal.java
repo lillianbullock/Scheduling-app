@@ -28,6 +28,19 @@ public class Goal {
         _repeatCycle = null;
     }
 
+    Goal(String title, String description, LocalDateTime dueDate,
+         LocalDateTime startDate, Boolean isRepeat, TimePeriod repeatCycle) {
+        this._title = title;
+        this._description = description;
+        this._dueDate = dueDate;
+        this._startDate = startDate;
+        this._repeatCycle = repeatCycle;
+
+        if (_repeatCycle == null) {
+            _isRepeat = false;
+        } else _isRepeat = true;
+    }
+
     /**
      * getter functions for each of the member variables
      */
@@ -45,10 +58,9 @@ public class Goal {
     public void setDescription(String description) { this._description = description; }
     public void setDueDate(LocalDateTime dueDate) { this._dueDate = dueDate; }
     public void setStartDate(LocalDateTime startDate) { this._startDate = startDate; }
-    public void setIsRepeat(Boolean isRepeat) { this._isRepeat = isRepeat; }
     public void setRepeatCycle(TimePeriod repeatCycle) {
-        this._repeatCycle = repeatCycle;
-        _isRepeat = true;
+
+
     }
 }
 

@@ -30,6 +30,17 @@ class Appointment {
         _hasPaid = false;
     }
 
+    Appointment(String title, LocalDateTime date, Customer customer, Boolean due,
+                Service service, Boolean succeed, Boolean hasPaid) {
+        this._title = title;
+        this._date = date;
+        this._customer = customer;
+        this._due = due;
+        this._service = service;
+        this._succeed = succeed;
+        this._hasPaid = hasPaid;
+    }
+
     public String getTitle() { return _title; }
     public LocalDateTime getDate() { return _date; }
     public Customer getCustomer() { return _customer; }
