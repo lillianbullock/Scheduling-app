@@ -6,13 +6,92 @@
     android:layout_height="match_parent"
     tools:context="com.example.evans.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <ListView
+        android:id="@+id/LVAppointments"
+        android:layout_width="368dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ListView
+        android:id="@+id/LVGoals"
+        android:layout_width="368dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="144dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnAppointment"
+        android:layout_width="wrap_content"
+        android:layout_height="41dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/SeeMore"
+        app:layout_constraintBottom_toTopOf="@+id/LVGoals"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LVAppointments"
+        app:layout_constraintVertical_bias="0.106" />
+
+    <Button
+        android:id="@+id/btnGoals"
+        android:layout_width="wrap_content"
+        android:layout_height="39dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/SeeMore"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LVGoals"
+        app:layout_constraintVertical_bias="0.067" />
+
+    <EditText
+        android:id="@+id/etA"
+        android:layout_width="57dp"
+        android:layout_height="31dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:inputType="numberSigned"
+        app:layout_constraintBottom_toTopOf="@+id/LVGoals"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.795"
+        app:layout_constraintStart_toEndOf="@+id/btnAppointment"
+        app:layout_constraintTop_toBottomOf="@+id/LVAppointments"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/etG"
+        android:layout_width="54dp"
+        android:layout_height="36dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="numberSigned"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.783"
+        app:layout_constraintStart_toEndOf="@+id/btnGoals"
+        app:layout_constraintTop_toBottomOf="@+id/LVGoals"
+        app:layout_constraintVertical_bias="0.065" />
 
 </android.support.constraint.ConstraintLayout>
