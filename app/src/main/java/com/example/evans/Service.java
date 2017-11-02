@@ -7,9 +7,9 @@ package com.example.evans;
  */
 
 public class Service {
-    String _title;
-    String _description;
-    Double _price;
+    private String _title;
+    private String _description;
+    private Double _price;
 
     Service(){
         _title = "";

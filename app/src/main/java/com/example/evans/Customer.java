@@ -14,15 +14,15 @@ import java.time.LocalDateTime;
  */
 
 public class Customer {
-    String _id;
-    String _name;
-    String _email;
-    String _phone;
+    private String _id;
+    private String _name;
+    private String _email;
+    private String _phone;
 
     //Not really sure about the constructor or this one there were alot of option
-    LocalDateTime _dateAdded;
+    private LocalDateTime _dateAdded;
     //CHANGE TO APPOINTMENT LIST WHEN WE DO APPOINTMENT CLASS
-    Appointment _appointments;
+    private Appointment _appointments;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     Customer(){

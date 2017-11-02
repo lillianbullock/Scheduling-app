@@ -9,8 +9,8 @@ package com.example.evans;
  */
 
 public class Expense {
-    String _name;
-    Double _price;
+    private String _name;
+    private Double _price;
 
     Expense(){
         _name = "";

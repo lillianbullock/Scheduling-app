@@ -14,12 +14,12 @@ import java.time.LocalDateTime;
  */
 
 public class Sale {
-    Service _service;
-    Double _price;
-    LocalDateTime _dateTime;
-    Customer _customer;
-    Boolean _isByAppointment;
-    Boolean _isByCustomer;
+    private Service _service;
+    private Double _price;
+    private LocalDateTime _dateTime;
+    private Customer _customer;
+    private Boolean _isByAppointment;
+    private Boolean _isByCustomer;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     Sale(){
