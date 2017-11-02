@@ -34,9 +34,13 @@ public class Customer {
         _appointments = null;
     }
 
-    Customer(String name, String email, String phone){
+    Customer(String id, String name, String email, String phone, LocalDateTime dateAdded, Appointment appointment){
+        _id = id;
         _name = name;
-
+        _email = email;
+        _phone = phone;
+        _dateAdded = dateAdded;
+        _appointments = appointment;
     }
 
     public LocalDateTime getDateAdded() { return _dateAdded; }

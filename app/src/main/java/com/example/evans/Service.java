@@ -17,6 +17,12 @@ public class Service {
         _price = 0.0;
     }
 
+    Service(String title, String description, Double price){
+        _title = title;
+        _description = description;
+        _price = price;
+    }
+
     public String getTitle() {
         return _title;
     }
