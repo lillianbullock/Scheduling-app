@@ -3,9 +3,9 @@ package com.example.evans;
 
 import android.support.constraint.solver.Goal;
 
-import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class will hold most of the list data for the application and will contain methods to create, retrieve
@@ -21,7 +21,7 @@ import java.util.List;
 
 public class MainController {
 
-    private List<Appointment> _appoinments       = new LinkedList<Appoinment>();
+    private List<Appointment> _appoinments       = new LinkedList<Appointment>();
     private List<Customer> _customers         = new LinkedList<Customer>();
     private List<Goal> _goals             = new LinkedList<Goal>();
     private List<Service> _availableServices = new LinkedList<Service>();
@@ -244,6 +244,44 @@ public class MainController {
 
 
     /**
+     * Return all the appointments for a particular customer
+     * @param customer: The customer that we're looking up appointments for
+     * @return: A list of appointments for the customer
+     */
+    public List<Customer> getAppointmentsForCustomer(Customer customer) {
+
+
+        return null;
+
+    }
+
+
+    /**
+     * Return a list of goals that are due in a certain month
+     * @param month: The month we're looking at
+     * @return: A list of goals
+     */
+    public List<Goal> getGoalsByDueMonth(Month month) {
+
+        return null;
+    }
+
+
+    /**
+     * Get a specific goal by the title of the name. The use case for this is if the
+     * user searches for a specific goal.
+     * @param name
+     * @return
+     */
+    public Goal getGoalByName(String name){
+
+        return null;
+    }
+
+
+
+
+    /**
      * GetExpenses: This method returns a list of expenses based on the time period specified in
      * the TimePeriod that is received as a parameter.
      * @param timePeriod: Used to determine what date range to return it's for
@@ -298,10 +336,30 @@ public class MainController {
 
     /**
      * GetCustommers: Simply return a list of all the customers in our customers list
-     * @return List<Customer></Customer>
+     * @return List<Customer>
      */
     public List<Customer> getCustomers() {
         return _customers;
+    }
+
+
+    /**
+     * Return a list of customers that were added in the last month. This method may be
+     * changed later to accept a parameter that specifies the duration to check for
+     * @return List of customers
+     */
+    public List<Goal> getNewCustomers() {
+        return null;
+    }
+
+
+    /**
+     * GetFrequent customers
+     * Return a list of customers that have visited two or more times in the past
+     * @return List of Customer
+     */
+    public List<Customer> getFrequentCustomers() {
+        return null;
     }
 
     /**
@@ -319,6 +377,21 @@ public class MainController {
      */
     public List<Sale> getAllSales() {
         return _allSales;
+    }
+
+
+    /**
+     * CreateSalesReport: Return a map of the name of the sub report and a key containing its
+     * value for the specified time period. Example:
+     * 'Sales' 120
+     * 'Sales amount' 15000
+     * 'Total customers' 20
+     * 'Total expenses' 200
+     * @param timePeriod
+     * @return
+     */
+    public Map<String, Double> createSalesReport(TimePeriod timePeriod) {
+        return null;
     }
 
 
