@@ -16,7 +16,7 @@ public class Expense {
         _name = "";
         _price = 0.0;
     }
-    
+
     Expense(String name, Double price){
         _name = name;
         _price = price;
