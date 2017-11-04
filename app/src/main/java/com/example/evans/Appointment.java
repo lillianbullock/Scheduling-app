@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * Holds the information relevant to each appointment
+ *
  */
 
 class Appointment {
