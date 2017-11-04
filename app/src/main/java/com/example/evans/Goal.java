@@ -1,6 +1,7 @@
 package com.example.evans;
 
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 
 import java.time.LocalDateTime;
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
  * Created by brooke on 10/30/17.
  */
 
-public class Goal {
+public class Goal implements Comparable {
     private String _title;
     private String _description;
     private LocalDateTime _dueDate;
@@ -58,9 +59,18 @@ public class Goal {
     public void setDescription(String description) { this._description = description; }
     public void setDueDate(LocalDateTime dueDate) { this._dueDate = dueDate; }
     public void setStartDate(LocalDateTime startDate) { this._startDate = startDate; }
-    public void setRepeatCycle(TimePeriod repeatCycle) {
+    public void setRepeatCycle(TimePeriod repeatCycle) {  }
 
-
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    public int compareTo(@NonNull Object o) {
+        Goal goal1 = (Goal) o;
+        if(this._dueDate.isAfter(goal1._dueDate))
+            return 1;
+        else if(this._dueDate.isBefore(goal1._dueDate))
+            return -1;
+        else
+            return 0;
     }
 }
 
