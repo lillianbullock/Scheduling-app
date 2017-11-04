@@ -2,6 +2,8 @@ package com.example.evans;
 
 import android.annotation.TargetApi;
 import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,7 +13,7 @@ import java.util.List;
  *
  */
 
-class Appointment {
+class Appointment implements Comparable {
     private String _title;
     private LocalDateTime _date;
     private Customer _customer;
@@ -57,4 +59,16 @@ class Appointment {
     public void setService(Service service) { this._service = service; }
     public void setSucceed(Boolean succeed) { this._succeed = succeed; }
     public void setHasPaid(Boolean hasPaid) { this._hasPaid = hasPaid; }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    public int compareTo(@NonNull Object o) {
+        Appointment appointment2 = (Appointment) o;
+        if(this._date.isAfter(appointment2._date))
+            return 1;
+        else if(this._date.isBefore(appointment2._date))
+            return -1;
+        else
+            return 0;
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.evans;
 
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 
 import java.time.LocalDate;
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
  *
  */
 
-public class Customer {
+public class Customer implements Comparable{
     private String _id;
     private String _name;
     private String _email;
@@ -57,4 +58,12 @@ public class Customer {
 
     public void setPhone(String phone) { this._phone = phone; }
     public String getPhone() { return _phone; }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    public int compareTo(@NonNull Object o) {
+        Customer customer1 = (Customer) o;
+
+        return this._name.compareTo(customer1._name);
+    }
 }
