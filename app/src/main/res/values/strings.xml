@@ -5,4 +5,25 @@
     <string name="email">Email</string>
     <string name="otherText">Other information: </string>
     <string name="setApt">Set Appointment</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <!-- For the navigation drawer -->
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+
+    <string name="business_address"> 67 Winn Dr, Rexburg, ID 83440 </string>
+
+    <!-- For navigation bar menu item titles-->
+    <string name="menu_customers"> Customer </string>
+    <string name="menu_goals"> Goals </string>
+    <string name="menu_Appointments"> Appointments </string>
+    <string name="menu_sales"> Sales </string>
+    <string name="menu_exit"> Exit </string>
+    <string name="menu_create_report"> Create Report </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_main_fragment">Hello blank fragment</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -42,12 +42,12 @@ public class MainController {
     /**
      * Add a single appointment to our list of appointments. The appointment should already
      * be in a valid state before this function is called.
-     * @param customer: A valid customer to be added to our list
+     * @param appointment: A valid appoinment to be added to our list
      */
-    public void addAppointment(Customer customer) {
+    public void addAppointment(Appointment appointment) {
 
-        if (customer != null) {
-            _customers.add(customer);
+        if (appointment != null) {
+            _appoinments.add(appointment);
         }
 
 
