@@ -36,9 +36,9 @@ public class customerTest {
         assertNotNull(customer);
 
         //Then we need to check the Values that were placed were also correct
-        assertEquals("These two things dont match", "customerTest", customer.getId());
-        assertEquals("These two things dont match", "John Doe", customer.getName());
-        assertEquals("These two things dont match", LocalDateTime.now() , customer.getDateAdded());
+        assertEquals("Getting Id is not right", "customerTest", customer.getId());
+        assertEquals("Getting the Name", "John Doe", customer.getName());
+        assertEquals("Getting the Date", LocalDateTime.now() , customer.getDateAdded());
 
         assertNotNull(customer);
         assertNotNull(appointment);

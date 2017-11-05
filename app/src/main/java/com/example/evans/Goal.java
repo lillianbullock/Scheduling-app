@@ -1,16 +1,17 @@
 package com.example.evans;
 
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 
 import java.time.LocalDateTime;
 
 /**
- * Goal class holds the information relavant to a users goal
+ * Goal class holds the information relevant to a users goal
  * Created by brooke on 10/30/17.
  */
 
-public class Goal {
+public class Goal implements Comparable {
     private String _title;
     private String _description;
     private LocalDateTime _dueDate;
@@ -29,7 +30,7 @@ public class Goal {
     }
 
     Goal(String title, String description, LocalDateTime dueDate,
-         LocalDateTime startDate, Boolean isRepeat, TimePeriod repeatCycle) {
+         LocalDateTime startDate, TimePeriod repeatCycle) {
         this._title = title;
         this._description = description;
         this._dueDate = dueDate;
@@ -58,9 +59,28 @@ public class Goal {
     public void setDescription(String description) { this._description = description; }
     public void setDueDate(LocalDateTime dueDate) { this._dueDate = dueDate; }
     public void setStartDate(LocalDateTime startDate) { this._startDate = startDate; }
+
+    /**
+     * sets the repeat cycle to the passed value and sets _isRepeat based on that
+     * @param repeatCycle: TimePeriod that is how often the goal repeats
+     */
     public void setRepeatCycle(TimePeriod repeatCycle) {
+        if (_repeatCycle == null) {
+            _isRepeat = false;
+        } else _isRepeat = true;
+    }
 
-
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Override
+    public int compareTo(@NonNull Object o) {
+        Goal goal1 = (Goal) o;
+        if(this._dueDate.isAfter(goal1._dueDate))
+            return 1;
+        else if(this._dueDate.isBefore(goal1._dueDate))
+            return -1;
+        else
+            return 0;
     }
 }
+
 

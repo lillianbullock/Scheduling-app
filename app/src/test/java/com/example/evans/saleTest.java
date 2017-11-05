@@ -9,6 +9,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 /**
+ * Tests for the Sale class
+ * Tests the default constructor
  * Created by Brooke Nelson on 11/2/2017.
  */
 
@@ -19,11 +21,8 @@ public class saleTest {
         Double price = 12.99;
         LocalDateTime dateTime = LocalDateTime.now();
         Customer customer = new Customer();
-        Boolean isByAppointment = true;
-        Boolean isByCustomer = true;
 
-        Sale sale = new Sale(service, price, dateTime, customer,
-                isByAppointment, isByCustomer);
+        Sale sale = new Sale(service, price, dateTime, customer);
 
         //Just in case i feel like we need to check the Default to make sure it doesn't have weird values.
         Sale sale1 = new Sale();

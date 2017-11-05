@@ -1,50 +1,38 @@
 package com.example.evans;
 
+
+import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import java.time.LocalDateTime;
 
-
+import static org.junit.Assert.*;
 
 /**
- * This is the test class for main controller
+ * Created by Brooke Nelson on 11/3/2017.
  */
-
 public class MainControllerTest {
 
-    /*@Test
-    public void testMainController () {
-
-        MainController mainController = new MainController();
-
-        Appointment appointment = new Appointment();
-
-        mainController.addAppointment(appointment);
+    MainController mainController = new MainController();
 
 
-        assertEquals(4, 2+2);
-        assertNotNull(mainController.getAppointments(TimePeriod.Month));
+    @Before
+    public void initInputs() {
+        LocalDateTime date1 = LocalDateTime.of(2017, 11, 11, 11, 11);
+        LocalDateTime date2 = LocalDateTime.of(2017, 12, 22, 22, 22);
+        LocalDateTime date3 = LocalDateTime.of(2017, 10, 23, 23, 23);
+        LocalDateTime date4 = LocalDateTime.of(2018, 1, 22, 22, 22);
+
+        Goal goal1 = new Goal("GoalTitle1", "GoalDescription1", date2, date1, null);
+        Goal goal2 = new Goal("GoalTitle2", "GoalDescription2", date3, date2, null);
+
+
     }
 
+
     @Test
-    public void testAppointmentClass() {
+    public void test() throws Exception {
 
-        Appointment appointment = new Appointment();
-
-        appointment.setTitle("New Title");
-
-        assertEquals(appointment.getTitle(), "New Title");
     }
-
-    @Test
-    public void customerNameShouldBeSet() {
-
-        Customer customer = new Customer();
-
-        customer.setName("Best Customer");
-
-        assertEquals(customer.getName(), "Best Customer");
-    }*/
 
 }
