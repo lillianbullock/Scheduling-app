@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="190dp"
+    android:background="@drawable/header_background">
+
+    <!-- Google guidelines:: Subtitle: 56 dp -->
+    <!-- Name: Roboto Medium, 14sp, #FFFFF -->
+    <!--Email address: Roboto regular, 14sp, #FFFFFF -->
+
+    <!-- Read the full Google guidelines/specification here
+         https://material.io/guidelines/patterns/navigation-drawer.html -->
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:paddingBottom="15dp"
+        android:paddingLeft="15dp">
+
+
+        <TextView
+            android:id="@+id/txvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="bottom"
+            android:text="@string/app_name"
+            android:textColor="#ffffff"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/txvEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif"
+            android:gravity="bottom"
+            android:text="@string/business_address"
+            android:textColor="#ffffff"
+            android:textSize="14sp"/>
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>

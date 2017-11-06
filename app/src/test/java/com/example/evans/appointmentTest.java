@@ -14,6 +14,8 @@ import static org.junit.Assert.*;
 
 public class appointmentTest {
 
+    /*
+
     @Test
     public void testCons() throws Exception{
         String title = "Hair cut";
@@ -45,5 +47,6 @@ public class appointmentTest {
         assertTrue(appointment.isHasPaid());
         assertTrue(appointment.isSucceed());
     }
+    */
 
 }

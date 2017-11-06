@@ -15,7 +15,7 @@ import static org.junit.Assert.assertNull;
  */
 
 public class saleTest {
-    @Test
+    /*@Test
     public void testCons() throws Exception{
         Service service = new Service();
         Double price = 12.99;
@@ -32,5 +32,5 @@ public class saleTest {
         assertNotNull(sale);
 
         //assertEquals(12.99, sale.getPrice());
-    }
+    }*/
 }
