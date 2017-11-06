@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- These menu items will be used in our navigation bar -->
+    <item
+        android:id="@+id/menu_item_customers"
+        android:checkable="true"
+        android:title="@string/menu_customers"
+        android:icon="@drawable/ic_people"/>
+
+    <item
+        android:id="@+id/menu_item_goals"
+        android:checkable="true"
+        android:title="@string/menu_goals"
+        android:icon="@drawable/ic_goal"/>
+
+    <item
+        android:id="@+id/menu_item_appointments"
+        android:checkable="true"
+        android:title="@string/menu_Appointments"
+        android:icon="@drawable/ic_appointment"/>
+
+    <item
+        android:id="@+id/menu_item-sales"
+        android:checkable="true"
+        android:title="@string/menu_sales"
+        android:icon="@drawable/ic_money"/>
+
+</menu>

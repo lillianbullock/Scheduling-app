@@ -21,12 +21,12 @@ import java.util.Map;
 
 public class MainController {
 
-    private List<Appointment> _appoinments       = new LinkedList<Appointment>();
-    private List<Customer> _customers         = new LinkedList<Customer>();
-    private List<Goal> _goals             = new LinkedList<Goal>();
-    private List<Service> _availableServices = new LinkedList<Service>();
-    private List<Sale> _allSales          = new LinkedList<Sale>();
-    private List<Expense> _expenses          = new LinkedList<Expense>();
+    private List<Appointment> _appoinments       = new LinkedList<>();
+    private List<Customer>    _customers         = new LinkedList<>();
+    private List<Goal>        _goals             = new LinkedList<>();
+    private List<Service>     _availableServices = new LinkedList<>();
+    private List<Sale>        _allSales          = new LinkedList<>();
+    private List<Expense>     _expenses          = new LinkedList<>();
 
 
     /**
@@ -42,18 +42,16 @@ public class MainController {
     /**
      * Add a single appointment to our list of appointments. The appointment should already
      * be in a valid state before this function is called.
-     * @param customer: A valid customer to be added to our list
+     * @param appointment: A valid appoinment to be added to our list
      */
-    public void addAppointment(Customer customer) {
+    public void addAppointment(Appointment appointment) {
 
-        if (customer != null) {
-            _customers.add(customer);
+        if (appointment != null) {
+            _appoinments.add(appointment);
         }
-
 
         // TODO Update the user interface here so that the new appointment shows up in the
         // ListView. This can probably be done by simple addding it to the arrayAdapter
-
 
         // TODO: Consider notifying the user somehow, maybe by displaying a toast
 
@@ -145,7 +143,7 @@ public class MainController {
      * GetAppointments: This method returns a list of appointments based on the time period specified in
      * the TimePeriod that is received as a parameter.
      * @param timePeriod: Used to determine what date range to return appointments for
-     * @return
+     * @return list of appointments for that time period
      */
     public List<Appointment> getAppointments(TimePeriod timePeriod) {
 
@@ -153,7 +151,7 @@ public class MainController {
             return null;
         }
 
-        List<Appointment> tempAppointments = new LinkedList<Appointment>();
+        List<Appointment> tempAppointments = new LinkedList<>();
 
 
         switch (timePeriod){
@@ -205,7 +203,7 @@ public class MainController {
             return null;
         }
 
-        List<Goal> tempGoals = new LinkedList<Goal>();
+        List<Goal> tempGoals = new LinkedList<>();
 
 
         switch (timePeriod){
@@ -270,7 +268,7 @@ public class MainController {
     /**
      * Get a specific goal by the title of the name. The use case for this is if the
      * user searches for a specific goal.
-     * @param name
+     * @param name: name of the goal
      * @return
      */
     public Goal getGoalByName(String name){

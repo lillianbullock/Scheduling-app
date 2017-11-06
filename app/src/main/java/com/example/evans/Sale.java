@@ -19,8 +19,6 @@ public class Sale implements Comparable{
     private Double _price;
     private LocalDateTime _dateTime;
     private Customer _customer;
-    private Boolean _isByAppointment;
-    private Boolean _isByCustomer;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     Sale(){
@@ -28,18 +26,14 @@ public class Sale implements Comparable{
         _price = 0.0;
         _dateTime = LocalDateTime.now();
         _customer = new Customer();
-        _isByAppointment = false;
-        _isByCustomer = false;
     }
 
     Sale(Service service, Double price, LocalDateTime dateTime,
-         Customer customer, Boolean isByAppointment, Boolean isByCustomer){
+         Customer customer){
         _service = service;
         _price = price;
         _dateTime = dateTime;
         _customer = customer;
-        _isByCustomer = isByCustomer;
-        _isByAppointment = isByAppointment;
     }
 
     public Service getService() { return _service; }
@@ -51,14 +45,8 @@ public class Sale implements Comparable{
     public LocalDateTime getDateTime() { return _dateTime; }
     public void setDateTime(LocalDateTime dateTime) { this._dateTime = dateTime; }
 
-    public void setIsByAppointment(Boolean isByAppointment) { this._isByAppointment = isByAppointment; }
-    public Boolean getIsByAppointment() { return _isByAppointment; }
-
-    public void setIsByCustomer(Boolean isByCustomer) { this._isByCustomer = isByCustomer; }
-    public Boolean getIsByCustomer() { return _isByCustomer; }
-
-    public Boolean isAppointment(){ return false; }
-    public  Boolean byCustomer() { return false; }
+    public Customer getCustomer() { return _customer; }
+    public void setCustomer(Customer customer) { this._customer = customer; }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
