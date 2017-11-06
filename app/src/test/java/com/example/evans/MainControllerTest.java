@@ -4,12 +4,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
+import java.util.LinkedList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
 /**
- * Created by Brooke Nelson on 11/3/2017.
+ * Test for MainController class
  */
+
 public class MainControllerTest {
 
     MainController mainController = new MainController();
@@ -31,6 +34,18 @@ public class MainControllerTest {
 
     @Test
     public void test() throws Exception {
+        //List<Goal> getGoalsByDueMonth(Month month)
+        //Goal getGoalByName(String name)
+        //List<Goal> getCurrentWeekGoals(LocalDateTime today)
 
+        //List<Appointments> getAppointmentsForCustomer(Customer customer)
+        //List<Appointments> getTodaysAppointments(LocalDateTime today)
+        //List<Appointments> getAppointmentByMonth(Month month)
+
+        //public List<Customer> getNewCustomers()
+        //public List<Customer> getFrequentCustomers()
+        //public List<Customer> getAppointmentsForCustomer(Customer customer)
+
+        //CreateSalesReport()
     }
 }
