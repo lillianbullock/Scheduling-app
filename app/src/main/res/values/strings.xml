@@ -31,4 +31,13 @@
     <string name="phone">Phone:</string>
     <string name="email">Email:</string>
     <string name="other_text">Other information: </string>
+    <string name="customer_name">Customer Name:</string>
+    <string name="customer_email">Customer Email:</string>
+    <string name="customer_phone">Customer Phone:</string>
+    <string name="date">Date:</string>
+    <string name="service">Service:</string>
+    <string name="Price">Price:</string>
+    <string name="notes">Notes:</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
 </resources>
