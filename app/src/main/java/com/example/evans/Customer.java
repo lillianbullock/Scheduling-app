@@ -6,6 +6,7 @@ import android.support.annotation.RequiresApi;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Created by Brooke Nelson on 10/30/2017.
@@ -22,8 +23,6 @@ public class Customer implements Comparable{
 
     //Not really sure about the constructor or this one there were alot of option
     private LocalDateTime _dateAdded;
-    //CHANGE TO APPOINTMENT LIST WHEN WE DO APPOINTMENT CLASS
-    private Appointment _appointments;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     Customer(){
@@ -32,7 +31,6 @@ public class Customer implements Comparable{
         _email = "";
         _phone = "";
         _dateAdded = LocalDateTime.now();
-        _appointments = null;
     }
 
     Customer(String id, String name, String email, String phone, LocalDateTime dateAdded, Appointment appointment){
@@ -41,7 +39,6 @@ public class Customer implements Comparable{
         _email = email;
         _phone = phone;
         _dateAdded = dateAdded;
-        _appointments = appointment;
     }
 
     public LocalDateTime getDateAdded() { return _dateAdded; }
@@ -58,6 +55,11 @@ public class Customer implements Comparable{
 
     public void setPhone(String phone) { this._phone = phone; }
     public String getPhone() { return _phone; }
+
+    public List findAppts(){
+        return null;
+    }
+
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
