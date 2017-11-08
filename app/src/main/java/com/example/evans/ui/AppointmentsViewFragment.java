@@ -1,20 +1,22 @@
-package com.example.evans;
+package com.example.evans.ui;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.evans.R;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CustomerEditFragment extends Fragment {
+public class AppointmentsViewFragment extends Fragment {
 
 
-    public CustomerEditFragment() {
+    public AppointmentsViewFragment() {
         // Required empty public constructor
     }
 
@@ -23,7 +25,7 @@ public class CustomerEditFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_customer_edit, container, false);
+        return inflater.inflate(R.layout.fragment_appointments_view, container, false);
     }
 
 }

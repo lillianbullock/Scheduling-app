@@ -1,4 +1,4 @@
-package com.example.evans;
+package com.example.evans.data;
 
 
 import android.support.constraint.solver.Goal;

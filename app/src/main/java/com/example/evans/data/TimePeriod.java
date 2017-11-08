@@ -1,4 +1,4 @@
-package com.example.evans;
+package com.example.evans.data;
 
 /**
  * Created by brooke on 10/27/17.

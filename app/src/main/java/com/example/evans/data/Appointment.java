@@ -1,4 +1,4 @@
-package com.example.evans;
+package com.example.evans.data;
 
 import android.annotation.TargetApi;
 import android.os.Build;
@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * Holds the information relevant to each appointment
