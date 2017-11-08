@@ -1,4 +1,4 @@
-    package com.example.evans;
+    package com.example.evans.ui;
 
 
 import android.app.FragmentManager;;
@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import com.example.evans.R;
 
 
     public class MainActivity extends AppCompatActivity {

@@ -1,4 +1,4 @@
-package com.example.evans;
+package com.example.evans.data;
 
 /**
  * A simple enum of all 12 months
