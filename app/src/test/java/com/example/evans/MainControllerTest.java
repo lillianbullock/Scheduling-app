@@ -1,14 +1,13 @@
 package com.example.evans;
 
 
+import com.example.evans.data.Goal;
+import com.example.evans.data.MainController;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
-import java.util.LinkedList;
-import java.util.List;
-
-import static org.junit.Assert.*;
 
 /**
  * Test for MainController class
