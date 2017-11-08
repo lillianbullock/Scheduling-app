@@ -32,7 +32,6 @@ public class MainControllerTest {
 
     }
 
-
     @Test
     public void test() throws Exception {
         //List<Goal> getGoalsByDueMonth(Month month)
