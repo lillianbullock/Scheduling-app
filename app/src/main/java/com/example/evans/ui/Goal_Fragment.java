@@ -1,4 +1,4 @@
-package com.example.evans;
+package com.example.evans.ui;
 
 
 import android.os.Bundle;
@@ -7,14 +7,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.evans.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
+ *
  */
 public class Goal_Fragment extends Fragment {
 
 
     public Goal_Fragment() {
+        //Goal Fragment
         // Required empty public constructor
     }
 
