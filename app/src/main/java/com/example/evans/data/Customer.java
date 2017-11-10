@@ -4,7 +4,9 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 
-import java.time.LocalDateTime;
+
+import org.joda.time.LocalDateTime;
+
 import java.util.List;
 
 /**
@@ -19,6 +21,9 @@ public class Customer implements Comparable{
     private String _name;
     private String _email;
     private String _phone;
+    private String _otherInfo;
+
+
 
     //Not really sure about the constructor or this one there were alot of option
     private LocalDateTime _dateAdded;
@@ -32,12 +37,29 @@ public class Customer implements Comparable{
         _dateAdded = LocalDateTime.now();
     }
 
-    Customer(String id, String name, String email, String phone, LocalDateTime dateAdded, Appointment appointment){
+    public Customer(String id, String name, String email, String phone, LocalDateTime dateAdded, Appointment appointment){
         _id = id;
         _name = name;
         _email = email;
         _phone = phone;
         _dateAdded = dateAdded;
+    }
+
+    public Customer(String id, String name, String email, String phone, LocalDateTime dateAdded){
+        _id = id;
+        _name = name;
+        _email = email;
+        _phone = phone;
+        _dateAdded = dateAdded;
+    }
+
+    public Customer(String id, String name, String email, String phone, LocalDateTime dateAdded, String otherInfo){
+        _id = id;
+        _name = name;
+        _email = email;
+        _phone = phone;
+        _dateAdded = dateAdded;
+        _otherInfo = otherInfo;
     }
 
     public LocalDateTime getDateAdded() { return _dateAdded; }
@@ -54,6 +76,9 @@ public class Customer implements Comparable{
 
     public void setPhone(String phone) { this._phone = phone; }
     public String getPhone() { return _phone; }
+
+    public void setOtherInfo(String _otherInfo) { this._otherInfo = _otherInfo; }
+    public String getOtherInfo() { return _otherInfo; }
 
     public List findAppts(){
         return null;

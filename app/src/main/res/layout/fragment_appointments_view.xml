@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.evans.ui.AppointmentsViewFragment">
+    tools:context="com.example.evans.ui.AppointmentsListFragment">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"

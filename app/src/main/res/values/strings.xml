@@ -43,4 +43,11 @@
     <string name="description">Description</string>
     <string name="title">Title</string>
     <string name="price">Price</string>
+    <string name="goal_name">Goal Name</string>
+    <string name="start_date">Start Date</string>
+    <string name="end_date">End Date</string>
+    <string name="detail_goal">Details of Goal</string>
+    <string name="save_goal">Save</string>
+    <string name="repeat_times">Repeat Times</string>
+    <string name="dateEnterHint">Day-Month-Year Hour:Min</string>
 </resources>
