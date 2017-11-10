@@ -40,4 +40,7 @@
     <string name="notes">Notes:</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
+    <string name="description">Description</string>
+    <string name="title">Title</string>
+    <string name="price">Price</string>
 </resources>
