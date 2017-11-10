@@ -34,7 +34,7 @@ public class MainController {
      * from the database and from the phone and populate the data for the app session
      * TODO: Implement data loading here
      */
-    MainController() {
+    public MainController() {
 
     }
 
@@ -49,12 +49,6 @@ public class MainController {
         if (appointment != null) {
             _appoinments.add(appointment);
         }
-
-        // TODO Update the user interface here so that the new appointment shows up in the
-        // ListView. This can probably be done by simple addding it to the arrayAdapter
-
-        // TODO: Consider notifying the user somehow, maybe by displaying a toast
-
 
     }
 
@@ -71,13 +65,6 @@ public class MainController {
             _customers.add(customer);
         }
 
-
-        // TODO Update the user interface here so that the new customer shows up in the
-        // ListView. This can probably be done by simple addding it to the arrayAdapter
-
-
-        // TODO: Consider notifying the user somehow, maybe by displaying a toast
-
     }
 
 
@@ -93,11 +80,6 @@ public class MainController {
             _allSales.add(sale);
         }
 
-        // TODO: Add the new sale to the arrayAdapter for the sales list view so that the user
-        // will be able to see the update.
-
-        // TODO: Consider notifying the user somehow, maybe by displaying a toast
-
     }
 
 
@@ -112,11 +94,6 @@ public class MainController {
             _goals.add(goal);
         }
 
-        // TODO: Add the new sale to the arrayAdapter for the sales list view so that the user
-        // will be able to see the update.
-
-        // TODO: Consider notifying the user somehow, maybe by displaying a toast
-
     }
 
 
@@ -130,11 +107,6 @@ public class MainController {
         if (expense != null) {
             _expenses.add(expense);
         }
-
-        // TODO: Add the new sale to the arrayAdapter for the sales list view so that the user
-        // will be able to see the update.
-
-        // TODO: Consider notifying the user somehow, maybe by displaying a toast
 
     }
 
@@ -242,6 +214,15 @@ public class MainController {
 
 
     /**
+     * GetCustommers: Simply return a list of all the customers in our customers list
+     * @return List<Customer>
+     */
+    public List<Customer> getCustomers() {
+        return _customers;
+    }
+
+
+    /**
      * Return all the appointments for a particular customer
      * @param customer: The customer that we're looking up appointments for
      * @return: A list of appointments for the customer
@@ -260,7 +241,6 @@ public class MainController {
      * @return: A list of goals
      */
     public List<Goal> getGoalsByDueMonth(Month month) {
-
         return null;
     }
 
@@ -331,14 +311,6 @@ public class MainController {
         return tempExpenses;
     }
 
-
-    /**
-     * GetCustommers: Simply return a list of all the customers in our customers list
-     * @return List<Customer>
-     */
-    public List<Customer> getCustomers() {
-        return _customers;
-    }
 
 
     /**

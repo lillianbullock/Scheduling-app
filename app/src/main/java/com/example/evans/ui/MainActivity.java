@@ -1,7 +1,9 @@
     package com.example.evans.ui;
 
 
+import android.app.Fragment;
 import android.app.FragmentManager;;
+import android.app.FragmentTransaction;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -13,11 +15,16 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.evans.R;
+import com.example.evans.data.MainController;
 
 
-    public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
+
+    // Variables
+    private MainController _mainController;
     private DrawerLayout _drawerLayout;
     private ActionBarDrawerToggle _actionBarToggle;
+    private Fragment _currentFragment;
 
 
 
@@ -27,11 +34,23 @@ import com.example.evans.R;
         setContentView(R.layout.activity_main);
 
 
-        // Initialize the drawer layout
+        /* Initialize your layout and variables */
+        initializeMenuAndNavBar();
+        _currentFragment = new StartPageFragment();
+
+
+
+        // Launch the start page fragment
+        FragmentTransaction transaction= getFragmentManager().beginTransaction();
+        transaction.replace(R.id.content_frame, _currentFragment).commit();
+
+
+    }
+
+    private void initializeMenuAndNavBar() {
+
         _drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-
-        // Initialize the toggle and give it to the navigation drawer
         _actionBarToggle = new ActionBarDrawerToggle(this, _drawerLayout, R.string.open, R.string.close);
         _drawerLayout.addDrawerListener(_actionBarToggle);
 
@@ -55,15 +74,14 @@ import com.example.evans.R;
             }
         });
 
-
     }
 
-        /**
-         * OnNavDrawerItemClicked: Handle when the user clicks on a menu item in the
-         * navigation drawer. Simply load the fragment that matches the menu item.
-         * Perform any other task as needed.
-         * @param menuItem: The menu item that was clicked.
-         */
+    /**
+     * OnNavDrawerItemClicked: Handle when the user clicks on a menu item in the
+     * navigation drawer. Simply load the fragment that matches the menu item.
+     * Perform any other task as needed.
+     * @param menuItem: The menu item that was clicked.
+     */
     public void onNavDrawerItemClicked(MenuItem menuItem) {
 
         Toast.makeText(this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
@@ -75,7 +93,7 @@ import com.example.evans.R;
         switch (menuItem.getItemId()) {
             case R.id.menu_item_customers:
                 _drawerLayout.closeDrawer(GravityCompat.START);
-                fragmentManager.beginTransaction().replace(R.id.content_frame, new CustomersViewFragment()).commit();
+                fragmentManager.beginTransaction().replace(R.id.content_frame, new CustomersListFragment()).commit();
                 break;
             case R.id.menu_item_appointments:
                 fragmentManager.beginTransaction().replace(R.id.content_frame, new AppointmentsViewFragment()).commit();
@@ -90,13 +108,13 @@ import com.example.evans.R;
     }
 
 
-        /**
-         * This function has one job only. TO handle when the user clicks the hamburger icon. To open and
-         * close the navigation drawer as neeeded
-         * @param menuItem: The menu item that was clicked. In this case we're really listening for clicks
-         *                on the hamburger icon
-         * @return boolean
-         */
+    /**
+     * This function has one job only. TO handle when the user clicks the hamburger icon. To open and
+     * close the navigation drawer as neeeded
+     * @param menuItem: The menu item that was clicked. In this case we're really listening for clicks
+     *                on the hamburger icon
+     * @return boolean
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem menuItem) {
 

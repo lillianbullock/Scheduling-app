@@ -13,10 +13,10 @@ import com.example.evans.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CustomersViewFragment extends Fragment {
+public class StartPageFragment extends Fragment {
 
 
-    public CustomersViewFragment() {
+    public StartPageFragment() {
         // Required empty public constructor
     }
 
@@ -25,7 +25,7 @@ public class CustomersViewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_customers_view, container, false);
+        return inflater.inflate(R.layout.fragment_start_page, container, false);
     }
 
 }
