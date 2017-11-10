@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  *
  */
 
-class Appointment implements Comparable {
+public class Appointment implements Comparable {
     private String _title;
     private LocalDateTime _date;
     private Customer _customer;

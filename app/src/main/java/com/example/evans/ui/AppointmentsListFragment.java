@@ -13,10 +13,10 @@ import com.example.evans.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AppointmentsViewFragment extends Fragment {
+public class AppointmentsListFragment extends Fragment {
 
 
-    public AppointmentsViewFragment() {
+    public AppointmentsListFragment() {
         // Required empty public constructor
     }
 

@@ -3,15 +3,21 @@ package com.example.evans.ui;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.evans.R;
 import com.example.evans.data.Customer;
+
+import org.joda.time.DateTime;
+
+import java.time.LocalDateTime;
+import java.util.Calendar;
 
 
 /**
@@ -46,9 +52,9 @@ public class CustomerEditFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_customer_edit, container, false);
 
-        _name = (EditText) rootView.findViewById(R.id.etxt_customer_name);
-        _phone = (EditText) rootView.findViewById(R.id.etxt_customer_phone);
-        _email = (EditText) rootView.findViewById(R.id.etxt_customer_email);
+        _name = (EditText) rootView.findViewById(R.id.etxt_name);
+        _phone = (EditText) rootView.findViewById(R.id.etxt_phone);
+        _email = (EditText) rootView.findViewById(R.id.etxt_email);
         _otherInformation = (EditText) rootView.findViewById(R.id.etxt_other_notes);
 
         _setAppointmenrBtn = rootView.findViewById(R.id.btn_set_appt);
@@ -59,19 +65,55 @@ public class CustomerEditFragment extends Fragment {
         _setAppointmenrBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onSetAppointmentClick();
+
             }
         });
 
         _saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onSaveCustomerClick();
+                createCustomer();
             }
         });
 
 
         return rootView;
+    }
+
+    private void createCustomer() {
+        // TODO Check for errors and prompt user appropriately
+
+        String id = String.valueOf(MainActivity.getNextCustomerId());
+        String name = _name.getText().toString();
+        String phone = _phone.getText().toString();
+        String email = _email.getText().toString();
+        String otherInfo = _otherInformation.getText().toString();
+        org.joda.time.LocalDateTime currentDate = new org.joda.time.LocalDateTime();
+
+
+        // check for email
+        if (!isValidEmail(email)) {
+            Toast.makeText(getActivity(), "Invalid email. Please enter a valid email",
+                    Toast.LENGTH_SHORT).show();
+        }
+
+        if (id != null && name != null) {
+            Customer newCustomer = new Customer(id, name, email, phone, currentDate, otherInfo);
+            _hostActivity.onCustomerEditFinish(newCustomer);
+        }
+
+    }
+
+
+    /**
+     *  isValid: Return true is the passed email string matches the specified
+     *  regEx pattern, false otherwise
+     */
+    public static boolean isValidEmail(String email) {
+
+        String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+
+        return (email.matches(EMAIL_REGEX));
     }
 
 
@@ -116,7 +158,6 @@ public class CustomerEditFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
 
         // make sure that the container class implemented our interface. If it did then it can be casted
         // if not then we know it did not therefore throw an error

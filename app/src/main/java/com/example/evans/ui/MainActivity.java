@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;;
 import android.app.FragmentTransaction;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -16,10 +17,13 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.evans.R;
+import com.example.evans.data.Customer;
 import com.example.evans.data.MainController;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements
+        CustomerEditFragment.OnSubmitCustomerEdit,
+        CustomersListFragment.InteractionWithCustomerFragmentListener {
 
     // Variables
     private MainController _mainController;
@@ -27,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout _drawerLayout;
     private ActionBarDrawerToggle _actionBarToggle;
 
+    static int LAST_ASSIGNED_CUSTOMER_ID;
 
 
 
@@ -42,11 +47,93 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize and launch the start page fragment
         _currentFragment = new StartPageFragment();
-        FragmentTransaction transaction= getFragmentManager().beginTransaction();
-        transaction.replace(R.id.content_frame, _currentFragment).commit();
+        loadCurrentFragment(false);
+        LAST_ASSIGNED_CUSTOMER_ID = getLastAssignedCustomerId();
 
     }
 
+    /**
+     * Not sure yet how we want to implement this feature
+     * there're a few ways but it should return the last id that was
+     * assigned to the last created customer
+     * @return
+     */
+    private int getLastAssignedCustomerId() {
+        //TODO change the implementation soon!
+        return 1;
+    }
+
+    /**
+     * Making this static so anyone can use it. This should simply return the
+     * next possible number to use as a customer id for a new customer
+     * @return
+     */
+    static public int getNextCustomerId() {
+        // We can work with this for now
+        return LAST_ASSIGNED_CUSTOMER_ID + 1;
+    }
+
+    @Override
+    public void onCustomerEditFinish(Customer customer) {
+         // TODO Handle this case
+
+        // Return to the main page for now
+        _currentFragment = new StartPageFragment();
+        loadCurrentFragment(false);
+
+        String name = customer.getName();
+        String email = customer.getEmail();
+        String phone = customer.getPhone();
+        String date = customer.getDateAdded().toString();
+
+        Toast.makeText(this, "Customer create \n"
+                + "Name: " + name
+                + "\nEmail: " + email
+                + "\nPhone: " + phone
+                + "\nDate Added : " + date,
+                Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onAddAppointmentClick(Customer customer) {
+        // TODO Handle this case
+    }
+
+    @Override
+    public void onClickCustomer(Customer customer) {
+        // TODO Handle customer click
+    }
+
+    @Override
+    public void onAddCustomer() {
+        _currentFragment = new CustomerEditFragment();
+        loadCurrentFragment(true);
+
+    }
+
+    /**
+     * Helper method to load the current fragment. I figured we were loading frgments
+     * enough that we could use a helper method to avoid code bloat.
+     * Add it to the back stack if addToBackStack is true
+     */
+    private void loadCurrentFragment(boolean addToBackStack) {
+
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+        transaction.replace(R.id.content_frame, _currentFragment);
+
+        if (addToBackStack) {
+            transaction.addToBackStack(null);
+        }
+
+        transaction.commit();
+    }
+
+    /**
+     * Helper method to initialize the app bar and setup the navigation drawer. I'm only
+     * trying to reduce how much code we have in onCreate
+     */
     private void initializeToolbarAndNavigationDrawer() {
 
         // Set the app toolbar programmatically
@@ -96,22 +183,25 @@ public class MainActivity extends AppCompatActivity {
 
         Toast.makeText(this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
 
-        FragmentManager fragmentManager = getFragmentManager();
 
-
-        // TODO: Load a new fragment depending on the menu item click
+        // Close the navigation drawer and create and instance of the appropriate
+        // fragment then load it
         switch (menuItem.getItemId()) {
+
             case R.id.menu_item_customers:
                 _drawerLayout.closeDrawer(GravityCompat.START);
-                fragmentManager.beginTransaction().replace(R.id.content_frame, new CustomersListFragment()).commit();
+                _currentFragment = new CustomersListFragment();
+                loadCurrentFragment(true);
                 break;
             case R.id.menu_item_goals:
                 _drawerLayout.closeDrawer(GravityCompat.START);
-                fragmentManager.beginTransaction().replace(R.id.content_frame, new GoalListFragment()).commit();
+                _currentFragment = new GoalListFragment();
+                loadCurrentFragment(true);
                 break;
             case R.id.menu_item_appointments:
-                fragmentManager.beginTransaction().replace(R.id.content_frame, new AppointmentsViewFragment()).commit();
                 _drawerLayout.closeDrawer(GravityCompat.START);
+                _currentFragment = new AppointmentsListFragment();
+                loadCurrentFragment(true);
                 break;
             default:
                 _drawerLayout.closeDrawer(GravityCompat.START);
@@ -122,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * This function has one job only. TO handle when the user clicks the hamburger icon. To open and
-     * close the navigation drawer as neeeded
+     * close the navigation drawer as needed
      * @param menuItem: The menu item that was clicked. In this case we're really listening for clicks
      *                on the hamburger icon
      * @return boolean
@@ -137,5 +227,17 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(menuItem);
     }
 
-
+    /**
+     * Override onBackPress so that we can go back to the previous fragment if we added it
+     * to the back stack.
+     */
+    @Override
+    public void onBackPressed() {
+        // I'm pretty sure we don't want to pop off an empty backStack!
+        if (getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+        }
+    }
 }
