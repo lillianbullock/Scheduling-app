@@ -23,11 +23,11 @@ import java.time.format.DateTimeFormatter;
  * A simple {@link Fragment} subclass.
  *
  */
-public class Goal_Fragment extends Fragment {
+public class GoalEditFragment extends Fragment {
 
     OnSubmitGoalEdit _hostActivity;
 
-    public Goal_Fragment() {
+    public GoalEditFragment() {
         //Goal Fragment
         // Required empty public constructor
     }

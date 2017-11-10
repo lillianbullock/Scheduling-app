@@ -33,17 +33,13 @@ public class MainActivity extends AppCompatActivity implements
 
     static int LAST_ASSIGNED_CUSTOMER_ID;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         /* Initialize your layout and variables */
        initializeToolbarAndNavigationDrawer();
-
 
         // Initialize and launch the start page fragment
         _currentFragment = new StartPageFragment();
