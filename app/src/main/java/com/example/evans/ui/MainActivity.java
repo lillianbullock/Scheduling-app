@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -22,9 +23,10 @@ public class MainActivity extends AppCompatActivity {
 
     // Variables
     private MainController _mainController;
+    private Fragment _currentFragment;
     private DrawerLayout _drawerLayout;
     private ActionBarDrawerToggle _actionBarToggle;
-    private Fragment _currentFragment;
+
 
 
 
@@ -35,33 +37,22 @@ public class MainActivity extends AppCompatActivity {
 
 
         /* Initialize your layout and variables */
-        initializeMenuAndNavBar();
+       initializeToolbarAndNavigationDrawer();
+
+
+        // Initialize and launch the start page fragment
         _currentFragment = new StartPageFragment();
-
-
-
-        // Launch the start page fragment
         FragmentTransaction transaction= getFragmentManager().beginTransaction();
         transaction.replace(R.id.content_frame, _currentFragment).commit();
 
-
     }
 
-    private void initializeMenuAndNavBar() {
+    private void initializeToolbarAndNavigationDrawer() {
 
-        _drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-
-        _actionBarToggle = new ActionBarDrawerToggle(this, _drawerLayout, R.string.open, R.string.close);
-        _drawerLayout.addDrawerListener(_actionBarToggle);
-
-        // sync the state of the drawer indicator (open,close) with the linked
-        // drawer layout
-        _actionBarToggle.syncState();
-
-        // Get the action bar and give it the hamburger and back button at the top
-        // The app will crash on this method if we don't have an appbar
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        // Set the app toolbar programmatically
+        Toolbar toolbar = (Toolbar) findViewById(R.id.app_toolbar);
+        toolbar.setTitle(R.string.app_name);
+        setSupportActionBar(toolbar);
 
         // Initialize the navigation view (nav bar) and set a click listener for its menu items
         NavigationView navigationView = (NavigationView) findViewById(R.id.main_nav_view);
@@ -73,6 +64,25 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+
+        // More initialization
+        _drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        // This will add the hamburger icon to the left of the screen and allow for toggling
+        _actionBarToggle = new ActionBarDrawerToggle(MainActivity.this,
+                _drawerLayout,
+                R.string.open,
+                R.string.close);
+        _drawerLayout.addDrawerListener(_actionBarToggle);
+
+        // sync the state of the hamburger (menu) button depending on whether the navigation drawer is
+        // open or closed
+        _actionBarToggle.syncState();
+
+        // Display the hamburger icon or the back icon depending on the state of the navigation drawer
+        // (open or closed). Note that this will crash the app if we don't have a valid actionBar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
 
@@ -106,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
             default:
                 _drawerLayout.closeDrawer(GravityCompat.START);
         }
-
 
     }
 

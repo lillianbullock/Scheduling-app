@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.example.evans.R;
 
 /**
- * Created by Brooke Nelson on 11/9/2017.
+ * Created by Brooke Nelson on 11/9/2017
  */
 
 public class GoalListFragment  extends Fragment {
