@@ -1,7 +1,6 @@
 package com.example.evans.ui;
 
 
-import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -9,13 +8,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextClock;
 import android.widget.TextView;
 
 import com.example.evans.R;
-import com.example.evans.data.Goal;
-import com.example.evans.data.TimePeriod;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -38,9 +34,9 @@ public class Goal_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        //View view = inflater.inflate(R.layout.fragment_goal_, container, false);
+        //View view = inflater.inflate(R.layout.fragment_goal_edit, container, false);
 
-        return inflater.inflate(R.layout.fragment_goal_, container, false);
+        return inflater.inflate(R.layout.fragment_goal_edit, container, false);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
