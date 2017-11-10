@@ -95,11 +95,14 @@ public class MainActivity extends AppCompatActivity {
                 _drawerLayout.closeDrawer(GravityCompat.START);
                 fragmentManager.beginTransaction().replace(R.id.content_frame, new CustomersListFragment()).commit();
                 break;
+            case R.id.menu_item_goals:
+                _drawerLayout.closeDrawer(GravityCompat.START);
+                fragmentManager.beginTransaction().replace(R.id.content_frame, new GoalListFragment()).commit();
+                break;
             case R.id.menu_item_appointments:
                 fragmentManager.beginTransaction().replace(R.id.content_frame, new AppointmentsViewFragment()).commit();
                 _drawerLayout.closeDrawer(GravityCompat.START);
                 break;
-
             default:
                 _drawerLayout.closeDrawer(GravityCompat.START);
         }

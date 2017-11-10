@@ -1,6 +1,8 @@
 package com.example.evans.ui;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
@@ -57,6 +59,10 @@ public class GoalListFragment  extends Fragment {
     }
 
     public void onCreateGoal(ViewGroup parentActivity) {
+        /*FragmentManager fragmentManager = getFragmentManager();
+        Fragment fragment = new Goal_Fragment();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+        */
         Toast.makeText(getActivity(), "You tried to add a new goal", Toast.LENGTH_SHORT).show();
     }
 
