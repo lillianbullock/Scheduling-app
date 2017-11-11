@@ -17,14 +17,21 @@ import android.widget.Toast;
 
 import com.example.evans.R;
 import com.example.evans.data.Customer;
+import com.example.evans.data.Goal;
 import com.example.evans.data.MainController;
 import com.example.evans.data.Service;
+import com.example.evans.data.TimePeriod;
+
+import java.time.LocalDateTime;
 
 public class MainActivity extends AppCompatActivity implements
         CustomerEditFragment.OnSubmitCustomerEdit,
-        CustomersListFragment.InteractionWithCustomerFragmentListener,
         ServiceEditFragment.OnSubmitServiceEdit,
-        ServiceListFragment.InteractionWithServiceFragmentListener {
+        ServiceListFragment.InteractionWithServiceFragmentListener,
+        GoalEditFragment.OnSubmitGoalEdit,
+        CustomersListFragment.InteractionWithCustomerFragmentListener,
+        GoalListFragment.InteractionWithGoalsListFragmentListener
+    {
 
     // Variables
     private MainController _mainController;
@@ -34,17 +41,13 @@ public class MainActivity extends AppCompatActivity implements
 
     static int LAST_ASSIGNED_CUSTOMER_ID;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         /* Initialize your layout and variables */
        initializeToolbarAndNavigationDrawer();
-
 
         // Initialize and launch the start page fragment
         _currentFragment = new StartPageFragment();
@@ -125,12 +128,30 @@ public class MainActivity extends AppCompatActivity implements
         // TODO Handle customer click
     }
 
-
-
     @Override
     public void onAddCustomer() {
         _currentFragment = new CustomerEditFragment();
         loadCurrentFragment(true);
+
+    }
+
+    @Override
+    public void onClickGoal() {
+        // TODO Implement
+    }
+
+    @Override
+    public void onClickAddGoal() {
+        Toast.makeText(this, "Recieved instruction to create a goal", Toast.LENGTH_LONG).show();
+        _currentFragment = new GoalEditFragment();
+         loadCurrentFragment(true);
+        // TODO Implement
+    }
+
+    @Override
+    public void onGoalEditFinish(Goal goal) {
+
+        // TODO Implement
 
     }
 

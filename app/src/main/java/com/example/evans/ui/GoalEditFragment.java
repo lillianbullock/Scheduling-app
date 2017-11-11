@@ -5,7 +5,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,11 +23,11 @@ import java.time.format.DateTimeFormatter;
  * A simple {@link Fragment} subclass.
  *
  */
-public class Goal_Fragment extends Fragment {
+public class GoalEditFragment extends Fragment {
 
     OnSubmitGoalEdit _hostActivity;
 
-    public Goal_Fragment() {
+    public GoalEditFragment() {
         //Goal Fragment
         // Required empty public constructor
     }
@@ -61,7 +61,7 @@ public class Goal_Fragment extends Fragment {
         LocalDateTime dDate = LocalDateTime.parse(dueDate, formatter);
 
         //TODO: repeatCYcle is a TIME PERIOD not sure how to handle this
-        //Goal goal = new Goal(title, description, dDate, sDate, repeatCycle);
+        // Goal goal = new Goal(title, description, dDate, sDate, repeatCycle);
 
     }
 
