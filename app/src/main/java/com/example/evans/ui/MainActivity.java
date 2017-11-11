@@ -18,12 +18,17 @@ import android.widget.Toast;
 
 import com.example.evans.R;
 import com.example.evans.data.Customer;
+import com.example.evans.data.Goal;
 import com.example.evans.data.MainController;
+import com.example.evans.data.TimePeriod;
+
+import java.time.LocalDateTime;
 
 
-public class MainActivity extends AppCompatActivity implements
+    public class MainActivity extends AppCompatActivity implements
         CustomerEditFragment.OnSubmitCustomerEdit,
-        CustomersListFragment.InteractionWithCustomerFragmentListener {
+        CustomersListFragment.InteractionWithCustomerFragmentListener,
+        GoalEditFragment.OnSubmitGoalEdit {
 
     // Variables
     private MainController _mainController;
@@ -87,6 +92,26 @@ public class MainActivity extends AppCompatActivity implements
                 + "\nEmail: " + email
                 + "\nPhone: " + phone
                 + "\nDate Added : " + date,
+                Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onGoalEditFinish(Goal goal) {
+        _currentFragment = new StartPageFragment();
+        loadCurrentFragment(false);
+
+        String gTitle = goal.getTitle();
+        TimePeriod repeatCycle = goal.getRepeatCycle();
+        String description = goal.getDescription();
+        LocalDateTime sDate = goal.getStartDate();
+        LocalDateTime dDate = goal.getDueDate();
+
+        Toast.makeText(this, "Goal create \n"
+                        + "Title: " + gTitle
+                        + "\nRepeating: " + repeatCycle
+                        + "\nStart Date: " + sDate
+                        + "\nEnd Date: " + dDate
+                        + "\nDescription: " + description,
                 Toast.LENGTH_SHORT).show();
     }
 
