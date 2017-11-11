@@ -1,10 +1,10 @@
-    package com.example.evans.ui;
-
+package com.example.evans.ui;
 
 import android.app.Fragment;
-import android.app.FragmentManager;;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -19,14 +19,16 @@ import com.example.evans.R;
 import com.example.evans.data.Customer;
 import com.example.evans.data.Goal;
 import com.example.evans.data.MainController;
+import com.example.evans.data.Service;
 import com.example.evans.data.TimePeriod;
 
 import java.time.LocalDateTime;
 
-
-    public class MainActivity extends AppCompatActivity implements
+public class MainActivity extends AppCompatActivity implements
         CustomerEditFragment.OnSubmitCustomerEdit,
-            GoalEditFragment.OnSubmitGoalEdit,
+        ServiceEditFragment.OnSubmitServiceEdit,
+        ServiceListFragment.InteractionWithServiceFragmentListener,
+        GoalEditFragment.OnSubmitGoalEdit,
         CustomersListFragment.InteractionWithCustomerFragmentListener,
         GoalListFragment.InteractionWithGoalsListFragmentListener
     {
@@ -96,6 +98,24 @@ import java.time.LocalDateTime;
                 Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onServiceEditFinish(Service service) {
+        // TODO Handle this case
+
+        // Return to the main page for now
+        _currentFragment = new StartPageFragment();
+        loadCurrentFragment(false);
+
+        String title = service.getTitle();
+        String description = service.getDescription();
+        Double price = service.getPrice();
+
+        Toast.makeText(this, "Service create \n"
+                        + "Title: " + title
+                        + "\nPrice: " + price
+                        + "\nDescription: " + description,
+                Toast.LENGTH_SHORT).show();
+    }
 
 
     @Override
@@ -134,6 +154,17 @@ import java.time.LocalDateTime;
         // TODO Implement
 
     }
+
+        @Override
+        public void onClickService(Service service) {
+            // TODO Handle service click
+        }
+
+        @Override
+        public void onAddService() {
+            _currentFragment = new ServiceEditFragment();
+            loadCurrentFragment(true);
+        }
 
     /**
      * Helper method to load the current fragment. I figured we were loading frgments
@@ -227,6 +258,11 @@ import java.time.LocalDateTime;
                 _currentFragment = new AppointmentsListFragment();
                 loadCurrentFragment(true);
                 break;
+            case R.id.menu_item_service:
+                _drawerLayout.closeDrawer(GravityCompat.START);
+                _currentFragment = new ServiceListFragment();
+                loadCurrentFragment(true);
+                break;
             default:
                 _drawerLayout.closeDrawer(GravityCompat.START);
         }
@@ -245,7 +281,7 @@ import java.time.LocalDateTime;
     public boolean onOptionsItemSelected(MenuItem menuItem) {
 
         if (_actionBarToggle.onOptionsItemSelected(menuItem)) {
-            return  true;
+            return true;
         }
 
         return super.onOptionsItemSelected(menuItem);

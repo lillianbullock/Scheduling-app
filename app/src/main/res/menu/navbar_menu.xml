@@ -26,4 +26,9 @@
         android:title="@string/menu_sales"
         android:icon="@drawable/ic_money"/>
 
+    <item
+        android:id="@+id/menu_item_service"
+        android:checkable="true"
+        android:title="@string/menu_service"
+        android:icon="@drawable/ic_grain_black"/>
 </menu>
