@@ -8,7 +8,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 import com.example.evans.R;
 import com.example.evans.data.Appointment;
 
@@ -18,9 +17,9 @@ import com.example.evans.data.Appointment;
  */
 public class AppointmentsListFragment extends Fragment {
 
-    FloatingActionButton _addFloatingBtn;
-    View _rootView;  // how we can get access to view elements
-    InteractionWithAppointmentFragmentListener _hostActivityListener;
+    private FloatingActionButton _addFloatingBtn;
+    private View _rootView;  // how we can get access to view elements
+    private InteractionWithAppointmentFragmentListener _hostListener;
 
 
     public AppointmentsListFragment() {
@@ -36,7 +35,7 @@ public class AppointmentsListFragment extends Fragment {
         // Inflate the layout for this fragment
         _rootView = inflater.inflate(R.layout.fragment_appointments_list, container, false);
 
-        _addFloatingBtn = (FloatingActionButton) _rootView.findViewById(R.id.floating_add_btn);
+        _addFloatingBtn = (FloatingActionButton) _rootView.findViewById(R.id.floating_add_btn_appointment);
 
         // Set the onClickListener for the floating button.
         _addFloatingBtn.setOnClickListener(new View.OnClickListener() {
@@ -62,12 +61,18 @@ public class AppointmentsListFragment extends Fragment {
         super.onAttach(activity);
 
         try {
-            _hostActivityListener = (InteractionWithAppointmentFragmentListener) activity;
+            _hostListener = (InteractionWithAppointmentFragmentListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement " +
                     "InteractionWithAppointmentFragmentListener");
         }
     }
+
+    /**
+     *OnCreateAppointment()
+     */
+    public void onCreateAppointment() { _hostListener.onAddAppointment(); }
+
 
     /**
      * This interface must be implemented by the container Activity
@@ -77,16 +82,6 @@ public class AppointmentsListFragment extends Fragment {
         void onClickAppointment(Appointment appointment);
         void onAddAppointment();
     }
-
-
-    /**
-     *OnCreateAppointment()
-     */
-    public void onCreateAppointment() {
-        Toast.makeText(getActivity(), "You tried to add a new Appointment", Toast.LENGTH_SHORT).show();
-        _hostActivityListener.onAddAppointment();
-    }
-
 
 
 

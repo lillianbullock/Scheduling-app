@@ -91,15 +91,6 @@ public class EditAppointmentFragment extends Fragment {
         return (email.matches(EMAIL_REGEX));
     }
 
-
-    /**
-     * Appointment and pass it to the host activity by calling it's
-     * onAppointmentEditFinish function
-     */
-    public void onSaveAppointmentClick() {
-        // TODO - Implement
-    }
-
     /**
      * Declare an interface that the activate that creates this fragment must implemnent. This interface will
      * handle when a new appointment has been added
@@ -107,7 +98,6 @@ public class EditAppointmentFragment extends Fragment {
     public interface OnSubmitAppointment {
         void onAppointmentEditFinish (Appointment appointment);
     }
-
 
     /**
      * Override onAttach to make sure that the container activity has implemented the callback we specified in

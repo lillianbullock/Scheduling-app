@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.evans.R;
+import com.example.evans.data.Appointment;
 import com.example.evans.data.Customer;
 import com.example.evans.data.Goal;
 import com.example.evans.data.MainController;
@@ -26,11 +27,13 @@ import java.time.LocalDateTime;
 
 public class MainActivity extends AppCompatActivity implements
         CustomerEditFragment.OnSubmitCustomerEdit,
+        CustomersListFragment.InteractionWithCustomerFragmentListener,
         ServiceEditFragment.OnSubmitServiceEdit,
         ServiceListFragment.InteractionWithServiceFragmentListener,
         GoalEditFragment.OnSubmitGoalEdit,
-        CustomersListFragment.InteractionWithCustomerFragmentListener,
-        GoalListFragment.InteractionWithGoalsListFragmentListener
+        GoalListFragment.InteractionWithGoalsListFragmentListener,
+        AppointmentsListFragment.InteractionWithAppointmentFragmentListener,
+        EditAppointmentFragment.OnSubmitAppointment
     {
 
     // Variables
@@ -150,9 +153,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onGoalEditFinish(Goal goal) {
-
         // TODO Implement
-
     }
 
         @Override
@@ -166,7 +167,23 @@ public class MainActivity extends AppCompatActivity implements
             loadCurrentFragment(true);
         }
 
-    /**
+        @Override
+        public void onClickAppointment(Appointment appointment) {
+            //TODO Handle CLick appointment
+        }
+
+        @Override
+        public void onAddAppointment() {
+            _currentFragment = new EditAppointmentFragment();
+            loadCurrentFragment(true);
+        }
+
+        @Override
+        public void onAppointmentEditFinish(Appointment appointment) {
+            //TODO THIS THING
+        }
+
+        /**
      * Helper method to load the current fragment. I figured we were loading frgments
      * enough that we could use a helper method to avoid code bloat.
      * Add it to the back stack if addToBackStack is true

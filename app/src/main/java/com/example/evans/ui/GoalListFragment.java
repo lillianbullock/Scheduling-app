@@ -46,6 +46,7 @@ public class GoalListFragment  extends Fragment {
         return _rootView;
     }
 
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -72,30 +73,4 @@ public class GoalListFragment  extends Fragment {
         void onClickAddGoal();
     }
 
-
 }
-
-/**
- * Interface that should be implemented by the container the activity that
- * creates this fragment. This method should be invoked when the user clicks on the plus button
-
- public interface GoalChangeOperation {
- public void createGoal();
- public void onClickGoal();
- }
-
-
-
- @Override
- public void onAttach(Activity activity) {
- super.onAttach(activity);
-
- try{
- _hostActivity = (GoalChangeOperation) activity;
- }
- catch(ClassCastException e){
- throw new ClassCastException(activity.toString() + " must implement " +
- "GoalChangeOperation");
- }
- }
- */
