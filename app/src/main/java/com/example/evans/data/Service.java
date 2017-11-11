@@ -15,13 +15,13 @@ public class Service implements Comparable {
     private String _description;
     private Double _price;
 
-    Service(){
+    public Service(){
         _title = "";
         _description = "";
         _price = 0.0;
     }
 
-    Service(String title, String description, Double price){
+    public Service(String title, String description, Double price){
         _title = title;
         _description = description;
         _price = price;

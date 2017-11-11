@@ -1,8 +1,7 @@
-    package com.example.evans.ui;
-
+package com.example.evans.ui;
 
 import android.app.Fragment;
-import android.app.FragmentManager;;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,11 +18,13 @@ import android.widget.Toast;
 import com.example.evans.R;
 import com.example.evans.data.Customer;
 import com.example.evans.data.MainController;
-
+import com.example.evans.data.Service;
 
 public class MainActivity extends AppCompatActivity implements
         CustomerEditFragment.OnSubmitCustomerEdit,
-        CustomersListFragment.InteractionWithCustomerFragmentListener {
+        CustomersListFragment.InteractionWithCustomerFragmentListener,
+        ServiceEditFragment.OnSubmitServiceEdit,
+        ServiceListFragment.InteractionWithServiceFragmentListener {
 
     // Variables
     private MainController _mainController;
@@ -95,6 +96,26 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
+    public void onServiceEditFinish(Service service) {
+        // TODO Handle this case
+
+        // Return to the main page for now
+        _currentFragment = new StartPageFragment();
+        loadCurrentFragment(false);
+
+        String title = service.getTitle();
+        String description = service.getDescription();
+        Double price = service.getPrice();
+
+        Toast.makeText(this, "Service create \n"
+                        + "Title: " + title
+                        + "\nPrice: " + price
+                        + "\nDescription: " + description,
+                Toast.LENGTH_SHORT).show();
+    }
+
+
+    @Override
     public void onAddAppointmentClick(Customer customer) {
         // TODO Handle this case
     }
@@ -104,12 +125,25 @@ public class MainActivity extends AppCompatActivity implements
         // TODO Handle customer click
     }
 
+
+
     @Override
     public void onAddCustomer() {
         _currentFragment = new CustomerEditFragment();
         loadCurrentFragment(true);
 
     }
+
+        @Override
+        public void onClickService(Service service) {
+            // TODO Handle service click
+        }
+
+        @Override
+        public void onAddService() {
+            _currentFragment = new ServiceEditFragment();
+            loadCurrentFragment(true);
+        }
 
     /**
      * Helper method to load the current fragment. I figured we were loading frgments
@@ -203,6 +237,11 @@ public class MainActivity extends AppCompatActivity implements
                 _currentFragment = new AppointmentsListFragment();
                 loadCurrentFragment(true);
                 break;
+            case R.id.menu_item_service:
+                _drawerLayout.closeDrawer(GravityCompat.START);
+                _currentFragment = new ServiceListFragment();
+                loadCurrentFragment(true);
+                break;
             default:
                 _drawerLayout.closeDrawer(GravityCompat.START);
         }
@@ -221,7 +260,7 @@ public class MainActivity extends AppCompatActivity implements
     public boolean onOptionsItemSelected(MenuItem menuItem) {
 
         if (_actionBarToggle.onOptionsItemSelected(menuItem)) {
-            return  true;
+            return true;
         }
 
         return super.onOptionsItemSelected(menuItem);

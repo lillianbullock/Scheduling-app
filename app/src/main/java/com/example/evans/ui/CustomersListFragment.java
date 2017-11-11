@@ -23,16 +23,13 @@ public class CustomersListFragment extends Fragment {
     View _rootView;  // how we can get access to view elements
     InteractionWithCustomerFragmentListener _hostActivityListener;
 
-
     public CustomersListFragment() {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
-
 
         // Inflate the layout for this fragment
         _rootView = inflater.inflate(R.layout.fragment_customers_list, container, false);

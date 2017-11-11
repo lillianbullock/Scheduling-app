@@ -16,6 +16,7 @@
     <string name="menu_goals"> Goals </string>
     <string name="menu_Appointments"> Appointments </string>
     <string name="menu_sales"> Sales </string>
+    <string name="menu_service"> Service </string>
     <string name="menu_exit"> Exit </string>
     <string name="menu_create_report"> Create Report </string>
 
@@ -40,9 +41,6 @@
     <string name="notes">Notes:</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
-    <string name="description">Description</string>
-    <string name="title">Title</string>
-    <string name="price">Price</string>
     <string name="goal_name">Goal Name</string>
     <string name="start_date">Start Date</string>
     <string name="end_date">End Date</string>
@@ -50,4 +48,8 @@
     <string name="save_goal">Save</string>
     <string name="repeat_times">Repeat Times</string>
     <string name="dateEnterHint">Day-Month-Year Hour:Min</string>
+    <string name="service_description">Description</string>
+    <string name="service_title">Title</string>
+    <string name="service_price">Price</string>
+
 </resources>
