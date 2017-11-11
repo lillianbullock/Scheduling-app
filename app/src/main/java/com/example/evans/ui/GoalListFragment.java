@@ -68,7 +68,6 @@ public class GoalListFragment  extends Fragment {
      * Interface that should be implemented by the container the activity that
      * creates this fragment. This method should be invoked when the user clicks on the plus button */
     public interface InteractionWithGoalsListFragmentListener {
-
         void onClickGoal();
         void onClickAddGoal();
     }

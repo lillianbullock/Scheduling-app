@@ -25,7 +25,6 @@ public class Goal implements Comparable {
         _description = "";
         _dueDate = LocalDateTime.now();
         _startDate = LocalDateTime.now();
-        _isRepeat = false;
         _repeatCycle = null;
     }
 

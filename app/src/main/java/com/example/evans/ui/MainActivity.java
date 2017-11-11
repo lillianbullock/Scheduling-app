@@ -4,7 +4,6 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -22,8 +21,6 @@ import com.example.evans.data.Goal;
 import com.example.evans.data.MainController;
 import com.example.evans.data.Service;
 import com.example.evans.data.TimePeriod;
-
-import java.time.LocalDateTime;
 
 public class MainActivity extends AppCompatActivity implements
         CustomerEditFragment.OnSubmitCustomerEdit,
@@ -139,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements
     public void onClickAddGoal() {
         Toast.makeText(this, "Recieved instruction to create a goal", Toast.LENGTH_LONG).show();
         _currentFragment = new GoalEditFragment();
-         loadCurrentFragment(true);
+        loadCurrentFragment(true);
         // TODO Implement
     }
 
@@ -148,45 +145,44 @@ public class MainActivity extends AppCompatActivity implements
         // Return to the main page for now
         // TODO Go to goal view
         _currentFragment = new StartPageFragment();
-        loadCurrentFragment(false);
+        loadCurrentFragment(true);
 
-        _mainController.addNewGoal(goal);
+       _mainController.addNewGoal(goal);
     }
 
-        @Override
-        public void onClickService(Service service) {
-            // TODO Handle service click
-        }
+    @Override
+    public void onClickService(Service service) {
+        // TODO Handle service click
+    }
 
-        @Override
-        public void onAddService() {
-            _currentFragment = new ServiceEditFragment();
-            loadCurrentFragment(true);
-        }
+    @Override
+    public void onAddService() {
+        _currentFragment = new ServiceEditFragment();
+        loadCurrentFragment(true);
+    }
 
-        @Override
-        public void onClickAppointment(Appointment appointment) {
-            //TODO Handle CLick appointment
-        }
+    @Override
+    public void onClickAppointment(Appointment appointment) {
+        //TODO Handle CLick appointment
+    }
 
-        @Override
-        public void onAddAppointment() {
-            _currentFragment = new EditAppointmentFragment();
-            loadCurrentFragment(true);
-        }
+    @Override
+    public void onAddAppointment() {
+        _currentFragment = new EditAppointmentFragment();
+        loadCurrentFragment(true);
+    }
 
-        @Override
-        public void onAppointmentEditFinish(Appointment appointment) {
-            //TODO THIS THING
-        }
+    @Override
+    public void onAppointmentEditFinish(Appointment appointment) {
+        //TODO THIS THING
+    }
 
-        /**
-     * Helper method to load the current fragment. I figured we were loading frgments
+    /**
+     * Helper method to load the current fragment. I figured we were loading fragments
      * enough that we could use a helper method to avoid code bloat.
      * Add it to the back stack if addToBackStack is true
      */
     private void loadCurrentFragment(boolean addToBackStack) {
-
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
