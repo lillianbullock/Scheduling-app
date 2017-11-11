@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.evans.ui.Goal_Fragment">
+    tools:context="com.example.evans.ui.GoalEditFragment">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
             android:labelFor="@+id/txt_GoalName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
             android:text="@string/goal_name"
             android:textSize="18sp"
@@ -37,6 +37,19 @@
             app:layout_constraintStart_toEndOf="@+id/txt_GoalName"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/txt_Sdate"
+            android:labelFor="@+id/txt_Sdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/start_date"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_GoalName" />
+
         <EditText
             android:id="@+id/etxt_StartDate"
             android:labelFor="@+id/etxt_StartDate"
@@ -53,82 +66,46 @@
             app:layout_constraintTop_toBottomOf="@+id/etxt_GoalName" />
 
         <TextView
-            android:id="@+id/txt_Sdate"
-            android:labelFor="@+id/txt_Sdate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="32dp"
-            android:text="@string/start_date"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_GoalName" />
-
-        <TextView
             android:id="@+id/txt_EndDate"
             android:labelFor="@+id/txt_EndDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="36dp"
-            android:layout_marginStart="36dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="16dp"
             android:text="@string/end_date"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/txtv_repeat"
-            app:layout_constraintEnd_toEndOf="@id/txt_Sdate"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintTop_toBottomOf="@+id/txt_Sdate"
             app:layout_constraintStart_toStartOf="parent" />
+
 
         <EditText
             android:id="@+id/etxt_EndDate"
             android:labelFor="@+id/etxt_EndDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="64dp"
             android:layout_marginTop="12dp"
             android:ems="10"
             android:hint="@string/dateEnterHint"
             android:inputType="date"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.822"
-            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toEndOf="@+id/txt_EndDate"
             app:layout_constraintTop_toBottomOf="@+id/etxt_StartDate" />
 
+
         <TextView
-            android:id="@+id/txt_DofGoals"
-            android:labelFor="@+id/txt_DofGoals"
+            android:id="@+id/txtv_repeat"
+            android:labelFor="@+id/txtv_repeat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginStart="8dp"
-            android:text="@string/detail_goal"
+            android:layout_marginTop="32dp"
+            android:text="@string/repeat_times"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/etxt_DGoal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.116"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <EditText
-            android:id="@+id/etxt_DGoal"
-            android:labelFor="@+id/etxt_DGoal"
-            android:layout_width="308dp"
-            android:layout_height="73dp"
-            android:layout_marginBottom="136dp"
-            android:ems="10"
-            android:inputType="textMultiLine"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/txt_EndDate"
+            app:layout_constraintLeft_toLeftOf="parent" />
 
 
         <EditText
@@ -136,26 +113,41 @@
             android:labelFor="@+id/etxt_repeatTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="16dp"
+            android:layout_marginLeft="32dp"
             android:layout_marginTop="12dp"
             android:ems="10"
             android:inputType="number"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/txtv_repeat"
             app:layout_constraintTop_toBottomOf="@+id/etxt_EndDate" />
 
+
+
         <TextView
-            android:id="@+id/txtv_repeat"
-            android:labelFor="@+id/txtv_repeat"
+            android:id="@+id/txt_DofGoals"
+            android:labelFor="@+id/txt_DofGoals"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="44dp"
             android:layout_marginLeft="16dp"
-            android:text="@string/repeat_times"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/detail_goal"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/txt_DofGoals"
-            app:layout_constraintEnd_toStartOf="@+id/etxt_repeatTime"
-            app:layout_constraintLeft_toLeftOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/txtv_repeat"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/etxt_DGoal"
+            android:labelFor="@+id/etxt_DGoal"
+            android:layout_width="352dp"
+            android:layout_height="73dp"
+            android:ems="10"
+            android:layout_marginLeft="16dp"
+            android:inputType="textMultiLine"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/txt_DofGoals"/>
+
 
         <Button
             android:id="@+id/btn_saveGoal"
@@ -169,7 +161,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.871"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etxt_DGoal"
             app:layout_constraintVertical_bias="0.301" />

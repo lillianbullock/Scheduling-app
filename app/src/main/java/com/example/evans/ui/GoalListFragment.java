@@ -18,9 +18,10 @@ import com.example.evans.R;
  */
 
 public class GoalListFragment  extends Fragment {
-    FloatingActionButton _addFloatingBtn;
-    View _rootView;  // how we can get access to view elements
-    GoalChangeOperation _hostActivity;
+    private FloatingActionButton _addFloatingBtn;
+    private View _rootView;  // how we can get access to view elements
+    private InteractionWithGoalsListFragmentListener _hostActivity;
+
 
     public GoalListFragment() {
         // Required empty public constructor
@@ -38,26 +39,11 @@ public class GoalListFragment  extends Fragment {
         _addFloatingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onCreateGoal(container);
+                onCreateGoal();
             }
         });
 
         return _rootView;
-    }
-
-
-    /**
-     * Interface that should be implemented by the container the activity that
-     * creates this fragment. This method should be invoked when the user clicks on the plus button
-     */
-    public interface GoalChangeOperation {
-        public void createGoal();
-        public void onClickGoal();
-    }
-
-    public void onCreateGoal(ViewGroup parentActivity) {
-
-        Toast.makeText(getActivity(), "You tried to add a new goal", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -65,11 +51,51 @@ public class GoalListFragment  extends Fragment {
         super.onAttach(activity);
 
         try{
-            _hostActivity = (GoalChangeOperation) activity;
-        }
-        catch(ClassCastException e){
+            _hostActivity = (InteractionWithGoalsListFragmentListener) activity;
+        } catch (ClassCastException e){
             throw new ClassCastException(activity.toString() + " must implement " +
-                    "GoalChangeOperation");
+                    "InteractionWithGoalsListFragmentListener");
         }
     }
+
+    public void onCreateGoal() {
+        _hostActivity.onClickAddGoal();
+    }
+
+
+    /**
+     * Interface that should be implemented by the container the activity that
+     * creates this fragment. This method should be invoked when the user clicks on the plus button */
+    public interface InteractionWithGoalsListFragmentListener {
+
+        void onClickGoal();
+        void onClickAddGoal();
+    }
+
+
 }
+
+/**
+ * Interface that should be implemented by the container the activity that
+ * creates this fragment. This method should be invoked when the user clicks on the plus button
+
+ public interface GoalChangeOperation {
+ public void createGoal();
+ public void onClickGoal();
+ }
+
+
+
+ @Override
+ public void onAttach(Activity activity) {
+ super.onAttach(activity);
+
+ try{
+ _hostActivity = (GoalChangeOperation) activity;
+ }
+ catch(ClassCastException e){
+ throw new ClassCastException(activity.toString() + " must implement " +
+ "GoalChangeOperation");
+ }
+ }
+ */

@@ -5,7 +5,6 @@ import android.app.Fragment;
 import android.app.FragmentManager;;
 import android.app.FragmentTransaction;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -27,8 +26,10 @@ import java.time.LocalDateTime;
 
     public class MainActivity extends AppCompatActivity implements
         CustomerEditFragment.OnSubmitCustomerEdit,
+            GoalEditFragment.OnSubmitGoalEdit,
         CustomersListFragment.InteractionWithCustomerFragmentListener,
-        GoalEditFragment.OnSubmitGoalEdit {
+        GoalListFragment.InteractionWithGoalsListFragmentListener
+    {
 
     // Variables
     private MainController _mainController;
@@ -95,25 +96,7 @@ import java.time.LocalDateTime;
                 Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void onGoalEditFinish(Goal goal) {
-        _currentFragment = new StartPageFragment();
-        loadCurrentFragment(false);
 
-        String gTitle = goal.getTitle();
-        TimePeriod repeatCycle = goal.getRepeatCycle();
-        String description = goal.getDescription();
-        LocalDateTime sDate = goal.getStartDate();
-        LocalDateTime dDate = goal.getDueDate();
-
-        Toast.makeText(this, "Goal create \n"
-                        + "Title: " + gTitle
-                        + "\nRepeating: " + repeatCycle
-                        + "\nStart Date: " + sDate
-                        + "\nEnd Date: " + dDate
-                        + "\nDescription: " + description,
-                Toast.LENGTH_SHORT).show();
-    }
 
     @Override
     public void onAddAppointmentClick(Customer customer) {
@@ -129,6 +112,26 @@ import java.time.LocalDateTime;
     public void onAddCustomer() {
         _currentFragment = new CustomerEditFragment();
         loadCurrentFragment(true);
+
+    }
+
+    @Override
+    public void onClickGoal() {
+        // TODO Implement
+    }
+
+    @Override
+    public void onClickAddGoal() {
+        Toast.makeText(this, "Recieved instruction to create a goal", Toast.LENGTH_LONG).show();
+        _currentFragment = new GoalEditFragment();
+         loadCurrentFragment(true);
+        // TODO Implement
+    }
+
+    @Override
+    public void onGoalEditFinish(Goal goal) {
+
+        // TODO Implement
 
     }
 
