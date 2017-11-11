@@ -5,7 +5,6 @@ import android.app.Fragment;
 import android.app.FragmentManager;;
 import android.app.FragmentTransaction;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,16 +16,20 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.evans.R;
-import com.example.evans.data.Appointment;
 import com.example.evans.data.Customer;
+import com.example.evans.data.Goal;
 import com.example.evans.data.MainController;
+import com.example.evans.data.TimePeriod;
+
+import java.time.LocalDateTime;
 
 
-public class MainActivity extends AppCompatActivity implements
+    public class MainActivity extends AppCompatActivity implements
         CustomerEditFragment.OnSubmitCustomerEdit,
+            GoalEditFragment.OnSubmitGoalEdit,
         CustomersListFragment.InteractionWithCustomerFragmentListener,
-        EditAppointmentFragment.OnSubmitAppointment,
-        AppointmentsListFragment.InteractionWithAppointmentFragmentListener{
+        GoalListFragment.InteractionWithGoalsListFragmentListener
+    {
 
     // Variables
     private MainController _mainController;
@@ -93,6 +96,8 @@ public class MainActivity extends AppCompatActivity implements
                 Toast.LENGTH_SHORT).show();
     }
 
+
+
     @Override
     public void onAddAppointmentClick(Customer customer) {
         // TODO Handle this case
@@ -110,33 +115,24 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
-    /**
-     * Appointment to handle the appointments in the interface
-     * @param appointment
-     */
     @Override
-    public void onAppointmentEditFinish(Appointment appointment) {
-        // TODO Handle this case
-
-        // Return to the main page for now
-        _currentFragment = new StartPageFragment();
-        loadCurrentFragment(false);
-
-        String title = appointment.getTitle();
-        Toast.makeText(this, "Appointment create \n"
-                        + "Title: " + title,
-                Toast.LENGTH_SHORT).show();
+    public void onClickGoal() {
+        // TODO Implement
     }
 
     @Override
-    public void onClickAppointment(Appointment appointment) {
-        //TODO implement Appointment CLICK :)
+    public void onClickAddGoal() {
+        Toast.makeText(this, "Recieved instruction to create a goal", Toast.LENGTH_LONG).show();
+        _currentFragment = new GoalEditFragment();
+         loadCurrentFragment(true);
+        // TODO Implement
     }
 
     @Override
-    public void onAddAppointment() {
-        _currentFragment = new EditAppointmentFragment();
-        loadCurrentFragment(true);
+    public void onGoalEditFinish(Goal goal) {
+
+        // TODO Implement
+
     }
 
     /**
