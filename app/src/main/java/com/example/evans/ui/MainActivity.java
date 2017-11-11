@@ -88,17 +88,7 @@ public class MainActivity extends AppCompatActivity implements
         _currentFragment = new StartPageFragment();
         loadCurrentFragment(false);
 
-        String name = customer.getName();
-        String email = customer.getEmail();
-        String phone = customer.getPhone();
-        String date = customer.getDateAdded().toString();
-
-        Toast.makeText(this, "Customer create \n"
-                + "Name: " + name
-                + "\nEmail: " + email
-                + "\nPhone: " + phone
-                + "\nDate Added : " + date,
-                Toast.LENGTH_SHORT).show();
+        _mainController.addCustomer(customer);
     }
 
     @Override
@@ -118,6 +108,8 @@ public class MainActivity extends AppCompatActivity implements
                         + "\nPrice: " + price
                         + "\nDescription: " + description,
                 Toast.LENGTH_SHORT).show();
+
+        _mainController.addService(service);
     }
 
 
@@ -153,7 +145,12 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onGoalEditFinish(Goal goal) {
-        // TODO Implement
+        // Return to the main page for now
+        // TODO Go to goal view
+        _currentFragment = new StartPageFragment();
+        loadCurrentFragment(false);
+
+        _mainController.addNewGoal(goal);
     }
 
         @Override

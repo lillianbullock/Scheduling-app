@@ -77,6 +77,8 @@ public class ServiceEditFragment extends Fragment {
         // TODO check if redundant service
         Service newService = new Service(title, description, price);
 
+        _hostActivity.onServiceEditFinish(newService);
+
     }
 
     /**

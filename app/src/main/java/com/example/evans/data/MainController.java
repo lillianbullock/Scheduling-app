@@ -1,7 +1,6 @@
 package com.example.evans.data;
 
 
-import android.support.constraint.solver.Goal;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -50,6 +49,15 @@ public class MainController {
             _appoinments.add(appointment);
         }
 
+    }
+
+    /**
+     * Add a new service to the list of services that is offered
+     */
+    public void addService(Service service){
+        if(service != null){
+            _availableServices.add(service);
+        }
     }
 
 

@@ -14,8 +14,11 @@ import android.widget.TextView;
 
 import com.example.evans.R;
 import com.example.evans.data.Goal;
+import com.example.evans.data.TimePeriod;
 
-import java.time.LocalDateTime;
+
+import org.joda.time.LocalDateTime;
+
 import java.time.format.DateTimeFormatter;
 
 
@@ -53,15 +56,18 @@ public class GoalEditFragment extends Fragment {
         String title = etxtGoalName.getText().toString();
         String startDate = etxtGoalStartD.getText().toString();
         String dueDate = etxtGoalEndD.getText().toString();
-        String repeatCycle = etxtGoalRepeat.getText().toString();
+        String repeatCycleText = etxtGoalRepeat.getText().toString();
         String description = etxtDescription.getText().toString();
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        LocalDateTime sDate = LocalDateTime.parse(startDate, formatter);
-        LocalDateTime dDate = LocalDateTime.parse(dueDate, formatter);
+        LocalDateTime sDate = LocalDateTime.parse(startDate);
+        LocalDateTime dDate = LocalDateTime.parse(dueDate);
+        TimePeriod repeatCycle = TimePeriod.Month;
 
         //TODO: repeatCYcle is a TIME PERIOD not sure how to handle this
-        // Goal goal = new Goal(title, description, dDate, sDate, repeatCycle);
+        Goal goal = new Goal(title, description, dDate, sDate, repeatCycle);
+
+        _hostActivity.onGoalEditFinish(goal);
 
     }
 

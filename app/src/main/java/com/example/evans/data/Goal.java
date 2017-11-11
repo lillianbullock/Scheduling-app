@@ -4,7 +4,8 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 
-import java.time.LocalDateTime;
+import org.joda.time.LocalDateTime;
+
 
 /**
  * Goal class holds the information relevant to a users goal
@@ -19,8 +20,7 @@ public class Goal implements Comparable {
     private Boolean _isRepeat;
     private TimePeriod _repeatCycle;
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    Goal() {
+    public Goal() {
         _title = "";
         _description = "";
         _dueDate = LocalDateTime.now();
@@ -29,7 +29,7 @@ public class Goal implements Comparable {
         _repeatCycle = null;
     }
 
-    Goal(String title, String description, LocalDateTime dueDate,
+    public Goal(String title, String description, LocalDateTime dueDate,
          LocalDateTime startDate, TimePeriod repeatCycle) {
         this._title = title;
         this._description = description;
