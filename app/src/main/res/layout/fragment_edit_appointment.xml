@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="36dp"
-            android:text="@string/customer_name"
+            android:text="@string/name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,10 +26,12 @@
             android:id="@+id/etxt_customer_name"
             android:layout_width="233dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="10dp"
             android:ems="10"
             android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/txt_customer_name"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="36dp"
-            android:text="@string/customer_email"
+            android:text="@string/email"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txt_customer_name" />
 
@@ -50,10 +52,12 @@
             android:id="@+id/etxt_customer_email"
             android:layout_width="233dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="10dp"
             android:ems="10"
             android:inputType="textEmailAddress"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/txt_customer_email"
             app:layout_constraintTop_toBottomOf="@id/etxt_customer_name" />
 
@@ -74,10 +78,12 @@
             android:id="@+id/etxt_customer_phone"
             android:layout_width="233dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
             android:ems="10"
             android:inputType="phone"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/txt_customer_phone"
             app:layout_constraintTop_toBottomOf="@id/etxt_customer_email" />
 
@@ -96,12 +102,15 @@
 
         <EditText
             android:id="@+id/etxt_appointment_date"
-            android:layout_width="180dp"
+            android:layout_width="225dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:ems="10"
             android:inputType="datetime"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.556"
             app:layout_constraintStart_toEndOf="@+id/txt_appointment_date"
             app:layout_constraintTop_toBottomOf="@id/etxt_customer_phone" />
 

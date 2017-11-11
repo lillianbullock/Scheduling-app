@@ -17,13 +17,16 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.evans.R;
+import com.example.evans.data.Appointment;
 import com.example.evans.data.Customer;
 import com.example.evans.data.MainController;
 
 
 public class MainActivity extends AppCompatActivity implements
         CustomerEditFragment.OnSubmitCustomerEdit,
-        CustomersListFragment.InteractionWithCustomerFragmentListener {
+        CustomersListFragment.InteractionWithCustomerFragmentListener,
+        EditAppointmentFragment.OnSubmitAppointment,
+        AppointmentsListFragment.InteractionWithAppointmentFragmentListener{
 
     // Variables
     private MainController _mainController;
@@ -105,6 +108,35 @@ public class MainActivity extends AppCompatActivity implements
         _currentFragment = new CustomerEditFragment();
         loadCurrentFragment(true);
 
+    }
+
+    /**
+     * Appointment to handle the appointments in the interface
+     * @param appointment
+     */
+    @Override
+    public void onAppointmentEditFinish(Appointment appointment) {
+        // TODO Handle this case
+
+        // Return to the main page for now
+        _currentFragment = new StartPageFragment();
+        loadCurrentFragment(false);
+
+        String title = appointment.getTitle();
+        Toast.makeText(this, "Appointment create \n"
+                        + "Title: " + title,
+                Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onClickAppointment(Appointment appointment) {
+        //TODO implement Appointment CLICK :)
+    }
+
+    @Override
+    public void onAddAppointment() {
+        _currentFragment = new EditAppointmentFragment();
+        loadCurrentFragment(true);
     }
 
     /**
