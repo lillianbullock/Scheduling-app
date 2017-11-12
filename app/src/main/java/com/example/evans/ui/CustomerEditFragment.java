@@ -1,6 +1,5 @@
 package com.example.evans.ui;
 
-
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;

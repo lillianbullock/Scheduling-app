@@ -147,7 +147,8 @@ public class MainActivity extends AppCompatActivity implements
         _currentFragment = new StartPageFragment();
         loadCurrentFragment(true);
 
-       _mainController.addNewGoal(goal);
+        //TODO the implementation of adding the goal to the main page breaks here something to do with addGoal is in a different place than expecated.
+      // _mainController.addGoal(goal);
     }
 
     @Override

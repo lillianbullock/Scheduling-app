@@ -45,11 +45,11 @@ public class GoalEditFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_goal_edit, container, false);
-        _goalName = view.findViewById(R.id.etxt_GoalName);
-        _goalStart=  view.findViewById(R.id.etxt_StartDate);
-        _goalEnd =  view.findViewById(R.id.etxt_EndDate);
-        _goalRepeat =  view.findViewById(R.id.etxt_repeatTime);
-        _goalDescription =  view.findViewById(R.id.etxt_DGoal);
+        _goalName = (EditText) view.findViewById(R.id.etxt_GoalName);
+        _goalStart=  (EditText) view.findViewById(R.id.etxt_StartDate);
+        _goalEnd =  (EditText) view.findViewById(R.id.etxt_EndDate);
+        _goalRepeat =  (EditText) view.findViewById(R.id.etxt_repeatTime);
+        _goalDescription =  (EditText) view.findViewById(R.id.etxt_DGoal);
 
         _btnSaveGoal = view.findViewById(R.id.btn_saveGoal);
 
@@ -63,7 +63,6 @@ public class GoalEditFragment extends Fragment {
         return view;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public void goalActivitySave(){
         String goalName   = _goalName.getText().toString();
         String goalStart = _goalStart.getText().toString();
@@ -73,15 +72,16 @@ public class GoalEditFragment extends Fragment {
 
         //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
-        //LocalDateTime sDate = LocalDateTime.parse(goalStart);
-        //LocalDateTime dDate = LocalDateTime.parse(goalEnd);
+        LocalDateTime sDate = LocalDateTime.now();
+        LocalDateTime dDate = LocalDateTime.now();
 
         TimePeriod repeatCycle = TimePeriod.Month;
 
-        //TODO: repeatCYcle is a TIME PERIOD not sure how to handle this
-        Goal newGoal = new Goal();//goalName, goalDescription, dDate, sDate, repeatCycle);
-
-        _hostActivity.onGoalEditFinish(newGoal);
+        if(goalName != null) {
+            //TODO: repeatCYcle is a TIME PERIOD not sure how to handle this also local date and time
+            Goal newGoal = new Goal(goalName, goalDescription, dDate, sDate, repeatCycle);
+            _hostActivity.onGoalEditFinish(newGoal);
+        }
     }
 
     public interface OnSubmitGoalEdit {
