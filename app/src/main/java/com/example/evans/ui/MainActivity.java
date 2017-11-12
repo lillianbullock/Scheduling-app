@@ -21,6 +21,8 @@ import com.example.evans.data.Goal;
 import com.example.evans.data.MainController;
 import com.example.evans.data.Service;
 
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity implements
         CustomerEditFragment.OnSubmitCustomerEdit,
         CustomersListFragment.InteractionWithCustomerFragmentListener,
@@ -76,6 +78,16 @@ public class MainActivity extends AppCompatActivity implements
         return LAST_ASSIGNED_CUSTOMER_ID + 1;
     }
 
+    /**
+     * We might find a better solution later but the edit fragment needs to get access to
+     * the list of available services
+     * @return Map
+     */
+    @Override
+    public Map<String, Service> getServicesList () {
+        return _mainController.getAvailableServices();
+    }
+
     @Override
     public void onCustomerEditFinish(Customer customer) {
          // TODO Handle this case
@@ -105,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements
                         + "\nDescription: " + description,
                 Toast.LENGTH_SHORT).show();
 
-        _mainController.addService(service);
+        _mainController.addService(title, service);
     }
 
 

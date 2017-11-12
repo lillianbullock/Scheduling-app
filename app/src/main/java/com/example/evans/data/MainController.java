@@ -2,6 +2,7 @@ package com.example.evans.data;
 
 
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -20,12 +21,12 @@ import java.util.Map;
 
 public class MainController {
 
-    private List<Appointment> _appointments       = new LinkedList<>();
-    private List<Customer>    _customers         = new LinkedList<>();
-    private List<Goal>        _goals             = new LinkedList<>();
-    private List<Service>     _availableServices = new LinkedList<>();
-    private List<Sale>        _allSales          = new LinkedList<>();
-    private List<Expense>     _expenses          = new LinkedList<>();
+    private List<Appointment>       _appointments = new LinkedList<>();
+    private List<Customer>          _customers         = new LinkedList<>();
+    private List<Goal>              _goals             = new LinkedList<>();
+    private Map<String, Service>    _availableServices = new HashMap<String, Service>();
+    private List<Sale>              _allSales          = new LinkedList<>();
+    private List<Expense>           _expenses          = new LinkedList<>();
 
 
     /**
@@ -34,6 +35,31 @@ public class MainController {
      * TODO: Implement data loading here
      */
     public MainController() {
+        populateServices();
+    }
+
+    /**
+     * This function will get populate our map of services with some
+     * previously stored services. Pull from the cloud or device memory
+     */
+    private void populateServices() {
+
+        // Create a dummy list of services for now
+        Service shampoo = new Service("Shampoo", "Shampoo the customer's hair", 8.00);
+        _availableServices.put("Shampoo", shampoo);
+
+        Service menHairCut = new Service("Men Hair Cut", "Haircut for men", 15.00);
+        _availableServices.put("Men Hair Cut", menHairCut);
+
+        Service womenHairCut = new Service("Women Hair Cut", "Haircut for women", 25.00);
+        _availableServices.put("Women Hair Cut", womenHairCut);
+
+
+        Service color = new Service("Color", "Color customer's hair", 50.00);
+        _availableServices.put("Color", color);
+
+        Service perm = new Service("Perm", "perm the customer's hair", 8.00);
+        _availableServices.put("Perm", perm);
 
     }
 
@@ -41,7 +67,7 @@ public class MainController {
     /**
      * Add a single appointment to our list of appointments. The appointment should already
      * be in a valid state before this function is called.
-     * @param appointment: A valid appointment to be added to our list
+     * @param appointment: A valid appoinment to be added to our list
      */
     public void addAppointment(Appointment appointment) {
 
@@ -54,9 +80,9 @@ public class MainController {
     /**
      * Add a new service to the list of services that is offered
      */
-    public void addService(Service service){
+    public void addService(String title, Service service){
         if(service != null){
-            _availableServices.add(service);
+            _availableServices.put(title, service);
         }
     }
 
@@ -138,21 +164,21 @@ public class MainController {
             case Day:
                 for (Appointment appointment : _appointments){
                     // TODO Compare the date on each appointment against the current day on the phone and
-                    // add matching ones to our appointment list
+                    // add matching ones to our appoinment list
                 }
                 break;
 
             case Week:
                 for (Appointment appointment : _appointments){
                     // TODO Compare the date on each appointment against the current week on the phone and
-                    // add matching ones to our appointment list
+                    // add matching ones to our appoinment list
                 }
                 break;
 
             case Month:
                 for (Appointment appointment : _appointments){
                     // TODO Compare the date on each appointment against the current month on the phone and
-                    // add matching ones to our appointment list
+                    // add matching ones to our appoinment list
                 }
                 break;
 
@@ -222,7 +248,7 @@ public class MainController {
 
 
     /**
-     * GetCustomers: Simply return a list of all the customers in our customers list
+     * GetCustommers: Simply return a list of all the customers in our customers list
      * @return List<Customer>
      */
     public List<Customer> getCustomers() {
@@ -233,7 +259,7 @@ public class MainController {
     /**
      * Return all the appointments for a particular customer
      * @param customer: The customer that we're looking up appointments for
-     * @return A list of appointments for the customer
+     * @return: A list of appointments for the customer
      */
     public List<Customer> getAppointmentsForCustomer(Customer customer) {
 
@@ -246,7 +272,7 @@ public class MainController {
     /**
      * Return a list of goals that are due in a certain month
      * @param month: The month we're looking at
-     * @return A list of goals
+     * @return: A list of goals
      */
     public List<Goal> getGoalsByDueMonth(Month month) {
         return null;
@@ -271,11 +297,12 @@ public class MainController {
      * GetExpenses: This method returns a list of expenses based on the time period specified in
      * the TimePeriod that is received as a parameter.
      * @param timePeriod: Used to determine what date range to return it's for
+     * @param timePeriod
      * @return A LinkedList<Expenses>
      */
     public List<Expense> getExpenses(TimePeriod timePeriod) {
 
-        List<Expense> tempExpenses = new LinkedList<>();
+        List<Expense> tempExpenses = new LinkedList<Expense>();
 
 
         if (timePeriod == null) {
@@ -344,7 +371,7 @@ public class MainController {
      * of services that the company offers
      * @return LinkedList<Service>
      */
-    public List<Service> getAvailableServices() {
+    public Map<String, Service> getAvailableServices() {
         return _availableServices;
     }
 
