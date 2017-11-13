@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.evans.ui.EditAppointmentFragment">
+    tools:context="com.example.evans.ui.AppointmentEditFragment">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -17,7 +17,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="36dp"
-            android:text="@string/name"
+            android:text="@string/appointment_name"
+            android:labelFor="@id/etxt_customer_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,7 +44,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="36dp"
-            android:text="@string/email"
+            android:text="@string/customer_email"
+            android:labelFor="@id/etxt_customer_email"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txt_customer_name" />
 
@@ -69,7 +71,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="36dp"
-            android:text="@string/phone"
+            android:text="@string/customer_phone"
+            android:labelFor="@id/etxt_customer_phone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txt_customer_email" />
 
@@ -95,7 +98,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="36dp"
-            android:text="@string/date"
+            android:text="@string/appointment_date"
+            android:labelFor="@id/etxt_appointment_date"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/etxt_customer_phone" />
 
@@ -122,7 +126,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="36dp"
-            android:text="@string/service"
+            android:text="@string/appointment_service"
+            android:labelFor="@id/etxt_service_type"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txt_appointment_date" />
 
@@ -140,25 +145,26 @@
 
         <!-- Price  -->
         <TextView
-            android:id="@+id/txt_price"
+            android:id="@+id/txt_appointment_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="36dp"
-            android:text="@string/Price"
+            android:text="@string/appointment_price"
+            android:labelFor="@id/etxt_appointment_price"
             app:layout_constraintStart_toEndOf="@id/etxt_service_type"
             app:layout_constraintTop_toBottomOf="@id/txt_appointment_date" />
 
 
         <EditText
-            android:id="@+id/etxt_price"
+            android:id="@+id/etxt_appointment_price"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="10dp"
             android:ems="10"
             android:inputType="datetime"
-            app:layout_constraintStart_toEndOf="@+id/txt_price"
+            app:layout_constraintStart_toEndOf="@+id/txt_appointment_price"
             app:layout_constraintTop_toBottomOf="@id/etxt_appointment_date" />
 
 
@@ -169,7 +175,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="36dp"
-            android:text="@string/notes"
+            android:text="@string/appointment_notes"
+            android:labelFor="@id/etxt_appointment_note"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txt_service_type" />
 
@@ -182,7 +189,7 @@
             android:ems="10"
             android:inputType="textMultiLine"
             app:layout_constraintStart_toEndOf="@+id/txt_appointment_note"
-            app:layout_constraintTop_toBottomOf="@id/etxt_price" />
+            app:layout_constraintTop_toBottomOf="@id/etxt_appointment_price" />
 
 
         <Button
@@ -204,7 +211,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="80dp"
             android:background="@drawable/blue_button"
-            android:text="@string/save"
+            android:text="@string/button_save"
             android:textColor="#fff"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

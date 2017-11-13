@@ -29,7 +29,7 @@ public class CustomerEditFragment extends Fragment {
     private EditText _email;
     private EditText _otherInformation;
 
-    private Button _setAppointmenrBtn;
+    private Button _setAppointmentBtn;
     private Button _saveBtn;
 
 
@@ -56,12 +56,12 @@ public class CustomerEditFragment extends Fragment {
         _email = (EditText) rootView.findViewById(R.id.etxt_email);
         _otherInformation = (EditText) rootView.findViewById(R.id.etxt_other_notes);
 
-        _setAppointmenrBtn = rootView.findViewById(R.id.btn_set_appt);
+        _setAppointmentBtn = rootView.findViewById(R.id.btn_set_appt);
         _saveBtn = rootView.findViewById(R.id.btn_save_edit);
 
 
         // Set the click lister for both buttons
-        _setAppointmenrBtn.setOnClickListener(new View.OnClickListener() {
+        _setAppointmentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -96,6 +96,7 @@ public class CustomerEditFragment extends Fragment {
                     Toast.LENGTH_SHORT).show();
         }
 
+        //TODO id will always be non null because string
         if (id != null && name != null) {
             Customer newCustomer = new Customer(id, name, email, phone, currentDate, otherInfo);
             _hostActivity.onCustomerEditFinish(newCustomer);
@@ -127,7 +128,7 @@ public class CustomerEditFragment extends Fragment {
 
     /**
      * Construct a new customer and pass it to the host activity by calling it's
-     * onAddAppointmentClick function. The host activity should know waht to do.
+     * onAddAppointmentClick function. The host activity should know what to do.
      * We're assuming that it will call another fragment to add an appointment
      * with the customer data received.
      */
@@ -139,7 +140,7 @@ public class CustomerEditFragment extends Fragment {
 
 
     /**
-     * Declare an interface that the activate that creates this fragment must implemnent. This interface will
+     * Declare an interface that the activate that creates this fragment must implement. This interface will
      * handle when a new customer has been added
      */
     public interface OnSubmitCustomerEdit {

@@ -11,8 +11,8 @@
 
 
         <TextView
-            android:id="@+id/txt_GoalName"
-            android:labelFor="@+id/txt_GoalName"
+            android:id="@+id/txt_goal_name"
+            android:labelFor="@+id/etxt_goal_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -25,8 +25,7 @@
 
 
         <EditText
-            android:id="@+id/etxt_GoalName"
-            android:labelFor="@+id/etxt_GoalName"
+            android:id="@+id/etxt_goal_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -34,111 +33,107 @@
             android:ems="10"
             android:inputType="textPersonName"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/txt_GoalName"
+            app:layout_constraintStart_toEndOf="@+id/txt_goal_name"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/txt_Sdate"
-            android:labelFor="@+id/txt_Sdate"
+            android:id="@+id/txt_start_date"
+            android:labelFor="@+id/etxt_start_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
-            android:text="@string/start_date"
+            android:text="@string/goal_start_date"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_GoalName" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_goal_name" />
 
         <EditText
-            android:id="@+id/etxt_StartDate"
-            android:labelFor="@+id/etxt_StartDate"
+            android:id="@+id/etxt_start_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="20dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="12dp"
             android:ems="10"
-            android:hint="@string/dateEnterHint"
+            android:hint="@string/date_enter_hint"
             android:inputType="date"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/txt_Sdate"
-            app:layout_constraintTop_toBottomOf="@+id/etxt_GoalName" />
+            app:layout_constraintStart_toEndOf="@+id/txt_start_date"
+            app:layout_constraintTop_toBottomOf="@+id/etxt_goal_name" />
 
         <TextView
-            android:id="@+id/txt_EndDate"
-            android:labelFor="@+id/txt_EndDate"
+            android:id="@+id/txt_end_date"
+            android:labelFor="@+id/etxt_end_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:layout_marginStart="16dp"
-            android:text="@string/end_date"
+            android:text="@string/goal_end_date"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/txt_Sdate"
+            app:layout_constraintTop_toBottomOf="@+id/txt_start_date"
             app:layout_constraintStart_toStartOf="parent" />
 
 
         <EditText
-            android:id="@+id/etxt_EndDate"
-            android:labelFor="@+id/etxt_EndDate"
+            android:id="@+id/etxt_end_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="64dp"
             android:layout_marginTop="12dp"
             android:ems="10"
-            android:hint="@string/dateEnterHint"
+            android:hint="@string/date_enter_hint"
             android:inputType="date"
             app:layout_constraintHorizontal_bias="0.822"
-            app:layout_constraintStart_toEndOf="@+id/txt_EndDate"
-            app:layout_constraintTop_toBottomOf="@+id/etxt_StartDate" />
+            app:layout_constraintStart_toEndOf="@+id/txt_end_date"
+            app:layout_constraintTop_toBottomOf="@+id/etxt_start_date" />
 
 
         <TextView
-            android:id="@+id/txtv_repeat"
-            android:labelFor="@+id/txtv_repeat"
+            android:id="@+id/txt_repeat_time"
+            android:labelFor="@+id/etxt_repeat_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="32dp"
-            android:text="@string/repeat_times"
+            android:text="@string/goal_repeat_times"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/txt_EndDate"
+            app:layout_constraintTop_toBottomOf="@id/txt_end_date"
             app:layout_constraintLeft_toLeftOf="parent" />
 
 
         <EditText
-            android:id="@+id/etxt_repeatTime"
-            android:labelFor="@+id/etxt_repeatTime"
+            android:id="@+id/etxt_repeat_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="32dp"
             android:layout_marginTop="12dp"
             android:ems="10"
             android:inputType="number"
-            app:layout_constraintLeft_toRightOf="@id/txtv_repeat"
-            app:layout_constraintTop_toBottomOf="@+id/etxt_EndDate" />
+            app:layout_constraintLeft_toRightOf="@id/txt_repeat_time"
+            app:layout_constraintTop_toBottomOf="@+id/etxt_end_date" />
 
 
 
         <TextView
-            android:id="@+id/txt_DofGoals"
-            android:labelFor="@+id/txt_DofGoals"
+            android:id="@+id/txt_goal_details"
+            android:labelFor="@+id/etxt_goal_details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
-            android:text="@string/detail_goal"
+            android:text="@string/goal_details"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/txtv_repeat"
+            app:layout_constraintTop_toBottomOf="@+id/txt_repeat_time"
             app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
-            android:id="@+id/etxt_DGoal"
-            android:labelFor="@+id/etxt_DGoal"
+            android:id="@+id/etxt_goal_details"
             android:layout_width="352dp"
             android:layout_height="73dp"
             android:ems="10"
@@ -146,22 +141,22 @@
             android:inputType="textMultiLine"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/txt_DofGoals"/>
+            app:layout_constraintTop_toTopOf="@id/txt_goal_details"/>
 
 
         <Button
-            android:id="@+id/btn_saveGoal"
+            android:id="@+id/btn_save_goal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
-            android:text="@string/save_goal"
+            android:text="@string/button_save"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.871"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etxt_DGoal"
+            app:layout_constraintTop_toBottomOf="@+id/etxt_goal_details"
             app:layout_constraintVertical_bias="0.301" />
 
     </android.support.constraint.ConstraintLayout>

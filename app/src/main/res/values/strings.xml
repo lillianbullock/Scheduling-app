@@ -8,7 +8,6 @@
     <!-- For the navigation drawer -->
     <string name="open">Open</string>
     <string name="close">Close</string>
-
     <string name="business_address"> 67 Winn Dr, Rexburg, ID 83440 </string>
 
     <!-- For navigation bar menu item titles-->
@@ -28,28 +27,32 @@
     <string name="set_appt">Set Appointment</string>
     <string name="save_edit">Save</string>
 
-    <string name="name">Name:</string>
-    <string name="phone">Phone:</string>
-    <string name="email">Email:</string>
-    <string name="other_text">Other information: </string>
-    <string name="customer_name">Customer Name:</string>
-    <string name="customer_email">Customer Email:</string>
-    <string name="customer_phone">Customer Phone:</string>
-    <string name="date">Date:</string>
-    <string name="service">Service:</string>
-    <string name="Price">Price:</string>
-    <string name="notes">Notes:</string>
-    <string name="save">Save</string>
+    <!--Field edit titles-->
+    <string name="appointment_name">Name:</string>
+    <string name="appointment_date">Date:</string>
+    <string name="appointment_service">Service:</string>
+    <string name="appointment_price">Price:</string>
+    <string name="appointment_notes">Notes:</string>-->
+
+    <string name="service_description">Description:</string>
+    <string name="service_title">Title:</string>
+    <string name="service_price">Price:</string>
+
+    <string name="customer_name">Name:</string>
+    <string name="customer_email">Email:</string>
+    <string name="customer_phone">Phone:</string>
+    <string name="customer_other_info">Other information: </string>
+
+    <string name="goal_name">Name:</string>
+    <string name="goal_start_date">Start Date:</string>
+    <string name="goal_end_date">End Date:</string>
+    <string name="goal_details">Details of Goal:</string>
+    <string name="goal_repeat_times">Repeat Times</string>
+    <string name="date_enter_hint">Day-Month-Year Hour:Min</string>
+
+    <!-- button strings-->
+    <string name="button_save">Save</string>
     <string name="cancel">Cancel</string>
-    <string name="goal_name">Goal Name</string>
-    <string name="start_date">Start Date</string>
-    <string name="end_date">End Date</string>
-    <string name="detail_goal">Details of Goal</string>
-    <string name="save_goal">Save</string>
-    <string name="repeat_times">Repeat Times</string>
-    <string name="dateEnterHint">Day-Month-Year Hour:Min</string>
-    <string name="service_description">Description</string>
-    <string name="service_title">Title</string>
-    <string name="service_price">Price</string>
+
 
 </resources>

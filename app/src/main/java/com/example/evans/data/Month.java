@@ -6,7 +6,7 @@ package com.example.evans.data;
 
 public enum Month {
     January,
-    Febuary,
+    February,
     March,
     April,
     May,

@@ -98,7 +98,7 @@ public class ServiceEditFragment extends Fragment {
     }
 
     /**
-     * Declare an interface that the activate that creates this fragment must implemnent. This interface will
+     * Declare an interface that the activate that creates this fragment must implement. This interface will
      * handle when a new service has been added
      */
     public interface OnSubmitServiceEdit {

@@ -45,11 +45,11 @@ public class GoalEditFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_goal_edit, container, false);
-        _goalName = (EditText) view.findViewById(R.id.etxt_GoalName);
-        _goalStart=  (EditText) view.findViewById(R.id.etxt_StartDate);
-        _goalEnd =  (EditText) view.findViewById(R.id.etxt_EndDate);
-        _goalRepeat =  (EditText) view.findViewById(R.id.etxt_repeatTime);
-        _goalDescription =  (EditText) view.findViewById(R.id.etxt_DGoal);
+        _goalName = (EditText) view.findViewById(R.id.etxt_goal_name);
+        _goalStart=  (EditText) view.findViewById(R.id.etxt_start_date);
+        _goalEnd =  (EditText) view.findViewById(R.id.etxt_end_date);
+        _goalRepeat =  (EditText) view.findViewById(R.id.etxt_repeat_time);
+        _goalDescription =  (EditText) view.findViewById(R.id.etxt_goal_details);
 
         _btnSaveGoal = view.findViewById(R.id.btn_saveGoal);
 
@@ -78,7 +78,7 @@ public class GoalEditFragment extends Fragment {
         TimePeriod repeatCycle = TimePeriod.Month;
 
         if(goalName != null) {
-            //TODO: repeatCYcle is a TIME PERIOD not sure how to handle this also local date and time
+            //TODO: repeatCycle is a TIME PERIOD not sure how to handle this also local date and time
             Goal newGoal = new Goal(goalName, goalDescription, dDate, sDate, repeatCycle);
             _hostActivity.onGoalEditFinish(newGoal);
         }
@@ -104,7 +104,5 @@ public class GoalEditFragment extends Fragment {
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement OnSubmitGoalEdit");
         }
-
     }
-
 }

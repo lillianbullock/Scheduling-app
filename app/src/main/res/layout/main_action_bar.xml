@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!-- THis is the appbar that should be included in alll fragments that need an action bar. This should help
+<!-- THis is the appbar that should be included in all fragments that need an action bar. This should help
     reduce redundancy -->
 
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"

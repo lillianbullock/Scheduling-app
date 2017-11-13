@@ -12,17 +12,13 @@ import android.widget.Toast;
 
 import com.example.evans.R;
 import com.example.evans.data.Appointment;
-import com.example.evans.data.Customer;
-import com.example.evans.data.Service;
-
-import java.time.LocalDateTime;
 
 
 /**
  * This fragment will be loaded when the user tries to create a new appointment
  * or edit an existing appointment
  */
-public class EditAppointmentFragment extends Fragment {
+public class AppointmentEditFragment extends Fragment {
 
     private EditText _name;
     private EditText _email;
@@ -34,7 +30,7 @@ public class EditAppointmentFragment extends Fragment {
 
     OnSubmitAppointment _hostActivity;
 
-    public EditAppointmentFragment() {
+    public AppointmentEditFragment() {
         // Required empty public constructor
     }
 
@@ -42,15 +38,15 @@ public class EditAppointmentFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView =inflater.inflate(R.layout.fragment_edit_appointment, container, false);
+        View rootView =inflater.inflate(R.layout.fragment_appointment_edit, container, false);
 
         _name = (EditText) rootView.findViewById(R.id.etxt_customer_name);
         _phone = (EditText) rootView.findViewById(R.id.etxt_customer_phone);
         _email = (EditText) rootView.findViewById(R.id.etxt_customer_email);
         _date = (EditText) rootView.findViewById(R.id.etxt_appointment_date);
         _service = (EditText) rootView.findViewById(R.id.etxt_service_type);
-        _servicePrice = (EditText) rootView.findViewById(R.id.etxt_price);
-        _notes = (EditText) rootView.findViewById(R.id.etxt_other_notes);
+        _servicePrice = (EditText) rootView.findViewById(R.id.etxt_appointment_price);
+        _notes = (EditText) rootView.findViewById(R.id.etxt_appointment_note);
 
         // Inflate the layout for this fragment
         return rootView;
@@ -92,7 +88,7 @@ public class EditAppointmentFragment extends Fragment {
     }
 
     /**
-     * Declare an interface that the activate that creates this fragment must implemnent. This interface will
+     * Declare an interface that the activate that creates this fragment must implement. This interface will
      * handle when a new appointment has been added
      */
     public interface OnSubmitAppointment {
@@ -112,7 +108,7 @@ public class EditAppointmentFragment extends Fragment {
         try {
             _hostActivity = (OnSubmitAppointment) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement OnSubmitAppoinment");
+            throw new ClassCastException(context.toString() + " must implement OnSubmitAppointment");
         }
 
     }

@@ -20,7 +20,7 @@ import java.util.Map;
 
 public class MainController {
 
-    private List<Appointment> _appoinments       = new LinkedList<>();
+    private List<Appointment> _appointments       = new LinkedList<>();
     private List<Customer>    _customers         = new LinkedList<>();
     private List<Goal>        _goals             = new LinkedList<>();
     private List<Service>     _availableServices = new LinkedList<>();
@@ -41,12 +41,12 @@ public class MainController {
     /**
      * Add a single appointment to our list of appointments. The appointment should already
      * be in a valid state before this function is called.
-     * @param appointment: A valid appoinment to be added to our list
+     * @param appointment: A valid appointment to be added to our list
      */
     public void addAppointment(Appointment appointment) {
 
         if (appointment != null) {
-            _appoinments.add(appointment);
+            _appointments.add(appointment);
         }
 
     }
@@ -136,28 +136,28 @@ public class MainController {
 
         switch (timePeriod){
             case Day:
-                for (Appointment appointment : _appoinments){
+                for (Appointment appointment : _appointments){
                     // TODO Compare the date on each appointment against the current day on the phone and
-                    // add matching ones to our appoinment list
+                    // add matching ones to our appointment list
                 }
                 break;
 
             case Week:
-                for (Appointment appointment : _appoinments){
+                for (Appointment appointment : _appointments){
                     // TODO Compare the date on each appointment against the current week on the phone and
-                    // add matching ones to our appoinment list
+                    // add matching ones to our appointment list
                 }
                 break;
 
             case Month:
-                for (Appointment appointment : _appoinments){
+                for (Appointment appointment : _appointments){
                     // TODO Compare the date on each appointment against the current month on the phone and
-                    // add matching ones to our appoinment list
+                    // add matching ones to our appointment list
                 }
                 break;
 
             case Year:
-                for (Appointment appointment : _appoinments){
+                for (Appointment appointment : _appointments){
                     // TODO Compare the date on each appointment against the current year on the phone and
                     // add matching ones to our appointment list
                 }
@@ -222,7 +222,7 @@ public class MainController {
 
 
     /**
-     * GetCustommers: Simply return a list of all the customers in our customers list
+     * GetCustomers: Simply return a list of all the customers in our customers list
      * @return List<Customer>
      */
     public List<Customer> getCustomers() {
@@ -233,7 +233,7 @@ public class MainController {
     /**
      * Return all the appointments for a particular customer
      * @param customer: The customer that we're looking up appointments for
-     * @return: A list of appointments for the customer
+     * @return A list of appointments for the customer
      */
     public List<Customer> getAppointmentsForCustomer(Customer customer) {
 
@@ -246,7 +246,7 @@ public class MainController {
     /**
      * Return a list of goals that are due in a certain month
      * @param month: The month we're looking at
-     * @return: A list of goals
+     * @return A list of goals
      */
     public List<Goal> getGoalsByDueMonth(Month month) {
         return null;
@@ -271,12 +271,11 @@ public class MainController {
      * GetExpenses: This method returns a list of expenses based on the time period specified in
      * the TimePeriod that is received as a parameter.
      * @param timePeriod: Used to determine what date range to return it's for
-     * @param timePeriod
      * @return A LinkedList<Expenses>
      */
     public List<Expense> getExpenses(TimePeriod timePeriod) {
 
-        List<Expense> tempExpenses = new LinkedList<Expense>();
+        List<Expense> tempExpenses = new LinkedList<>();
 
 
         if (timePeriod == null) {

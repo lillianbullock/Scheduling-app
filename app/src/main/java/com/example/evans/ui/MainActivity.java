@@ -20,7 +20,6 @@ import com.example.evans.data.Customer;
 import com.example.evans.data.Goal;
 import com.example.evans.data.MainController;
 import com.example.evans.data.Service;
-import com.example.evans.data.TimePeriod;
 
 public class MainActivity extends AppCompatActivity implements
         CustomerEditFragment.OnSubmitCustomerEdit,
@@ -30,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements
         GoalEditFragment.OnSubmitGoalEdit,
         GoalListFragment.InteractionWithGoalsListFragmentListener,
         AppointmentsListFragment.InteractionWithAppointmentFragmentListener,
-        EditAppointmentFragment.OnSubmitAppointment
+        AppointmentEditFragment.OnSubmitAppointment
     {
 
     // Variables
@@ -134,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onClickAddGoal() {
-        Toast.makeText(this, "Recieved instruction to create a goal", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Received instruction to create a goal", Toast.LENGTH_LONG).show();
         _currentFragment = new GoalEditFragment();
         loadCurrentFragment(true);
         // TODO Implement
@@ -147,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements
         _currentFragment = new StartPageFragment();
         loadCurrentFragment(true);
 
-        //TODO the implementation of adding the goal to the main page breaks here something to do with addGoal is in a different place than expecated.
+        //TODO the implementation of adding the goal to the main page breaks here something to do with addGoal is in a different place than expected.
       // _mainController.addGoal(goal);
     }
 
@@ -169,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onAddAppointment() {
-        _currentFragment = new EditAppointmentFragment();
+        _currentFragment = new AppointmentEditFragment();
         loadCurrentFragment(true);
     }
 

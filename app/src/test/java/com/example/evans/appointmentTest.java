@@ -1,14 +1,12 @@
 package com.example.evans;
 
 import org.junit.Test;
-
 import java.time.LocalDateTime;
-
 import static org.junit.Assert.*;
 
 /**
  * Tests for the appointment class
- * Tests the default constructior
+ * Tests the default constructor
  * Created by Brooke Nelson on 10/31/2017.
  */
 

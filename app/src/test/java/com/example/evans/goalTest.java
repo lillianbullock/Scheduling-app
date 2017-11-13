@@ -12,7 +12,7 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * Tests for the Goal class
- * Tests the default constructior
+ * Tests the default constructor
  * Created by Brooke Nelson on 11/2/2017.
  */
 
@@ -37,8 +37,8 @@ public class goalTest {
         assertNotNull(goal);
 
         //Then we need to check the Values that were placed were also correct
-        assertEquals("These two things dont match", "Some Goal we set", goal.getTitle());
-        assertEquals("These two things dont match", "This goal we want to do", goal.getDescription());
+        assertEquals("These two things don't match", "Some Goal we set", goal.getTitle());
+        assertEquals("These two things don't match", "This goal we want to do", goal.getDescription());
 
         assertEquals(LocalDateTime.now(), goal.getDueDate());
         assertEquals(LocalDateTime.of(2017, 7, 11, 9, 30), goal.getStartDate());

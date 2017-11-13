@@ -25,7 +25,7 @@ public class Customer implements Comparable{
 
 
 
-    //Not really sure about the constructor or this one there were alot of option
+    //Not really sure about the constructor or this one there were a lot of option
     private LocalDateTime _dateAdded;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -80,7 +80,7 @@ public class Customer implements Comparable{
     public void setOtherInfo(String _otherInfo) { this._otherInfo = _otherInfo; }
     public String getOtherInfo() { return _otherInfo; }
 
-    public List findAppts(){
+    public List findAppointments(){
         return null;
     }
 
