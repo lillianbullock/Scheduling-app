@@ -9,6 +9,7 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="business_address"> 67 Winn Dr, Rexburg, ID 83440 </string>
+    <string name="dollar_sign">$</string>
 
     <!-- For navigation bar menu item titles-->
     <string name="menu_customers"> Customer </string>

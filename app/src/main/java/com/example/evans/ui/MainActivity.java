@@ -21,6 +21,7 @@ import com.example.evans.data.Goal;
 import com.example.evans.data.MainController;
 import com.example.evans.data.Service;
 
+
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements
@@ -47,8 +48,11 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /* Initialize your layout and variables */
+        /* Initialize your toolbar and navigation drawer*/
        initializeToolbarAndNavigationDrawer();
+
+       // Initialize class variables
+        _mainController = new MainController();
 
         // Initialize and launch the start page fragment
         _currentFragment = new StartPageFragment();
@@ -78,17 +82,24 @@ public class MainActivity extends AppCompatActivity implements
         return LAST_ASSIGNED_CUSTOMER_ID + 1;
     }
 
-    /**
-     * We might find a better solution later but the edit fragment needs to get access to
-     * the list of available services
-     * @return Map
-     */
+    /** IMPLEMENT METHODS for all the fragments that this activity will use */
     @Override
-    public Map<String, Service> getServicesList () {
+    public Map<String, Service> getServices () {
+
         return _mainController.getAvailableServices();
     }
 
-    @Override
+        @Override
+        public void hideActionbar() {
+            getSupportActionBar().hide();
+        }
+
+        @Override
+        public void showActionbar() {
+            getSupportActionBar().show();
+        }
+
+        @Override
     public void onCustomerEditFinish(Customer customer) {
          // TODO Handle this case
 
@@ -145,7 +156,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onClickAddGoal() {
-        Toast.makeText(this, "Received instruction to create a goal", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Recieved instruction to create a goal", Toast.LENGTH_LONG).show();
         _currentFragment = new GoalEditFragment();
         loadCurrentFragment(true);
         // TODO Implement
@@ -158,8 +169,7 @@ public class MainActivity extends AppCompatActivity implements
         _currentFragment = new StartPageFragment();
         loadCurrentFragment(true);
 
-        //TODO the implementation of adding the goal to the main page breaks here something to do with addGoal is in a different place than expected.
-      // _mainController.addGoal(goal);
+       _mainController.addNewGoal(goal);
     }
 
     @Override
@@ -186,8 +196,18 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onAppointmentEditFinish(Appointment appointment) {
-        //TODO THIS THING
+        //TODO get the customer id using the customer name. If not exist, prompt user to save customer
+        //TODO if customer exist then add the customer Id to the appointment.
+        _mainController.addAppointment(appointment);
     }
+
+    @Override
+    public void onCancelAppointmentEdit() {
+        onBackPressed();
+
+    }
+
+        /********************END OF OVERRIDING METHODS FOR FRAGMENTS****************************/
 
     /**
      * Helper method to load the current fragment. I figured we were loading fragments

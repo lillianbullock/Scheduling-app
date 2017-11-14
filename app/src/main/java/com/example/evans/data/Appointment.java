@@ -5,7 +5,8 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 
-import java.time.LocalDateTime;
+import org.joda.time.LocalDateTime;
+
 
 /**
  * Holds the information relevant to each appointment
@@ -15,28 +16,28 @@ import java.time.LocalDateTime;
 public class Appointment implements Comparable {
     private String _title;
     private LocalDateTime _date;
-    private Customer _customer;
+    private String _customerId;
     private Boolean _due;
     private Service _service;
     private Boolean _succeed;
     private Boolean _hasPaid;
 
-    @TargetApi(Build.VERSION_CODES.O)
+
     Appointment() {
         _title = "";
         _date = LocalDateTime.now();
-        _customer = null;
+        _customerId = null;
         _due = false;
         _service = null;
         _succeed = false;
         _hasPaid = false;
     }
 
-    Appointment(String title, LocalDateTime date, Customer customer, Boolean due,
+    Appointment(String title, LocalDateTime date, String customerId, Boolean due,
                 Service service, Boolean succeed, Boolean hasPaid) {
         this._title = title;
         this._date = date;
-        this._customer = customer;
+        this._customerId = customerId;
         this._due = due;
         this._service = service;
         this._succeed = succeed;
@@ -45,7 +46,7 @@ public class Appointment implements Comparable {
 
     public String getTitle() { return _title; }
     public LocalDateTime getDate() { return _date; }
-    public Customer getCustomer() { return _customer; }
+    public String getCustomerId() { return _customerId; }
     public Boolean isDue() { return _due; }
     public Service getService() { return _service; }
     public Boolean isSucceed() { return _succeed; }
@@ -53,7 +54,7 @@ public class Appointment implements Comparable {
 
     public void setTitle(String title) { this._title = title; }
     public void setDate(LocalDateTime date) { this._date = date; }
-    public void setCustomer(Customer customer) { this._customer = customer; }
+    public void setCustomerId(String customerId) { this._customerId = customerId; }
     public void setDue(Boolean due) { this._due = due; }
     public void setService(Service service) { this._service = service; }
     public void setSucceed(Boolean succeed) { this._succeed = succeed; }

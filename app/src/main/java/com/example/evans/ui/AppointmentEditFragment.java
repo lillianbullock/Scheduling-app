@@ -4,21 +4,30 @@ package com.example.evans.ui;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
+
 
 import com.example.evans.R;
 import com.example.evans.data.Appointment;
 import com.example.evans.data.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -27,7 +36,7 @@ import java.util.Map;
  * This fragment will be loaded when the user tries to create a new appointment
  * or edit an existing appointment
  */
-public class EditAppointmentFragment extends Fragment {
+public class AppointmentEditFragment extends Fragment {
 
     private EditText _name;
     private EditText _email;
@@ -36,12 +45,16 @@ public class EditAppointmentFragment extends Fragment {
     private Spinner _serviceSpinner;
     private EditText _servicePrice;
     private EditText _notes;
+    private Button _btnSave;
+    private Button _btnCancel;
+    private Map<String, Service> _servicesMap;
 
     OnSubmitAppointment _hostActivity;
 
-    public EditAppointmentFragment() {
+    public AppointmentEditFragment() {
         // Required empty public constructor
     }
+
 
 
     @Override
@@ -56,30 +69,34 @@ public class EditAppointmentFragment extends Fragment {
         _serviceSpinner = (Spinner) rootView.findViewById(R.id.spinner_service_type);
         _servicePrice = (EditText) rootView.findViewById(R.id.etxt_price);
         _notes = (EditText) rootView.findViewById(R.id.etxt_other_notes);
+        _btnSave = (Button) rootView.findViewById(R.id.btn_appointment_save);
+        _btnCancel = (Button) rootView.findViewById(R.id.btn_appointment_cancel);
+        _servicesMap = new HashMap<String, Service>();
+
+        _servicesMap = _hostActivity.getServices();
 
 
+
+        // Set up the spinner for services list
         setupServicesSpinner();
 
 
-        // Inflate the layout for this fragment
-        return rootView;
-    }
+        // Onclick listener for the save button
+        _btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createAppointment();
+            }
+        });
 
-    /**
-     * One job: Populate our services spinner from the data we have in MainController
-     */
-    private void setupServicesSpinner() {
-
-        String [] values = {"Men Hair", "Color", "Shampoo", "Other"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_item, values);
-        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-
-        _serviceSpinner.setAdapter(adapter);
-
+        /* Listen for when an item is selected and set the price accordingly */
         _serviceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                _servicePrice.setText("$12.00");
+                Service currentService = _servicesMap.get(adapterView.getSelectedItem().toString());
+                Double price = currentService.getPrice();
+                String localePrice =  getString(R.string.dollar_sign) +  String.format(Locale.US,"%1.2f", price);
+                _servicePrice.setText(localePrice);
             }
 
             @Override
@@ -88,31 +105,37 @@ public class EditAppointmentFragment extends Fragment {
             }
         });
 
-        /* It's crashing when it calls getServicesList()
-        List<String> servicesNames = new ArrayList<>(_hostActivity.getServicesList().keySet());
 
-        servicesNames.addAll( _hostActivity.getServicesList().keySet());
+        // Inflate the layout for this fragment
+        return rootView;
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        _hostActivity.hideActionbar();
+    }
 
-        *//*for (String title : _hostActivity.getServicesList().keySet()){
-            servicesNames.add(title);
-        } replaced with the code above for now*//*
+    @Override
+    public void onStop() {
+        super.onStop();
+        _hostActivity.showActionbar();
+    }
 
+    /**
+     * One job: Populate our services spinner from the data we have in MainController
+     */
+    private void setupServicesSpinner() {
 
-        // set up the array adapter
-        ArrayAdapter<String> servicesSpinnerAdapter = new ArrayAdapter<String>(
-                getContext(),
-                android.R.layout.simple_list_item_1,
+        List<String> servicesNames = new ArrayList<>(_hostActivity.getServices().keySet());
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                this.getActivity(),
+                android.R.layout.simple_spinner_item,
                 servicesNames);
 
-        // Specify that the adapter will have a drop down resource. Pass the android resource layout type
-        servicesSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
 
-
-        // attach the adapter
-        _serviceSpinner.setAdapter(servicesSpinnerAdapter);*/
-
-
+        _serviceSpinner.setAdapter(adapter);
 
     }
 
@@ -131,8 +154,7 @@ public class EditAppointmentFragment extends Fragment {
                     Toast.LENGTH_SHORT).show();
         }
 
-        if (name != null) {
-            // TODO Connect appointment with customers
+        if (!name.isEmpty()) {
            // Appointment newAppointment = new Appointment();
            // _hostActivity.onEditAppointmentFinish(newAppointment);
         }
@@ -152,12 +174,15 @@ public class EditAppointmentFragment extends Fragment {
     }
 
     /**
-     * Declare an interface that the activate that creates this fragment must implemnent. This interface will
+     * Interface that the activate that creates this fragment must implemnent. This interface will
      * handle when a new appointment has been added
      */
     public interface OnSubmitAppointment {
         void onAppointmentEditFinish (Appointment appointment);
-        Map<String, Service> getServicesList();
+        void onCancelAppointmentEdit();
+        Map<String, Service> getServices();
+        void hideActionbar();
+        void showActionbar();
     }
 
     /**
