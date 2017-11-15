@@ -1,17 +1,20 @@
 package com.example.evans.ui;
 
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.evans.R;
 import com.example.evans.data.Customer;
+
+import java.util.ArrayList;
 
 
 /**
@@ -43,6 +46,25 @@ public class CustomersListFragment extends Fragment {
                 onCreateCustomer();
             }
         });
+
+        //setting arrayAdapter
+        ListView simpleList;
+        ArrayList<Customer> customerList = new ArrayList<>();
+
+        super.onCreate(savedInstanceState);
+
+        Customer test1 = new Customer();
+        test1.setName("testname");
+        customerList.add(test1);
+
+        Customer test2 = new Customer();
+        test2.setName("testname2");
+        customerList.add(test2);
+
+        simpleList = (ListView) _rootView.findViewById(R.id.customer_list);
+
+        CustomerAdapter adapter = new CustomerAdapter(getActivity(), R.layout.customer_adapter,customerList);
+        simpleList.setAdapter(adapter);
 
         return _rootView;
     }

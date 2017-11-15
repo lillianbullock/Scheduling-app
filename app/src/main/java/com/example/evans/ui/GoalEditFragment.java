@@ -77,7 +77,7 @@ public class GoalEditFragment extends Fragment {
 
         TimePeriod repeatCycle = TimePeriod.Month;
 
-        if(goalName != null) {
+        if(!goalName.equals("")) {
             //TODO: repeatCycle is a TIME PERIOD not sure how to handle this also local date and time
             Goal newGoal = new Goal(goalName, goalDescription, dDate, sDate, repeatCycle);
             _hostActivity.onGoalEditFinish(newGoal);
