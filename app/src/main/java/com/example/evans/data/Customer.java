@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 
 
+import com.google.firebase.database.Exclude;
+
 import org.joda.time.LocalDateTime;
 
 import java.util.List;
@@ -61,8 +63,31 @@ public class Customer implements Comparable{
         _otherInfo = otherInfo;
     }
 
-    public LocalDateTime getDateAdded() { return _dateAdded; }
-    public void setDateAdded(LocalDateTime dateAdded) { this._dateAdded = dateAdded; }
+
+    /**
+     * This is the same as getDateAdded but it returns a date not a string.
+     * This is for us to use in normal code but should be ignored by firebase
+     * @return
+     */
+    @Exclude
+    public LocalDateTime getDateAddedDate() { return _dateAdded; }
+
+
+    /**
+     * This is the same as setDateAdded but it recieves a date not a string.
+     * This is for us to use in normal code but should be ignored by firebase
+     * @return
+     */
+    @Exclude
+    public void setDateAddedDate(LocalDateTime dateAdded) { this._dateAdded = dateAdded; }
+
+    public String getDateAdded() {
+        return _dateAdded.toString();
+    }
+
+    public  void setDateAdded(String dateString) {
+        this._dateAdded = LocalDateTime.parse(dateString);
+    }
 
     public void setId(String id) { this._id = id; }
     public String getId() { return _id; }

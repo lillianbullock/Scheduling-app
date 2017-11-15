@@ -213,6 +213,17 @@
             app:layout_constraintTop_toBottomOf="@id/spinner_service_type" />
 
 
+        <CheckBox
+            android:id="@+id/chk_showed_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/showed_up"
+            app:layout_constraintStart_toEndOf="@id/etxt_price"
+            app:layout_constraintTop_toBottomOf="@id/txt_service_type" />
+
+
         <!-- Notes -->
         <TextView
             android:id="@+id/txt_appointment_note"
@@ -237,15 +248,7 @@
             app:layout_constraintTop_toBottomOf="@+id/txt_price" />
 
 
-        <CheckBox
-            android:id="@+id/chk_showed_up"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:text="@string/showed_up"
-            app:layout_constraintStart_toEndOf="@id/etxt_price"
-            app:layout_constraintTop_toBottomOf="@id/txt_service_type" />
+
 
 
     </android.support.constraint.ConstraintLayout>
