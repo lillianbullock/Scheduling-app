@@ -51,7 +51,7 @@ public class GoalEditFragment extends Fragment {
         _goalRepeat =  (EditText) view.findViewById(R.id.etxt_repeat_time);
         _goalDescription =  (EditText) view.findViewById(R.id.etxt_goal_details);
 
-        _btnSaveGoal = view.findViewById(R.id.btn_saveGoal);
+        _btnSaveGoal = view.findViewById(R.id.btn_save_goal);
 
         _btnSaveGoal.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)

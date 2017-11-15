@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "246742497005",
+    "firebase_url": "https://evans-47475.firebaseio.com",
+    "project_id": "evans-47475",
+    "storage_bucket": "evans-47475.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:246742497005:android:953ab83e1edc0cbe",
+        "android_client_info": {
+          "package_name": "com.example.evans"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "246742497005-2qh1jurcqqdpgvjkqq1kngvkcdro2vf8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.evans",
+            "certificate_hash": "3649db0d72e9fbb4ce355318287868f100bdfad2"
+          }
+        },
+        {
+          "client_id": "246742497005-6k14d2r4ud7cq1ouodko41foo8j2foak.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.evans",
+            "certificate_hash": "62298e2c184329adb46d2c49b26e89a4eec9770e"
+          }
+        },
+        {
+          "client_id": "246742497005-osc6fo9jcl60dv8mo6simn9p1l32lmkp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsV9EsXWhw6i4irgzb9MdOh5nnvWyQHLo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "246742497005-osc6fo9jcl60dv8mo6simn9p1l32lmkp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
