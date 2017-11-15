@@ -60,7 +60,7 @@ public class AppointmentEditFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView =inflater.inflate(R.layout.fragment_edit_appointment, container, false);
+        View rootView =inflater.inflate(R.layout.fragment_appointment_edit, container, false);
 
         _name = (EditText) rootView.findViewById(R.id.etxt_customer_name);
         _phone = (EditText) rootView.findViewById(R.id.etxt_customer_phone);

@@ -33,7 +33,8 @@
     <string name="appointment_date">Date:</string>
     <string name="appointment_service">Service:</string>
     <string name="appointment_price">Price:</string>
-    <string name="appointment_notes">Notes:</string>-->
+    <string name="appointment_notes">Notes:</string>
+    <string name="showed_up">Showed up </string>
 
     <string name="service_description">Description:</string>
     <string name="service_title">Title:</string>
