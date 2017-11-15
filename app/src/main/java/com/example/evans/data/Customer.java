@@ -28,8 +28,7 @@ public class Customer implements Comparable{
     //Not really sure about the constructor or this one there were a lot of option
     private LocalDateTime _dateAdded;
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    Customer(){
+    public Customer(){
         _id = "";
         _name = "";
         _email = "";

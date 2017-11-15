@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,6 +21,8 @@ import com.example.evans.data.Customer;
 import com.example.evans.data.Goal;
 import com.example.evans.data.MainController;
 import com.example.evans.data.Service;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 import java.util.Map;
@@ -41,6 +44,11 @@ public class MainActivity extends AppCompatActivity implements
     private DrawerLayout _drawerLayout;
     private ActionBarDrawerToggle _actionBarToggle;
 
+    private static final String DATABASE_CUSTOMER_REF = "Customers";
+
+    // FireBase stuff
+    private DatabaseReference _database;
+
     static int LAST_ASSIGNED_CUSTOMER_ID;
 
     @Override
@@ -53,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements
 
        // Initialize class variables
         _mainController = new MainController();
+        _database = FirebaseDatabase.getInstance().getReference();
 
         // Initialize and launch the start page fragment
         _currentFragment = new StartPageFragment();
@@ -72,15 +81,6 @@ public class MainActivity extends AppCompatActivity implements
         return 1;
     }
 
-    /**
-     * Making this static so anyone can use it. This should simply return the
-     * next possible number to use as a customer id for a new customer
-     * @return
-     */
-    static public int getNextCustomerId() {
-        // We can work with this for now
-        return LAST_ASSIGNED_CUSTOMER_ID + 1;
-    }
 
     /** IMPLEMENT METHODS for all the fragments that this activity will use */
     @Override
@@ -89,25 +89,49 @@ public class MainActivity extends AppCompatActivity implements
         return _mainController.getAvailableServices();
     }
 
-        @Override
-        public void hideActionbar() {
-            getSupportActionBar().hide();
-        }
+    @Override
+    public void hideActionbar() {
+        getSupportActionBar().hide();
+    }
 
-        @Override
-        public void showActionbar() {
-            getSupportActionBar().show();
-        }
+    @Override
+    public void showActionbar() {
+        getSupportActionBar().show();
+    }
 
-        @Override
-    public void onCustomerEditFinish(Customer customer) {
-         // TODO Handle this case
+    @Override
+     public void onCustomerEditFinish(Customer customer) {
+
+        if (customer == null) {
+            Snackbar.make(findViewById(R.id.content_frame),
+                    "ERROR: Invalid customer. Operation aborted",
+                    Snackbar.LENGTH_LONG)
+                    .show();
+
+            _currentFragment = new StartPageFragment();
+            loadCurrentFragment(false);
+        }
 
         // Return to the main page for now
         _currentFragment = new StartPageFragment();
         loadCurrentFragment(false);
 
+        // TODO Add the new customer to the database for now. We'll need to coordinate with Main controller to sync properly
+       _database.child(DATABASE_CUSTOMER_REF).child(String.valueOf(customer.getId())).setValue(customer);
+
         _mainController.addCustomer(customer);
+
+    }
+
+    /**
+     * This should simply return the
+     * next possible number to use as a customer id for a new customer
+     * @return
+     */
+    @Override
+    public int getNextCustomerId() {
+        // We can work with this for now
+        return LAST_ASSIGNED_CUSTOMER_ID + 1;
     }
 
     @Override

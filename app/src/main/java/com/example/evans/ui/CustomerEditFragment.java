@@ -3,6 +3,7 @@ package com.example.evans.ui;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,50 +61,75 @@ public class CustomerEditFragment extends Fragment {
         _saveBtn = rootView.findViewById(R.id.btn_save_edit);
 
 
-        // Set the click lister for both buttons
+        // Create a customer and let the host activity know that a request
+        // was made to create an appointment with the customer
         _setAppointmentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Customer customer = createCustomer();
 
+                if (customer != null) {
+                    _hostActivity.onCustomerEditFinish(customer);
+                }
             }
         });
 
+        // Create a customer on save click and return it to the host activity
         _saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createCustomer();
+                Customer customer = createCustomer();
+
+                if (customer != null) {
+                    _hostActivity.onCustomerEditFinish(customer);
+                }
+
             }
         });
-
 
         return rootView;
     }
 
-    private void createCustomer() {
-        // TODO Check for errors and prompt user appropriately
+    private Customer createCustomer() {
 
-        String id = String.valueOf(MainActivity.getNextCustomerId());
+        String id = String.valueOf(_hostActivity.getNextCustomerId());
         String name = _name.getText().toString();
         String phone = _phone.getText().toString();
         String email = _email.getText().toString();
         String otherInfo = _otherInformation.getText().toString();
         org.joda.time.LocalDateTime currentDate = new org.joda.time.LocalDateTime();
 
+        Customer newCustomer = new Customer(id, name, email, phone, currentDate, otherInfo);
 
-        // check for email
-        if (!isValidEmail(email)) {
-            Toast.makeText(getActivity(), "Invalid email. Please enter a valid email",
-                    Toast.LENGTH_SHORT).show();
+        if (!name.isEmpty()) {
+
+            // Email isn't required but if it's not empty then check to make sure it's a valid email
+            if (email.isEmpty() || (!email.isEmpty() && isValidEmail(email))) {
+                newCustomer = new Customer(id, name, email, phone, currentDate, otherInfo);
+                return newCustomer;
+            } else {
+                Snackbar.make(getActivity().findViewById(R.id.content_frame), "ERROR: Invalid email", Snackbar.LENGTH_LONG).show();
+            }
+
+        } else {
+                Snackbar.make(getActivity().findViewById(R.id.content_frame), "ERROR: Name cannot be empty", Snackbar.LENGTH_LONG).show();
         }
 
-        //TODO id will always be non null because string
-        if (id != null && name != null) {
-            Customer newCustomer = new Customer(id, name, email, phone, currentDate, otherInfo);
-            _hostActivity.onCustomerEditFinish(newCustomer);
-        }
-
+        // Return null if the customer data wasn't valid
+        return null;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        _hostActivity.hideActionbar();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        _hostActivity.showActionbar();
+    }
 
     /**
      *  isValid: Return true is the passed email string matches the specified
@@ -147,6 +173,9 @@ public class CustomerEditFragment extends Fragment {
 
         void onCustomerEditFinish (Customer customer);
         void onAddAppointmentClick(Customer customer);
+        int getNextCustomerId();
+        void hideActionbar();
+        void showActionbar();
 
     }
 
