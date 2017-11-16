@@ -23,7 +23,7 @@ public class Appointment implements Comparable {
     private Boolean _hasPaid;
 
 
-    Appointment() {
+    public Appointment() {
         _title = "";
         _date = LocalDateTime.now();
         _customerId = null;
@@ -33,7 +33,7 @@ public class Appointment implements Comparable {
         _hasPaid = false;
     }
 
-    Appointment(String title, LocalDateTime date, String customerId, Boolean due,
+    public Appointment(String title, LocalDateTime date, String customerId, Boolean due,
                 Service service, Boolean succeed, Boolean hasPaid) {
         this._title = title;
         this._date = date;

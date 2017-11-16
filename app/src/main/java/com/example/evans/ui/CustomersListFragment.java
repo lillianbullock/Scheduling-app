@@ -15,6 +15,7 @@ import com.example.evans.R;
 import com.example.evans.data.Customer;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -61,6 +62,9 @@ public class CustomersListFragment extends Fragment {
         test2.setName("testname2");
         customerList.add(test2);
 
+        //TODO put this back when app actually gets data from database (and take out dummy data above)
+        //customerList = (ArrayList) _hostActivityListener.getCustomers();
+
         simpleList = (ListView) _rootView.findViewById(R.id.customer_list);
 
         CustomerAdapter adapter = new CustomerAdapter(getActivity(), R.layout.customer_adapter,customerList);
@@ -96,7 +100,9 @@ public class CustomersListFragment extends Fragment {
     public interface InteractionWithCustomerFragmentListener{
         void onClickCustomer(Customer customer);
         void onAddCustomer();
+        List<Customer> getCustomers();
     }
+
 
 
     /**

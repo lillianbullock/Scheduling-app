@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 
+import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements
@@ -87,6 +88,11 @@ public class MainActivity extends AppCompatActivity implements
     public Map<String, Service> getServices () {
 
         return _mainController.getAvailableServices();
+    }
+
+    @Override
+    public List<Customer> getCustomers() {
+        return _mainController.getCustomers();
     }
 
     @Override
