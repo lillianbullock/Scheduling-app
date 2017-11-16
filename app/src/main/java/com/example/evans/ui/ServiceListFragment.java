@@ -35,10 +35,8 @@ public class ServiceListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
-
             // Inflate the layout for this fragment
             _rootView = inflater.inflate(R.layout.fragment_service_list, container, false);
-
             _addFloatingBtn = (FloatingActionButton) _rootView.findViewById(R.id.floating_add_btn);
 
             // Set the onClickListener for the floating button.
@@ -63,11 +61,12 @@ public class ServiceListFragment extends Fragment {
 
             ListView listView = (ListView) _rootView.findViewById(R.id.service_adapter_list);
 
-            ServiceAdapter adapter = new ServiceAdapter(getActivity(), R.layout.service_adapter, serviceArrayList);
+            if(serviceArrayList != null) {
+                ServiceAdapter adapter = new ServiceAdapter(getActivity(), R.layout.service_adapter, serviceArrayList);
 
-            //TODO NULL pointer exception is thrown fix here to get adapter to work
-            //            listView.setAdapter(adapter);
-
+                //TODO NULL pointer exception is thrown fix here to get adapter to work
+                //listView.setAdapter(adapter);
+            }
             return _rootView;
         }
 

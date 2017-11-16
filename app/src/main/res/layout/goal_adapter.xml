@@ -13,7 +13,8 @@
         android:fontFamily="sans-serif"
         android:lineSpacingExtra="10sp"
         android:text="Goal"
+        android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textSize="30sp"
+        android:textSize="24sp"
         android:visibility="visible" />
 </LinearLayout>

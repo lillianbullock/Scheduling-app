@@ -1,6 +1,7 @@
 package com.example.evans.ui;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.evans.R;
-import com.example.evans.data.Service;
+import com.example.evans.data.Sale;
 
 import java.util.ArrayList;
 
@@ -16,16 +17,17 @@ import java.util.ArrayList;
  * Created by Brooke Nelson on 11/15/2017.
  */
 
-public class ServiceAdapter extends ArrayAdapter<Service> {
+public class SalesAdapter extends ArrayAdapter<Sale> {
 
-    ArrayList<Service> ServiceArrayList = new ArrayList<Service>();
+    ArrayList<Sale> SalesArrayList = new ArrayList<>();
 
-    public ServiceAdapter(Context context, int textViewResourceId, ArrayList<Service> objects) {
+    public SalesAdapter(Context context, int textViewResourceId, ArrayList<Sale> objects) {
         super(context, textViewResourceId, objects);
 
         //Set arrayList to something that is not null
-        ServiceArrayList = objects;
+        SalesArrayList = objects;
     }
+
 
     @Override
     public int getCount() {
@@ -37,11 +39,11 @@ public class ServiceAdapter extends ArrayAdapter<Service> {
 
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View view = inflater.inflate(R.layout.service_adapter, null);
+        View view = inflater.inflate(R.layout.sales_adapter, null);
 
-        TextView textView = (TextView) view.findViewById(R.id.service_adapter_list);
+        TextView textView = (TextView) view.findViewById(R.id.sales_list);
 
-        textView.setText(ServiceArrayList.get(position).getTitle());
+        textView.setText(SalesArrayList.get(position).getService().getTitle());
 
         return view;
     }
