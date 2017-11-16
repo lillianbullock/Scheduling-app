@@ -7,6 +7,7 @@ import android.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -48,6 +49,8 @@ public class AppointmentEditFragment extends Fragment {
     private Button _btnSave;
     private Button _btnCancel;
     private Map<String, Service> _servicesMap;
+
+    private static final String TAG  = "AppointmentEditFragment";
 
     OnSubmitAppointment _hostActivity;
 
@@ -152,6 +155,7 @@ public class AppointmentEditFragment extends Fragment {
         if (!isValidEmail(email)) {
             Toast.makeText(getActivity(), "Invalid email. Please enter a valid email",
                     Toast.LENGTH_SHORT).show();
+
         }
 
         if (!name.isEmpty()) {
@@ -198,6 +202,7 @@ public class AppointmentEditFragment extends Fragment {
         try {
             _hostActivity = (OnSubmitAppointment) context;
         } catch (ClassCastException e) {
+            Log.e(TAG, "The Host activity did not implement OnSubmitAppointment");
             throw new ClassCastException(context.toString() + " must implement OnSubmitAppoinment");
         }
 

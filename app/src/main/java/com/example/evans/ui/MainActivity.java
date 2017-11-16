@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements
     private ActionBarDrawerToggle _actionBarToggle;
 
     private static final String DATABASE_CUSTOMER_REF = "Customers";
+    private static final String TAG = "MainActivity";
 
     // FireBase stuff
     private DatabaseReference _database;
@@ -112,12 +114,14 @@ public class MainActivity extends AppCompatActivity implements
             loadCurrentFragment(false);
         }
 
+
         // Return to the main page for now
         _currentFragment = new StartPageFragment();
         loadCurrentFragment(false);
 
         // TODO Add the new customer to the database for now. We'll need to coordinate with Main controller to sync properly
        _database.child(DATABASE_CUSTOMER_REF).child(String.valueOf(customer.getId())).setValue(customer);
+
 
         _mainController.addCustomer(customer);
 
