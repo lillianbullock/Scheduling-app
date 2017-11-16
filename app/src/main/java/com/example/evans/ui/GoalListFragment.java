@@ -64,7 +64,7 @@ public class GoalListFragment  extends Fragment {
 
         GoalAdapter goalAdapter = new GoalAdapter(getActivity(), R.layout.goal_adapter, goalArrayList);
 //      TODO fix this line of code null pointer exception not sure why it doesn't like me
-//        goalList.setAdapter(goalAdapter);
+        goalList.setAdapter(goalAdapter);
 
         return _rootView;
     }

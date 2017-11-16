@@ -21,6 +21,7 @@ import com.example.evans.data.Customer;
 import com.example.evans.data.Goal;
 import com.example.evans.data.MainController;
 import com.example.evans.data.Service;
+import com.example.evans.data.TimePeriod;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -91,9 +92,10 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public List<Customer> getCustomers() {
-        return _mainController.getCustomers();
-    }
+    public List<Customer> getCustomers() { return _mainController.getCustomers(); }
+
+    @Override
+    public List<Appointment> getAppointments() { return _mainController.getAppointments(TimePeriod.Week); }
 
     @Override
     public void hideActionbar() {

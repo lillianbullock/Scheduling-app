@@ -67,7 +67,7 @@ public class CustomersListFragment extends Fragment {
 
         simpleList = (ListView) _rootView.findViewById(R.id.customer_list);
 
-        CustomerAdapter adapter = new CustomerAdapter(getActivity(), R.layout.customer_adapter,customerList);
+        CustomerAdapter adapter = new CustomerAdapter(getActivity(), R.layout.customer_adapter, customerList);
         simpleList.setAdapter(adapter);
 
         return _rootView;
