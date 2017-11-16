@@ -9,9 +9,13 @@ import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.evans.R;
+import com.example.evans.data.Goal;
+
+import java.util.ArrayList;
 
 /**
  * Created by Brooke Nelson on 11/9/2017
@@ -42,6 +46,25 @@ public class GoalListFragment  extends Fragment {
                 onCreateGoal();
             }
         });
+
+        //setting arrayAdapter
+        ArrayList<Goal> goalArrayList = new ArrayList<>();
+
+        super.onCreate(savedInstanceState);
+
+        Goal test1 = new Goal();
+        test1.setTitle("test");
+        goalArrayList.add(test1);
+
+        Goal test2 = new Goal();
+        test2.setTitle("test2");
+        goalArrayList.add(test2);
+
+        ListView goalList = (ListView) _rootView.findViewById(R.id.goal_adapter_view);
+
+        GoalAdapter goalAdapter = new GoalAdapter(getActivity(), R.layout.goal_adapter, goalArrayList);
+//      TODO fix this line of code null pointer exception not sure why it doesn't like me
+//        goalList.setAdapter(goalAdapter);
 
         return _rootView;
     }
