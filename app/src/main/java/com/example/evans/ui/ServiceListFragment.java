@@ -7,10 +7,14 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.evans.R;
 import com.example.evans.data.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,6 +48,25 @@ public class ServiceListFragment extends Fragment {
                     onCreateService();
                 }
             });
+
+            ArrayList<Service> serviceArrayList = new ArrayList<>();
+
+            super.onCreate(savedInstanceState);
+
+            Service test = new Service();
+            test.setTitle("Title1");
+            serviceArrayList.add(test);
+
+            Service test2 = new Service();
+            test2.setTitle("Title2");
+            serviceArrayList.add(test2);
+
+            ListView listView = (ListView) _rootView.findViewById(R.id.service_adapter_list);
+
+            ServiceAdapter adapter = new ServiceAdapter(getActivity(), R.layout.service_adapter, serviceArrayList);
+
+            //TODO NULL pointer exception is thrown fix here to get adapter to work
+            //            listView.setAdapter(adapter);
 
             return _rootView;
         }
