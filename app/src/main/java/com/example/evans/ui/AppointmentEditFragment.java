@@ -10,6 +10,7 @@ import android.app.Fragment;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -122,21 +123,20 @@ public class AppointmentEditFragment extends Fragment
         });
 
         // On click listener for date
-        _date.setOnClickListener(new View.OnClickListener(){
+        _date.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(getActivity().findViewById(R.id.content_frame), "Called to set date",
-                        Snackbar.LENGTH_SHORT );
+            public void onFocusChange(View view, boolean b) {
                 DialogFragment dateFragment = new DatePickerFragment();
                 dateFragment.show(getFragmentManager(), "DatePicker");
             }
         });
 
         // onClick listener for time
-        _date.setOnClickListener(new View.OnClickListener(){
+        _time.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-
+                DialogFragment dateFragment = new DatePickerFragment();
+                dateFragment.show(getFragmentManager(), "DatePicker");
             }
         });
 
