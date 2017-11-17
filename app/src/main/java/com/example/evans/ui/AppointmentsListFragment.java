@@ -8,8 +8,18 @@ import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
 import com.example.evans.R;
 import com.example.evans.data.Appointment;
+import com.example.evans.data.Customer;
+import com.example.evans.data.Service;
+
+import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -44,6 +54,31 @@ public class AppointmentsListFragment extends Fragment {
                 onCreateAppointment();
             }
         });
+
+        //setting arrayAdapter
+        ListView simpleList;
+        ArrayList<Appointment> appointmentList = new ArrayList<>();
+
+        Service s1 = new Service("Service1", "", 2.00);
+        Service s2 = new Service("Service2", "", 3.00);
+
+        Appointment test1 = new Appointment("testName", new LocalDateTime(), "0", false,
+                s1, false, false);
+        appointmentList.add(test1);
+
+        Appointment test2 = new Appointment("testName2", new LocalDateTime(), "0", false,
+                s2, false, false);
+        appointmentList.add(test2);
+
+        //TODO put this back when app actually gets data from database (and take out dummy data above)
+        //appointmentList = (ArrayList) _hostListener.getAppointments();
+
+        super.onCreate(savedInstanceState);
+
+        simpleList = (ListView) _rootView.findViewById(R.id.appointment_list);
+
+        AppointmentAdapter adapter = new AppointmentAdapter(getActivity(), R.layout.customer_adapter, appointmentList);
+        simpleList.setAdapter(adapter);
 
         return _rootView;
     }
@@ -81,6 +116,7 @@ public class AppointmentsListFragment extends Fragment {
     public interface InteractionWithAppointmentFragmentListener{
         void onClickAppointment(Appointment appointment);
         void onAddAppointment();
+        List<Appointment> getAppointments();
     }
 
 

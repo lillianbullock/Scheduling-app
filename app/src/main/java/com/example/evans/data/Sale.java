@@ -3,8 +3,8 @@ package com.example.evans.data;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import org.joda.time.LocalDateTime;
 
-import java.time.LocalDateTime;
 
 /**
  * Sale class:
@@ -20,15 +20,14 @@ public class Sale implements Comparable{
     private LocalDateTime _dateTime;
     private Customer _customer;
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    Sale(){
+    public Sale(){
         _service = new Service();
         _price = 0.0;
         _dateTime = LocalDateTime.now();
         _customer = new Customer();
     }
 
-    Sale(Service service, Double price, LocalDateTime dateTime,
+    public Sale(Service service, Double price, LocalDateTime dateTime,
          Customer customer){
         _service = service;
         _price = price;

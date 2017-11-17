@@ -59,14 +59,14 @@ public class ServiceListFragment extends Fragment {
             test2.setTitle("Title2");
             serviceArrayList.add(test2);
 
-            ListView listView = (ListView) _rootView.findViewById(R.id.service_adapter_list);
+            //TODO PLACE BACK IN CODE WITH FIREBASE UPLOAD
+            //serviceArrayList = (ArrayList) _hostActivityListener.getServices();
 
-            if(serviceArrayList != null) {
-                ServiceAdapter adapter = new ServiceAdapter(getActivity(), R.layout.service_adapter, serviceArrayList);
+            ListView listView = (ListView) _rootView.findViewById(R.id.service_list);
 
-                //TODO NULL pointer exception is thrown fix here to get adapter to work
-                //listView.setAdapter(adapter);
-            }
+            ServiceAdapter adapter = new ServiceAdapter(getActivity(), R.layout.service_adapter, serviceArrayList);
+
+            listView.setAdapter(adapter);
             return _rootView;
         }
 
@@ -97,6 +97,8 @@ public class ServiceListFragment extends Fragment {
         public interface InteractionWithServiceFragmentListener{
             void onClickService(Service service);
             void onAddService();
+            //TODO Figure out if map of getServices will work or if we need a list of the services
+           // List<Service> getService();
         }
 
         /**

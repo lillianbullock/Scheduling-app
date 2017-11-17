@@ -23,13 +23,16 @@ import com.example.evans.data.Appointment;
 import com.example.evans.data.Customer;
 import com.example.evans.data.Goal;
 import com.example.evans.data.MainController;
+import com.example.evans.data.Sale;
 import com.example.evans.data.Service;
+import com.example.evans.data.TimePeriod;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 
 import org.joda.time.LocalDate;
 
+import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements
@@ -41,7 +44,8 @@ public class MainActivity extends AppCompatActivity implements
         GoalListFragment.InteractionWithGoalsListFragmentListener,
         AppointmentsListFragment.InteractionWithAppointmentFragmentListener,
         AppointmentEditFragment.OnSubmitAppointment,
-        DatePickerFragment.RecieveDateValueListener
+        DatePickerFragment.RecieveDateValueListener,
+        SalesListFragment.InteractionWithSalesFragmentListener
     {
 
     // Variables
@@ -146,14 +150,26 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 
-
-
     /** IMPLEMENT METHODS for all the fragments that this activity will use */
     @Override
     public Map<String, Service> getServices () {
 
         return _mainController.getAvailableServices();
     }
+
+    @Override
+    public List<Customer> getCustomers() { return _mainController.getCustomers(); }
+
+    @Override
+    public List<Appointment> getAppointments() { return _mainController.getAppointments(TimePeriod.Week); }
+
+
+    @Override
+    public List<Goal> getGoal() { //TODO Figure out if we need more than one function for week day or year goals
+        return _mainController.getGoals(TimePeriod.Week); }
+
+    @Override
+    public List<Sale> getSale() { return _mainController.getAllSales(); }
 
     @Override
     public void hideActionbar() {
@@ -190,7 +206,6 @@ public class MainActivity extends AppCompatActivity implements
 
         // TODO Add the new customer to the database for now. We'll need to coordinate with Main controller to sync properly
        _database.child(DATABASE_CUSTOMER_REF).child(String.valueOf(customer.getId())).setValue(customer);
-
 
         _mainController.addCustomer(customer);
 
@@ -255,8 +270,8 @@ public class MainActivity extends AppCompatActivity implements
     public void onClickAddGoal() {
         _currentFragment = new GoalEditFragment();
         loadCurrentFragment(true);
-        // TODO Implement
     }
+
 
     @Override
     public void onGoalEditFinish(Goal goal) {
@@ -446,8 +461,8 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-        @Override
-        public void setDate(LocalDate date) {
+    @Override
+    public void setDate(LocalDate date) {
 
-        }
     }
+}
