@@ -1,29 +1,32 @@
 package com.example.evans.ui;
 
 
+
+import android.app.DialogFragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 
 import com.example.evans.R;
 import com.example.evans.data.Appointment;
+import com.example.evans.data.Customer;
 import com.example.evans.data.Service;
+
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
+import org.joda.time.LocalTime;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,20 +40,30 @@ import java.util.Map;
  * This fragment will be loaded when the user tries to create a new appointment
  * or edit an existing appointment
  */
-public class AppointmentEditFragment extends Fragment {
+public class AppointmentEditFragment extends Fragment
+        implements DatePickerFragment.RecieveDateValueListener{
 
     private EditText _name;
     private EditText _email;
     private EditText _phone;
+    private String   _customerId;
     private EditText _date;
+    private EditText _time;
     private Spinner _serviceSpinner;
     private EditText _servicePrice;
     private EditText _notes;
     private Button _btnSave;
     private Button _btnCancel;
     private Map<String, Service> _servicesMap;
+    private Service _selectedService;
+    private LocalDate _selectedDate;
+    private LocalTime _selectedTime;
+
+
 
     private static final String TAG  = "AppointmentEditFragment";
+    private static final int DATE_DIALOG = 1;
+    private static final int TIME_DIALOG = 2;
 
     OnSubmitAppointment _hostActivity;
 
@@ -65,40 +78,78 @@ public class AppointmentEditFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView =inflater.inflate(R.layout.fragment_appointment_edit, container, false);
 
-        _name = (EditText) rootView.findViewById(R.id.etxt_customer_name);
-        _phone = (EditText) rootView.findViewById(R.id.etxt_customer_phone);
-        _email = (EditText) rootView.findViewById(R.id.etxt_customer_email);
-        _date = (EditText) rootView.findViewById(R.id.etxt_appointment_date);
+        _name           = (EditText) rootView.findViewById(R.id.etxt_customer_name);
+        _phone          = (EditText) rootView.findViewById(R.id.etxt_customer_phone);
+        _email          = (EditText) rootView.findViewById(R.id.etxt_customer_email);
+        _date           = (EditText) rootView.findViewById(R.id.etxt_appointment_date);
+        _time           = (EditText) rootView.findViewById(R.id.etxt_appointment_time);
         _serviceSpinner = (Spinner) rootView.findViewById(R.id.spinner_service_type);
-        _servicePrice = (EditText) rootView.findViewById(R.id.etxt_price);
-        _notes = (EditText) rootView.findViewById(R.id.etxt_other_notes);
-        _btnSave = (Button) rootView.findViewById(R.id.btn_appointment_save);
-        _btnCancel = (Button) rootView.findViewById(R.id.btn_appointment_cancel);
-        _servicesMap = new HashMap<String, Service>();
+        _servicePrice   = (EditText) rootView.findViewById(R.id.etxt_price);
+        _notes          = (EditText) rootView.findViewById(R.id.etxt_other_notes);
+        _btnSave        = (Button) rootView.findViewById(R.id.btn_edit_bar_save);
+        _btnCancel      = (Button) rootView.findViewById(R.id.btn_edit_bar_cancel);
+        _servicesMap    = new HashMap<String, Service>();
+        _servicesMap    = _hostActivity.getServices();
 
-        _servicesMap = _hostActivity.getServices();
 
 
 
         // Set up the spinner for services list
         setupServicesSpinner();
 
+        // Initialize customer details
+        initializeCustomerDetails();
+
 
         // Onclick listener for the save button
         _btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createAppointment();
+                Appointment newAppointment = createAppointment();
+
+                if (newAppointment != null){
+                    _hostActivity.onAppointmentEditFinish(newAppointment);
+                }
             }
         });
+
+        // onClick Listener for cancel
+        _btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                _hostActivity.onCancelAppointmentEdit();
+            }
+        });
+
+        // On click listener for date
+        _date.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(getActivity().findViewById(R.id.content_frame), "Called to set date",
+                        Snackbar.LENGTH_SHORT );
+                DialogFragment dateFragment = new DatePickerFragment();
+                dateFragment.show(getFragmentManager(), "DatePicker");
+            }
+        });
+
+        // onClick listener for time
+        _date.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+
 
         /* Listen for when an item is selected and set the price accordingly */
         _serviceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 Service currentService = _servicesMap.get(adapterView.getSelectedItem().toString());
+                _selectedService = currentService;
                 Double price = currentService.getPrice();
-                String localePrice =  getString(R.string.dollar_sign) +  String.format(Locale.US,"%1.2f", price);
+                String localePrice =  String.format(Locale.US,"%1.2f", price);
                 _servicePrice.setText(localePrice);
             }
 
@@ -109,9 +160,35 @@ public class AppointmentEditFragment extends Fragment {
         });
 
 
+
         // Inflate the layout for this fragment
         return rootView;
     }
+
+
+    @Override
+    public void setDate(LocalDate date) {
+        _selectedDate = date;
+        _date.setText(date.toString());
+    }
+
+    /**
+     * Call the host activity's getCustomerForAppointment and use the customer details
+     * to initialize the customer details for the appointment
+     */
+    private void initializeCustomerDetails() {
+
+        Customer customer = _hostActivity.getCustomerForAppointment();
+
+        if (customer != null) {
+            _name.setText(customer.getName());
+            _email.setText(customer.getEmail());
+            _phone.setText(customer.getPhone());
+            _customerId = customer.getId();
+        }
+    }
+
+
 
     @Override
     public void onResume() {
@@ -142,27 +219,40 @@ public class AppointmentEditFragment extends Fragment {
 
     }
 
-    private void createAppointment() {
-        String name = _name.getText().toString();
+
+    /**
+     * Create an appointment
+     * @return newly created appointment
+     */
+    private Appointment createAppointment() {
+
+        Appointment appointment = null;
+
+        // these two fields should be required
+        if (_name == null)  {return null;}
+        if (_date == null)  {return null;}
+        if (_selectedService != null) {
+            Log.e(TAG, "Selected service was null");
+            return null;
+        }
+
+        String title = _name.getText().toString();
         String phone = _phone.getText().toString();
         String email = _email.getText().toString();
-        String date = _date.getText().toString();
-        String service = "Dummy text for now";
-        String servicePrice = _servicePrice.getText().toString();
-        String notes = _notes.getText().toString();
+        LocalDateTime date = LocalDateTime.now();
+        String notes;
 
-        // check for email
-        if (!isValidEmail(email)) {
-            Toast.makeText(getActivity(), "Invalid email. Please enter a valid email",
-                    Toast.LENGTH_SHORT).show();
+        // this should be optional
+        if (_notes != null) {
+            notes  = _notes.getText().toString();
+        }
+
+        if (!title.isEmpty() && _selectedService != null) {
+            appointment = new Appointment(title, date, _customerId, _selectedService);
 
         }
 
-        if (!name.isEmpty()) {
-           // Appointment newAppointment = new Appointment();
-           // _hostActivity.onEditAppointmentFinish(newAppointment);
-        }
-
+        return appointment;
     }
 
 
@@ -187,6 +277,7 @@ public class AppointmentEditFragment extends Fragment {
         Map<String, Service> getServices();
         void hideActionbar();
         void showActionbar();
+        Customer getCustomerForAppointment();
     }
 
     /**

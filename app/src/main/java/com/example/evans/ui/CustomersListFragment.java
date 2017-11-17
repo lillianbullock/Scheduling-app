@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.evans.R;
 import com.example.evans.data.Customer;
@@ -104,7 +103,6 @@ public class CustomersListFragment extends Fragment {
      * onAddCustomer method it better had implemented our interface
      */
     public void onCreateCustomer() {
-        Toast.makeText(getActivity(), "You tried to add a new customer", Toast.LENGTH_SHORT).show();
         _hostActivityListener.onAddCustomer();
     }
 

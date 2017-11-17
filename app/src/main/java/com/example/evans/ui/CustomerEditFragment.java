@@ -174,7 +174,7 @@ public class CustomerEditFragment extends Fragment {
     public interface OnSubmitCustomerEdit {
 
         void onCustomerEditFinish (Customer customer);
-        void onAddAppointmentClick(Customer customer);
+        void onAddAppointmentClickForCustomer(Customer customer);
         int getNextCustomerId();
         void hideActionbar();
         void showActionbar();
