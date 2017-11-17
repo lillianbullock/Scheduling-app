@@ -41,6 +41,15 @@ public class Goal implements Comparable {
         } else _isRepeat = true;
     }
 
+    public Goal(String title, String description, LocalDateTime dueDate,
+                LocalDateTime startDate) {
+        this._title = title;
+        this._description = description;
+        this._dueDate = dueDate;
+        this._startDate = startDate;
+
+    }
+
     /**
      * getter functions for each of the member variables
      */

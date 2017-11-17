@@ -33,13 +33,16 @@ public class GoalAdapter extends ArrayAdapter<Goal> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        convertView = inflater.inflate(R.layout.goal_adapter, null);
+        View view = convertView;
 
-        TextView textView = (TextView) convertView.findViewById(R.id.goal_adapter_view);
+        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        view = inflater.inflate(R.layout.goal_adapter, null);
+
+        TextView textView = (TextView) view.findViewById(R.id.goal_adapter_view);
 
         textView.setText(goalList.get(position).getTitle());
-        return convertView;
+        return view;
 
     }
 }

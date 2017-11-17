@@ -59,14 +59,11 @@ public class ServiceListFragment extends Fragment {
             test2.setTitle("Title2");
             serviceArrayList.add(test2);
 
-            ListView listView = (ListView) _rootView.findViewById(R.id.service_adapter_list);
+            ListView listView = (ListView) _rootView.findViewById(R.id.service_list);
 
-            if(serviceArrayList != null) {
-                ServiceAdapter adapter = new ServiceAdapter(getActivity(), R.layout.service_adapter, serviceArrayList);
+            ServiceAdapter adapter = new ServiceAdapter(getActivity(), R.layout.service_adapter, serviceArrayList);
 
-                //TODO NULL pointer exception is thrown fix here to get adapter to work
-                //listView.setAdapter(adapter);
-            }
+            listView.setAdapter(adapter);
             return _rootView;
         }
 

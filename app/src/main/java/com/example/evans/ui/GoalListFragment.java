@@ -9,11 +9,14 @@ import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.evans.R;
 import com.example.evans.data.Goal;
+
+import org.joda.time.LocalDateTime;
 
 import java.util.ArrayList;
 
@@ -36,9 +39,9 @@ public class GoalListFragment  extends Fragment {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        _rootView = inflater.inflate(R.layout.fragment_customers_list, container, false);
+        _rootView = inflater.inflate(R.layout.fragment_goal_list, container, false);
 
-        _addFloatingBtn = (FloatingActionButton) _rootView.findViewById(R.id.floating_add_btn);
+        _addFloatingBtn = (FloatingActionButton) _rootView.findViewById(R.id.floating_btn);
 
         _addFloatingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,19 +55,15 @@ public class GoalListFragment  extends Fragment {
 
         super.onCreate(savedInstanceState);
 
-        Goal test1 = new Goal();
-        test1.setTitle("test");
-        goalArrayList.add(test1);
+        ListView goalList = (ListView) _rootView.findViewById(R.id.goal_list);
 
-        Goal test2 = new Goal();
-        test2.setTitle("test2");
-        goalArrayList.add(test2);
+        Goal goal = new Goal("Two", "Do two things", LocalDateTime.now(), LocalDateTime.now());
+        ArrayList<Goal> newGoals = new ArrayList<>();
+        newGoals.add(goal);
 
-        ListView goalList = (ListView) _rootView.findViewById(R.id.goal_adapter_view);
+        GoalAdapter goalArrayAdapter = new GoalAdapter(getActivity(), R.layout.goal_adapter, newGoals);
 
-        GoalAdapter goalAdapter = new GoalAdapter(getActivity(), R.layout.goal_adapter, goalArrayList);
-//      TODO fix this line of code null pointer exception not sure why it doesn't like me
-//        goalList.setAdapter(goalAdapter);
+        goalList.setAdapter(goalArrayAdapter);
 
         return _rootView;
     }
