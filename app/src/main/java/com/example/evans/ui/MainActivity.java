@@ -20,6 +20,7 @@ import com.example.evans.data.Appointment;
 import com.example.evans.data.Customer;
 import com.example.evans.data.Goal;
 import com.example.evans.data.MainController;
+import com.example.evans.data.Sale;
 import com.example.evans.data.Service;
 import com.example.evans.data.TimePeriod;
 import com.google.firebase.database.DatabaseReference;
@@ -37,7 +38,8 @@ public class MainActivity extends AppCompatActivity implements
         GoalEditFragment.OnSubmitGoalEdit,
         GoalListFragment.InteractionWithGoalsListFragmentListener,
         AppointmentsListFragment.InteractionWithAppointmentFragmentListener,
-        AppointmentEditFragment.OnSubmitAppointment
+        AppointmentEditFragment.OnSubmitAppointment,
+        SalesListFragment.InteractionWithSalesFragmentListener
     {
 
     // Variables
@@ -96,6 +98,14 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public List<Appointment> getAppointments() { return _mainController.getAppointments(TimePeriod.Week); }
+
+
+    @Override
+    public List<Goal> getGoal() { //TODO Figure out if we need more than one function for week day or year goals
+        return _mainController.getGoals(TimePeriod.Week); }
+
+    @Override
+    public List<Sale> getSale() { return _mainController.getAllSales(); }
 
     @Override
     public void hideActionbar() {
@@ -188,13 +198,12 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onClickAddGoal() {
-        Toast.makeText(this, "Recieved instruction to create a goal", Toast.LENGTH_LONG).show();
         _currentFragment = new GoalEditFragment();
         loadCurrentFragment(true);
-        // TODO Implement
     }
 
-    @Override
+
+        @Override
     public void onGoalEditFinish(Goal goal) {
         // Return to the main page for now
         // TODO Go to goal view

@@ -41,7 +41,7 @@ public class SalesAdapter extends ArrayAdapter<Sale> {
 
         View view = inflater.inflate(R.layout.sales_adapter, null);
 
-        TextView textView = (TextView) view.findViewById(R.id.sales_list);
+        TextView textView = (TextView) view.findViewById(R.id.salesAdapter);
 
         textView.setText(SalesArrayList.get(position).getService().getTitle());
 

@@ -59,6 +59,9 @@ public class ServiceListFragment extends Fragment {
             test2.setTitle("Title2");
             serviceArrayList.add(test2);
 
+            //TODO PLACE BACK IN CODE WITH FIREBASE UPLOAD
+            //serviceArrayList = (ArrayList) _hostActivityListener.getServices();
+
             ListView listView = (ListView) _rootView.findViewById(R.id.service_list);
 
             ServiceAdapter adapter = new ServiceAdapter(getActivity(), R.layout.service_adapter, serviceArrayList);
@@ -94,6 +97,8 @@ public class ServiceListFragment extends Fragment {
         public interface InteractionWithServiceFragmentListener{
             void onClickService(Service service);
             void onAddService();
+            //TODO Figure out if map of getServices will work or if we need a list of the services
+           // List<Service> getService();
         }
 
         /**

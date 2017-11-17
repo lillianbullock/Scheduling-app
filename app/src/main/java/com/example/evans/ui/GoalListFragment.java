@@ -19,12 +19,14 @@ import com.example.evans.data.Goal;
 import org.joda.time.LocalDateTime;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Brooke Nelson on 11/9/2017
  */
 
 public class GoalListFragment  extends Fragment {
+
     private FloatingActionButton _addFloatingBtn;
     private View _rootView;  // how we can get access to view elements
     private InteractionWithGoalsListFragmentListener _hostActivity;
@@ -51,18 +53,20 @@ public class GoalListFragment  extends Fragment {
         });
 
         //setting arrayAdapter
-        ArrayList<Goal> goalArrayList = new ArrayList<>();
+        ArrayList<Goal> newGoals = new ArrayList<>();
+        ListView goalList;
 
         super.onCreate(savedInstanceState);
 
-        ListView goalList = (ListView) _rootView.findViewById(R.id.goal_list);
-
         Goal goal = new Goal("Two", "Do two things", LocalDateTime.now(), LocalDateTime.now());
-        ArrayList<Goal> newGoals = new ArrayList<>();
         newGoals.add(goal);
 
-        GoalAdapter goalArrayAdapter = new GoalAdapter(getActivity(), R.layout.goal_adapter, newGoals);
+        //TODO information back in with database
+        //goalList = (ArrayList) _hostActivity.getGoal();
 
+        goalList = (ListView) _rootView.findViewById(R.id.goal_list);
+
+        GoalAdapter goalArrayAdapter = new GoalAdapter(getActivity(), R.layout.goal_adapter, newGoals);
         goalList.setAdapter(goalArrayAdapter);
 
         return _rootView;
@@ -81,17 +85,16 @@ public class GoalListFragment  extends Fragment {
         }
     }
 
-    public void onCreateGoal() {
-        _hostActivity.onClickAddGoal();
-    }
-
-
     /**
      * Interface that should be implemented by the container the activity that
      * creates this fragment. This method should be invoked when the user clicks on the plus button */
     public interface InteractionWithGoalsListFragmentListener {
         void onClickGoal();
         void onClickAddGoal();
+        List<Goal> getGoal();
     }
 
+    public void onCreateGoal() {
+        _hostActivity.onClickAddGoal();
+    }
 }
