@@ -54,15 +54,6 @@ public class Customer implements Comparable{
         _dateAdded = dateAdded;
     }
 
-    public Customer(String id, String name, String email, String phone, LocalDate dateAdded, String otherInfo){
-        _id = id;
-        _name = name;
-        _email = email;
-        _phone = phone;
-        _dateAdded = dateAdded;
-        _otherInfo = otherInfo;
-    }
-
 
     /**
      * This is the same as getDateAdded but it returns a date not a string.
