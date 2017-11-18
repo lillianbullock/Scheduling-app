@@ -20,7 +20,7 @@ import java.util.Calendar;
 public class DatePickerFragment extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
 
-    RecieveDateValueListener _caller;
+    OnDateSetListener _caller;
     private static final String TAG = "DatePickerFragment";
 
     @NonNull
@@ -39,23 +39,36 @@ public class DatePickerFragment extends DialogFragment
 
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-        LocalDate selectedDate = new LocalDate(year, month, day);
-        _caller.setDate(selectedDate);
+
+        try {
+            _caller = (OnDateSetListener) getTargetFragment();
+        } catch (ClassCastException e) {
+            Log.e(TAG, "The Calling activity did not implement OnDateSetListener");
+            throw new ClassCastException(getTargetFragment().toString() + " must implement OnDateSetListener");
+        }
+
+        // add one to month since it starts at zero
+        LocalDate selectedDate = new LocalDate(year, month + 1, day);
+
+        // call the callee's onDateSet to do with the date whatever it wants to do. It's not our business
+        // we did our job by getting the date for them
+        _caller.onDateSet(selectedDate);
     }
 
+    // TODO we don't need this anymore. Remove onAttach
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
 
         try {
-            _caller = (RecieveDateValueListener) context;
+            _caller = (OnDateSetListener) context;
         } catch (ClassCastException e) {
             Log.e(TAG, "The Calling activity did not implement RecieveDateValueListener");
             throw new ClassCastException(context.toString() + " must implement RecieveDateValueListener");
         }
     }
 
-    public interface RecieveDateValueListener {
-        void setDate(LocalDate date);
+    public interface OnDateSetListener {
+        void onDateSet(LocalDate date);
     }
 }

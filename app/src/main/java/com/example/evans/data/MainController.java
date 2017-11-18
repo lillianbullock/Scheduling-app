@@ -268,6 +268,38 @@ public class MainController {
 
     }
 
+    /**
+     * Return the first customer that matches the id.
+     * Return null if nothing was found
+     * @return Customer
+     */
+    public Customer getCustomerById(String id) {
+        for (Customer customer: _customers){
+            if (customer.getId().equals(id)) {
+                return customer;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Return the first customer that matches the name. Return null
+     * if nothing was found
+     * @param name: customer name
+     * @return Customer
+     */
+    public Customer getCustomerByName(String name) {
+        for (Customer customer: _customers){
+            if (customer.getName().equals(name)){
+                return  customer;
+            }
+        }
+
+        // nothing was found
+        return  null;
+    }
+
 
     /**
      * Return a list of goals that are due in a certain month

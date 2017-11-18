@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements
         GoalListFragment.InteractionWithGoalsListFragmentListener,
         AppointmentsListFragment.InteractionWithAppointmentFragmentListener,
         AppointmentEditFragment.OnSubmitAppointment,
-        DatePickerFragment.RecieveDateValueListener,
+        DatePickerFragment.OnDateSetListener,
         SalesListFragment.InteractionWithSalesFragmentListener
     {
 
@@ -311,7 +311,38 @@ public class MainActivity extends AppCompatActivity implements
     }
 
         @Override
-    public void onAppointmentEditFinish(Appointment appointment) {
+    public void onAppointmentEditFinish(Customer customer, Appointment appointment) {
+
+        if (appointment == null || customer == null) {
+            return;
+        }
+
+        // Check if the customer was created in the appointment view. The id would be set to null if it was
+        if (customer.getId() == null){
+            // check if we have a customer like that already if not add it
+            // TODO do we want to prompt the user or just add it automatically
+            if (_mainController.getCustomerByName(customer.getName()) == null) {
+                customer.setId(String.valueOf(getNextCustomerId()));
+                _mainController.addCustomer(customer);
+            }
+        }
+
+        // set the appointment's customerId so we can keep track of which customer had the appointment
+        appointment.setCustomerId(customer.getId());
+
+        String appointmentDetails = "Customer name: " + _mainController.getCustomerById(appointment.getCustomerId()).getName()
+                                    + "\nCustomer email: " + _mainController.getCustomerById(appointment.getCustomerId()).getEmail()
+                                    + "\nCustomer phone: " + _mainController.getCustomerById(appointment.getCustomerId()).getPhone()
+                                    + "\nDate: " + appointment.getDate().toString()
+                                    + "\nTime: " + appointment.getTime().toString()
+                                    + "\nService: " + appointment.getService().getTitle()
+                                    + "\nPrice: " + appointment.getService().getPrice();
+
+        _currentFragment = new StartPageFragment();
+        loadCurrentFragment(false);
+        Toast.makeText(this, appointmentDetails, Toast.LENGTH_LONG).show();
+
+
         //TODO get the customer id using the customer name. If not exist, prompt user to save customer
         //TODO if customer exist then add the customer Id to the appointment.
         _mainController.addAppointment(appointment);
@@ -462,7 +493,8 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void setDate(LocalDate date) {
+    public void onDateSet(LocalDate date) {
+        Snackbar.make(findViewById(R.id.content_frame), "SET DATE CALLED IN PARENT ACTIVITY", Snackbar.LENGTH_LONG).show();
 
     }
 }
