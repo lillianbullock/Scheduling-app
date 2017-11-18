@@ -15,7 +15,7 @@
 
         <Button
             android:id="@+id/btn_edit_bar_cancel"
-            android:text="@string/cancel"
+            android:text="@string/button_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

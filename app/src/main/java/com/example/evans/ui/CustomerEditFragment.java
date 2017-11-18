@@ -58,7 +58,6 @@ public class CustomerEditFragment extends Fragment {
         _name = (EditText) rootView.findViewById(R.id.etxt_name);
         _phone = (EditText) rootView.findViewById(R.id.etxt_phone);
         _email = (EditText) rootView.findViewById(R.id.etxt_email);
-        _otherInformation = (EditText) rootView.findViewById(R.id.etxt_other_notes);
 
         _setAppointmentBtn = rootView.findViewById(R.id.btn_set_appt);
         _saveBtn = rootView.findViewById(R.id.btn_save_edit);
@@ -102,13 +101,13 @@ public class CustomerEditFragment extends Fragment {
         String otherInfo = _otherInformation.getText().toString();
         LocalDate currentDate = LocalDate.now();
 
-        Customer newCustomer = new Customer(id, name, email, phone, currentDate, otherInfo);
+        Customer newCustomer = new Customer(id, name, email, phone, currentDate);
 
         if (!name.isEmpty()) {
 
             // Email isn't required but if it's not empty then check to make sure it's a valid email
             if (email.isEmpty() || (!email.isEmpty() && isValidEmail(email))) {
-                newCustomer = new Customer(id, name, email, phone, currentDate, otherInfo);
+                newCustomer = new Customer(id, name, email, phone, currentDate);
                 return newCustomer;
             } else {
                 Snackbar.make(getActivity().findViewById(R.id.content_frame), "ERROR: Invalid email", Snackbar.LENGTH_LONG).show();
@@ -143,16 +142,6 @@ public class CustomerEditFragment extends Fragment {
         String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
 
         return (email.matches(EMAIL_REGEX));
-    }
-
-
-    /**
-     * Construct a customer and pass it to the host activity by calling it's
-     * onCustomerEditFinish function
-     */
-    public void onSaveCustomerClick() {
-
-        // TODO - Implement
     }
 
     /**

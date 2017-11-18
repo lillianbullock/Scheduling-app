@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Evans</string>
-    <string name="SeeMore">See More</string>
+    <string name="see_more">See More</string>
     <string name="edit">Edit</string>
-    <string name="setApt">Set Appointment</string>
+    <string name="set_appt">Set Appointment</string>
     <string name="title_activity_main2">Main2Activity</string>
 
     <!-- For the navigation drawer -->
@@ -19,10 +19,6 @@
     <string name="menu_service"> Service </string>
     <string name="menu_exit"> Exit </string>
     <string name="menu_create_report"> Create Report </string>
-
-
-    <string name="set_appt">Set Appointment</string>
-    <string name="save_edit">Save</string>
 
     <!--Field edit titles-->
     <string name="appointment_name">Name:</string>
@@ -53,8 +49,14 @@
     <string name="date_enter_hint">Day-Month-Year Hour:Min</string>
 
     <!-- button strings-->
+    <string name="button_edit">Edit</string>
     <string name="button_save">Save</string>
-    <string name="cancel">Cancel</string>
+    <string name="button_cancel">Cancel</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="done">Done</string>
 
+    <!-- set this as the default string in layouts where it will be overwritten-->
+    <string name="default_string">Default</string>
 </resources>
