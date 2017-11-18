@@ -23,7 +23,7 @@ public class ServiceListFragment extends Fragment {
 
     FloatingActionButton _addFloatingBtn;
     View _rootView;  // how we can get access to view elements
-    InteractionWithServiceFragmentListener _hostActivityListener;
+    InteractionWithServiceListFragmentListener _hostActivityListener;
 
 
     public ServiceListFragment() {
@@ -83,7 +83,7 @@ public class ServiceListFragment extends Fragment {
             super.onAttach(activity);
 
             try {
-                _hostActivityListener = (InteractionWithServiceFragmentListener) activity;
+                _hostActivityListener = (InteractionWithServiceListFragmentListener) activity;
             } catch (ClassCastException e) {
                 throw new ClassCastException(activity.toString() + " must implement " +
                         "InteractionWithServiceFragmentListener");
@@ -94,7 +94,7 @@ public class ServiceListFragment extends Fragment {
          * This interface must be implemented by the container Activity
          * This is how we'll be able to communicate with the parent activity.
          */
-        public interface InteractionWithServiceFragmentListener{
+        public interface InteractionWithServiceListFragmentListener{
             void onClickService(Service service);
             void onAddService();
         }

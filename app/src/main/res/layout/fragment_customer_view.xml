@@ -10,7 +10,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/txt_name"
+            android:id="@+id/txt_view_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -23,7 +23,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/txt_phone"
+            android:id="@+id/txt_view_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -33,10 +33,10 @@
             android:labelFor="@id/etxt_phone"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_name" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_view_name" />
 
         <TextView
-            android:id="@+id/txt_email"
+            android:id="@+id/txt_view_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -46,20 +46,7 @@
             android:labelFor="@id/etxt_email"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_phone" />
-
-        <TextView
-            android:id="@+id/txt_other_notes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="32dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="44dp"
-            android:text="@string/customer_other_info"
-            android:labelFor="@id/etxt_other_notes"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_email" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_view_phone" />
 
         <Button
             android:id="@+id/btn_set_appt"
@@ -71,7 +58,7 @@
             android:text="@string/set_appt"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_other_notes"
+            app:layout_constraintTop_toBottomOf="@+id/txt_view_phone"
             app:layout_constraintVertical_bias="0.215" />
 
         <Button
@@ -82,14 +69,16 @@
             android:layout_marginEnd="16dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="@string/button_save"
+            android:text="@string/button_edit"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.723"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btn_set_appt"
-            app:layout_constraintTop_toBottomOf="@+id/txt_other_notes"
+            app:layout_constraintTop_toBottomOf="@+id/txt_view_phone"
             app:layout_constraintVertical_bias="0.216" />
     </android.support.constraint.ConstraintLayout>
+
+    <!-- TODO next appointment portion -->
 </FrameLayout>

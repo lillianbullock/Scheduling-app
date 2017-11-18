@@ -23,7 +23,6 @@ public class Customer implements Comparable{
     private String _name;
     private String _email;
     private String _phone;
-    private String _otherInfo;
 
 
 
@@ -53,16 +52,6 @@ public class Customer implements Comparable{
         _phone = phone;
         _dateAdded = dateAdded;
     }
-
-    public Customer(String id, String name, String email, String phone, LocalDateTime dateAdded, String otherInfo){
-        _id = id;
-        _name = name;
-        _email = email;
-        _phone = phone;
-        _dateAdded = dateAdded;
-        _otherInfo = otherInfo;
-    }
-
 
     /**
      * This is the same as getDateAdded but it returns a date not a string.
@@ -100,9 +89,6 @@ public class Customer implements Comparable{
 
     public void setPhone(String phone) { this._phone = phone; }
     public String getPhone() { return _phone; }
-
-    public void setOtherInfo(String _otherInfo) { this._otherInfo = _otherInfo; }
-    public String getOtherInfo() { return _otherInfo; }
 
     public List findAppointments(){
         return null;

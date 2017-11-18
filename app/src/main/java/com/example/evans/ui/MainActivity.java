@@ -31,13 +31,15 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements
         CustomerEditFragment.OnSubmitCustomerEdit,
-        CustomersListFragment.InteractionWithCustomerFragmentListener,
+        CustomersListFragment.InteractionWithCustomerListFragmentListener,
         ServiceEditFragment.OnSubmitServiceEdit,
-        ServiceListFragment.InteractionWithServiceFragmentListener,
+        ServiceListFragment.InteractionWithServiceListFragmentListener,
         GoalEditFragment.OnSubmitGoalEdit,
         GoalListFragment.InteractionWithGoalsListFragmentListener,
-        AppointmentsListFragment.InteractionWithAppointmentFragmentListener,
-        AppointmentEditFragment.OnSubmitAppointment
+        AppointmentsListFragment.InteractionWithAppointmentListFragmentListener,
+        AppointmentEditFragment.OnSubmitAppointment,
+        CustomerViewFragment.InteractionWithCustomerViewFragmentListener
+
     {
 
     // Variables
@@ -87,15 +89,19 @@ public class MainActivity extends AppCompatActivity implements
     /** IMPLEMENT METHODS for all the fragments that this activity will use */
     @Override
     public Map<String, Service> getServices () {
-
         return _mainController.getAvailableServices();
     }
 
     @Override
-    public List<Customer> getCustomers() { return _mainController.getCustomers(); }
+    public Customer getViewCustomer() {
+        return null;
+    }
 
     @Override
-    public List<Appointment> getAppointments() { return _mainController.getAppointments(TimePeriod.Week); }
+    public List<Customer> getCustomerList() { return _mainController.getCustomers(); }
+
+    @Override
+    public List<Appointment> getAppointmentList() { return _mainController.getAppointments(TimePeriod.Week); }
 
     @Override
     public void hideActionbar() {
@@ -120,12 +126,14 @@ public class MainActivity extends AppCompatActivity implements
             loadCurrentFragment(false);
         }
 
-        // Return to the main page for now
-        _currentFragment = new StartPageFragment();
+         CustomerViewFragment _frag = new CustomerViewFragment();
+        _frag.setCustomer(customer);
+        _currentFragment = _frag;
+
         loadCurrentFragment(false);
 
         // TODO Add the new customer to the database for now. We'll need to coordinate with Main controller to sync properly
-       _database.child(DATABASE_CUSTOMER_REF).child(String.valueOf(customer.getId())).setValue(customer);
+        _database.child(DATABASE_CUSTOMER_REF).child(String.valueOf(customer.getId())).setValue(customer);
 
         _mainController.addCustomer(customer);
 
@@ -379,4 +387,6 @@ public class MainActivity extends AppCompatActivity implements
             super.onBackPressed();
         }
     }
-}
+
+
+    }

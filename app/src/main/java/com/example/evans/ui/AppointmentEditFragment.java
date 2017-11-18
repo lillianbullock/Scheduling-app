@@ -68,7 +68,7 @@ public class AppointmentEditFragment extends Fragment {
         _date = (EditText) rootView.findViewById(R.id.etxt_appointment_date);
         _serviceSpinner = (Spinner) rootView.findViewById(R.id.spinner_service_type);
         _servicePrice = (EditText) rootView.findViewById(R.id.etxt_price);
-        _notes = (EditText) rootView.findViewById(R.id.etxt_other_notes);
+        _notes = (EditText) rootView.findViewById(R.id.etxt_appointment_note);
         _btnSave = (Button) rootView.findViewById(R.id.btn_appointment_save);
         _btnCancel = (Button) rootView.findViewById(R.id.btn_appointment_cancel);
         _servicesMap = new HashMap<String, Service>();
