@@ -16,7 +16,9 @@ import com.example.evans.data.Customer;
 import com.example.evans.data.Service;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
+import org.joda.time.LocalTime;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,12 +63,12 @@ public class AppointmentsListFragment extends Fragment {
         Service s1 = new Service("Service1", "", 2.00);
         Service s2 = new Service("Service2", "", 3.00);
 
-        Appointment test1 = new Appointment("testName", new LocalDateTime(), "0", false,
-                s1, false, false);
+        Appointment test1 = new Appointment("testName", LocalDate.now(), LocalTime.now(), "0",
+                s1);
         appointmentList.add(test1);
 
-        Appointment test2 = new Appointment("testName2", new LocalDateTime(), "0", false,
-                s2, false, false);
+        Appointment test2 = new Appointment("testName2", LocalDate.now(), LocalTime.now(), "0",
+                s2);
         appointmentList.add(test2);
 
         //TODO put this back when app actually gets data from database (and take out dummy data above)

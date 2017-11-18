@@ -7,7 +7,8 @@ import android.support.annotation.RequiresApi;
 
 import com.google.firebase.database.Exclude;
 
-import org.joda.time.LocalDateTime;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDate;
 
 import java.util.List;
 
@@ -26,17 +27,17 @@ public class Customer implements Comparable{
 
 
     //Not really sure about the constructor or this one there were a lot of option
-    private LocalDateTime _dateAdded;
+    private LocalDate _dateAdded;
 
     public Customer(){
         _id = "";
         _name = "";
         _email = "";
         _phone = "";
-        _dateAdded = LocalDateTime.now();
+        _dateAdded = LocalDate.now();
     }
 
-    public Customer(String id, String name, String email, String phone, LocalDateTime dateAdded, Appointment appointment){
+    public Customer(String id, String name, String email, String phone, LocalDate dateAdded, Appointment appointment){
         _id = id;
         _name = name;
         _email = email;
@@ -44,13 +45,14 @@ public class Customer implements Comparable{
         _dateAdded = dateAdded;
     }
 
-    public Customer(String id, String name, String email, String phone, LocalDateTime dateAdded){
+    public Customer(String id, String name, String email, String phone, LocalDate dateAdded){
         _id = id;
         _name = name;
         _email = email;
         _phone = phone;
         _dateAdded = dateAdded;
     }
+
 
     /**
      * This is the same as getDateAdded but it returns a date not a string.
@@ -58,7 +60,7 @@ public class Customer implements Comparable{
      * @return
      */
     @Exclude
-    public LocalDateTime getDateAddedDate() { return _dateAdded; }
+    public LocalDate getDateAddedDate() { return _dateAdded; }
 
 
     /**
@@ -67,14 +69,14 @@ public class Customer implements Comparable{
      * @return
      */
     @Exclude
-    public void setDateAddedDate(LocalDateTime dateAdded) { this._dateAdded = dateAdded; }
+    public void setDateAddedDate(LocalDate dateAdded) { this._dateAdded = dateAdded; }
 
     public String getDateAdded() {
         return _dateAdded.toString();
     }
 
     public  void setDateAdded(String dateString) {
-        this._dateAdded = LocalDateTime.parse(dateString);
+        this._dateAdded = LocalDate.parse(dateString);
     }
 
     public void setId(String id) { this._id = id; }

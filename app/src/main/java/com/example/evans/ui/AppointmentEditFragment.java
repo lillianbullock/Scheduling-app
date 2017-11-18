@@ -3,14 +3,12 @@ package com.example.evans.ui;
 
 
 import android.app.DialogFragment;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -26,8 +24,9 @@ import com.example.evans.data.Customer;
 import com.example.evans.data.Service;
 
 import org.joda.time.LocalDate;
-import org.joda.time.LocalDateTime;
 import org.joda.time.LocalTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,7 +41,8 @@ import java.util.Map;
  * or edit an existing appointment
  */
 public class AppointmentEditFragment extends Fragment
-        implements DatePickerFragment.RecieveDateValueListener{
+        implements DatePickerFragment.OnDateSetListener,
+                   TimePickerFragment.OnTimeSetListener {
 
     private EditText _name;
     private EditText _email;
@@ -59,6 +59,7 @@ public class AppointmentEditFragment extends Fragment
     private Service _selectedService;
     private LocalDate _selectedDate;
     private LocalTime _selectedTime;
+    private Customer _selectedCustomer;
 
 
 
@@ -93,6 +94,8 @@ public class AppointmentEditFragment extends Fragment
 
 
 
+
+
         // Set up the spinner for services list
         setupServicesSpinner();
 
@@ -107,7 +110,10 @@ public class AppointmentEditFragment extends Fragment
                 Appointment newAppointment = createAppointment();
 
                 if (newAppointment != null){
-                    _hostActivity.onAppointmentEditFinish(newAppointment);
+                    _hostActivity.onAppointmentEditFinish(_selectedCustomer, newAppointment);
+                } else {
+                    Snackbar.make(getActivity().findViewById(R.id.content_frame),
+                            "ERROR: Invalid customer data. Please review your input", Snackbar.LENGTH_LONG).show();
                 }
             }
         });
@@ -121,10 +127,11 @@ public class AppointmentEditFragment extends Fragment
         });
 
         // On click listener for date
-        _date.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        _date.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onFocusChange(View view, boolean b) {
+            public void onClick(View view) {
                 DialogFragment dateFragment = new DatePickerFragment();
+                dateFragment.setTargetFragment(AppointmentEditFragment.this, 0);
                 dateFragment.show(getFragmentManager(), "DatePicker");
             }
         });
@@ -133,8 +140,9 @@ public class AppointmentEditFragment extends Fragment
         _time.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                DialogFragment dateFragment = new DatePickerFragment();
-                dateFragment.show(getFragmentManager(), "DatePicker");
+                DialogFragment timeFragment = new TimePickerFragment();
+                timeFragment.setTargetFragment(AppointmentEditFragment.this, 0);
+                timeFragment.show(getFragmentManager(), "DatePicker");
             }
         });
 
@@ -144,10 +152,15 @@ public class AppointmentEditFragment extends Fragment
         _serviceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                // set the selected service so we can use it later
                 Service currentService = _servicesMap.get(adapterView.getSelectedItem().toString());
                 _selectedService = currentService;
+
                 Double price = currentService.getPrice();
                 String localePrice =  String.format(Locale.US,"%1.2f", price);
+
+                // display the price to the user
                 _servicePrice.setText(localePrice);
             }
 
@@ -158,16 +171,65 @@ public class AppointmentEditFragment extends Fragment
         });
 
 
-
-        // Inflate the layout for this fragment
+        // return the inflated layout for this fragment
         return rootView;
     }
 
 
+    /**
+     * Create an appointment
+     * @return newly created appointment
+     */
+    private Appointment createAppointment() {
+
+        Appointment appointment = null;
+
+        // these two fields should be required
+        if (_name == null)  {return null;}
+        if (_date == null)  {return null;}
+        if (_selectedService == null) {
+            Log.e(TAG, "Selected service was null");
+            return null;
+        }
+
+        String title = _name.getText().toString();
+        String phone = _phone.getText().toString();
+        String email = _email.getText().toString();
+        String notes;
+
+        if (_selectedCustomer == null) {
+            _selectedCustomer = new Customer(null, title, email, phone, LocalDate.now());
+        }
+
+        // this should be optional
+        if (_notes != null) {
+            notes  = _notes.getText().toString();
+        }
+
+        if (!title.isEmpty() && _selectedService != null) {
+            appointment = new Appointment(title, _selectedDate, _selectedTime, _customerId, _selectedService);
+
+        }
+
+        // return appointment;
+        return appointment;
+
+
+    }
+
+
     @Override
-    public void setDate(LocalDate date) {
+    public void onDateSet(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd, MMMM yyyy");
         _selectedDate = date;
-        _date.setText(date.toString());
+        _date.setText(formatter.print(date));
+    }
+
+    @Override
+    public void onDateSet(LocalTime time) {
+        DateTimeFormatter timeFormatter = DateTimeFormat.shortTime();
+        _selectedTime = time;
+        _time.setText(timeFormatter.print(time));
     }
 
     /**
@@ -176,17 +238,15 @@ public class AppointmentEditFragment extends Fragment
      */
     private void initializeCustomerDetails() {
 
-        Customer customer = _hostActivity.getCustomerForAppointment();
+        _selectedCustomer = _hostActivity.getCustomerForAppointment();
 
-        if (customer != null) {
-            _name.setText(customer.getName());
-            _email.setText(customer.getEmail());
-            _phone.setText(customer.getPhone());
-            _customerId = customer.getId();
+        if (_selectedCustomer != null) {
+            _name.setText(_selectedCustomer.getName());
+            _email.setText(_selectedCustomer.getEmail());
+            _phone.setText(_selectedCustomer.getPhone());
+            _customerId = _selectedCustomer.getId();
         }
     }
-
-
 
     @Override
     public void onResume() {
@@ -218,40 +278,7 @@ public class AppointmentEditFragment extends Fragment
     }
 
 
-    /**
-     * Create an appointment
-     * @return newly created appointment
-     */
-    private Appointment createAppointment() {
 
-        Appointment appointment = null;
-
-        // these two fields should be required
-        if (_name == null)  {return null;}
-        if (_date == null)  {return null;}
-        if (_selectedService != null) {
-            Log.e(TAG, "Selected service was null");
-            return null;
-        }
-
-        String title = _name.getText().toString();
-        String phone = _phone.getText().toString();
-        String email = _email.getText().toString();
-        LocalDateTime date = LocalDateTime.now();
-        String notes;
-
-        // this should be optional
-        if (_notes != null) {
-            notes  = _notes.getText().toString();
-        }
-
-        if (!title.isEmpty() && _selectedService != null) {
-            appointment = new Appointment(title, date, _customerId, _selectedService);
-
-        }
-
-        return appointment;
-    }
 
 
     /**
@@ -265,18 +292,6 @@ public class AppointmentEditFragment extends Fragment
         return (email.matches(EMAIL_REGEX));
     }
 
-    /**
-     * Interface that the activate that creates this fragment must implemnent. This interface will
-     * handle when a new appointment has been added
-     */
-    public interface OnSubmitAppointment {
-        void onAppointmentEditFinish (Appointment appointment);
-        void onCancelAppointmentEdit();
-        Map<String, Service> getServices();
-        void hideActionbar();
-        void showActionbar();
-        Customer getCustomerForAppointment();
-    }
 
     /**
      * Override onAttach to make sure that the container activity has implemented the callback we specified in
@@ -296,5 +311,19 @@ public class AppointmentEditFragment extends Fragment
         }
 
     }
+
+    /**
+     * Interface that the activate that creates this fragment must implemnent. This interface will
+     * handle when a new appointment has been added
+     */
+    public interface OnSubmitAppointment {
+        void onAppointmentEditFinish (Customer customer, Appointment appointment);
+        void onCancelAppointmentEdit();
+        Map<String, Service> getServices();
+        void hideActionbar();
+        void showActionbar();
+        Customer getCustomerForAppointment();
+    }
+
 
 }

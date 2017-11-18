@@ -16,6 +16,7 @@ import com.example.evans.R;
 import com.example.evans.data.Customer;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 import java.time.LocalDateTime;
 import java.util.Calendar;
@@ -97,7 +98,8 @@ public class CustomerEditFragment extends Fragment {
         String name = _name.getText().toString();
         String phone = _phone.getText().toString();
         String email = _email.getText().toString();
-        org.joda.time.LocalDateTime currentDate = new org.joda.time.LocalDateTime();
+        String otherInfo = _otherInformation.getText().toString();
+        LocalDate currentDate = LocalDate.now();
 
         Customer newCustomer = new Customer(id, name, email, phone, currentDate);
 
