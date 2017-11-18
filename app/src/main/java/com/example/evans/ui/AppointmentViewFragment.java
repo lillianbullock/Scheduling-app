@@ -15,7 +15,9 @@ import com.example.evans.data.Appointment;
 import com.example.evans.data.Customer;
 import com.example.evans.data.Service;
 
+import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
+import org.joda.time.LocalTime;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,11 +43,11 @@ public class AppointmentViewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_customer_view, null);
+        View view = inflater.inflate(R.layout.fragment_appointment_view, null);
 
-        _customer = new Customer("0", "Customer1", "email1", "000 000 0000", new LocalDateTime());
+        _customer = new Customer("0", "Customer1", "email1", "000 000 0000", new LocalDate());
         Service dummyService = new Service("Service1", "", 2.00);
-        _appointment = new Appointment("Appointment1", new LocalDateTime(), "0", dummyService);
+        _appointment = new Appointment("Appointment1", new LocalDate(), new LocalTime(),"0", dummyService);
 
         TextView name = (TextView) view.findViewById(R.id.txt_apptv_customer_name);
         TextView email = (TextView) view.findViewById(R.id.txt_apptv_customer_email);
@@ -65,7 +67,8 @@ public class AppointmentViewFragment extends Fragment {
         date.setText(_appointment.getDate().toString());
         time.setText(_appointment.getDate().toString());
         // TODO implement this properly
-        showedUp.setChecked(_appointment.isHasPaid());
+        if (_appointment.isSucceed() != null)
+            showedUp.setChecked(_appointment.isSucceed());
 
         // Inflate the layout for this fragment
         return view;
@@ -96,6 +99,6 @@ public class AppointmentViewFragment extends Fragment {
      * This is how we'll be able to communicate with the parent activity.
      */
     public interface InteractionWithAppointmentViewFragmentListener{
-        Appointment getViewAppointment();
+        //Appointment getViewAppointment();
     }
 }
