@@ -44,6 +44,13 @@ public class Appointment implements Comparable {
         this._hasPaid = hasPaid;
     }
 
+    public Appointment(String title, LocalDateTime date, String customerId, Service service) {
+        this._title = title;
+        this._date = date;
+        this._customerId = customerId;
+        this._service = service;
+    }
+
     public String getTitle() { return _title; }
     public LocalDateTime getDate() { return _date; }
     public String getCustomerId() { return _customerId; }

@@ -10,56 +10,10 @@
         android:layout_height="match_parent">
 
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/actionBarSize"
-            android:background="@color/colorPrimary"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
-
-
-        <Button
-            android:id="@+id/btn_appointment_cancel"
-            android:text="@string/button_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="16sp"
-            android:textColor="#ffffff"
-            android:drawableStart="@drawable/ic_close_white_24dp"
-            android:drawablePadding="2dip"
-            android:background="#00000000"
-            android:paddingEnd="30dip"
-            android:paddingStart="26dip"
-            android:layout_marginStart="16dp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="4dp"
-            app:layout_constraintStart_toStartOf="parent"
-            android:singleLine="true"
-            android:gravity="center" />
-
-
-        <Button
-            android:id="@+id/btn_appointment_save"
-            android:text="@string/button_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="16sp"
-            android:textColor="#ffffff"
-            android:drawableStart="@drawable/ic_done_white"
-            android:drawablePadding="2dip"
-            android:background="#00000000"
-            android:paddingEnd="30dip"
-            android:paddingStart="26dip"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="4dp"
-            android:singleLine="true"
-            android:gravity="center" />
-
-
+        <!-- Include our standard edit header -->
+        <include layout="@layout/edit_bar"
+            android:id="@+id/edit_bar_in_appointment"
+            />
 
 
         <!-- Customer name -->
@@ -72,7 +26,7 @@
             android:text="@string/customer_name"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_appointment_cancel"/>
+            app:layout_constraintTop_toBottomOf="@id/edit_bar_in_appointment"/>
 
 
         <EditText
@@ -84,7 +38,7 @@
             android:ems="10"
             android:inputType="textPersonName"
             app:layout_constraintStart_toEndOf="@+id/txt_customer_name"
-            app:layout_constraintTop_toBottomOf="@id/btn_appointment_cancel" />
+            app:layout_constraintTop_toBottomOf="@id/edit_bar_in_appointment" />
 
 
         <!-- Customer email -->
@@ -154,16 +108,32 @@
 
         <EditText
             android:id="@+id/etxt_appointment_date"
-            android:layout_width="300dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="10dp"
             android:ems="10"
+            android:hint="@string/date"
+            android:focusable="false"
+            android:clickable="true"
             android:inputType="datetime"
             app:layout_constraintHorizontal_bias="0.556"
             app:layout_constraintStart_toEndOf="@+id/txt_appointment_date"
             app:layout_constraintTop_toBottomOf="@id/etxt_customer_phone" />
+
+        <EditText
+            android:id="@+id/etxt_appointment_time"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="@string/time"
+            android:clickable="true"
+            android:focusable="false"
+            app:layout_constraintTop_toBottomOf="@id/etxt_customer_phone"
+            app:layout_constraintStart_toEndOf="@id/etxt_appointment_date"
+
+            />
 
 
         <!-- Service type -->
@@ -200,15 +170,26 @@
             app:layout_constraintStart_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/spinner_service_type" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dollar_sign"
+            android:layout_marginTop="30dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/spinner_service_type"
+            app:layout_constraintStart_toEndOf="@id/txt_price"
+            android:layout_marginLeft="8dp"/>
+
 
         <EditText
             android:id="@+id/etxt_price"
             android:layout_width="72dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="20dp"
             android:ems="10"
-            android:inputType="datetime"
+            android:inputType="numberDecimal"
             app:layout_constraintStart_toEndOf="@+id/txt_price"
             app:layout_constraintTop_toBottomOf="@id/spinner_service_type" />
 
@@ -244,6 +225,7 @@
             android:layout_marginTop="10dp"
             android:ems="10"
             android:inputType="textMultiLine"
+            android:imeOptions="actionDone"
             app:layout_constraintStart_toEndOf="@+id/txt_appointment_note"
             app:layout_constraintTop_toBottomOf="@+id/txt_price" />
 

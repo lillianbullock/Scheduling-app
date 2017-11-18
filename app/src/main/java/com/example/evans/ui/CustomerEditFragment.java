@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ public class CustomerEditFragment extends Fragment {
     private EditText _phone;
     private EditText _email;
     private EditText _otherInformation;
+    private static final String TAG = "CustomerEditFragment";
 
     private Button _setAppointmentBtn;
     private Button _saveBtn;
@@ -160,7 +162,7 @@ public class CustomerEditFragment extends Fragment {
     public interface OnSubmitCustomerEdit {
 
         void onCustomerEditFinish (Customer customer);
-        void onAddAppointmentClick(Customer customer);
+        void onAddAppointmentClickForCustomer(Customer customer);
         int getNextCustomerId();
         void hideActionbar();
         void showActionbar();
@@ -182,6 +184,7 @@ public class CustomerEditFragment extends Fragment {
             _hostActivity = (OnSubmitCustomerEdit) context;
         } catch (ClassCastException e) {
             /* they refused to honor the contract!!*/
+            Log.e(TAG, "The host activity did not implement OnSubmitCustomerEdit");
             throw new ClassCastException(context.toString() + " must implement OnSubmitCustomerEdit");
         }
 

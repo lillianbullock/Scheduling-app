@@ -13,7 +13,7 @@
         android:layout_gravity="center"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:text="Demo"
+        android:text="@string/default_string"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#000"
         app:layout_constraintBottom_toBottomOf="parent"

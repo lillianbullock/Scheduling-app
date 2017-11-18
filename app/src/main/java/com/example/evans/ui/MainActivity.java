@@ -3,6 +3,8 @@ package com.example.evans.ui;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -12,6 +14,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -20,11 +23,14 @@ import com.example.evans.data.Appointment;
 import com.example.evans.data.Customer;
 import com.example.evans.data.Goal;
 import com.example.evans.data.MainController;
+import com.example.evans.data.Sale;
 import com.example.evans.data.Service;
 import com.example.evans.data.TimePeriod;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+
+import org.joda.time.LocalDate;
 
 import java.util.List;
 import java.util.Map;
@@ -38,8 +44,9 @@ public class MainActivity extends AppCompatActivity implements
         GoalListFragment.InteractionWithGoalsListFragmentListener,
         AppointmentsListFragment.InteractionWithAppointmentListFragmentListener,
         AppointmentEditFragment.OnSubmitAppointment,
-        CustomerViewFragment.InteractionWithCustomerViewFragmentListener
-
+        CustomerViewFragment.InteractionWithCustomerViewFragmentListener,
+        DatePickerFragment.RecieveDateValueListener,
+        SalesListFragment.InteractionWithSalesFragmentListener
     {
 
     // Variables
@@ -49,6 +56,9 @@ public class MainActivity extends AppCompatActivity implements
     private ActionBarDrawerToggle _actionBarToggle;
 
     private static final String DATABASE_CUSTOMER_REF = "Customers";
+    private static final String TAG = "MainActivity";
+    private static final String APP_PREFS = "com.example.evans";
+    private static final String PREF_LAST_CUS_ID = "Last Used Customer ID";
 
     // FireBase stuff
     private DatabaseReference _database;
@@ -67,6 +77,9 @@ public class MainActivity extends AppCompatActivity implements
         _mainController = new MainController();
         _database = FirebaseDatabase.getInstance().getReference();
 
+        // load any saved date from the shared preference
+        loadSharedPreference();
+
         // Initialize and launch the start page fragment
         _currentFragment = new StartPageFragment();
         loadCurrentFragment(false);
@@ -75,6 +88,58 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     /**
+     * Save our last assigned customer id
+     */
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        saveSharedPreference();
+    }
+
+    /**
+     * Load LAST_ASSIGNED_CUSTOMER_ID from shared preferences. This is the only thing that we're
+     * loading for now
+     */
+    private void loadSharedPreference() {
+
+        SharedPreferences prefs = getSharedPreferences(APP_PREFS, Context.MODE_PRIVATE);
+
+        int loadedId = 0;
+
+
+        // Make sure that it's valid before attempting to load data from prefs
+        // NOTE that if the value is not found, we'll get -1 back
+        if (prefs != null) {
+            loadedId = prefs.getInt(PREF_LAST_CUS_ID, -1);
+        }
+
+        // Could not find the value
+        if (loadedId == -1) {
+            loadedId = 0;
+            Log.w(TAG, "Unable to read last assigned user id from sharedPreference");
+        } else {
+            Log.i(TAG, "Loaded id = " + loadedId);
+        }
+
+        LAST_ASSIGNED_CUSTOMER_ID = loadedId;
+
+    }
+
+    /**
+     * Save LAST_ASSIGNED_CUSTOMER_ID from shared preferences. This is the only thing that we're
+     * saving for now
+     */
+    private void saveSharedPreference() {
+        SharedPreferences prefs = getSharedPreferences(APP_PREFS, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+
+        editor.putInt(PREF_LAST_CUS_ID, LAST_ASSIGNED_CUSTOMER_ID);
+        editor.apply();
+        Log.i(TAG, "Saved last customer id to shared preference");
+    }
+
+        /**
      * Not sure yet how we want to implement this feature
      * there're a few ways but it should return the last id that was
      * assigned to the last created customer
@@ -82,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements
      */
     private int getLastAssignedCustomerId() {
         //TODO change the implementation soon!
-        return 1;
+        return LAST_ASSIGNED_CUSTOMER_ID;
     }
 
 
@@ -102,6 +167,14 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public List<Appointment> getAppointmentList() { return _mainController.getAppointments(TimePeriod.Week); }
+
+
+    @Override
+    public List<Goal> getGoal() { //TODO Figure out if we need more than one function for week day or year goals
+        return _mainController.getGoals(TimePeriod.Week); }
+
+    @Override
+    public List<Sale> getSale() { return _mainController.getAllSales(); }
 
     @Override
     public void hideActionbar() {
@@ -124,7 +197,13 @@ public class MainActivity extends AppCompatActivity implements
 
             _currentFragment = new StartPageFragment();
             loadCurrentFragment(false);
+
+            return;
         }
+
+        // A valid customer was created so increase the value of LAST_ASSIGNED_CUSTOMER_ID
+        LAST_ASSIGNED_CUSTOMER_ID += 1;
+
 
          CustomerViewFragment _frag = new CustomerViewFragment();
         _frag.setCustomer(customer);
@@ -173,7 +252,7 @@ public class MainActivity extends AppCompatActivity implements
 
 
     @Override
-    public void onAddAppointmentClick(Customer customer) {
+    public void onAddAppointmentClickForCustomer(Customer customer) {
         // TODO Handle this case
     }
 
@@ -196,11 +275,10 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onClickAddGoal() {
-        Toast.makeText(this, "Recieved instruction to create a goal", Toast.LENGTH_LONG).show();
         _currentFragment = new GoalEditFragment();
         loadCurrentFragment(true);
-        // TODO Implement
     }
+
 
     @Override
     public void onGoalEditFinish(Goal goal) {
@@ -235,6 +313,11 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
+    public Customer getCustomerForAppointment() {
+        return null;
+    }
+
+        @Override
     public void onAppointmentEditFinish(Appointment appointment) {
         //TODO get the customer id using the customer name. If not exist, prompt user to save customer
         //TODO if customer exist then add the customer Id to the appointment.
@@ -318,9 +401,6 @@ public class MainActivity extends AppCompatActivity implements
      */
     public void onNavDrawerItemClicked(MenuItem menuItem) {
 
-        Toast.makeText(this, menuItem.getTitle().toString(), Toast.LENGTH_SHORT).show();
-
-
         // Close the navigation drawer and create and instance of the appropriate
         // fragment then load it
         switch (menuItem.getItemId()) {
@@ -388,5 +468,8 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
+    @Override
+    public void setDate(LocalDate date) {
 
     }
+}
