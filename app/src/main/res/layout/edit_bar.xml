@@ -12,7 +12,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
 
-
         <Button
             android:id="@+id/btn_edit_bar_cancel"
             android:text="@string/button_cancel"
@@ -32,7 +31,6 @@
             app:layout_constraintStart_toStartOf="parent"
             android:singleLine="true"
             android:gravity="center" />
-
 
         <Button
             android:id="@+id/btn_edit_bar_save"

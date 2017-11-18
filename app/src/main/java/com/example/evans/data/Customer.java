@@ -25,7 +25,6 @@ public class Customer implements Comparable{
     private String _phone;
 
 
-
     //Not really sure about the constructor or this one there were a lot of option
     private LocalDateTime _dateAdded;
 

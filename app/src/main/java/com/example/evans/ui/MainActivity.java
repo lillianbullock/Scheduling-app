@@ -321,6 +321,14 @@ public class MainActivity extends AppCompatActivity implements
     public void onAppointmentEditFinish(Appointment appointment) {
         //TODO get the customer id using the customer name. If not exist, prompt user to save customer
         //TODO if customer exist then add the customer Id to the appointment.
+
+        AppointmentViewFragment _frag = new AppointmentViewFragment();
+        //_frag.setObjects(appointment, customer);
+        // TODO implement actual data passing not dummy data
+        _currentFragment = _frag;
+
+        loadCurrentFragment(false);
+
         _mainController.addAppointment(appointment);
     }
 
