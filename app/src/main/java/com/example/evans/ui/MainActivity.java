@@ -338,25 +338,11 @@ public class MainActivity extends AppCompatActivity implements
         // set the appointment's customerId so we can keep track of which customer had the appointment
         appointment.setCustomerId(customer.getId());
 
-        String appointmentDetails = "Customer name: " + _mainController.getCustomerById(appointment.getCustomerId()).getName()
-                                    + "\nCustomer email: " + _mainController.getCustomerById(appointment.getCustomerId()).getEmail()
-                                    + "\nCustomer phone: " + _mainController.getCustomerById(appointment.getCustomerId()).getPhone()
-                                    + "\nDate: " + appointment.getDate().toString()
-                                    + "\nTime: " + appointment.getTime().toString()
-                                    + "\nService: " + appointment.getService().getTitle()
-                                    + "\nPrice: " + appointment.getService().getPrice();
-
-        _currentFragment = new StartPageFragment();
-        loadCurrentFragment(false);
-        Toast.makeText(this, appointmentDetails, Toast.LENGTH_LONG).show();
-
-
         //TODO get the customer id using the customer name. If not exist, prompt user to save customer
         //TODO if customer exist then add the customer Id to the appointment.
 
         AppointmentViewFragment _frag = new AppointmentViewFragment();
-        //_frag.setObjects(appointment, customer);
-        // TODO implement actual data passing not dummy data
+        _frag.setObjects(appointment, customer); //allows use of the set arguments function, otherwise would have to serialize to JSON or pass each item individually
         _currentFragment = _frag;
 
         loadCurrentFragment(false);
@@ -370,7 +356,7 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
-        /********************END OF OVERRIDING METHODS FOR FRAGMENTS****************************/
+    /********************END OF OVERRIDING METHODS FOR FRAGMENTS****************************/
 
     /**
      * Helper method to load the current fragment. I figured we were loading fragments

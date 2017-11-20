@@ -1,6 +1,5 @@
 package com.example.evans.ui;
 
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -45,10 +44,13 @@ public class AppointmentViewFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_appointment_view, null);
 
-        _customer = new Customer("0", "Customer1", "email1", "000 000 0000", new LocalDate());
-        Service dummyService = new Service("Service1", "", 2.00);
-        _appointment = new Appointment("Appointment1", new LocalDate(), new LocalTime(),"0", dummyService);
-
+        if (_customer == null) {
+            _customer = new Customer("0", "Customer1", "email1", "000 000 0000", new LocalDate());
+        }
+        if (_appointment == null) {
+            Service dummyService = new Service("Service1", "", 2.00);
+            _appointment = new Appointment("Appointment1", new LocalDate(), new LocalTime(), "0", dummyService);
+        }
         TextView name = (TextView) view.findViewById(R.id.txt_apptv_customer_name);
         TextView email = (TextView) view.findViewById(R.id.txt_apptv_customer_email);
         TextView phone = (TextView) view.findViewById(R.id.txt_apptv_customer_phone);
