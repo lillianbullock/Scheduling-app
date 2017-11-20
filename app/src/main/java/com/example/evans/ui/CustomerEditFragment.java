@@ -30,7 +30,6 @@ public class CustomerEditFragment extends Fragment {
     private EditText _name;
     private EditText _phone;
     private EditText _email;
-    private EditText _otherInformation;
     private static final String TAG = "CustomerEditFragment";
 
     private Button _setAppointmentBtn;
@@ -60,7 +59,7 @@ public class CustomerEditFragment extends Fragment {
         _email = (EditText) rootView.findViewById(R.id.etxt_email);
 
         _setAppointmentBtn = rootView.findViewById(R.id.btn_set_appt);
-        _saveBtn = rootView.findViewById(R.id.btn_save_edit);
+        _saveBtn = rootView.findViewById(R.id.btn_edit_bar_save);
 
 
         // Create a customer and let the host activity know that a request
@@ -94,21 +93,25 @@ public class CustomerEditFragment extends Fragment {
 
     private Customer createCustomer() {
 
+        Customer newCustomer = null;
+
         String id = String.valueOf(_hostActivity.getNextCustomerId());
         String name = _name.getText().toString();
         String phone = _phone.getText().toString();
         String email = _email.getText().toString();
-        String otherInfo = _otherInformation.getText().toString();
         LocalDate currentDate = LocalDate.now();
 
-        Customer newCustomer = new Customer(id, name, email, phone, currentDate);
+        // give a default value of N/A if the phone number field is empty
+        // it's not a required field
+        if (phone.isEmpty()) {
+            phone = "N/A";
+        }
+
 
         if (!name.isEmpty()) {
-
             // Email isn't required but if it's not empty then check to make sure it's a valid email
             if (email.isEmpty() || (!email.isEmpty() && isValidEmail(email))) {
                 newCustomer = new Customer(id, name, email, phone, currentDate);
-                return newCustomer;
             } else {
                 Snackbar.make(getActivity().findViewById(R.id.content_frame), "ERROR: Invalid email", Snackbar.LENGTH_LONG).show();
             }
@@ -117,8 +120,7 @@ public class CustomerEditFragment extends Fragment {
                 Snackbar.make(getActivity().findViewById(R.id.content_frame), "ERROR: Name cannot be empty", Snackbar.LENGTH_LONG).show();
         }
 
-        // Return null if the customer data wasn't valid
-        return null;
+        return newCustomer;
     }
 
     @Override

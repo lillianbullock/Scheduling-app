@@ -21,6 +21,7 @@ import android.widget.Spinner;
 import com.example.evans.R;
 import com.example.evans.data.Appointment;
 import com.example.evans.data.Customer;
+import com.example.evans.data.InvalidCustomerException;
 import com.example.evans.data.Service;
 
 import org.joda.time.LocalDate;
@@ -277,8 +278,14 @@ public class AppointmentEditFragment extends Fragment
 
     }
 
+    public void setSelectedCustomer(Customer customer) throws Exception{
 
-
+        if (customer != null) {
+            _selectedCustomer = customer;
+        } else {
+            throw new InvalidCustomerException("NULL customer data received from the calling method");
+        }
+    }
 
 
     /**
