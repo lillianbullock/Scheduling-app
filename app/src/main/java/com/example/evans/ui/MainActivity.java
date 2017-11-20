@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements
         SalesListFragment.InteractionWithSalesFragmentListener,
         AppointmentViewFragment.InteractionWithAppointmentViewFragmentListener,
         SalesEditFragment.OnSubmitSalesEdit
-     //DatePickerFragment.RecieveDateValueListener,
+        //DatePickerFragment.RecieveDateValueListener
     {
 
     // Variables

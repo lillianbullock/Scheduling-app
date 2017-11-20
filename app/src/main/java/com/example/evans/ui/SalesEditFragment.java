@@ -27,10 +27,12 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- *
+ * SalesEdit Fragment:
+ * This Class will control the SalesEdit Fragment and the View information
+ * that will be entered in the view from edit Fragment
  */
-public class SalesEditFragment extends Fragment
-        implements DatePickerFragment.RecieveDateValueListener{
+public class SalesEditFragment extends Fragment {
+        //implements DatePickerFragment.RecieveDateValueListener{
 
     OnSubmitSalesEdit _hostActivity;
 
@@ -52,6 +54,14 @@ public class SalesEditFragment extends Fragment
     }
 
 
+    /**
+     * SalesEditFragment
+     * This createView will handle the calling and view of Sales Edit Fragment
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -125,11 +135,11 @@ public class SalesEditFragment extends Fragment
 
     }
 
-    @Override
+    /*@Override
     public void setDate(LocalDate date) {
         _selectedDate = date;
         _date.setText(date.toString());
-    }
+    }*/
 
     @Override
     public void onResume() {
