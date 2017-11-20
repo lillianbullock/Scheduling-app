@@ -35,6 +35,12 @@ import org.joda.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
+
+/**
+ * This is the MainActivity, it controls all of the Functions that will
+ * be in the application as a whole
+ * This class will implement the fragments
+ */
 public class MainActivity extends AppCompatActivity implements
         CustomerEditFragment.OnSubmitCustomerEdit,
         CustomersListFragment.InteractionWithCustomerFragmentListener,
@@ -45,7 +51,8 @@ public class MainActivity extends AppCompatActivity implements
         AppointmentsListFragment.InteractionWithAppointmentFragmentListener,
         AppointmentEditFragment.OnSubmitAppointment,
         DatePickerFragment.RecieveDateValueListener,
-        SalesListFragment.InteractionWithSalesFragmentListener
+        SalesListFragment.InteractionWithSalesFragmentListener,
+        SalesEditFragment.OnSubmitSalesEdit
     {
 
     // Variables
@@ -150,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 
-    /** IMPLEMENT METHODS for all the fragments that this activity will use */
+        /** IMPLEMENT METHODS for all the fragments that this activity will use */
     @Override
     public Map<String, Service> getServices () {
 
@@ -172,6 +179,29 @@ public class MainActivity extends AppCompatActivity implements
     public List<Sale> getSale() { return _mainController.getAllSales(); }
 
     @Override
+    public void onAddSale() {
+        _currentFragment = new SalesEditFragment();
+        loadCurrentFragment(true);
+    }
+
+    @Override
+    public void onSaleEditFinish(Sale sale) {
+
+    }
+
+    @Override
+    public void onCancelSaleEdit() {
+
+    }
+
+
+    @Override
+    public void onClickSale() {
+
+    }
+
+
+        @Override
     public void hideActionbar() {
         getSupportActionBar().hide();
     }

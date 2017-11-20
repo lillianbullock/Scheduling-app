@@ -3,14 +3,11 @@ package com.example.evans.ui;
 
 
 import android.app.DialogFragment;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -84,7 +81,7 @@ public class AppointmentEditFragment extends Fragment
         _email          = (EditText) rootView.findViewById(R.id.etxt_customer_email);
         _date           = (EditText) rootView.findViewById(R.id.etxt_appointment_date);
         _time           = (EditText) rootView.findViewById(R.id.etxt_appointment_time);
-        _serviceSpinner = (Spinner) rootView.findViewById(R.id.spinner_service_type);
+        _serviceSpinner = (Spinner) rootView.findViewById(R.id.spinner_sales_type);
         _servicePrice   = (EditText) rootView.findViewById(R.id.etxt_price);
         _notes          = (EditText) rootView.findViewById(R.id.etxt_other_notes);
         _btnSave        = (Button) rootView.findViewById(R.id.btn_edit_bar_save);
