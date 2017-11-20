@@ -43,16 +43,19 @@ import java.util.Map;
  */
 public class MainActivity extends AppCompatActivity implements
         CustomerEditFragment.OnSubmitCustomerEdit,
-        CustomersListFragment.InteractionWithCustomerFragmentListener,
+        CustomersListFragment.InteractionWithCustomerListFragmentListener,
         ServiceEditFragment.OnSubmitServiceEdit,
-        ServiceListFragment.InteractionWithServiceFragmentListener,
+        ServiceListFragment.InteractionWithServiceListFragmentListener,
         GoalEditFragment.OnSubmitGoalEdit,
         GoalListFragment.InteractionWithGoalsListFragmentListener,
-        AppointmentsListFragment.InteractionWithAppointmentFragmentListener,
+        AppointmentsListFragment.InteractionWithAppointmentListFragmentListener,
         AppointmentEditFragment.OnSubmitAppointment,
-        DatePickerFragment.RecieveDateValueListener,
+        DatePickerFragment.OnDateSetListener,
+        CustomerViewFragment.InteractionWithCustomerViewFragmentListener,
         SalesListFragment.InteractionWithSalesFragmentListener,
+        AppointmentViewFragment.InteractionWithAppointmentViewFragmentListener,
         SalesEditFragment.OnSubmitSalesEdit
+     //DatePickerFragment.RecieveDateValueListener,
     {
 
     // Variables
@@ -165,10 +168,15 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public List<Customer> getCustomers() { return _mainController.getCustomers(); }
+    public Customer getViewCustomer() {
+        return null;
+    }
 
     @Override
-    public List<Appointment> getAppointments() { return _mainController.getAppointments(TimePeriod.Week); }
+    public List<Customer> getCustomerList() { return _mainController.getCustomers(); }
+
+    @Override
+    public List<Appointment> getAppointmentList() { return _mainController.getAppointments(TimePeriod.Week); }
 
 
     @Override
@@ -230,12 +238,14 @@ public class MainActivity extends AppCompatActivity implements
         LAST_ASSIGNED_CUSTOMER_ID += 1;
 
 
-        // Return to the main page for now
-        _currentFragment = new StartPageFragment();
+         CustomerViewFragment _frag = new CustomerViewFragment();
+        _frag.setCustomer(customer);
+        _currentFragment = _frag;
+
         loadCurrentFragment(false);
 
         // TODO Add the new customer to the database for now. We'll need to coordinate with Main controller to sync properly
-       _database.child(DATABASE_CUSTOMER_REF).child(String.valueOf(customer.getId())).setValue(customer);
+        _database.child(DATABASE_CUSTOMER_REF).child(String.valueOf(customer.getId())).setValue(customer);
 
         _mainController.addCustomer(customer);
 
@@ -341,9 +351,34 @@ public class MainActivity extends AppCompatActivity implements
     }
 
         @Override
-    public void onAppointmentEditFinish(Appointment appointment) {
+    public void onAppointmentEditFinish(Customer customer, Appointment appointment) {
+
+        if (appointment == null || customer == null) {
+            return;
+        }
+
+        // Check if the customer was created in the appointment view. The id would be set to null if it was
+        if (customer.getId() == null){
+            // check if we have a customer like that already if not add it
+            // TODO do we want to prompt the user or just add it automatically
+            if (_mainController.getCustomerByName(customer.getName()) == null) {
+                customer.setId(String.valueOf(getNextCustomerId()));
+                _mainController.addCustomer(customer);
+            }
+        }
+
+        // set the appointment's customerId so we can keep track of which customer had the appointment
+        appointment.setCustomerId(customer.getId());
+
         //TODO get the customer id using the customer name. If not exist, prompt user to save customer
         //TODO if customer exist then add the customer Id to the appointment.
+
+        AppointmentViewFragment _frag = new AppointmentViewFragment();
+        _frag.setObjects(appointment, customer); //allows use of the set arguments function, otherwise would have to serialize to JSON or pass each item individually
+        _currentFragment = _frag;
+
+        loadCurrentFragment(false);
+
         _mainController.addAppointment(appointment);
     }
 
@@ -353,7 +388,7 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
-        /********************END OF OVERRIDING METHODS FOR FRAGMENTS****************************/
+    /********************END OF OVERRIDING METHODS FOR FRAGMENTS****************************/
 
     /**
      * Helper method to load the current fragment. I figured we were loading fragments
@@ -492,7 +527,8 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void setDate(LocalDate date) {
+    public void onDateSet(LocalDate date) {
+        Snackbar.make(findViewById(R.id.content_frame), "SET DATE CALLED IN PARENT ACTIVITY", Snackbar.LENGTH_LONG).show();
 
     }
 }

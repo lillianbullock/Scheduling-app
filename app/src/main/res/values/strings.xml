@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Evans</string>
-    <string name="SeeMore">See More</string>
+    <string name="see_more">See More</string>
     <string name="edit">Edit</string>
-    <string name="setApt">Set Appointment</string>
+    <string name="set_appt">Set Appointment</string>
     <string name="title_activity_main2">Main2Activity</string>
 
     <!-- For the navigation drawer -->
@@ -20,41 +20,37 @@
     <string name="menu_exit"> Exit </string>
     <string name="menu_create_report"> Create Report </string>
 
-
-    <string name="set_appt">Set Appointment</string>
-    <string name="save_edit">Save</string>
-
     <!--Field edit titles-->
-    <string name="appointment_name">Name:</string>
-    <string name="appointment_date">Date:</string>
-    <string name="appointment_service">Service:</string>
-    <string name="appointment_price">Price:</string>
-    <string name="appointment_notes">Notes:</string>
+    <string name="appointment_name">Name</string>
+    <string name="appointment_service">Service</string>
+    <string name="appointment_price">Price</string>
+    <string name="appointment_notes">Notes</string>
+    <string name="appointment_time">Time</string>
+    <string name="appointment_date">Date</string>
     <string name="showed_up">Showed up </string>
     <string name="pick_date">Pick Date</string>
-    <string name="date">Date</string>
-    <string name="time">Time</string>
     <string name="pick_time">Pick Time</string>
 
-    <string name="service_description">Description:</string>
-    <string name="service_title">Title:</string>
-    <string name="service_price">Price:</string>
+    <string name="service_description">Description</string>
+    <string name="service_title">Title</string>
+    <string name="service_price">Price</string>
 
-    <string name="customer_name">Name:</string>
-    <string name="customer_email">Email:</string>
-    <string name="customer_phone">Phone:</string>
-    <string name="customer_other_info">Other information: </string>
+    <string name="customer_name">Name</string>
+    <string name="customer_email">Email</string>
+    <string name="customer_phone">Phone</string>
+    <string name="customer_other_info">Other information</string>
 
-    <string name="goal_name">Name:</string>
-    <string name="goal_start_date">Start Date:</string>
-    <string name="goal_end_date">End Date:</string>
-    <string name="goal_details">Details of Goal:</string>
+    <string name="goal_name">Name</string>
+    <string name="goal_start_date">Start Date</string>
+    <string name="goal_end_date">End Date</string>
+    <string name="goal_details">Details of Goal</string>
     <string name="goal_repeat_times">Repeat Times</string>
     <string name="date_enter_hint">Day-Month-Year Hour:Min</string>
 
     <!-- button strings-->
+    <string name="button_edit">Edit</string>
     <string name="button_save">Save</string>
-    <string name="cancel">Cancel</string>
+    <string name="button_cancel">Cancel</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -64,5 +60,9 @@
     <string name="salesPrice">Sales Price</string>
     <string name="salesCustomer">Sales Customer</string>
 
+    <!-- set this as the default string in layouts where it will be overwritten-->
+    <string name="default_string">Default</string>
+
+    <!-- Strings below here need to be sorted-->
 
 </resources>

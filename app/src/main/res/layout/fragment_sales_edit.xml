@@ -60,7 +60,6 @@
             android:clickable="true"
             android:ems="10"
             android:focusable="false"
-            android:hint="@string/date"
             android:inputType="datetime"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spinner_sales_type" />
