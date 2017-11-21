@@ -47,6 +47,12 @@ public class AppointmentEditFragment extends Fragment
 
     private EditText _name;
     private EditText _email;
+
+    @Override
+    public void setDate(LocalDate date) {
+
+    }
+
     private EditText _phone;
     private String   _customerId;
     private EditText _date;
@@ -224,12 +230,7 @@ public class AppointmentEditFragment extends Fragment
     }
 
     @Override
-    public void setDate(LocalDate date) {
-
-    }
-
-    @Override
-    public void onDateSet(LocalTime time) {
+    public void onTimeSet(LocalTime time) {
         DateTimeFormatter timeFormatter = DateTimeFormat.shortTime();
         _selectedTime = time;
         _time.setText(timeFormatter.print(time));
@@ -334,5 +335,6 @@ public class AppointmentEditFragment extends Fragment
         void showActionbar();
         Customer getCustomerForAppointment();
     }
+
 
 }

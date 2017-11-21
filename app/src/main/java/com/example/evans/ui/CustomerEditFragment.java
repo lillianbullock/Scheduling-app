@@ -10,16 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.evans.R;
 import com.example.evans.data.Customer;
 
-import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
-
-import java.time.LocalDateTime;
-import java.util.Calendar;
 
 
 /**
@@ -60,8 +55,9 @@ public class CustomerEditFragment extends Fragment {
         _email = rootView.findViewById(R.id.etxt_email);
 
         _setAppointmentBtn = rootView.findViewById(R.id.btn_set_appt);
-        _saveBtn   = rootView.findViewById(R.id.btn_edit_bar_save);
+        _saveBtn = rootView.findViewById(R.id.btn_edit_bar_save);
         _cancelBtn = rootView.findViewById(R.id.btn_edit_bar_cancel);
+
 
 
         // Create a customer and let the host activity know that a request
@@ -90,11 +86,9 @@ public class CustomerEditFragment extends Fragment {
             }
         });
 
-        // Cancel button click listener
+        // Cancel button click
         _cancelBtn.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view) {
+            public void onClick(View view){
                 _hostActivity.onCancel();
             }
         });
@@ -178,8 +172,8 @@ public class CustomerEditFragment extends Fragment {
 
         void onCustomerEditFinish (Customer customer);
         void onAddAppointmentClickForCustomer(Customer customer);
+        int getNextCustomerId();
         void onCancel();
-        int  getNextCustomerId();
         void hideActionbar();
         void showActionbar();
 
