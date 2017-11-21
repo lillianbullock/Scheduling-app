@@ -47,6 +47,12 @@ public class AppointmentEditFragment extends Fragment
 
     private EditText _name;
     private EditText _email;
+
+    @Override
+    public void setDate(LocalDate date) {
+
+    }
+
     private EditText _phone;
     private String   _customerId;
     private EditText _date;
