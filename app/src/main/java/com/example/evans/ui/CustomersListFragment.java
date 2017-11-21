@@ -112,7 +112,4 @@ public class CustomersListFragment extends Fragment {
         _hostActivityListener.onAddCustomer();
     }
 
-
-
-
 }

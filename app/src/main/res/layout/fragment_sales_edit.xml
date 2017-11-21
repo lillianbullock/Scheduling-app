@@ -1,0 +1,97 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.evans.ui.SalesEditFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Include our standard edit header -->
+        <include layout="@layout/edit_bar"
+            android:id="@+id/edit_bar_in_sales"
+            />
+
+        <TextView
+            android:id="@+id/txt_service_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/sale_service"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_bar_in_sales" />
+
+
+        <Spinner
+            android:id="@+id/spinner_sales_type"
+            android:layout_width="213dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintStart_toEndOf="@+id/txt_service_type"
+            app:layout_constraintTop_toBottomOf="@+id/edit_bar_in_sales" />
+
+        <TextView
+            android:id="@+id/txt_sale_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/salesDate"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_service_type" />
+
+
+        <EditText
+            android:id="@+id/etxt_sale_date"
+            android:layout_width="211dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="52dp"
+            android:layout_marginTop="12dp"
+            android:clickable="true"
+            android:ems="10"
+            android:focusable="false"
+            android:inputType="datetime"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_sales_type" />
+
+        <TextView
+            android:id="@+id/txt_sales_price"
+            android:layout_width="72dp"
+            android:layout_height="23dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/salesPrice"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_sale_date" />
+
+
+        <EditText
+            android:id="@+id/etxt_sale_price"
+            android:layout_width="209dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="52dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etxt_sale_date"
+            app:layout_constraintVertical_bias="0.027" />
+
+
+    </android.support.constraint.ConstraintLayout>
+</FrameLayout>

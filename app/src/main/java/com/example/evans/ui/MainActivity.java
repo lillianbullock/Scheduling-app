@@ -34,6 +34,12 @@ import org.joda.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
+
+/**
+ * This is the MainActivity, it controls all of the Functions that will
+ * be in the application as a whole
+ * This class will implement the fragments
+ */
 public class MainActivity extends AppCompatActivity implements
         CustomerEditFragment.OnSubmitCustomerEdit,
         CustomersListFragment.InteractionWithCustomerListFragmentListener,
@@ -46,7 +52,9 @@ public class MainActivity extends AppCompatActivity implements
         DatePickerFragment.OnDateSetListener,
         CustomerViewFragment.InteractionWithCustomerViewFragmentListener,
         SalesListFragment.InteractionWithSalesFragmentListener,
-        AppointmentViewFragment.InteractionWithAppointmentViewFragmentListener
+        AppointmentViewFragment.InteractionWithAppointmentViewFragmentListener,
+        SalesEditFragment.OnSubmitSalesEdit
+        //DatePickerFragment.RecieveDateValueListener
     {
 
     // Variables
@@ -153,7 +161,35 @@ public class MainActivity extends AppCompatActivity implements
 
     /** IMPLEMENT METHODS for all the fragments that this activity will use */
     @Override
+    public void onAddSale() {
+        _currentFragment = new SalesEditFragment();
+        loadCurrentFragment(true);
+    }
+
+
+    @Override
+    public void onAddCustomer() {
+        _currentFragment = new CustomerEditFragment();
+        loadCurrentFragment(false);
+
+    }
+
+    @Override
+    public void onAddAppointment() {
+        _currentFragment = new AppointmentEditFragment();
+        loadCurrentFragment(true);
+    }
+
+    @Override
+    public void onAddService() {
+        _currentFragment = new ServiceEditFragment();
+        loadCurrentFragment(true);
+    }
+
+
+    @Override
     public Map<String, Service> getServices () {
+
         return _mainController.getAvailableServices();
     }
 
@@ -176,18 +212,43 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public List<Sale> getSale() { return _mainController.getAllSales(); }
 
+
+
     @Override
-    public void hideActionbar() {
-        getSupportActionBar().hide();
+    public void onClickSale() {
+
+    }
+
+
+    @Override
+    public void onSaleEditFinish(Sale sale) {
+
     }
 
     @Override
-    public void showActionbar() {
-        getSupportActionBar().show();
+    public void onServiceEditFinish(Service service) {
+        // TODO Handle this case
+
+        // Return to the main page for now
+        _currentFragment = new StartPageFragment();
+        loadCurrentFragment(false);
+
+        String title = service.getTitle();
+        String description = service.getDescription();
+        Double price = service.getPrice();
+
+        Toast.makeText(this, "Service create \n"
+                        + "Title: " + title
+                        + "\nPrice: " + price
+                        + "\nDescription: " + description,
+                Toast.LENGTH_SHORT).show();
+
+        _mainController.addService(title, service);
     }
 
+
     @Override
-     public void onCustomerEditFinish(Customer customer) {
+    public void onCustomerEditFinish(Customer customer) {
 
         if (customer == null) {
             Snackbar.make(findViewById(R.id.content_frame),
@@ -219,8 +280,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     /**
-     * This should simply return the
-     * next possible number to use as a customer id for a new customer
+     * Return the next possible number to use as a customer id for a new customer
      * @return
      */
     @Override
@@ -229,26 +289,6 @@ public class MainActivity extends AppCompatActivity implements
         return LAST_ASSIGNED_CUSTOMER_ID + 1;
     }
 
-    @Override
-    public void onServiceEditFinish(Service service) {
-        // TODO Handle this case
-
-        // Return to the main page for now
-        _currentFragment = new StartPageFragment();
-        loadCurrentFragment(false);
-
-        String title = service.getTitle();
-        String description = service.getDescription();
-        Double price = service.getPrice();
-
-        Toast.makeText(this, "Service create \n"
-                        + "Title: " + title
-                        + "\nPrice: " + price
-                        + "\nDescription: " + description,
-                Toast.LENGTH_SHORT).show();
-
-        _mainController.addService(title, service);
-    }
 
 
     @Override
@@ -256,27 +296,40 @@ public class MainActivity extends AppCompatActivity implements
         // TODO Handle this case
     }
 
+
+    @Override
+    public void onClickAddGoal() {
+        _currentFragment = new GoalEditFragment();
+        loadCurrentFragment(true);
+    }
+
     @Override
     public void onClickCustomer(Customer customer) {
         // TODO Handle customer click
     }
 
-    @Override
-    public void onAddCustomer() {
-        _currentFragment = new CustomerEditFragment();
-        loadCurrentFragment(true);
 
-    }
+
 
     @Override
     public void onClickGoal() {
         // TODO Implement
     }
 
+
     @Override
-    public void onClickAddGoal() {
-        _currentFragment = new GoalEditFragment();
-        loadCurrentFragment(true);
+    public void onClickService(Service service) {
+        // TODO Handle service click
+    }
+
+    @Override
+    public void onClickAppointment(Appointment appointment) {
+        //TODO Handle CLick appointment
+    }
+
+    @Override
+    public Customer getCustomerForAppointment() {
+        return null;
     }
 
 
@@ -287,37 +340,11 @@ public class MainActivity extends AppCompatActivity implements
         _currentFragment = new StartPageFragment();
         loadCurrentFragment(true);
 
-       _mainController.addNewGoal(goal);
+        _mainController.addNewGoal(goal);
     }
+
 
     @Override
-    public void onClickService(Service service) {
-        // TODO Handle service click
-    }
-
-    @Override
-    public void onAddService() {
-        _currentFragment = new ServiceEditFragment();
-        loadCurrentFragment(true);
-    }
-
-    @Override
-    public void onClickAppointment(Appointment appointment) {
-        //TODO Handle CLick appointment
-    }
-
-    @Override
-    public void onAddAppointment() {
-        _currentFragment = new AppointmentEditFragment();
-        loadCurrentFragment(true);
-    }
-
-    @Override
-    public Customer getCustomerForAppointment() {
-        return null;
-    }
-
-        @Override
     public void onAppointmentEditFinish(Customer customer, Appointment appointment) {
 
         if (appointment == null || customer == null) {
@@ -350,15 +377,26 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onCancelAppointmentEdit() {
+    public void onCancel() {
         onBackPressed();
 
     }
 
+    @Override
+    public void hideActionbar() {
+        getSupportActionBar().hide();
+    }
+
+    @Override
+    public void showActionbar() {
+            getSupportActionBar().show();
+        }
+
     /********************END OF OVERRIDING METHODS FOR FRAGMENTS****************************/
 
     /**
-     * Helper method to load the current fragment. I figured we were loading fragments
+     * Load the current fragment.
+     * I figured we were loading fragments
      * enough that we could use a helper method to avoid code bloat.
      * Add it to the back stack if addToBackStack is true
      */

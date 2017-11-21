@@ -3,6 +3,7 @@ package com.example.evans.ui;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +16,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Brooke Nelson on 11/15/2017.
+ *
+ * Sales List Fragment
+ * {@link Fragment} subclass
  */
 
 public class SalesListFragment extends Fragment {
 
+    FloatingActionButton _addFloatingBtn;
     View _rootView;
    InteractionWithSalesFragmentListener _hostActivityListener;
 
@@ -33,6 +37,16 @@ public class SalesListFragment extends Fragment {
 
         //Set rootView to layout
         _rootView = inflater.inflate(R.layout.fragment_sales_list, contain, false);
+
+        _addFloatingBtn = (FloatingActionButton) _rootView.findViewById(R.id.floating_sale_btn);
+
+        // Set the onClickListener for the floating button.
+        _addFloatingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onCreateSale();
+            }
+        });
 
         //setting arrayAdapter
         ListView simpleList;
@@ -61,7 +75,8 @@ public class SalesListFragment extends Fragment {
 
 
     /**
-     * Sales Attach
+     * Sales Attach, want to make sure that the activity that uses this fragment
+     * has implemented our InteractionWithSalesFragmentListener interface
      * @param activity: the host activity
      */
     @Override
@@ -77,11 +92,21 @@ public class SalesListFragment extends Fragment {
     }
 
     /**
+     * For now we just want to let the host activity tak care of it by calling it's
+     * onAddCustomer method it better had implemented our interface
+     */
+    public void onCreateSale() {
+        _hostActivityListener.onAddSale();
+    }
+
+    /**
      * This interface must be implemented by the container Activity
      * This is how we'll be able to communicate with the parent activity.
      */
     public interface InteractionWithSalesFragmentListener{
         List<Sale> getSale();
+        void onAddSale();
+        void onClickSale(Sale sale);
     }
 
 

@@ -86,7 +86,7 @@ public class AppointmentEditFragment extends Fragment
         _email          = (EditText) rootView.findViewById(R.id.etxt_customer_email);
         _date           = (EditText) rootView.findViewById(R.id.etxt_appointment_date);
         _time           = (EditText) rootView.findViewById(R.id.etxt_appointment_time);
-        _serviceSpinner = (Spinner) rootView.findViewById(R.id.spinner_service_type);
+        _serviceSpinner = (Spinner) rootView.findViewById(R.id.spinner_sales_type);
         _servicePrice   = (EditText) rootView.findViewById(R.id.etxt_price);
         _notes          = (EditText) rootView.findViewById(R.id.etxt_appointment_note);
         _btnSave        = (Button) rootView.findViewById(R.id.btn_edit_bar_save);
@@ -119,7 +119,7 @@ public class AppointmentEditFragment extends Fragment
         _btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                _hostActivity.onCancelAppointmentEdit();
+                _hostActivity.onCancel();
             }
         });
 
@@ -321,7 +321,7 @@ public class AppointmentEditFragment extends Fragment
      */
     public interface OnSubmitAppointment {
         void onAppointmentEditFinish (Customer customer, Appointment appointment);
-        void onCancelAppointmentEdit();
+        void onCancel();
         Map<String, Service> getServices();
         void hideActionbar();
         void showActionbar();
