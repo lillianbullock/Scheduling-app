@@ -334,8 +334,4 @@ public class AppointmentEditFragment extends Fragment
         Customer getCustomerForAppointment();
     }
 
-    @Override
-    public void setDate(LocalDate date) {
-
-    }
 }

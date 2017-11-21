@@ -113,9 +113,9 @@ public class SalesEditFragment extends Fragment
         });
 
         // On click listener for date
-        _date.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        _date.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFocusChange(View view, boolean b) {
+            public void onClick(View view) {
                 DialogFragment dateFragment = new DatePickerFragment();
                 dateFragment.setTargetFragment(SalesEditFragment.this, 0);
                 dateFragment.show(getFragmentManager(), "DatePicker");
@@ -159,7 +159,7 @@ public class SalesEditFragment extends Fragment
         Sale sale = null;
 
         if(_selectedService == null) {return null;}
-        if(_date == null) {return null;}
+        if(_selectedDate == null) {return null;}
         if(_servicePrice == null) {return null;}
 
         String date = _date.getText().toString();
@@ -167,7 +167,7 @@ public class SalesEditFragment extends Fragment
         _price = Double.parseDouble(_servicePrice.getText().toString());
 
         if(_selectedService != null && _date != null){
-        //   sale = new Sale(_selectedService, _price , date);
+           sale = new Sale(_selectedService, _price , _selectedDate);
         }
 
         return sale;

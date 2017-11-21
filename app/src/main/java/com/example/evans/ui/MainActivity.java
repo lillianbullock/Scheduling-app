@@ -159,12 +159,6 @@ public class MainActivity extends AppCompatActivity implements
 
 
     /** IMPLEMENT METHODS for all the fragments that this activity will use */
-    @Override
-    public void onAddSale() {
-        _currentFragment = new SalesEditFragment();
-        loadCurrentFragment(true);
-    }
-
 
     @Override
     public void onAddCustomer() {
@@ -219,11 +213,6 @@ public class MainActivity extends AppCompatActivity implements
     public void onAddSale() {
         _currentFragment = new SalesEditFragment();
         loadCurrentFragment(true);
-    }
-
-    @Override
-    public void setDate(LocalDate date) {
-
     }
 
     @Override
