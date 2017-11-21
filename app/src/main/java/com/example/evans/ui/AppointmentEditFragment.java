@@ -86,16 +86,12 @@ public class AppointmentEditFragment extends Fragment
         _email          = (EditText) rootView.findViewById(R.id.etxt_customer_email);
         _date           = (EditText) rootView.findViewById(R.id.etxt_appointment_date);
         _time           = (EditText) rootView.findViewById(R.id.etxt_appointment_time);
-        _serviceSpinner = (Spinner) rootView.findViewById(R.id.spinner_service_type);
+        _serviceSpinner = (Spinner) rootView.findViewById(R.id.spinner_sales_type);
         _servicePrice   = (EditText) rootView.findViewById(R.id.etxt_price);
         _notes          = (EditText) rootView.findViewById(R.id.etxt_appointment_note);
         _btnSave        = (Button) rootView.findViewById(R.id.btn_edit_bar_save);
         _btnCancel      = (Button) rootView.findViewById(R.id.btn_edit_bar_cancel);
         _servicesMap    = _hostActivity.getServices();
-
-
-
-
 
         // Set up the spinner for services list
         setupServicesSpinner();
@@ -232,6 +228,7 @@ public class AppointmentEditFragment extends Fragment
         _selectedTime = time;
         _time.setText(timeFormatter.print(time));
     }
+
 
     /**
      * Call the host activity's getCustomerForAppointment and use the customer details

@@ -50,13 +50,14 @@ public class CustomerEditFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_customer_edit, container, false);
 
-        _name = (EditText) rootView.findViewById(R.id.etxt_name);
-        _phone = (EditText) rootView.findViewById(R.id.etxt_phone);
-        _email = (EditText) rootView.findViewById(R.id.etxt_email);
+        _name  = rootView.findViewById(R.id.etxt_name);
+        _phone = rootView.findViewById(R.id.etxt_phone);
+        _email = rootView.findViewById(R.id.etxt_email);
 
         _setAppointmentBtn = rootView.findViewById(R.id.btn_set_appt);
         _saveBtn = rootView.findViewById(R.id.btn_edit_bar_save);
         _cancelBtn = rootView.findViewById(R.id.btn_edit_bar_cancel);
+
 
 
         // Create a customer and let the host activity know that a request

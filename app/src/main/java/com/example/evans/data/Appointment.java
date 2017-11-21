@@ -14,7 +14,7 @@ import org.joda.time.LocalTime;
  *
  */
 
-public class Appointment implements Comparable {
+public class Appointment implements Comparable, Financial {
     private String _title;
     private LocalDate _date;
     private LocalTime _time;
@@ -71,7 +71,6 @@ public class Appointment implements Comparable {
     public void setTime(LocalTime _time) { this._time = _time; }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public int compareTo(@NonNull Object o) {
         Appointment appointment2 = (Appointment) o;
@@ -81,5 +80,11 @@ public class Appointment implements Comparable {
             return -1;
         else
             return 0;
+    }
+
+
+    @Override
+    public double getReport() {
+        return (_service.getPrice());
     }
 }

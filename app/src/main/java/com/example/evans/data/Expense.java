@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
  *
  */
 
-public class Expense implements Comparable {
+public class Expense implements Comparable, Financial {
     private String _name;
     private Double _price;
     private LocalDateTime _date;
@@ -60,5 +60,10 @@ public class Expense implements Comparable {
             return -1;
         else
             return 0;
+    }
+
+    @Override
+    public double getReport() {
+        return (-1 * _price);
     }
 }

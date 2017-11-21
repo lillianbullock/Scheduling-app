@@ -3,7 +3,7 @@ package com.example.evans.data;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
-import org.joda.time.LocalDateTime;
+import org.joda.time.LocalDate;
 
 
 /**
@@ -14,26 +14,33 @@ import org.joda.time.LocalDateTime;
  * Version: 0.0.1
  */
 
-public class Sale implements Comparable{
+public class Sale implements Comparable, Financial{
     private Service _service;
     private Double _price;
-    private LocalDateTime _dateTime;
+    private LocalDate _date;
     private Customer _customer;
 
     public Sale(){
         _service = new Service();
         _price = 0.0;
-        _dateTime = LocalDateTime.now();
+        _date = LocalDate.now();
         _customer = new Customer();
     }
 
-    public Sale(Service service, Double price, LocalDateTime dateTime,
+    public Sale(Service service, Double price, LocalDate date,
          Customer customer){
         _service = service;
         _price = price;
-        _dateTime = dateTime;
+        _date = date;
         _customer = customer;
     }
+
+    public Sale(Service service, Double price, LocalDate dateTime){
+        _service = service;
+        _price = price;
+        _date = dateTime;
+    }
+
 
     public Service getService() { return _service; }
     public void setService(Service service) { this._service = service; }
@@ -41,8 +48,8 @@ public class Sale implements Comparable{
     public Double getPrice() { return _price; }
     public void setPrice(Double price) { this._price = price; }
 
-    public LocalDateTime getDateTime() { return _dateTime; }
-    public void setDateTime(LocalDateTime dateTime) { this._dateTime = dateTime; }
+    public LocalDate getDate() { return _date; }
+    public void setDate(LocalDate dateTime) { this._date = dateTime; }
 
     public Customer getCustomer() { return _customer; }
     public void setCustomer(Customer customer) { this._customer = customer; }
@@ -51,11 +58,16 @@ public class Sale implements Comparable{
     @Override
     public int compareTo(@NonNull Object o) {
         Sale sale1 = (Sale) o;
-        if(this._dateTime.isAfter(sale1._dateTime))
+        if(this._date.isAfter(sale1._date))
             return 1;
-        else if(this._dateTime.isBefore(sale1._dateTime))
+        else if(this._date.isBefore(sale1._date))
             return -1;
         else
             return 0;
+    }
+
+    @Override
+    public double getReport() {
+        return _price;
     }
 }
