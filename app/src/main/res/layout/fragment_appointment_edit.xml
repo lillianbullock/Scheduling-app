@@ -116,8 +116,8 @@
             android:layout_marginTop="10dp"
             android:ems="10"
             android:hint="@string/appointment_date"
-            android:focusable="false"
             android:clickable="true"
+            android:focusable="false"
             android:inputType="datetime"
             app:layout_constraintHorizontal_bias="0.556"
             app:layout_constraintStart_toEndOf="@+id/txt_appointment_date"
@@ -229,10 +229,6 @@
             android:imeOptions="actionDone"
             app:layout_constraintStart_toEndOf="@+id/txt_appointment_note"
             app:layout_constraintTop_toBottomOf="@+id/txt_price" />
-
-
-
-
 
     </android.support.constraint.ConstraintLayout>
 

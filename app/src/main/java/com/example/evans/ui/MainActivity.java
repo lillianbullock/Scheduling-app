@@ -200,13 +200,15 @@ public class MainActivity extends AppCompatActivity implements
 
 
     @Override
-    public List<Goal> getGoal() { //TODO Figure out if we need more than one function for week day or year goals
-        return _mainController.getGoals(TimePeriod.Week); }
+    public List<Goal> getGoal() {
+        //TODO Figure out if we need more than one function for week day or year goals
+        return _mainController.getGoals(TimePeriod.Week);
+    }
 
 
-        /**
-         * Sales implementations
-         */
+    /**
+     * Sales implementations
+     */
     @Override
     public List<Sale> getSale() { return _mainController.getAllSales(); }
 
@@ -320,6 +322,9 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 
+    /**
+     * GOAL method Implementation
+     */
     @Override
     public void onClickAddGoal() {
         _currentFragment = new GoalEditFragment();
@@ -332,15 +337,31 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 
-
-
     @Override
     public void onClickGoal() {
         // TODO Implement
     }
 
+    @Override
+    public void onGoalCancel() {
+        onBackPressed();
+    }
 
     @Override
+    public void onGoalEditFinish(Goal goal) {
+        // Return to the main page for now
+        // TODO Go to goal view
+        _currentFragment = new StartPageFragment();
+        loadCurrentFragment(true);
+
+        _mainController.addNewGoal(goal);
+    }
+
+
+
+
+
+        @Override
     public void onClickService(Service service) {
         // TODO Handle service click
     }
@@ -353,17 +374,6 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public Customer getCustomerForAppointment() {
         return null;
-    }
-
-
-    @Override
-    public void onGoalEditFinish(Goal goal) {
-        // Return to the main page for now
-        // TODO Go to goal view
-        _currentFragment = new StartPageFragment();
-        loadCurrentFragment(true);
-
-        _mainController.addNewGoal(goal);
     }
 
 

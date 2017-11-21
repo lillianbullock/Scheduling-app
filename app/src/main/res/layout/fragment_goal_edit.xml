@@ -10,6 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!-- Include our standard edit header -->
+        <include layout="@layout/edit_bar"
+            android:id="@+id/edit_bar_in_goal"
+            />
+
 
         <TextView
             android:id="@+id/txt_goal_name"
@@ -22,7 +27,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_bar_in_goal"/>
 
 
         <EditText
@@ -35,7 +40,7 @@
             android:inputType="textPersonName"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toEndOf="@+id/txt_goal_name"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/edit_bar_in_goal"/>
 
         <TextView
             android:id="@+id/txt_start_date"
@@ -58,8 +63,9 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="12dp"
             android:ems="10"
-            android:hint="@string/date_enter_hint"
-            android:inputType="date"
+            android:inputType="datetime"
+            android:focusable="false"
+            android:clickable="true"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toEndOf="@+id/txt_start_date"
             app:layout_constraintTop_toBottomOf="@+id/etxt_goal_name" />
@@ -85,8 +91,9 @@
             android:layout_marginStart="64dp"
             android:layout_marginTop="12dp"
             android:ems="10"
-            android:hint="@string/date_enter_hint"
-            android:inputType="date"
+            android:focusable="false"
+            android:clickable="true"
+            android:inputType="datetime"
             app:layout_constraintHorizontal_bias="0.822"
             app:layout_constraintStart_toEndOf="@+id/txt_end_date"
             app:layout_constraintTop_toBottomOf="@+id/etxt_start_date" />
@@ -144,21 +151,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/txt_goal_details"/>
 
-
-        <Button
-            android:id="@+id/btn_save_goal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/button_save"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.871"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etxt_goal_details"
-            app:layout_constraintVertical_bias="0.301" />
 
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>
