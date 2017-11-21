@@ -92,6 +92,8 @@ public class SalesEditFragment extends Fragment
         _btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                KeyboardControl.closeKeyboard(getActivity());
                 Sale newSale = createSale();
 
                 if (newSale != null){
@@ -107,6 +109,7 @@ public class SalesEditFragment extends Fragment
         _btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                KeyboardControl.closeKeyboard(getActivity());
                _hostActivity.onSaleCancel();
 
             }

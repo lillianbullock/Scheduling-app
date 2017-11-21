@@ -37,6 +37,7 @@
             android:layout_marginStart="18dp"
             android:layout_marginTop="10dp"
             android:ems="10"
+            android:imeOptions="actionDone"
             android:inputType="textPersonName"
             app:layout_constraintStart_toEndOf="@+id/txt_customer_name"
             app:layout_constraintTop_toBottomOf="@id/edit_bar_in_appointment" />
@@ -63,6 +64,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:ems="10"
+            android:imeOptions="actionDone"
             android:inputType="textEmailAddress"
             app:layout_constraintStart_toEndOf="@+id/txt_customer_email"
             app:layout_constraintTop_toBottomOf="@id/etxt_customer_name" />
@@ -89,6 +91,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
             android:ems="10"
+            android:imeOptions="actionDone"
             android:inputType="phone"
             app:layout_constraintStart_toEndOf="@+id/txt_customer_phone"
             app:layout_constraintTop_toBottomOf="@id/etxt_customer_email" />
@@ -190,6 +193,8 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:ems="10"
+            android:imeOptions="actionDone"
+            android:focusable="false"
             android:inputType="numberDecimal"
             app:layout_constraintStart_toEndOf="@+id/txt_price"
             app:layout_constraintTop_toBottomOf="@id/spinner_sales_type" />
@@ -225,7 +230,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="10dp"
             android:ems="10"
-            android:inputType="textMultiLine"
+            android:maxLines="3"
+            android:inputType="textImeMultiLine"
             android:imeOptions="actionDone"
             app:layout_constraintStart_toEndOf="@+id/txt_appointment_note"
             app:layout_constraintTop_toBottomOf="@+id/txt_price" />

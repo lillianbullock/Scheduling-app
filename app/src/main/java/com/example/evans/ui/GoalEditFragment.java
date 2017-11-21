@@ -64,6 +64,8 @@ public class GoalEditFragment extends Fragment
         _btnSaveGoal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
+
+                KeyboardControl.closeKeyboard(getActivity());
                 goalActivitySave();
             }
         });
@@ -71,6 +73,7 @@ public class GoalEditFragment extends Fragment
         _btnCancelGoal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                KeyboardControl.closeKeyboard(getActivity());
                 _hostActivity.onGoalCancel();
             }
         });

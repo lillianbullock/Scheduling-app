@@ -65,6 +65,8 @@ public class CustomerEditFragment extends Fragment {
         _setAppointmentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                KeyboardControl.closeKeyboard(getActivity());
                 Customer customer = createCustomer();
 
                 if (customer != null) {
@@ -77,6 +79,8 @@ public class CustomerEditFragment extends Fragment {
         _saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                KeyboardControl.closeKeyboard(getActivity());
                 Customer customer = createCustomer();
 
                 if (customer != null) {
@@ -89,6 +93,7 @@ public class CustomerEditFragment extends Fragment {
         // Cancel button click
         _cancelBtn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
+                KeyboardControl.closeKeyboard(getActivity());
                 _hostActivity.onCancel();
             }
         });

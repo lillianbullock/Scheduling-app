@@ -7,11 +7,15 @@ import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.evans.R;
@@ -29,6 +33,10 @@ public class ServiceEditFragment extends Fragment {
 
     private Button _saveBtn;
     private Button _cancelBtn;
+
+
+    // for closing the keyboard
+    private static final int DONE = EditorInfo.IME_ACTION_DONE;
 
 
     // define a new instance of OnSubmitServiceEdit that would hold an instance of the host activity and will
@@ -49,17 +57,23 @@ public class ServiceEditFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_service_edit, container, false);
 
-        _title = rootView.findViewById(R.id.etxt_service_title);
+        _title = (EditText) rootView.findViewById(R.id.etxt_service_title);
         _description = rootView.findViewById(R.id.etxt_service_description);
         _price = rootView.findViewById(R.id.etxt_service_price);
 
         _saveBtn = rootView.findViewById(R.id.btn_edit_bar_save);
         _cancelBtn = rootView.findViewById(R.id.btn_edit_bar_cancel);
 
+
+
+
+
         // Set the click lister
         _saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                KeyboardControl.closeKeyboard(getActivity());
                 Service service = createService();
 
                 if (service != null) {
@@ -76,11 +90,24 @@ public class ServiceEditFragment extends Fragment {
         _cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                KeyboardControl.closeKeyboard(getActivity());
                 _hostActivity.onCancel();
             }
         });
 
         return rootView;
+    }
+
+
+    private void closeKeyboard() {
+
+        try {
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+        } catch (Exception e) {
+            // Do nothing
+        }
+
     }
 
     private Service createService() {

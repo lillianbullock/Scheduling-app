@@ -111,6 +111,8 @@ public class AppointmentEditFragment extends Fragment
         _btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                KeyboardControl.closeKeyboard(getActivity());
                 Appointment newAppointment = createAppointment();
 
                 if (newAppointment != null){
@@ -126,6 +128,7 @@ public class AppointmentEditFragment extends Fragment
         _btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                KeyboardControl.closeKeyboard(getActivity());
                 _hostActivity.onCancel();
             }
         });
