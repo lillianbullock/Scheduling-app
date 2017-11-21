@@ -9,5 +9,4 @@ public interface Financial {
      * @return report : profit or expense from the class
      */
     double getReport();
-
 }

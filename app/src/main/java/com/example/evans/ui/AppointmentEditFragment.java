@@ -223,6 +223,11 @@ public class AppointmentEditFragment extends Fragment
     }
 
     @Override
+    public void setDate(LocalDate date) {
+
+    }
+
+    @Override
     public void onDateSet(LocalTime time) {
         DateTimeFormatter timeFormatter = DateTimeFormat.shortTime();
         _selectedTime = time;

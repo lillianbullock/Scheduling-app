@@ -166,8 +166,13 @@ public class MainActivity extends AppCompatActivity implements
         loadCurrentFragment(true);
     }
 
+        @Override
+        public void onClickSale(Sale sale) {
 
-    @Override
+        }
+
+
+        @Override
     public void onAddCustomer() {
         _currentFragment = new CustomerEditFragment();
         loadCurrentFragment(false);
@@ -214,10 +219,10 @@ public class MainActivity extends AppCompatActivity implements
 
 
 
-    @Override
+    /*@Override
     public void onClickSale() {
 
-    }
+    }*/
 
 
     @Override
@@ -536,4 +541,9 @@ public class MainActivity extends AppCompatActivity implements
         Snackbar.make(findViewById(R.id.content_frame), "SET DATE CALLED IN PARENT ACTIVITY", Snackbar.LENGTH_LONG).show();
 
     }
-}
+
+        @Override
+        public void setDate(LocalDate date) {
+
+        }
+    }
