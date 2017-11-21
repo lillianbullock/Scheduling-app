@@ -251,11 +251,6 @@ public class MainActivity extends AppCompatActivity implements
             String description = service.getDescription();
             Double price = service.getPrice();
 
-            Toast.makeText(this, "Service create \n"
-                            + "Title: " + title
-                            + "\nPrice: " + price
-                            + "\nDescription: " + description,
-                    Toast.LENGTH_SHORT).show();
         } else {
 
             // If this ever happens then there's an error on our part. A null service should never be return here
@@ -265,9 +260,6 @@ public class MainActivity extends AppCompatActivity implements
                     "ERROR: Invalid service information enterred, cancelling operation", Snackbar.LENGTH_LONG).show();
             Log.e(TAG, "NULL service passed to MainActivity");
         }
-
-
-
 
 
     }
