@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ public class ServiceEditFragment extends Fragment {
     private EditText _price;
 
     private Button _saveBtn;
+    private Button _cancelBtn;
 
 
     // define a new instance of OnSubmitServiceEdit that would hold an instance of the host activity and will
@@ -51,33 +53,52 @@ public class ServiceEditFragment extends Fragment {
         _description = rootView.findViewById(R.id.etxt_service_description);
         _price = rootView.findViewById(R.id.etxt_service_price);
 
-        _saveBtn = rootView.findViewById(R.id.btn_service_edit_save);
+        _saveBtn = rootView.findViewById(R.id.btn_edit_bar_save);
+        _cancelBtn = rootView.findViewById(R.id.btn_edit_bar_cancel);
 
         // Set the click lister
         _saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createService();
+                Service service = createService();
+
+                if (service != null) {
+                    _hostActivity.onServiceEditFinish(service);
+                } else {
+                    Snackbar.make(getActivity().findViewById(R.id.content_frame),
+                            "Invalid service: Title and price cannot be empty", Snackbar.LENGTH_LONG).show();
+                }
             }
         });
 
 
+        // onCancel
+        _cancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                _hostActivity.onCancel();
+            }
+        });
+
         return rootView;
     }
 
-    private void createService() {
-        // TODO Check for errors and prompt user appropriately
+    private Service createService() {
+
+        if (_title.getText().toString().isEmpty() || _price.getText().toString().isEmpty()) {
+            return null;
+        }
+
+
+        Service newService = null;
 
         String title = _title.getText().toString();
         String description = _description.getText().toString();
-        String priceStr = _price.getText().toString();
+        double price = convertPriceStringToDouble(_price.getText().toString());
 
-        double price = convertPriceStringToDouble(priceStr);
+        newService = new Service(title, description, price);
 
-        // TODO check if redundant service
-        Service newService = new Service(title, description, price);
-
-        _hostActivity.onServiceEditFinish(newService);
+        return newService;
 
     }
 
@@ -88,21 +109,16 @@ public class ServiceEditFragment extends Fragment {
         return Double.parseDouble(priceStr.replaceAll("[^0-9.]", ""));
     }
 
-    /**
-     * Construct a service and pass it to the host activity by calling it's
-     * onServiceEditFinish function
-     */
-    public void onSaveServiceClick() {
-
-        // TODO - Implement
+    @Override
+    public void onResume() {
+        super.onResume();
+        _hostActivity.hideActionbar();
     }
 
-    /**
-     * Declare an interface that the activate that creates this fragment must implement. This interface will
-     * handle when a new service has been added
-     */
-    public interface OnSubmitServiceEdit {
-        void onServiceEditFinish (Service service);
+    @Override
+    public void onStop() {
+        super.onStop();
+        _hostActivity.showActionbar();
     }
 
     /**
@@ -122,6 +138,17 @@ public class ServiceEditFragment extends Fragment {
             throw new ClassCastException(context.toString() + " must implement OnSubmitServiceEdit");
         }
 
+    }
+
+    /**
+     * Declare an interface that the activate that creates this fragment must implement. This interface will
+     * handle when a new service has been added
+     */
+    public interface OnSubmitServiceEdit {
+        void onServiceEditFinish (Service service);
+        void onCancel();
+        void hideActionbar();
+        void showActionbar();
     }
 
 }

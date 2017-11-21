@@ -25,7 +25,7 @@ public class SalesListFragment extends Fragment {
 
     FloatingActionButton _addFloatingBtn;
     View _rootView;
-   InteractionWithSalesFragmentListener _hostActivityListener;
+   SalesListFragmentListener _hostActivityListener;
 
     public SalesListFragment(){
         //Required empty public construction
@@ -76,7 +76,7 @@ public class SalesListFragment extends Fragment {
 
     /**
      * Sales Attach, want to make sure that the activity that uses this fragment
-     * has implemented our InteractionWithSalesFragmentListener interface
+     * has implemented our SalesListFragmentListener interface
      * @param activity: the host activity
      */
     @Override
@@ -84,10 +84,10 @@ public class SalesListFragment extends Fragment {
         super.onAttach(activity);
 
         try {
-            _hostActivityListener = (InteractionWithSalesFragmentListener) activity;
+            _hostActivityListener = (SalesListFragmentListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement " +
-                    "InteractionWithSalesFragmentListener");
+                    "SalesListFragmentListener");
         }
     }
 
@@ -103,7 +103,7 @@ public class SalesListFragment extends Fragment {
      * This interface must be implemented by the container Activity
      * This is how we'll be able to communicate with the parent activity.
      */
-    public interface InteractionWithSalesFragmentListener{
+    public interface SalesListFragmentListener {
         List<Sale> getSale();
         void onAddSale();
         void onClickSale(Sale sale);

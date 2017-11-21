@@ -134,6 +134,7 @@ public class CustomerEditFragment extends Fragment {
         _hostActivity.hideActionbar();
     }
 
+
     @Override
     public void onStop() {
         super.onStop();

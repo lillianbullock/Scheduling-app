@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements
         AppointmentEditFragment.OnSubmitAppointment,
         DatePickerFragment.OnDateSetListener,
         CustomerViewFragment.InteractionWithCustomerViewFragmentListener,
-        SalesListFragment.InteractionWithSalesFragmentListener,
+        SalesListFragment.SalesListFragmentListener,
         AppointmentViewFragment.InteractionWithAppointmentViewFragmentListener,
         SalesEditFragment.OnSubmitSalesEdit
     {
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements
         _mainController = new MainController();
         _database = FirebaseDatabase.getInstance().getReference();
 
-        // load any saved date from the shared preference
+        // load any saved data from the shared preference
         loadSharedPreference();
 
         // Initialize and launch the start page fragment
@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onAddCustomer() {
         _currentFragment = new CustomerEditFragment();
-        loadCurrentFragment(false);
+        loadCurrentFragment(true);
 
     }
 
@@ -185,6 +185,7 @@ public class MainActivity extends AppCompatActivity implements
 
         return _mainController.getAvailableServices();
     }
+
 
     @Override
     public Customer getViewCustomer() {
@@ -226,38 +227,47 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onSaleEditFinish(Sale sale) {
-        //TODO what to do when saved
+
         if(sale != null){
             _mainController.addSale(sale);
             _currentFragment = new StartPageFragment();
             loadCurrentFragment(false);
         }
 
-        Toast.makeText(this, "Sales create \n"
-        + sale.getService().getTitle() + " Service title: \n"
-        + sale.getPrice().toString() + " price \n"
-        + sale.getDate().toString() + " Date \n", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onServiceEditFinish(Service service) {
-        // TODO Handle this case
 
-        // Return to the main page for now
-        _currentFragment = new StartPageFragment();
-        loadCurrentFragment(false);
+        if (service != null) {
+            _mainController.addService(service.getTitle(), service);
 
-        String title = service.getTitle();
-        String description = service.getDescription();
-        Double price = service.getPrice();
+            _currentFragment = new ServiceListFragment();
+            loadCurrentFragment(false);
 
-        Toast.makeText(this, "Service create \n"
-                        + "Title: " + title
-                        + "\nPrice: " + price
-                        + "\nDescription: " + description,
-                Toast.LENGTH_SHORT).show();
+            String title = service.getTitle();
+            String description = service.getDescription();
+            Double price = service.getPrice();
 
-        _mainController.addService(title, service);
+            Toast.makeText(this, "Service create \n"
+                            + "Title: " + title
+                            + "\nPrice: " + price
+                            + "\nDescription: " + description,
+                    Toast.LENGTH_SHORT).show();
+        } else {
+
+            // If this ever happens then there's an error on our part. A null service should never be return here
+            _currentFragment = new StartPageFragment();
+            loadCurrentFragment(false);
+            Snackbar.make(findViewById(R.id.content_frame),
+                    "ERROR: Invalid service information enterred, cancelling operation", Snackbar.LENGTH_LONG).show();
+            Log.e(TAG, "NULL service passed to MainActivity");
+        }
+
+
+
+
+
     }
 
 
@@ -302,7 +312,6 @@ public class MainActivity extends AppCompatActivity implements
         // We can work with this for now
         return LAST_ASSIGNED_CUSTOMER_ID + 1;
     }
-
 
 
     @Override
