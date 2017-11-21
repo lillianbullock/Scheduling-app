@@ -123,7 +123,7 @@ public class AppointmentEditFragment extends Fragment
         _btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                _hostActivity.onCancelAppointmentEdit();
+                _hostActivity.onCancel();
             }
         });
 
@@ -325,7 +325,7 @@ public class AppointmentEditFragment extends Fragment
      */
     public interface OnSubmitAppointment {
         void onAppointmentEditFinish (Customer customer, Appointment appointment);
-        void onCancelAppointmentEdit();
+        void onCancel();
         Map<String, Service> getServices();
         void hideActionbar();
         void showActionbar();

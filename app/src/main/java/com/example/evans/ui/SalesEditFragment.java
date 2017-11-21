@@ -200,7 +200,7 @@ public class SalesEditFragment extends Fragment
 
     public interface OnSubmitSalesEdit {
         void onSaleEditFinish (Sale sale);
-        void onCancelSaleEdit();
+        void onCancel();
         Map<String, Service> getServices();
         void hideActionbar();
         void showActionbar();
