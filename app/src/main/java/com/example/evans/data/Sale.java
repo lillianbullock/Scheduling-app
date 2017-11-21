@@ -3,7 +3,7 @@ package com.example.evans.data;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
-import org.joda.time.LocalDateTime;
+import org.joda.time.LocalDate;
 
 
 /**
@@ -17,17 +17,17 @@ import org.joda.time.LocalDateTime;
 public class Sale implements Comparable{
     private Service _service;
     private Double _price;
-    private LocalDateTime _dateTime;
+    private LocalDate _dateTime;
     private Customer _customer;
 
     public Sale(){
         _service = new Service();
         _price = 0.0;
-        _dateTime = LocalDateTime.now();
+        _dateTime = LocalDate.now();
         _customer = new Customer();
     }
 
-    public Sale(Service service, Double price, LocalDateTime dateTime,
+    public Sale(Service service, Double price, LocalDate dateTime,
          Customer customer){
         _service = service;
         _price = price;
@@ -35,7 +35,7 @@ public class Sale implements Comparable{
         _customer = customer;
     }
 
-    public Sale(Service service, Double price, LocalDateTime dateTime){
+    public Sale(Service service, Double price, LocalDate dateTime){
         _service = service;
         _price = price;
         _dateTime = dateTime;
@@ -48,8 +48,8 @@ public class Sale implements Comparable{
     public Double getPrice() { return _price; }
     public void setPrice(Double price) { this._price = price; }
 
-    public LocalDateTime getDateTime() { return _dateTime; }
-    public void setDateTime(LocalDateTime dateTime) { this._dateTime = dateTime; }
+    public LocalDate getDateTime() { return _dateTime; }
+    public void setDateTime(LocalDate dateTime) { this._dateTime = dateTime; }
 
     public Customer getCustomer() { return _customer; }
     public void setCustomer(Customer customer) { this._customer = customer; }

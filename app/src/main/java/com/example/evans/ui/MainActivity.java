@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity implements
         SalesListFragment.InteractionWithSalesFragmentListener,
         AppointmentViewFragment.InteractionWithAppointmentViewFragmentListener,
         SalesEditFragment.OnSubmitSalesEdit
-        //DatePickerFragment.RecieveDateValueListener
     {
 
     // Variables
@@ -148,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements
         Log.i(TAG, "Saved last customer id to shared preference");
     }
 
-        /**
+       /**
      * Not sure yet how we want to implement this feature
      * there're a few ways but it should return the last id that was
      * assigned to the last created customer
@@ -161,11 +160,6 @@ public class MainActivity extends AppCompatActivity implements
 
 
     /** IMPLEMENT METHODS for all the fragments that this activity will use */
-    @Override
-    public void onAddSale() {
-        _currentFragment = new SalesEditFragment();
-        loadCurrentFragment(true);
-    }
 
 
     @Override
@@ -210,20 +204,35 @@ public class MainActivity extends AppCompatActivity implements
     public List<Goal> getGoal() { //TODO Figure out if we need more than one function for week day or year goals
         return _mainController.getGoals(TimePeriod.Week); }
 
+
+        /**
+         * Sales implementations
+         */
     @Override
     public List<Sale> getSale() { return _mainController.getAllSales(); }
 
-
+    @Override
+    public void onAddSale() {
+        _currentFragment = new SalesEditFragment();
+        loadCurrentFragment(true);
+    }
 
     @Override
-    public void onClickSale() {
+    public void setDate(LocalDate date) {
 
     }
 
+    @Override
+    public void onClickSale(Sale sale) {
+
+    }
+    @Override
+    public void onSaleCancel() {
+        onBackPressed();
+    }
 
     @Override
     public void onSaleEditFinish(Sale sale) {
-
     }
 
     @Override

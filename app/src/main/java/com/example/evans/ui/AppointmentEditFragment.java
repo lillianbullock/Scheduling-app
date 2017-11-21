@@ -233,6 +233,7 @@ public class AppointmentEditFragment extends Fragment
         _time.setText(timeFormatter.print(time));
     }
 
+
     /**
      * Call the host activity's getCustomerForAppointment and use the customer details
      * to initialize the customer details for the appointment
@@ -332,5 +333,8 @@ public class AppointmentEditFragment extends Fragment
         Customer getCustomerForAppointment();
     }
 
+    @Override
+    public void setDate(LocalDate date) {
 
+    }
 }
