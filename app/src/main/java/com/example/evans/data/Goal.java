@@ -4,7 +4,7 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 
-import org.joda.time.LocalDateTime;
+import org.joda.time.LocalDate;
 
 
 /**
@@ -15,21 +15,21 @@ import org.joda.time.LocalDateTime;
 public class Goal implements Comparable {
     private String _title;
     private String _description;
-    private LocalDateTime _dueDate;
-    private LocalDateTime _startDate;
+    private LocalDate _dueDate;
+    private LocalDate _startDate;
     private Boolean _isRepeat;
     private TimePeriod _repeatCycle;
 
     public Goal() {
         _title = "";
         _description = "";
-        _dueDate = LocalDateTime.now();
-        _startDate = LocalDateTime.now();
+        _dueDate = LocalDate.now();
+        _startDate = LocalDate.now();
         _repeatCycle = null;
     }
 
-    public Goal(String title, String description, LocalDateTime dueDate,
-         LocalDateTime startDate, TimePeriod repeatCycle) {
+    public Goal(String title, String description, LocalDate dueDate,
+         LocalDate startDate, TimePeriod repeatCycle) {
         this._title = title;
         this._description = description;
         this._dueDate = dueDate;
@@ -41,8 +41,8 @@ public class Goal implements Comparable {
         } else _isRepeat = true;
     }
 
-    public Goal(String title, String description, LocalDateTime dueDate,
-                LocalDateTime startDate) {
+    public Goal(String title, String description, LocalDate dueDate,
+                LocalDate startDate) {
         this._title = title;
         this._description = description;
         this._dueDate = dueDate;
@@ -55,8 +55,8 @@ public class Goal implements Comparable {
      */
     public String getTitle() { return _title; }
     public String getDescription() { return _description; }
-    public LocalDateTime getDueDate() { return _dueDate; }
-    public LocalDateTime getStartDate() { return _startDate; }
+    public LocalDate getDueDate() { return _dueDate; }
+    public LocalDate getStartDate() { return _startDate; }
     public Boolean getIsRepeat() { return _isRepeat; }
     public TimePeriod getRepeatCycle() { return _repeatCycle; }
 
@@ -65,8 +65,8 @@ public class Goal implements Comparable {
      */
     public void setTitle(String title) { this._title = title; }
     public void setDescription(String description) { this._description = description; }
-    public void setDueDate(LocalDateTime dueDate) { this._dueDate = dueDate; }
-    public void setStartDate(LocalDateTime startDate) { this._startDate = startDate; }
+    public void setDueDate(LocalDate dueDate) { this._dueDate = dueDate; }
+    public void setStartDate(LocalDate startDate) { this._startDate = startDate; }
 
     /**
      * sets the repeat cycle to the passed value and sets _isRepeat based on that

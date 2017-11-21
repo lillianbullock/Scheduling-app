@@ -16,7 +16,7 @@ import android.widget.Toast;
 import com.example.evans.R;
 import com.example.evans.data.Goal;
 
-import org.joda.time.LocalDateTime;
+import org.joda.time.LocalDate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +58,7 @@ public class GoalListFragment  extends Fragment {
 
         super.onCreate(savedInstanceState);
 
-        Goal goal = new Goal("Two", "Do two things", LocalDateTime.now(), LocalDateTime.now());
+        Goal goal = new Goal("Two", "Do two things", LocalDate.now(), LocalDate.now());
         newGoals.add(goal);
 
         //TODO information back in with database
