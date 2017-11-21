@@ -31,11 +31,11 @@
             android:id="@+id/etxt_name"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginTop="10dp"
             android:ems="10"
             android:inputType="textPersonName"
-            app:layout_constraintStart_toEndOf="@+id/txt_name"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edit_bar_in_customer_edit" />
 
         <TextView
@@ -55,11 +55,11 @@
             android:id="@+id/etxt_phone"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginTop="10dp"
             android:ems="10"
             android:inputType="phone"
-            app:layout_constraintStart_toEndOf="@+id/txt_phone"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etxt_name" />
 
         <TextView
@@ -80,12 +80,11 @@
             android:id="@+id/etxt_email"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginTop="10dp"
             android:ems="10"
             android:inputType="textEmailAddress"
-            app:layout_constraintLeft_toLeftOf="@id/txt_email"
-            app:layout_constraintStart_toEndOf="@+id/txt_email"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etxt_phone" />
 
         <Button
@@ -94,12 +93,12 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginTop="16dp"
-            android:text="@string/set_appt"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="16dp"
+            android:text="@string/set_appt"
             android:background="@color/colorAccent"
             android:textColor="#ffffff"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/etxt_email"
             />
 

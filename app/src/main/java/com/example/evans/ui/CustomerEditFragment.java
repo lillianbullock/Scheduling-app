@@ -34,6 +34,7 @@ public class CustomerEditFragment extends Fragment {
 
     private Button _setAppointmentBtn;
     private Button _saveBtn;
+    private Button _cancelBtn;
 
 
     // define a new instance of OnSubmitCustomerEdit that would hold an instance of the host activity and will
@@ -54,12 +55,13 @@ public class CustomerEditFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_customer_edit, container, false);
 
-        _name = (EditText) rootView.findViewById(R.id.etxt_name);
-        _phone = (EditText) rootView.findViewById(R.id.etxt_phone);
-        _email = (EditText) rootView.findViewById(R.id.etxt_email);
+        _name  = rootView.findViewById(R.id.etxt_name);
+        _phone = rootView.findViewById(R.id.etxt_phone);
+        _email = rootView.findViewById(R.id.etxt_email);
 
         _setAppointmentBtn = rootView.findViewById(R.id.btn_set_appt);
-        _saveBtn = rootView.findViewById(R.id.btn_edit_bar_save);
+        _saveBtn   = rootView.findViewById(R.id.btn_edit_bar_save);
+        _cancelBtn = rootView.findViewById(R.id.btn_edit_bar_cancel);
 
 
         // Create a customer and let the host activity know that a request
@@ -85,6 +87,15 @@ public class CustomerEditFragment extends Fragment {
                     _hostActivity.onCustomerEditFinish(customer);
                 }
 
+            }
+        });
+
+        // Cancel button click listener
+        _cancelBtn.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                _hostActivity.onCancel();
             }
         });
 
@@ -167,7 +178,8 @@ public class CustomerEditFragment extends Fragment {
 
         void onCustomerEditFinish (Customer customer);
         void onAddAppointmentClickForCustomer(Customer customer);
-        int getNextCustomerId();
+        void onCancel();
+        int  getNextCustomerId();
         void hideActionbar();
         void showActionbar();
 
