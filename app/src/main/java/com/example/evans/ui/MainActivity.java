@@ -226,6 +226,17 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onSaleEditFinish(Sale sale) {
+        //TODO what to do when saved
+        if(sale != null){
+            _mainController.addSale(sale);
+            _currentFragment = new StartPageFragment();
+            loadCurrentFragment(false);
+        }
+
+        Toast.makeText(this, "Sales create \n"
+        + sale.getService().getTitle() + " Service title: \n"
+        + sale.getPrice().toString() + " price \n"
+        + sale.getDate().toString() + " Date \n", Toast.LENGTH_LONG).show();
     }
 
     @Override
