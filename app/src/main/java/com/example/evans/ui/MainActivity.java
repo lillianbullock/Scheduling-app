@@ -29,7 +29,6 @@ import com.example.evans.data.TimePeriod;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-
 import org.joda.time.LocalDate;
 
 import java.util.List;

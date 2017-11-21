@@ -16,18 +16,21 @@ import org.joda.time.LocalDateTime;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * {@link Fragment} subclass to view the customer data.
  */
 public class CustomerViewFragment extends Fragment {
 
     private Customer _customer;
     private InteractionWithCustomerViewFragmentListener _hostListener;
 
-
     public CustomerViewFragment() {
         // Required empty public constructor
     }
 
+    /**
+     * sets the customer within the class
+     * @param customer
+     */
     public void setCustomer(Customer customer) { _customer = customer; }
 
     @Override
@@ -38,41 +41,39 @@ public class CustomerViewFragment extends Fragment {
 
         //_customer = new Customer("0", "Customer1", "email1", "000 000 0000", new LocalDateTime());
 
+        // collects the views to display the data
         TextView name = (TextView) view.findViewById(R.id.txt_view_name);
         TextView email = (TextView) view.findViewById(R.id.txt_view_email);
         TextView phone = (TextView) view.findViewById(R.id.txt_view_phone);
 
+        //sets views to the customer data
         name.setText(_customer.getName());
         email.setText(_customer.getEmail());
         phone.setText(_customer.getPhone());
 
-        // Inflate the layout for this fragment
         return view;
     }
 
     /**
-     * We want to make sure that the activity that uses this fragment
-     * has implemented our InteractionWithCustomerViewFragment interface. We
-     * check for this by trying to cast the activity to an instance of
-     * InteractionWithCustomerViewFragment, if it fails then that means that the
-     * interface wasn't implemented. We have to say something about that!
+     * Ensures parent activity has implemented the InteractionWithCustomerViewFragment interface
      * @param activity: the host activity
      */
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
+        //check for implementation by trying to cast to an instance of the interface
         try {
             _hostListener = (InteractionWithCustomerViewFragmentListener) activity;
         } catch (ClassCastException e) {
+            // if fails, interface wasn't implemented
             throw new ClassCastException(activity.toString() + " must implement " +
                     "InteractionWithCustomerViewFragmentListener");
         }
     }
 
     /**
-     * This interface must be implemented by the container Activity
-     * This is how we'll be able to communicate with the parent activity.
+     * interface to be implemented by parent activity to allow communication
      */
     public interface InteractionWithCustomerViewFragmentListener{
         Customer getViewCustomer();
