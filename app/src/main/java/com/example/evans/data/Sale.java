@@ -35,6 +35,13 @@ public class Sale implements Comparable{
         _customer = customer;
     }
 
+    public Sale(Service service, Double price, LocalDateTime dateTime){
+        _service = service;
+        _price = price;
+        _dateTime = dateTime;
+    }
+
+
     public Service getService() { return _service; }
     public void setService(Service service) { this._service = service; }
 

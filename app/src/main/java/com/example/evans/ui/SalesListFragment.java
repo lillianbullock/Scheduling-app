@@ -16,7 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Brooke Nelson on 11/15/2017.
+ *
+ * Sales List Fragment
+ * {@link Fragment} subclass
  */
 
 public class SalesListFragment extends Fragment {
@@ -73,7 +75,8 @@ public class SalesListFragment extends Fragment {
 
 
     /**
-     * Sales Attach
+     * Sales Attach, want to make sure that the activity that uses this fragment
+     * has implemented our InteractionWithSalesFragmentListener interface
      * @param activity: the host activity
      */
     @Override
@@ -103,7 +106,7 @@ public class SalesListFragment extends Fragment {
     public interface InteractionWithSalesFragmentListener{
         List<Sale> getSale();
         void onAddSale();
-        void onClickSale();
+        void onClickSale(Sale sale);
     }
 
 
