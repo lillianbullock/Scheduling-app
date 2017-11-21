@@ -29,7 +29,6 @@ import com.example.evans.data.TimePeriod;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-
 import org.joda.time.LocalDate;
 
 import java.util.List;
@@ -160,6 +159,11 @@ public class MainActivity extends AppCompatActivity implements
 
 
     /** IMPLEMENT METHODS for all the fragments that this activity will use */
+    @Override
+    public void onAddSale() {
+        _currentFragment = new SalesEditFragment();
+        loadCurrentFragment(true);
+    }
 
 
     @Override
@@ -546,4 +550,9 @@ public class MainActivity extends AppCompatActivity implements
         Snackbar.make(findViewById(R.id.content_frame), "SET DATE CALLED IN PARENT ACTIVITY", Snackbar.LENGTH_LONG).show();
 
     }
-}
+
+        @Override
+        public void setDate(LocalDate date) {
+
+        }
+    }

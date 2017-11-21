@@ -93,10 +93,6 @@ public class AppointmentEditFragment extends Fragment
         _btnCancel      = (Button) rootView.findViewById(R.id.btn_edit_bar_cancel);
         _servicesMap    = _hostActivity.getServices();
 
-
-
-
-
         // Set up the spinner for services list
         setupServicesSpinner();
 
@@ -224,6 +220,11 @@ public class AppointmentEditFragment extends Fragment
         DateTimeFormatter formatter = DateTimeFormat.forPattern("dd, MMMM yyyy");
         _selectedDate = date;
         _date.setText(formatter.print(date));
+    }
+
+    @Override
+    public void setDate(LocalDate date) {
+
     }
 
     @Override

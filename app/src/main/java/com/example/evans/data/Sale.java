@@ -14,7 +14,7 @@ import org.joda.time.LocalDate;
  * Version: 0.0.1
  */
 
-public class Sale implements Comparable{
+public class Sale implements Comparable, Financial{
     private Service _service;
     private Double _price;
     private LocalDate _dateTime;
@@ -64,5 +64,10 @@ public class Sale implements Comparable{
             return -1;
         else
             return 0;
+    }
+
+    @Override
+    public double getReport() {
+        return _price;
     }
 }
