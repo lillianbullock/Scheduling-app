@@ -351,7 +351,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onCancelAppointmentEdit() {
+    public void onCancel() {
         onBackPressed();
 
     }

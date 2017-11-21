@@ -51,13 +51,13 @@ public class TimePickerFragment extends DialogFragment
         // call the caller's onDateSet to do with the time what it wants to do. It's not our business
         // we did our job by getting the date for them
         if (_caller != null) {
-            _caller.onDateSet(selectedTime);
+            _caller.onTimeSet(selectedTime);
         } else {
             throw new ClassCastException("Null reference for calling fragement: Use setTargetFragment in the calling fragment");
         }
     }
 
     public interface OnTimeSetListener {
-        void onDateSet(LocalTime time);
+        void onTimeSet(LocalTime time);
     }
 }
