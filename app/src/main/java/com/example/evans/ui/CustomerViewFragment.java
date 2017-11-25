@@ -78,7 +78,4 @@ public class CustomerViewFragment extends Fragment {
     public interface InteractionWithCustomerViewFragmentListener{
         Customer getViewCustomer();
     }
-
-
-
 }
