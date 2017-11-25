@@ -2,6 +2,8 @@ package com.example.evans.data;
 
 
 
+import com.google.firebase.database.DatabaseReference;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,6 +29,7 @@ public class MainController {
     private Map<String, Service>    _availableServices = new HashMap<String, Service>();
     private List<Sale>              _allSales          = new LinkedList<>();
     private List<Expense>           _expenses          = new LinkedList<>();
+    private FirebaseManager         _firebaseManager   = null;
 
 
     /**
@@ -35,6 +38,8 @@ public class MainController {
      * TODO: Implement data loading here
      */
     public MainController() {
+
+        _firebaseManager = new FirebaseManager();
         populateServices();
     }
 
@@ -44,6 +49,10 @@ public class MainController {
      */
     private void populateServices() {
 
+        _availableServices = _firebaseManager.getServices();
+
+
+        // TODO: delete the code below this line
         // Create a dummy list of services for now
         Service shampoo = new Service("Shampoo", "Shampoo the customer's hair", 8.00);
         _availableServices.put("Shampoo", shampoo);
@@ -263,9 +272,7 @@ public class MainController {
      */
     public List<Customer> getAppointmentsForCustomer(Customer customer) {
 
-
         return null;
-
     }
 
     /**
@@ -321,7 +328,6 @@ public class MainController {
 
         return null;
     }
-
 
 
 
