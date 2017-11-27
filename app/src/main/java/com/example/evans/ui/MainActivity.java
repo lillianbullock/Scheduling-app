@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements
         @Override
     public void onAddCustomer() {
         _currentFragment = new CustomerEditFragment();
-        loadCurrentFragment(true);
+        loadCurrentFragment(false);
 
     }
 
