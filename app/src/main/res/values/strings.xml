@@ -60,8 +60,16 @@
     <string name="salesPrice">Sales Price</string>
     <string name="salesCustomer">Sales Customer</string>
 
+    <string name="fin_rep_start_date">Start Date</string>
+    <string name="fin_rep_end_date">End Date</string>
+    <string name="fin_rep_cost">Cost</string>
+    <string name="fin_rep_net">Net</string>
+    <string name="fin_rep_profit">Profit</string>
+
     <!-- set this as the default string in layouts where it will be overwritten-->
     <string name="default_string">Default</string>
+    <string name="bttn_calculate">Calculate</string>
+
 
     <!-- Strings below here need to be sorted-->
 

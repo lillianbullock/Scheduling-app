@@ -217,14 +217,6 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public List<Sale> getSale() { return _mainController.getAllSales(); }
 
-
-
-    /*@Override
-    public void onClickSale() {
-
-    }*/
-
-
     @Override
     public void onSaleEditFinish(Sale sale) {
 
@@ -270,7 +262,6 @@ public class MainActivity extends AppCompatActivity implements
         // A valid customer was created so increase the value of LAST_ASSIGNED_CUSTOMER_ID
         LAST_ASSIGNED_CUSTOMER_ID += 1;
 
-
          CustomerViewFragment _frag = new CustomerViewFragment();
         _frag.setCustomer(customer);
         _currentFragment = _frag;
@@ -281,7 +272,6 @@ public class MainActivity extends AppCompatActivity implements
         _database.child(DATABASE_CUSTOMER_REF).child(String.valueOf(customer.getId())).setValue(customer);
 
         _mainController.addCustomer(customer);
-
     }
 
     /**

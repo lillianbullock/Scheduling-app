@@ -1,18 +1,36 @@
 package com.example.evans.ui;
 
 
+import android.app.DialogFragment;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+//import android.widget.Button;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.evans.R;
+
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FinancialReportFragment extends Fragment {
+public class FinancialReportFragment extends Fragment
+        implements DatePickerFragment.OnDateSetListener {
+
+    private EditText _profit;
+    private EditText _cost;
+    private EditText _net;
+    private EditText _startDate;
+    private EditText _endDate;
+    private Button _bttnCalculate;
+    private LocalDate _selectedStartDate;
+    private LocalDate _selectedEndDate;
 
 
     public FinancialReportFragment() {
@@ -24,7 +42,59 @@ public class FinancialReportFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_financial_report, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_appointment_edit, container, false);
+
+        _profit         = (EditText) rootView.findViewById(R.id.etxt_fin_rep_profit);
+        _cost           = (EditText) rootView.findViewById(R.id.etxt_fin_rep_cost);
+        _net            = (EditText) rootView.findViewById(R.id.etxt_fin_rep_net);
+        _startDate      = (EditText) rootView.findViewById(R.id.etxt_fin_rep_start);
+        _endDate        = (EditText) rootView.findViewById(R.id.etxt_fin_rep_end);
+        _bttnCalculate  = (Button) rootView.findViewById(R.id.bttn_fin_rep_cancel);
+
+        // On click listener for date
+        _startDate.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                DialogFragment dateFragment = new DatePickerFragment();
+                dateFragment.setTargetFragment(FinancialReportFragment.this, 0);
+                dateFragment.show(getFragmentManager(), "DatePicker");
+            }
+        });
+
+        _endDate.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                DialogFragment dateFragment = new DatePickerFragment();
+                dateFragment.setTargetFragment(FinancialReportFragment.this, 0);
+                dateFragment.show(getFragmentManager(), "DatePicker");
+            }
+        });
+
+        // onClick Listener for cancel
+        _bttnCalculate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // todo calculate the report and display
+
+                _profit.setText("Profit calculation");
+                _cost.setText("Cost calculation");
+                _net.setText("Net calculation");
+            }
+        });
+
+        return rootView;
     }
 
+    @Override
+    public void onDateSet(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd, MMMM yyyy");
+        //TODO figure out how to set it to the appropriate field
+        _selectedStartDate = date;
+        _startDate.setText(formatter.print(date));
+    }
+
+    @Override
+    public void setDate(LocalDate date) {
+
+    }
 }

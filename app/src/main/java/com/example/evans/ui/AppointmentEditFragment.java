@@ -1,7 +1,5 @@
 package com.example.evans.ui;
 
-
-
 import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -17,7 +15,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-
 import com.example.evans.R;
 import com.example.evans.data.Appointment;
 import com.example.evans.data.Customer;
@@ -30,12 +27,9 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-
 
 /**
  * This fragment will be loaded when the user tries to create a new appointment
@@ -62,8 +56,6 @@ public class AppointmentEditFragment extends Fragment
     private LocalTime _selectedTime;
     private Customer _selectedCustomer;
 
-
-
     private static final String TAG  = "AppointmentEditFragment";
     private static final int DATE_DIALOG = 1;
     private static final int TIME_DIALOG = 2;
@@ -73,8 +65,6 @@ public class AppointmentEditFragment extends Fragment
     public AppointmentEditFragment() {
         // Required empty public constructor
     }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

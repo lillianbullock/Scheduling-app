@@ -2,12 +2,120 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.evans.ui.FinancialReportFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
 
+        <EditText
+            android:id="@+id/etxt_fin_rep_end"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:clickable="true"
+            android:ems="10"
+            android:focusable="false"
+            android:hint="@string/fin_rep_end_date"
+            android:inputType="datetime"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/etxt_fin_rep_start"
+            android:layout_width="150dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:hint="@string/fin_rep_start_date"
+            android:inputType="datetime"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_fin_rep_profit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:labelFor="@id/etxt_fin_rep_profit"
+            android:text="@string/fin_rep_profit"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintBaseline_toBaselineOf="@+id/etxt_fin_rep_profit"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/etxt_fin_rep_profit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bttn_fin_rep_cancel" />
+
+        <TextView
+            android:id="@+id/txt_fin_rep_cost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:labelFor="@id/etxt_fin_rep_cost"
+            android:text="@string/fin_rep_cost"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintBaseline_toBaselineOf="@+id/etxt_fin_rep_cost"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/etxt_fin_rep_cost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etxt_fin_rep_profit" />
+
+        <TextView
+            android:id="@+id/txt_fin_rep_net"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:labelFor="@id/etxt_fin_rep_net"
+            android:text="@string/fin_rep_net"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintBaseline_toBaselineOf="@+id/etxt_fin_rep_net"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/etxt_fin_rep_net"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etxt_fin_rep_cost" />
+
+        <Button
+            android:id="@+id/bttn_fin_rep_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/bttn_calculate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etxt_fin_rep_end" />
+
+    </android.support.constraint.ConstraintLayout>
 </FrameLayout>
