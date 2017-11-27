@@ -1,10 +1,9 @@
 package com.example.evans.ui;
 
 
+import android.app.DialogFragment;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,15 +13,17 @@ import android.widget.EditText;
 import com.example.evans.R;
 import com.example.evans.data.Goal;
 import com.example.evans.data.TimePeriod;
-import org.joda.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 
 /**
  * A simple {@link Fragment} subclass.
  *
  */
-public class GoalEditFragment extends Fragment {
+public class GoalEditFragment extends Fragment
+        implements DatePickerFragment.OnDateSetListener {
 
     private EditText _goalName;
     private EditText _goalStart;
@@ -30,7 +31,11 @@ public class GoalEditFragment extends Fragment {
     private EditText _goalRepeat;
     private EditText _goalDescription;
 
+    private LocalDate _selectedStartDate;
+    private LocalDate _selectedEndDate;
+
     private Button _btnSaveGoal;
+    private Button _btnCancelGoal;
 
     OnSubmitGoalEdit _hostActivity;
 
@@ -43,23 +48,56 @@ public class GoalEditFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_goal_edit, container, false);
+
         _goalName = (EditText) view.findViewById(R.id.etxt_goal_name);
         _goalStart=  (EditText) view.findViewById(R.id.etxt_start_date);
         _goalEnd =  (EditText) view.findViewById(R.id.etxt_end_date);
         _goalRepeat =  (EditText) view.findViewById(R.id.etxt_repeat_time);
         _goalDescription =  (EditText) view.findViewById(R.id.etxt_goal_details);
 
-        _btnSaveGoal = view.findViewById(R.id.btn_save_goal);
+        _btnSaveGoal = (Button) view.findViewById(R.id.btn_edit_bar_save);
+        _btnCancelGoal = (Button) view.findViewById(R.id.btn_edit_bar_cancel);
 
         _btnSaveGoal.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View view){
+
+                KeyboardControl.closeKeyboard(getActivity());
                 goalActivitySave();
             }
         });
+
+        _btnCancelGoal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                KeyboardControl.closeKeyboard(getActivity());
+                _hostActivity.onGoalCancel();
+            }
+        });
+
+        // On click listener for date
+        _goalStart.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                DialogFragment dateFragment = new DatePickerFragment();
+                dateFragment.setTargetFragment(GoalEditFragment.this, 0);
+                dateFragment.show(getFragmentManager(), "DatePicker");
+            }
+        });
+
+        // On click listener for date
+        _goalEnd.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                DialogFragment dateFragment = new DatePickerFragment();
+                dateFragment.setTargetFragment(GoalEditFragment.this, 0);
+                dateFragment.show(getFragmentManager(), "DatePicker");
+            }
+        });
+
         return view;
     }
 
@@ -72,8 +110,8 @@ public class GoalEditFragment extends Fragment {
 
         //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
-        LocalDateTime sDate = LocalDateTime.now();
-        LocalDateTime dDate = LocalDateTime.now();
+        LocalDate sDate = LocalDate.now();
+        LocalDate dDate = LocalDate.now();
 
         TimePeriod repeatCycle = TimePeriod.Month;
 
@@ -84,8 +122,37 @@ public class GoalEditFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onDateSet(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd, MMMM yyyy");
+        _selectedStartDate = date;
+        _goalStart.setText(formatter.print(date));
+    }
+
+    @Override
+    public void setDate(LocalDate date) {
+
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        _hostActivity.hideActionbar();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        _hostActivity.showActionbar();
+    }
+
+
     public interface OnSubmitGoalEdit {
         void onGoalEditFinish (Goal goal);
+        void onGoalCancel();
+        void hideActionbar();
+        void showActionbar();
     }
 
 

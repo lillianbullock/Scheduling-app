@@ -28,6 +28,7 @@ import com.example.evans.data.Service;
 import com.example.evans.data.TimePeriod;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.gson.Gson;
 
 import org.joda.time.LocalDate;
 
@@ -51,10 +52,9 @@ public class MainActivity extends AppCompatActivity implements
         AppointmentEditFragment.OnSubmitAppointment,
         DatePickerFragment.OnDateSetListener,
         CustomerViewFragment.InteractionWithCustomerViewFragmentListener,
-        SalesListFragment.InteractionWithSalesFragmentListener,
+        SalesListFragment.SalesListFragmentListener,
         AppointmentViewFragment.InteractionWithAppointmentViewFragmentListener,
         SalesEditFragment.OnSubmitSalesEdit
-        //DatePickerFragment.RecieveDateValueListener
     {
 
     // Variables
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements
         _mainController = new MainController();
         _database = FirebaseDatabase.getInstance().getReference();
 
-        // load any saved date from the shared preference
+        // load any saved data from the shared preference
         loadSharedPreference();
 
         // Initialize and launch the start page fragment
@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements
         Log.i(TAG, "Saved last customer id to shared preference");
     }
 
-        /**
+       /**
      * Not sure yet how we want to implement this feature
      * there're a few ways but it should return the last id that was
      * assigned to the last created customer
@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements
         @Override
     public void onAddCustomer() {
         _currentFragment = new CustomerEditFragment();
-        loadCurrentFragment(false);
+        loadCurrentFragment(true);
 
     }
 
@@ -211,36 +211,68 @@ public class MainActivity extends AppCompatActivity implements
 
 
     @Override
-    public List<Goal> getGoal() { //TODO Figure out if we need more than one function for week day or year goals
-        return _mainController.getGoals(TimePeriod.Week); }
+    public List<Goal> getGoal() {
+        //TODO Figure out if we need more than one function for week day or year goals
+        return _mainController.getGoals(TimePeriod.Week);
+    }
 
+
+    /**
+     * Sales implementations
+     */
     @Override
     public List<Sale> getSale() { return _mainController.getAllSales(); }
 
     @Override
+    public void onAddSale() {
+        _currentFragment = new SalesEditFragment();
+        loadCurrentFragment(true);
+    }
+
+    @Override
+    public void onClickSale(Sale sale) {
+
+    }
+    @Override
+    public void onSaleCancel() {
+        onBackPressed();
+    }
+
+    @Override
     public void onSaleEditFinish(Sale sale) {
+
+        if(sale != null){
+            _mainController.addSale(sale);
+            _currentFragment = new StartPageFragment();
+            loadCurrentFragment(false);
+        }
 
     }
 
     @Override
     public void onServiceEditFinish(Service service) {
-        // TODO Handle this case
 
-        // Return to the main page for now
-        _currentFragment = new StartPageFragment();
-        loadCurrentFragment(false);
+        if (service != null) {
+            _mainController.addService(service.getTitle(), service);
 
-        String title = service.getTitle();
-        String description = service.getDescription();
-        Double price = service.getPrice();
+            _currentFragment = new ServiceListFragment();
+            loadCurrentFragment(false);
 
-        Toast.makeText(this, "Service create \n"
-                        + "Title: " + title
-                        + "\nPrice: " + price
-                        + "\nDescription: " + description,
-                Toast.LENGTH_SHORT).show();
+            String title = service.getTitle();
+            String description = service.getDescription();
+            Double price = service.getPrice();
 
-        _mainController.addService(title, service);
+        } else {
+
+            // If this ever happens then there's an error on our part. A null service should never be return here
+            _currentFragment = new StartPageFragment();
+            loadCurrentFragment(false);
+            Snackbar.make(findViewById(R.id.content_frame),
+                    "ERROR: Invalid service information enterred, cancelling operation", Snackbar.LENGTH_LONG).show();
+            Log.e(TAG, "NULL service passed to MainActivity");
+        }
+
+
     }
 
 
@@ -253,7 +285,8 @@ public class MainActivity extends AppCompatActivity implements
                     Snackbar.LENGTH_LONG)
                     .show();
 
-            _currentFragment = new StartPageFragment();
+            _currentFragment = new CustomerViewFragment();
+
             loadCurrentFragment(false);
 
             return;
@@ -285,13 +318,15 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 
-
     @Override
     public void onAddAppointmentClickForCustomer(Customer customer) {
         // TODO Handle this case
     }
 
 
+    /**
+     * GOAL method Implementation
+     */
     @Override
     public void onClickAddGoal() {
         _currentFragment = new GoalEditFragment();
@@ -304,15 +339,31 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 
-
-
     @Override
     public void onClickGoal() {
         // TODO Implement
     }
 
+    @Override
+    public void onGoalCancel() {
+        onBackPressed();
+    }
 
     @Override
+    public void onGoalEditFinish(Goal goal) {
+        // Return to the main page for now
+        // TODO Go to goal view
+        _currentFragment = new StartPageFragment();
+        loadCurrentFragment(true);
+
+        _mainController.addNewGoal(goal);
+    }
+
+
+
+
+
+        @Override
     public void onClickService(Service service) {
         // TODO Handle service click
     }
@@ -329,27 +380,17 @@ public class MainActivity extends AppCompatActivity implements
 
 
     @Override
-    public void onGoalEditFinish(Goal goal) {
-        // Return to the main page for now
-        // TODO Go to goal view
-        _currentFragment = new StartPageFragment();
-        loadCurrentFragment(true);
-
-        _mainController.addNewGoal(goal);
-    }
-
-
-    @Override
     public void onAppointmentEditFinish(Customer customer, Appointment appointment) {
 
         if (appointment == null || customer == null) {
             return;
         }
 
+
+
         // Check if the customer was created in the appointment view. The id would be set to null if it was
         if (customer.getId() == null){
             // check if we have a customer like that already if not add it
-            // TODO do we want to prompt the user or just add it automatically
             if (_mainController.getCustomerByName(customer.getName()) == null) {
                 customer.setId(String.valueOf(getNextCustomerId()));
                 _mainController.addCustomer(customer);
@@ -359,11 +400,10 @@ public class MainActivity extends AppCompatActivity implements
         // set the appointment's customerId so we can keep track of which customer had the appointment
         appointment.setCustomerId(customer.getId());
 
-        //TODO get the customer id using the customer name. If not exist, prompt user to save customer
-        //TODO if customer exist then add the customer Id to the appointment.
 
         AppointmentViewFragment _frag = new AppointmentViewFragment();
-        _frag.setObjects(appointment, customer); //allows use of the set arguments function, otherwise would have to serialize to JSON or pass each item individually
+        _frag.setRelatedCustomer(customer);
+        _frag.setAppointment(appointment);
         _currentFragment = _frag;
 
         loadCurrentFragment(false);

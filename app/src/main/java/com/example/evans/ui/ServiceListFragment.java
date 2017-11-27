@@ -15,6 +15,7 @@ import com.example.evans.data.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,78 +36,77 @@ public class ServiceListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
-            // Inflate the layout for this fragment
-            _rootView = inflater.inflate(R.layout.fragment_service_list, container, false);
-            _addFloatingBtn = (FloatingActionButton) _rootView.findViewById(R.id.floating_add_btn);
+        // Inflate the layout for this fragment
+        _rootView = inflater.inflate(R.layout.fragment_service_list, container, false);
+        _addFloatingBtn = (FloatingActionButton) _rootView.findViewById(R.id.floating_add_btn);
 
-            // Set the onClickListener for the floating button.
-            _addFloatingBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    onCreateService();
-                }
-            });
-
-            ArrayList<Service> serviceArrayList = new ArrayList<>();
-
-            super.onCreate(savedInstanceState);
-
-            Service test = new Service();
-            test.setTitle("Title1");
-            serviceArrayList.add(test);
-
-            Service test2 = new Service();
-            test2.setTitle("Title2");
-            serviceArrayList.add(test2);
-
-            //TODO PLACE BACK IN CODE WITH FIREBASE UPLOAD
-            //serviceArrayList = (ArrayList) _hostActivityListener.getServices();
-
-            ListView listView = (ListView) _rootView.findViewById(R.id.service_list);
-
-            ServiceAdapter adapter = new ServiceAdapter(getActivity(), R.layout.service_adapter, serviceArrayList);
-
-            listView.setAdapter(adapter);
-            return _rootView;
-        }
-
-        /**
-         * We want to make sure that the activity that uses this fragment
-         * has implemented our InteractionWithServiceFragment interface. We
-         * check for this by trying to cast the activity to an instance of
-         * InteractionWithServiceFragment, if it fails then that means that the
-         * interface wasn't implemented. We have to say something about that!
-         * @param activity: the host activity
-         */
-        @Override
-        public void onAttach(Activity activity) {
-            super.onAttach(activity);
-
-            try {
-                _hostActivityListener = (InteractionWithServiceListFragmentListener) activity;
-            } catch (ClassCastException e) {
-                throw new ClassCastException(activity.toString() + " must implement " +
-                        "InteractionWithServiceFragmentListener");
+        // Set the onClickListener for the floating button.
+        _addFloatingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onCreateService();
             }
-        }
+        });
 
-        /**
-         * This interface must be implemented by the container Activity
-         * This is how we'll be able to communicate with the parent activity.
-         */
-        public interface InteractionWithServiceListFragmentListener{
-            void onClickService(Service service);
-            void onAddService();
-            //TODO Figure out if map of getServices will work or if we need a list of the services
-           // List<Service> getService();
-        }
+        ArrayList<Service> serviceArrayList = new ArrayList<>();
 
-        /**
-         * For now we just want to let the host activity tak care of it by calling it's
-         * onAddService method it better had implemented our interface
-         */
+        super.onCreate(savedInstanceState);
+
+        Service test = new Service();
+        test.setTitle("Title1");
+        serviceArrayList.add(test);
+
+        Service test2 = new Service();
+        test2.setTitle("Title2");
+        serviceArrayList.add(test2);
+
+        //TODO PLACE BACK IN CODE WITH FIREBASE UPLOAD
+        //serviceArrayList = (ArrayList) _hostActivityListener.getServices();
+
+        ListView listView = (ListView) _rootView.findViewById(R.id.service_list);
+
+        ServiceAdapter adapter = new ServiceAdapter(getActivity(), R.layout.service_adapter, serviceArrayList);
+
+        listView.setAdapter(adapter);
+        return _rootView;
+    }
+
+    /**
+     * We want to make sure that the activity that uses this fragment
+     * has implemented our InteractionWithServiceFragment interface. We
+     * check for this by trying to cast the activity to an instance of
+     * InteractionWithServiceFragment, if it fails then that means that the
+     * interface wasn't implemented. We have to say something about that!
+     * @param activity: the host activity
+     */
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        try {
+            _hostActivityListener = (InteractionWithServiceListFragmentListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement " +
+                    "InteractionWithServiceFragmentListener");
+        }
+    }
+
+    /**
+     * For now we just want to let the host activity tak care of it by calling it's
+     * onAddService method it better had implemented our interface
+     */
     public void onCreateService() {
-        Toast.makeText(getActivity(), "You tried to add a new service", Toast.LENGTH_SHORT).show();
         _hostActivityListener.onAddService();
+    }
+
+
+    /**
+     * This interface must be implemented by the container Activity
+     * This is how we'll be able to communicate with the parent activity.
+     */
+    public interface InteractionWithServiceListFragmentListener{
+        void onClickService(Service service);
+        void onAddService();
+        Map<String, Service> getServices ();
     }
 }

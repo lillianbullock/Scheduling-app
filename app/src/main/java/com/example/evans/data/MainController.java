@@ -2,6 +2,10 @@ package com.example.evans.data;
 
 
 
+import com.google.firebase.database.DatabaseReference;
+
+import org.joda.time.LocalDate;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,6 +31,7 @@ public class MainController {
     private Map<String, Service>    _availableServices = new HashMap<String, Service>();
     private List<Sale>              _allSales          = new LinkedList<>();
     private List<Expense>           _expenses          = new LinkedList<>();
+    private FirebaseManager         _firebaseManager   = null;
 
 
     /**
@@ -35,6 +40,8 @@ public class MainController {
      * TODO: Implement data loading here
      */
     public MainController() {
+
+        _firebaseManager = new FirebaseManager();
         populateServices();
     }
 
@@ -44,22 +51,7 @@ public class MainController {
      */
     private void populateServices() {
 
-        // Create a dummy list of services for now
-        Service shampoo = new Service("Shampoo", "Shampoo the customer's hair", 8.00);
-        _availableServices.put("Shampoo", shampoo);
-
-        Service menHairCut = new Service("Men Hair Cut", "Haircut for men", 15.00);
-        _availableServices.put("Men Hair Cut", menHairCut);
-
-        Service womenHairCut = new Service("Women Hair Cut", "Haircut for women", 25.00);
-        _availableServices.put("Women Hair Cut", womenHairCut);
-
-
-        Service color = new Service("Color", "Color customer's hair", 50.00);
-        _availableServices.put("Color", color);
-
-        Service perm = new Service("Perm", "perm the customer's hair", 8.00);
-        _availableServices.put("Perm", perm);
+        _availableServices = _firebaseManager.getServices();
 
     }
 
@@ -82,7 +74,12 @@ public class MainController {
      */
     public void addService(String title, Service service){
         if(service != null){
+
+            // add locally
             _availableServices.put(title, service);
+
+            // add to the database
+            _firebaseManager.addService(service);
         }
     }
 
@@ -143,6 +140,7 @@ public class MainController {
         }
 
     }
+
 
 
     /**
@@ -263,9 +261,7 @@ public class MainController {
      */
     public List<Customer> getAppointmentsForCustomer(Customer customer) {
 
-
         return null;
-
     }
 
     /**
@@ -282,6 +278,7 @@ public class MainController {
 
         return null;
     }
+
 
     /**
      * Return the first customer that matches the name. Return null
@@ -321,7 +318,6 @@ public class MainController {
 
         return null;
     }
-
 
 
 
@@ -428,6 +424,28 @@ public class MainController {
      */
     public Map<String, Double> createSalesReport(TimePeriod timePeriod) {
         return null;
+    }
+
+
+
+
+    /* Summary getters */
+    public List<Appointment> getAppointmentsBetween(LocalDate beginDate, LocalDate endDate) {
+         List<Appointment> appointments = _firebaseManager.getAppointmentsBetween(beginDate, endDate);
+
+         return  appointments;
+    }
+
+    public List<Sale> getSalesBetween(LocalDate beginDate, LocalDate endDate) {
+        List<Sale> sales = _firebaseManager.getSalesBetweenDates(beginDate, endDate);
+
+        return  sales;
+    }
+
+    public List<Expense> getExpensesBetween(LocalDate beginDate, LocalDate endDate) {
+        List<Expense> expenses = _firebaseManager.getExpensesBetweenDates(beginDate, endDate);
+
+        return  expenses;
     }
 
 

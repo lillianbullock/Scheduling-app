@@ -20,6 +20,8 @@ import com.example.evans.data.Sale;
 import com.example.evans.data.Service;
 
 import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -90,6 +92,8 @@ public class SalesEditFragment extends Fragment
         _btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                KeyboardControl.closeKeyboard(getActivity());
                 Sale newSale = createSale();
 
                 if (newSale != null){
@@ -105,16 +109,18 @@ public class SalesEditFragment extends Fragment
         _btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // saleActivityCancel();
+                KeyboardControl.closeKeyboard(getActivity());
+               _hostActivity.onSaleCancel();
 
             }
         });
 
         // On click listener for date
-        _date.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        _date.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFocusChange(View view, boolean b) {
+            public void onClick(View view) {
                 DialogFragment dateFragment = new DatePickerFragment();
+                dateFragment.setTargetFragment(SalesEditFragment.this, 0);
                 dateFragment.show(getFragmentManager(), "DatePicker");
             }
         });
@@ -142,8 +148,9 @@ public class SalesEditFragment extends Fragment
 
     @Override
     public void onDateSet(LocalDate date) {
-            _selectedDate = date;
-            _date.setText(date.toString());
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd, MMMM yyyy");
+        _selectedDate = date;
+        _date.setText(formatter.print(date));
     }
 
     @Override
@@ -155,14 +162,15 @@ public class SalesEditFragment extends Fragment
         Sale sale = null;
 
         if(_selectedService == null) {return null;}
-        if(_date == null) {return null;}
+        if(_selectedDate == null) {return null;}
         if(_servicePrice == null) {return null;}
 
-        //_price = _servicePrice.getText().;
-        _price = 0.0;
+        String date = _date.getText().toString();
+
+        _price = Double.parseDouble(_servicePrice.getText().toString());
 
         if(_selectedService != null && _date != null){
-           // sale = new Sale(_selectedService, _price , _date)
+           sale = new Sale(_selectedService, _price , _selectedDate);
         }
 
         return sale;
@@ -182,7 +190,7 @@ public class SalesEditFragment extends Fragment
     }
 
     /**
-     * One job: Populate our services spinner from the data we have in MainController
+     * Populate our services spinner from the data we have in MainController
      */
     private void setupServicesSpinner() {
 
@@ -198,15 +206,6 @@ public class SalesEditFragment extends Fragment
 
     }
 
-    public interface OnSubmitSalesEdit {
-        void onSaleEditFinish (Sale sale);
-        void onCancel();
-        Map<String, Service> getServices();
-        void hideActionbar();
-        void showActionbar();
-    }
-
-
     /**
      * Override onAttach to make sure that the container activity has implemented the callback we specified in
      * our interface
@@ -220,9 +219,21 @@ public class SalesEditFragment extends Fragment
         try {
             _hostActivity = (OnSubmitSalesEdit) context;
         } catch (ClassCastException e) {
-            Log.e("this is a error", "We have a problem in our Sales Edit Fragment");
+            Log.e(TAG, "We have a problem in our Sales Edit Fragment");
             throw new ClassCastException(context.toString() + " must implement OnSubmitSaleEdit");
         }
+    }
+
+
+    /**
+     * Interface for sales edit holding function to be implemented
+     */
+    public interface OnSubmitSalesEdit {
+        void onSaleEditFinish (Sale sale);
+        void onSaleCancel();
+        Map<String, Service> getServices();
+        void hideActionbar();
+        void showActionbar();
     }
 
 }
