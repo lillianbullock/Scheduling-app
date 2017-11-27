@@ -52,7 +52,7 @@ public class MainController {
         _availableServices = _firebaseManager.getServices();
 
 
-        // TODO: delete the code below this line
+        /*// TODO: delete the code below this line
         // Create a dummy list of services for now
         Service shampoo = new Service("Shampoo", "Shampoo the customer's hair", 8.00);
         _availableServices.put("Shampoo", shampoo);
@@ -68,7 +68,7 @@ public class MainController {
         _availableServices.put("Color", color);
 
         Service perm = new Service("Perm", "perm the customer's hair", 8.00);
-        _availableServices.put("Perm", perm);
+        _availableServices.put("Perm", perm);*/
 
     }
 
@@ -91,7 +91,12 @@ public class MainController {
      */
     public void addService(String title, Service service){
         if(service != null){
+
+            // add locally
             _availableServices.put(title, service);
+
+            // add to the database
+            _firebaseManager.addService(service);
         }
     }
 

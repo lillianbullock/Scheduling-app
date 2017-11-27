@@ -1,12 +1,20 @@
 package com.example.evans.data;
 
+import android.util.Log;
+
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import org.joda.time.LocalDate;
 
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Manages our connection with Google Firebase. Handles create, update and delete operations.
@@ -14,7 +22,7 @@ import java.util.Map;
 
 public class FirebaseManager {
 
-    private DatabaseReference dababaseRoot;
+    private DatabaseReference _dababaseRoot;
 
     private static final String TAG = "FirebaseManager";
 
@@ -29,7 +37,7 @@ public class FirebaseManager {
     public FirebaseManager() {
 
         // initialize our connection to firebase
-        dababaseRoot = FirebaseDatabase.getInstance().getReference();
+        _dababaseRoot = FirebaseDatabase.getInstance().getReference();
     }
 
 
@@ -89,7 +97,30 @@ public class FirebaseManager {
      * @return List of Services
      */
     public Map<String, Service> getServices() {
-        return null;
+
+        final Map<String, Service> serviceMap = new TreeMap<>();
+
+        Query servicesQuery = _dababaseRoot.child(SERVICES).orderByChild("Title");
+
+        servicesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                // loop through anf get each service
+                for (DataSnapshot child: dataSnapshot.getChildren()){
+                    Service service = child.getValue(Service.class);
+                    serviceMap.put(service.getTitle(), service);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "Unable to retrieve services from the database");
+            }
+        });
+
+
+        return serviceMap;
     }
 
     /**
@@ -236,7 +267,9 @@ public class FirebaseManager {
      * @param service the service to be added
      */
     public void addService(Service service) {
+        String key = _dababaseRoot.child(SERVICES).push().getKey();
 
+        _dababaseRoot.child(SERVICES).child(key).setValue(service);
     }
 
     /**
