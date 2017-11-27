@@ -28,6 +28,7 @@ import com.example.evans.data.Service;
 import com.example.evans.data.TimePeriod;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.gson.Gson;
 
 import org.joda.time.LocalDate;
 
@@ -274,7 +275,8 @@ public class MainActivity extends AppCompatActivity implements
                     Snackbar.LENGTH_LONG)
                     .show();
 
-            _currentFragment = new StartPageFragment();
+            _currentFragment = new CustomerViewFragment();
+
             loadCurrentFragment(false);
 
             return;
@@ -376,10 +378,11 @@ public class MainActivity extends AppCompatActivity implements
             return;
         }
 
+
+
         // Check if the customer was created in the appointment view. The id would be set to null if it was
         if (customer.getId() == null){
             // check if we have a customer like that already if not add it
-            // TODO do we want to prompt the user or just add it automatically
             if (_mainController.getCustomerByName(customer.getName()) == null) {
                 customer.setId(String.valueOf(getNextCustomerId()));
                 _mainController.addCustomer(customer);
@@ -389,11 +392,10 @@ public class MainActivity extends AppCompatActivity implements
         // set the appointment's customerId so we can keep track of which customer had the appointment
         appointment.setCustomerId(customer.getId());
 
-        //TODO get the customer id using the customer name. If not exist, prompt user to save customer
-        //TODO if customer exist then add the customer Id to the appointment.
 
         AppointmentViewFragment _frag = new AppointmentViewFragment();
-        _frag.setObjects(appointment, customer); //allows use of the set arguments function, otherwise would have to serialize to JSON or pass each item individually
+        _frag.setRelatedCustomer(customer);
+        _frag.setAppointment(appointment);
         _currentFragment = _frag;
 
         loadCurrentFragment(false);

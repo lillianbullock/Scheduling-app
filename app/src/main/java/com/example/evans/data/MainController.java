@@ -4,6 +4,8 @@ package com.example.evans.data;
 
 import com.google.firebase.database.DatabaseReference;
 
+import org.joda.time.LocalDate;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -50,25 +52,6 @@ public class MainController {
     private void populateServices() {
 
         _availableServices = _firebaseManager.getServices();
-
-
-        /*// TODO: delete the code below this line
-        // Create a dummy list of services for now
-        Service shampoo = new Service("Shampoo", "Shampoo the customer's hair", 8.00);
-        _availableServices.put("Shampoo", shampoo);
-
-        Service menHairCut = new Service("Men Hair Cut", "Haircut for men", 15.00);
-        _availableServices.put("Men Hair Cut", menHairCut);
-
-        Service womenHairCut = new Service("Women Hair Cut", "Haircut for women", 25.00);
-        _availableServices.put("Women Hair Cut", womenHairCut);
-
-
-        Service color = new Service("Color", "Color customer's hair", 50.00);
-        _availableServices.put("Color", color);
-
-        Service perm = new Service("Perm", "perm the customer's hair", 8.00);
-        _availableServices.put("Perm", perm);*/
 
     }
 
@@ -157,6 +140,7 @@ public class MainController {
         }
 
     }
+
 
 
     /**
@@ -294,6 +278,7 @@ public class MainController {
 
         return null;
     }
+
 
     /**
      * Return the first customer that matches the name. Return null
@@ -439,6 +424,28 @@ public class MainController {
      */
     public Map<String, Double> createSalesReport(TimePeriod timePeriod) {
         return null;
+    }
+
+
+
+
+    /* Summary getters */
+    public List<Appointment> getAppointmentsBetween(LocalDate beginDate, LocalDate endDate) {
+         List<Appointment> appointments = _firebaseManager.getAppointmentsBetween(beginDate, endDate);
+
+         return  appointments;
+    }
+
+    public List<Sale> getSalesBetween(LocalDate beginDate, LocalDate endDate) {
+        List<Sale> sales = _firebaseManager.getSalesBetweenDates(beginDate, endDate);
+
+        return  sales;
+    }
+
+    public List<Expense> getExpensesBetween(LocalDate beginDate, LocalDate endDate) {
+        List<Expense> expenses = _firebaseManager.getExpensesBetweenDates(beginDate, endDate);
+
+        return  expenses;
     }
 
 

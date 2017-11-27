@@ -267,7 +267,17 @@ public class FirebaseManager {
      * @param service the service to be added
      */
     public void addService(Service service) {
+
+        if (service == null){
+            return;
+        }
+
+        /*
+        I decided later to use the service's title as the key. The implication
+        is that there'll not be two services with the same title. It will always be overwritten
         String key = _dababaseRoot.child(SERVICES).push().getKey();
+        */
+        String key = service.getTitle();
 
         _dababaseRoot.child(SERVICES).child(key).setValue(service);
     }

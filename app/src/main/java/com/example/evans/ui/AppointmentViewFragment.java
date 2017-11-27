@@ -3,6 +3,7 @@ package com.example.evans.ui;
 import android.app.Activity;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,14 +27,22 @@ public class AppointmentViewFragment extends Fragment {
     private Customer _customer;
     private InteractionWithAppointmentViewFragmentListener _hostListener;
 
+    private static final String TAG = "AppointmentView";
+
     /**
      * sets the customer and appointment in the class
-     * @param appointment : appointment to be displayed
      * @param relatedCustomer : customer to be displayed
      */
-    public void setObjects(Appointment appointment, Customer relatedCustomer) {
-        _appointment = appointment;
+    public void setRelatedCustomer(Customer relatedCustomer) {
         _customer = relatedCustomer;
+    }
+
+    public void setAppointment(Appointment appointment){
+        if (appointment != null) {
+            _appointment = appointment;
+        } else {
+            Log.e(TAG, "Invalid appointment passed to AppointmentView");
+        }
     }
 
     public AppointmentViewFragment() {
