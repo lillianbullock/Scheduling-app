@@ -518,6 +518,11 @@ public class MainActivity extends AppCompatActivity implements
                 _currentFragment = new SalesListFragment();
                 loadCurrentFragment(true);
                 break;
+            case R.id.menu_item_fin_rep:
+                _drawerLayout.closeDrawer(GravityCompat.START);
+                _currentFragment = new FinancialReportFragment();
+                loadCurrentFragment(true);
+                break;
             default:
                 _drawerLayout.closeDrawer(GravityCompat.START);
         }

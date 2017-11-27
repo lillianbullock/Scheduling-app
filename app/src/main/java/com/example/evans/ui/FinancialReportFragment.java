@@ -29,20 +29,21 @@ public class FinancialReportFragment extends Fragment
     private EditText _startDate;
     private EditText _endDate;
     private Button _bttnCalculate;
-    private LocalDate _selectedStartDate;
-    private LocalDate _selectedEndDate;
+
+    private EditText _currentDateEdit;
+
+    private DateTimeFormatter _formatter;
 
 
     public FinancialReportFragment() {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_appointment_edit, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_financial_report, container, false);
 
         _profit         = (EditText) rootView.findViewById(R.id.etxt_fin_rep_profit);
         _cost           = (EditText) rootView.findViewById(R.id.etxt_fin_rep_cost);
@@ -51,6 +52,8 @@ public class FinancialReportFragment extends Fragment
         _endDate        = (EditText) rootView.findViewById(R.id.etxt_fin_rep_end);
         _bttnCalculate  = (Button) rootView.findViewById(R.id.bttn_fin_rep_cancel);
 
+        _formatter = DateTimeFormat.forPattern("dd, MMMM yyyy");
+
         // On click listener for date
         _startDate.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -58,6 +61,8 @@ public class FinancialReportFragment extends Fragment
                 DialogFragment dateFragment = new DatePickerFragment();
                 dateFragment.setTargetFragment(FinancialReportFragment.this, 0);
                 dateFragment.show(getFragmentManager(), "DatePicker");
+
+                _currentDateEdit = _startDate;
             }
         });
 
@@ -67,6 +72,8 @@ public class FinancialReportFragment extends Fragment
                 DialogFragment dateFragment = new DatePickerFragment();
                 dateFragment.setTargetFragment(FinancialReportFragment.this, 0);
                 dateFragment.show(getFragmentManager(), "DatePicker");
+
+                _currentDateEdit = _endDate;
             }
         });
 
@@ -87,10 +94,7 @@ public class FinancialReportFragment extends Fragment
 
     @Override
     public void onDateSet(LocalDate date) {
-        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd, MMMM yyyy");
-        //TODO figure out how to set it to the appropriate field
-        _selectedStartDate = date;
-        _startDate.setText(formatter.print(date));
+        _currentDateEdit.setText(_formatter.print(date));
     }
 
     @Override

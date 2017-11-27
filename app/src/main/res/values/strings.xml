@@ -19,6 +19,7 @@
     <string name="menu_service"> Service </string>
     <string name="menu_exit"> Exit </string>
     <string name="menu_create_report"> Create Report </string>
+    <string name="menu_fin_rep">Financial Report</string>
 
     <!--Field edit titles-->
     <string name="appointment_name">Name</string>
