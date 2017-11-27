@@ -39,11 +39,8 @@ public class GoalViewFragment extends Fragment {
 
         name.setText(_goal.getTitle());
         detail.setText(_goal.getDescription());
-
-       //TODO FIGURE OUT HOW TO HANDLE THESE
-        // startD.getText(_goal.getStartDate());
-       // endD.getText(_goal.getDueDate());
-
+        startD.setText(_goal.getStartDate().toString());
+        endD.setText(_goal.getDueDate().toString());
 
         // Inflate the layout for this fragment
         return view;
