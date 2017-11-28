@@ -54,7 +54,8 @@ public class MainActivity extends AppCompatActivity implements
         CustomerViewFragment.InteractionWithCustomerViewFragmentListener,
         SalesListFragment.SalesListFragmentListener,
         AppointmentViewFragment.InteractionWithAppointmentViewFragmentListener,
-        SalesEditFragment.OnSubmitSalesEdit
+        SalesEditFragment.OnSubmitSalesEdit,
+        GoalViewFragment.InteractionWithGoalViewFragmentListener
     {
 
     // Variables
@@ -341,17 +342,23 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onGoalEditFinish(Goal goal) {
-        // Return to the main page for now
-        // TODO Go to goal view
-        _currentFragment = new StartPageFragment();
-        loadCurrentFragment(true);
+        if (goal == null) {
+            return;
+        }
 
+        //Connecting thee GoalViewFragment on finish
+        GoalViewFragment _frag = new GoalViewFragment();
+        _frag.setGoal(goal);
+        _currentFragment = _frag;
+
+        loadCurrentFragment(false);
         _mainController.addNewGoal(goal);
     }
-
-
-
-
+    /*
+    @Override
+    public Goal getViewGoal() {
+            return null;
+    }*/
 
         @Override
     public void onClickService(Service service) {

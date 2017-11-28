@@ -16,6 +16,7 @@ import com.example.evans.data.Goal;
 /**
  * A simple {@link Fragment} subclass.
  */
+
 public class GoalViewFragment extends Fragment {
 
     private Goal _goal;
@@ -60,7 +61,7 @@ public class GoalViewFragment extends Fragment {
     }
 
     public interface InteractionWithGoalViewFragmentListener{
-        Goal getViewGoal();
+        //Goal getViewGoal();
     }
 
 }
