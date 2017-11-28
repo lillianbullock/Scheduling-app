@@ -15,6 +15,7 @@ import org.joda.time.LocalDate;
  */
 
 public class Expense implements Comparable, Financial {
+    private String _id;
     private String _name;
     private Double _price;
     private LocalDate _date;
@@ -48,6 +49,9 @@ public class Expense implements Comparable, Financial {
 
     public void setDate(LocalDate date) { this._date = date; }
     public LocalDate getDate() { return _date; }
+
+    public String getId() { return _id; }
+    public void setId(String id) { _id = id;}
 
     @Override
     public int compareTo(@NonNull Object o) {

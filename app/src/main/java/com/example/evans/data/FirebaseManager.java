@@ -73,6 +73,41 @@ public class FirebaseManager {
         return customers;
     }
 
+
+    /**
+     * Return a list of customers added between two dates - inclusive
+     * @param startDate the date to start from
+     * @param endDate the date to end the query at
+     * @return List of Customers added between the dates
+     */
+    public List<Customer> getCustomersAddedBetweenDates(LocalDate startDate, LocalDate endDate){
+        final List<Customer> customers = new ArrayList<>();
+        final String DATE = "dateAdded";
+
+        Query customerAddedBetweenDatesQuery = _dababaseRoot.child(CUSTOMERS)
+                .orderByChild(DATE).startAt(startDate.toString())
+                .endAt(endDate.toString());
+
+        customerAddedBetweenDatesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot child: dataSnapshot.getChildren()){
+                    Customer newCustomer = child.getValue(Customer.class);
+                    customers.add(newCustomer);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "Query to database for customers cancelled");
+            }
+        });
+
+        return customers;
+    }
+
+
+
     /**
      * Retrun the first customer found with the id
      * @param customerId the customer id that we're looking up
@@ -455,6 +490,37 @@ public class FirebaseManager {
 
 
     /**
+     * Return a list of goals limited to the specified number
+     * @return list of Goals
+     * @param numGoals the number of goals to retrieve
+     */
+    public List<Goal> getGoalsWithLimit(int numGoals) {
+
+        final List<Goal> goals = new ArrayList<>();
+
+        Query goalsQuery = _dababaseRoot.child(GOALS).limitToFirst(numGoals);
+
+        goalsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot child: dataSnapshot.getChildren()) {
+                    Goal newGoal = child.getValue(Goal.class);
+                    goals.add(newGoal);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.i(TAG, "Query cancelled");
+            }
+        });
+
+        return goals;
+
+    }
+
+
+    /**
      * Return all the expenses in the database
      * @return List of Expenses
      */
@@ -512,6 +578,37 @@ public class FirebaseManager {
 
         return expenses;
     }
+
+
+    /**
+     * Return a list of expenses limited to the specified number
+     * @return List of expenses
+     * @param numExpenses the number of expenses to retrieve
+     */
+    public List<Expense> getExpensesWithLimit(int numExpenses) {
+
+        final List<Expense> expenses = new ArrayList<>();
+
+        Query expenseQuery = _dababaseRoot.child(EXPENSES).limitToFirst(numExpenses);
+
+        expenseQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot child: dataSnapshot.getChildren()) {
+                    Expense newExpense = child.getValue(Expense.class);
+                    expenses.add(newExpense);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.i(TAG, "Query cancelled");
+            }
+        });
+
+        return expenses;
+    }
+
 
     /**
      * Return all the sales in the database
@@ -572,9 +669,58 @@ public class FirebaseManager {
         return sales;
     }
 
+
+    /**
+     * Return a list of sales limited to the specified number
+     * @return
+     * @param numSales the number of sales to retrieve
+     */
+    public List<Sale> getSalesWithLimit(int numSales) {
+
+        final List<Sale> sales = new ArrayList<>();
+
+        Query salesQuery = _dababaseRoot.child(SALES).limitToFirst(numSales);
+
+        salesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot child: dataSnapshot.getChildren()) {
+                    Sale newSale = child.getValue(Sale.class);
+                    sales.add(newSale);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.i(TAG, "Query cancelled");
+            }
+        });
+
+        return sales;
+
+    }
+
     public String getKeyForNewCustomer() {
         return _dababaseRoot.child(CUSTOMERS).push().getKey();
     }
+
+    public String getKeyForNewSale() {
+        return _dababaseRoot.child(SALES).push().getKey();
+    }
+
+
+    public String getKeyForNewAppointment() {
+        return _dababaseRoot.child(APPOINTMENTS).push().getKey();
+    }
+
+    public String getKeyForNewGoal() {
+        return _dababaseRoot.child(GOALS).push().getKey();
+    }
+
+    public String getKeyForNewExpense() {
+        return _dababaseRoot.child(EXPENSES).push().getKey();
+    }
+
 
     /* Getters end here */
 
@@ -599,15 +745,13 @@ public class FirebaseManager {
      * Adds a signle valid appointment to the database
      * @param appointment the appointment to be added
      */
-    public void addAppointment(Appointment appointment) {
+    public void addAppointment(Appointment appointment, String id) {
 
         if(appointment == null){
             return;
         }
 
-        String key = _dababaseRoot.child(APPOINTMENTS).push().getKey();
-
-        _dababaseRoot.child(APPOINTMENTS).child(key).setValue(appointment);
+        _dababaseRoot.child(APPOINTMENTS).child(id).setValue(appointment);
     }
 
 
@@ -615,47 +759,58 @@ public class FirebaseManager {
      * Adds a single service to the database
      * @param service the service to be added
      */
-    public void addService(Service service) {
+    public void addService(Service service, String id) {
 
         if (service == null){
             return;
         }
 
-        String key = service.getTitle();
-
-        _dababaseRoot.child(SERVICES).child(key).setValue(service);
+        _dababaseRoot.child(SERVICES).child(id).setValue(service);
     }
 
     /**
      * Adds a single valid sale to the database
      * @param sale the sale to be added to the database
      */
-    public void addSale(Sale sale){
+    public void addSale(Sale sale, String id){
 
         if(sale == null){
             return;
         }
 
-        String key = _dababaseRoot.child(SALES).push().getKey();
-
-        _dababaseRoot.child(SALES).child(key).setValue(sale);
+        _dababaseRoot.child(SALES).child(id).setValue(sale);
     }
 
     /**
      * Adds a single valid goal to the database
      * @param goal the goal to be added
      */
-    public void addGoal(Goal goal) {
+    public void addGoal(Goal goal, String id) {
 
         if(goal == null){
             return;
         }
 
-        String key = _dababaseRoot.child(GOALS).push().getKey();
-
-        _dababaseRoot.child(GOALS).child(key).setValue(goal);
+        _dababaseRoot.child(GOALS).child(id).setValue(goal);
 
     }
+
+
+    /**
+     * Adds a single valid expense to the database
+     * @param expense the expense to be added
+     */
+    public void addExpense(Expense expense, String id) {
+
+        if(expense == null){
+            return;
+        }
+
+        _dababaseRoot.child(EXPENSES).child(id).setValue(expense);
+
+    }
+
+
 
 
     /* Delete operations */

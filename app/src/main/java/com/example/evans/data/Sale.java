@@ -15,24 +15,25 @@ import org.joda.time.LocalDate;
  */
 
 public class Sale implements Comparable, Financial{
+    private String _id;
     private Service _service;
     private Double _price;
     private LocalDate _date;
-    private Customer _customer;
+    private String  _customerId;
 
     public Sale(){
         _service = new Service();
         _price = 0.0;
         _date = LocalDate.now();
-        _customer = new Customer();
+        _customerId = "";
     }
 
     public Sale(Service service, Double price, LocalDate date,
-         Customer customer){
+         String customerId){
         _service = service;
         _price = price;
         _date = date;
-        _customer = customer;
+        _customerId = customerId;
     }
 
     public Sale(Service service, Double price, LocalDate dateTime){
@@ -51,8 +52,11 @@ public class Sale implements Comparable, Financial{
     public LocalDate getDate() { return _date; }
     public void setDate(LocalDate dateTime) { this._date = dateTime; }
 
-    public Customer getCustomer() { return _customer; }
-    public void setCustomer(Customer customer) { this._customer = customer; }
+    public String getCustomerId() { return _customerId; }
+    public void setCustomerId(String customerId) { this._customerId = customerId; }
+
+    public String getId() { return _id; }
+    public void setId(String id) { _id = id;}
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override

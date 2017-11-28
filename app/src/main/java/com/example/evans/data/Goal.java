@@ -15,6 +15,7 @@ import org.joda.time.LocalDate;
  */
 
 public class Goal implements Comparable {
+    private String _id;
     private String _title;
     private String _description;
     private LocalDate _dueDate;
@@ -56,6 +57,7 @@ public class Goal implements Comparable {
     /**
      * getter functions for each of the member variables
      */
+    public String getId() { return _id; }
     public String getTitle() { return _title; }
     public String getDescription() { return _description; }
     public LocalDate getDueDate() { return _dueDate; }
@@ -63,6 +65,8 @@ public class Goal implements Comparable {
     public Boolean getIsRepeat() { return _isRepeat; }
     public TimePeriod getRepeatCycle() { return _repeatCycle; }
     public Boolean isDone() { return _done; }
+
+
 
     public Boolean isPastPastDue() {
         LocalDate currentDay = LocalDate.now();
@@ -73,6 +77,7 @@ public class Goal implements Comparable {
     /**
      * setter functions for each of the member functions
      */
+    public void setId(String id) { _id = id;}
     public void setTitle(String title) { this._title = title; }
     public void setDescription(String description) { this._description = description; }
     public void setDueDate(LocalDate dueDate) { this._dueDate = dueDate; }
