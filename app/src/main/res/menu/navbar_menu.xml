@@ -31,4 +31,10 @@
         android:checkable="true"
         android:title="@string/menu_service"
         android:icon="@drawable/ic_grain_black"/>
+
+    <item
+        android:id="@+id/menu_item_fin_rep"
+        android:checkable="true"
+        android:title="@string/menu_fin_rep"
+        android:icon="@drawable/ic_money"/>
 </menu>
