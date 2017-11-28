@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.evans.R;
 import com.example.evans.data.Appointment;
 import com.example.evans.data.Customer;
+import com.example.evans.data.Expense;
 import com.example.evans.data.Goal;
 import com.example.evans.data.MainController;
 import com.example.evans.data.Sale;
@@ -54,7 +55,10 @@ public class MainActivity extends AppCompatActivity implements
         CustomerViewFragment.InteractionWithCustomerViewFragmentListener,
         SalesListFragment.SalesListFragmentListener,
         AppointmentViewFragment.InteractionWithAppointmentViewFragmentListener,
-        SalesEditFragment.OnSubmitSalesEdit
+        SalesEditFragment.OnSubmitSalesEdit,
+        FinancialReportFragment.InteractionWithFinancialReportFragmentListener,
+        GoalViewFragment.InteractionWithGoalViewFragmentListener,
+        ExpenseListFragment.InteractionWithExpenseListFragmentListener
     {
 
     // Variables
@@ -158,15 +162,23 @@ public class MainActivity extends AppCompatActivity implements
         return LAST_ASSIGNED_CUSTOMER_ID;
     }
 
+        /**** EXPENSE *****/
+    @Override
+    public void onClickExpense(Expense expense) {
+
+    }
+
+    @Override
+    public void onAddExpense() {
+        _currentFragment = new ExpenseListFragment();
+        loadCurrentFragment(false);
+    }
 
 
-
-
-        @Override
+    @Override
     public void onAddCustomer() {
         _currentFragment = new CustomerEditFragment();
         loadCurrentFragment(false);
-
     }
 
     @Override
@@ -184,7 +196,6 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public Map<String, Service> getServices () {
-
         return _mainController.getAvailableServices();
     }
 
@@ -261,8 +272,6 @@ public class MainActivity extends AppCompatActivity implements
                     "ERROR: Invalid service information enterred, cancelling operation", Snackbar.LENGTH_LONG).show();
             Log.e(TAG, "NULL service passed to MainActivity");
         }
-
-
     }
 
 
@@ -341,17 +350,23 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onGoalEditFinish(Goal goal) {
-        // Return to the main page for now
-        // TODO Go to goal view
-        _currentFragment = new StartPageFragment();
-        loadCurrentFragment(true);
+        if (goal == null) {
+            return;
+        }
 
+        //Connecting thee GoalViewFragment on finish
+        GoalViewFragment _frag = new GoalViewFragment();
+        _frag.setGoal(goal);
+        _currentFragment = _frag;
+
+        loadCurrentFragment(false);
         _mainController.addNewGoal(goal);
     }
-
-
-
-
+    /*
+    @Override
+    public Goal getViewGoal() {
+            return null;
+    }*/
 
         @Override
     public void onClickService(Service service) {
@@ -416,6 +431,23 @@ public class MainActivity extends AppCompatActivity implements
     public void showActionbar() {
             getSupportActionBar().show();
         }
+
+    /* financial report functions*/
+
+    @Override
+    public List<Expense> getExpenses(LocalDate beginDate, LocalDate endDate) {
+        return _mainController.getExpensesBetween(beginDate, endDate);
+    }
+
+    @Override
+    public List<Sale> getSales(LocalDate beginDate, LocalDate endDate) {
+        return _mainController.getSalesBetween(beginDate, endDate);
+    }
+
+    @Override
+    public List<Appointment> getAppointments(LocalDate beginDate, LocalDate endDate) {
+        return _mainController.getAppointmentsBetween(beginDate, endDate);
+    }
 
     /********************END OF OVERRIDING METHODS FOR FRAGMENTS****************************/
 
@@ -518,10 +550,19 @@ public class MainActivity extends AppCompatActivity implements
                 _currentFragment = new SalesListFragment();
                 loadCurrentFragment(true);
                 break;
+            case R.id.menu_item_expense:
+                _drawerLayout.closeDrawer(GravityCompat.START);
+                _currentFragment = new ExpenseListFragment();
+                loadCurrentFragment(true);
+                break;
+            case R.id.menu_item_fin_rep:
+                _drawerLayout.closeDrawer(GravityCompat.START);
+                _currentFragment = new FinancialReportFragment();
+                loadCurrentFragment(true);
+                break;
             default:
                 _drawerLayout.closeDrawer(GravityCompat.START);
         }
-
     }
 
 
@@ -566,4 +607,6 @@ public class MainActivity extends AppCompatActivity implements
         public void setDate(LocalDate date) {
 
         }
+
+
     }

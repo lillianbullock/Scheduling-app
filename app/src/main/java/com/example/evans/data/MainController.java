@@ -436,7 +436,7 @@ public class MainController {
 
 
 
-    /* Summary getters */
+    /*getters for financial report*/
     public List<Appointment> getAppointmentsBetween(LocalDate beginDate, LocalDate endDate) {
          List<Appointment> appointments = _firebaseManager.getAppointmentsBetween(beginDate, endDate);
 

@@ -19,6 +19,7 @@
     <string name="menu_service"> Service </string>
     <string name="menu_exit"> Exit </string>
     <string name="menu_create_report"> Create Report </string>
+    <string name="menu_fin_rep">Financial Report</string>
 
     <!--Field edit titles-->
     <string name="appointment_name">Name</string>
@@ -68,6 +69,9 @@
     <!-- set this as the default string in layouts where it will be overwritten-->
     <string name="default_string">Default</string>
     <string name="bttn_calculate">Calculate</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
     <!-- Strings below here need to be sorted-->
