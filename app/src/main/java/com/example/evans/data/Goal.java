@@ -1,8 +1,10 @@
 package com.example.evans.data;
 
-import android.os.Build;
+
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
+
+
+import com.google.firebase.database.Exclude;
 
 import org.joda.time.LocalDate;
 
@@ -18,6 +20,7 @@ public class Goal implements Comparable {
     private LocalDate _dueDate;
     private LocalDate _startDate;
     private Boolean _isRepeat;
+    private Boolean _done;
     private TimePeriod _repeatCycle;
 
     public Goal() {
@@ -59,6 +62,13 @@ public class Goal implements Comparable {
     public LocalDate getStartDate() { return _startDate; }
     public Boolean getIsRepeat() { return _isRepeat; }
     public TimePeriod getRepeatCycle() { return _repeatCycle; }
+    public Boolean isDone() { return _done; }
+
+    public Boolean isPastPastDue() {
+        LocalDate currentDay = LocalDate.now();
+        return _dueDate.isAfter(currentDay);
+    }
+
 
     /**
      * setter functions for each of the member functions
@@ -67,6 +77,7 @@ public class Goal implements Comparable {
     public void setDescription(String description) { this._description = description; }
     public void setDueDate(LocalDate dueDate) { this._dueDate = dueDate; }
     public void setStartDate(LocalDate startDate) { this._startDate = startDate; }
+    public void setDone(Boolean done) {this._done = done; }
 
     /**
      * sets the repeat cycle to the passed value and sets _isRepeat based on that
@@ -78,8 +89,8 @@ public class Goal implements Comparable {
         } else _isRepeat = true;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
+    @Exclude
     public int compareTo(@NonNull Object o) {
         Goal goal1 = (Goal) o;
         if(this._dueDate.isAfter(goal1._dueDate))

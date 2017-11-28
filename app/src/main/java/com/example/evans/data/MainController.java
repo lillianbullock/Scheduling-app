@@ -92,9 +92,16 @@ public class MainController {
      */
     public void addCustomer(Customer customer) {
 
-        if (customer != null) {
-            _customers.add(customer);
+        if (customer == null) {
+            return;
         }
+
+        // get the id from the database manager. It's auto-generated with
+        // the server's timestamp for multi-user support
+        customer.setId(_firebaseManager.getKeyForNewCustomer());
+
+        _customers.add(customer);
+        _firebaseManager.addCustomer(customer, customer.getId());
 
     }
 
