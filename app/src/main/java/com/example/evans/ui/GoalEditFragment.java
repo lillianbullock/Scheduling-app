@@ -30,12 +30,18 @@ public class GoalEditFragment extends Fragment
     private EditText _goalEnd;
     private EditText _goalRepeat;
     private EditText _goalDescription;
+    private LocalDate _pickedDate;
+    private char current;
+
+    private EditText _currentDateEdit;
 
     private LocalDate _selectedStartDate;
     private LocalDate _selectedEndDate;
 
     private Button _btnSaveGoal;
     private Button _btnCancelGoal;
+
+    private DateTimeFormatter _formatter;
 
     OnSubmitGoalEdit _hostActivity;
 
@@ -51,6 +57,8 @@ public class GoalEditFragment extends Fragment
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_goal_edit, container, false);
+
+        _formatter = DateTimeFormat.forPattern("dd, MMMM yyyy");
 
         _goalName = (EditText) view.findViewById(R.id.etxt_goal_name);
         _goalStart=  (EditText) view.findViewById(R.id.etxt_start_date);
@@ -82,9 +90,12 @@ public class GoalEditFragment extends Fragment
         _goalStart.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                current = 'a';
                 DialogFragment dateFragment = new DatePickerFragment();
                 dateFragment.setTargetFragment(GoalEditFragment.this, 0);
                 dateFragment.show(getFragmentManager(), "DatePicker");
+
+                _currentDateEdit = _goalStart;
             }
         });
 
@@ -92,9 +103,12 @@ public class GoalEditFragment extends Fragment
         _goalEnd.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                current = 'b';
                 DialogFragment dateFragment = new DatePickerFragment();
                 dateFragment.setTargetFragment(GoalEditFragment.this, 0);
                 dateFragment.show(getFragmentManager(), "DatePicker");
+
+                _currentDateEdit = _goalEnd;
             }
         });
 
@@ -124,14 +138,20 @@ public class GoalEditFragment extends Fragment
 
     @Override
     public void onDateSet(LocalDate date) {
-        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd, MMMM yyyy");
-        _selectedStartDate = date;
-        _goalStart.setText(formatter.print(date));
+        _currentDateEdit.setText(_formatter.print(date));
+
+       if(current == 'a') {
+            _selectedStartDate = date;
+       }
+
+       if(current == 'b'){
+            _selectedEndDate = date;
+       }
     }
 
     @Override
     public void setDate(LocalDate date) {
-
+        _pickedDate = date;
     }
 
 
