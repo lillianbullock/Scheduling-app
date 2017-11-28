@@ -187,7 +187,6 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public Map<String, Service> getServices () {
-
         return _mainController.getAvailableServices();
     }
 
