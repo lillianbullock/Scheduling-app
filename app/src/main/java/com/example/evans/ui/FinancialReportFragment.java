@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.example.evans.data.Appointment;
@@ -28,6 +30,8 @@ import com.example.evans.data.Expense;
  */
 public class FinancialReportFragment extends Fragment
         implements DatePickerFragment.OnDateSetListener {
+
+    private static final String TAG = "FinancialReportFragment";
 
     private EditText _profit;
     private EditText _cost;
@@ -42,8 +46,11 @@ public class FinancialReportFragment extends Fragment
 
     private double _profitTotal;
     private double _costTotal;
+    private LocalDate _selectedStartDate;
+    private LocalDate _selectedEndDate;
 
     private EditText _currentDateEdit;
+    private char _current;
 
     private DateTimeFormatter _formatter;
     InteractionWithFinancialReportFragmentListener _hostActivityListener;
@@ -71,6 +78,8 @@ public class FinancialReportFragment extends Fragment
         _startDate.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                _current = 'a';
+
                 DialogFragment dateFragment = new DatePickerFragment();
                 dateFragment.setTargetFragment(FinancialReportFragment.this, 0);
                 dateFragment.show(getFragmentManager(), "DatePicker");
@@ -82,6 +91,8 @@ public class FinancialReportFragment extends Fragment
         _endDate.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                _current = 'b';
+
                 DialogFragment dateFragment = new DatePickerFragment();
                 dateFragment.setTargetFragment(FinancialReportFragment.this, 0);
                 dateFragment.show(getFragmentManager(), "DatePicker");
@@ -94,30 +105,45 @@ public class FinancialReportFragment extends Fragment
         _bttnCalculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                _expenses = getExpenses();
-                _sales = getSales();
-                _appointments = getAppointments();
+
+                //TODO check if start date is before end date
+                
+                _expenses = _hostActivityListener.getExpenses(_selectedStartDate, _selectedEndDate);
+                _sales = _hostActivityListener.getSales(_selectedStartDate, _selectedEndDate);
+                _appointments = _hostActivityListener.getAppointments(_selectedStartDate, _selectedEndDate);
 
                 _costTotal = 0.0;
                 _profitTotal = 0.0;
 
-                for (Expense element : _expenses) {
-                    _costTotal += element.getReport();
+                if (_expenses != null) {
+                    for (Expense element : _expenses) {
+                        _costTotal += element.getReport();
+                    }
+                } else {
+                    Log.w(TAG, "expenses list returned from database is null");
                 }
 
-                for (Sale element : _sales) {
-                    _profitTotal += element.getReport();
+                if (_sales != null) {
+                    for (Sale element : _sales) {
+                        _profitTotal += element.getReport();
+                    }
+                } else {
+                    Log.w(TAG, "sales list returned from database is null");
                 }
 
-                for (Appointment element : _appointments) {
-                    _profitTotal += element.getReport();
+                if (_appointments != null) {
+                    for (Appointment element : _appointments) {
+                        _profitTotal += element.getReport();
+                    }
+                } else {
+                    Log.w(TAG, "appointment list returned from database is null");
                 }
 
-                double netProfit = _profitTotal - _costTotal
+                double netProfit = _profitTotal - _costTotal;
 
                 _profit.setText(Double.toString(_profitTotal));
                 _cost.setText(Double.toString(_costTotal));
-                _net.setText(Double.toString(netProfit);
+                _net.setText(Double.toString(netProfit));
             }
         });
 
@@ -128,7 +154,13 @@ public class FinancialReportFragment extends Fragment
     public void onDateSet(LocalDate date) {
         _currentDateEdit.setText(_formatter.print(date));
 
-        
+        if(_current == 'a') {
+            _selectedStartDate = date;
+        }
+
+        if(_current == 'b'){
+            _selectedEndDate = date;
+        }
     }
 
     @Override

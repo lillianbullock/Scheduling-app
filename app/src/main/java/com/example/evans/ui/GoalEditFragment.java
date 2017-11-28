@@ -131,7 +131,7 @@ public class GoalEditFragment extends Fragment
 
         if(!goalName.equals("")) {
             //TODO: repeatCycle is a TIME PERIOD not sure how to handle this also local date and time
-            Goal newGoal = new Goal(goalName, goalDescription, dDate, sDate, repeatCycle);
+            Goal newGoal = new Goal(goalName, goalDescription, dDate, sDate, TimePeriod.Month);
             _hostActivity.onGoalEditFinish(newGoal);
         }
     }
