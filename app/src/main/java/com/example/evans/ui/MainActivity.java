@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.evans.R;
 import com.example.evans.data.Appointment;
 import com.example.evans.data.Customer;
+import com.example.evans.data.Expense;
 import com.example.evans.data.Goal;
 import com.example.evans.data.MainController;
 import com.example.evans.data.Sale;
@@ -54,7 +55,8 @@ public class MainActivity extends AppCompatActivity implements
         CustomerViewFragment.InteractionWithCustomerViewFragmentListener,
         SalesListFragment.SalesListFragmentListener,
         AppointmentViewFragment.InteractionWithAppointmentViewFragmentListener,
-        SalesEditFragment.OnSubmitSalesEdit
+        SalesEditFragment.OnSubmitSalesEdit,
+        FinancialReportFragment.InteractionWithFinancialReportFragmentListener
     {
 
     // Variables
@@ -417,6 +419,23 @@ public class MainActivity extends AppCompatActivity implements
             getSupportActionBar().show();
         }
 
+    /* financial report functions*/
+
+    @Override
+    public List<Expense> getExpenses(LocalDate beginDate, LocalDate endDate) {
+        return _mainController.getExpensesBetween(beginDate, endDate);
+    }
+
+    @Override
+    public List<Sale> getSales(LocalDate beginDate, LocalDate endDate) {
+        return _mainController.getSalesBetween(beginDate, endDate);
+    }
+
+    @Override
+    public List<Appointment> getAppointments(LocalDate beginDate, LocalDate endDate) {
+        return _mainController.getAppointmentsBetween(beginDate, endDate);
+    }
+
     /********************END OF OVERRIDING METHODS FOR FRAGMENTS****************************/
 
     /**
@@ -571,4 +590,6 @@ public class MainActivity extends AppCompatActivity implements
         public void setDate(LocalDate date) {
 
         }
+
+
     }

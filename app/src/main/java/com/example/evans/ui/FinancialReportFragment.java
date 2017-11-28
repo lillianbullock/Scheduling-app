@@ -1,13 +1,12 @@
 package com.example.evans.ui;
 
-
+import android.app.Activity;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-//import android.widget.Button;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -17,8 +16,15 @@ import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.util.List;
+
+import com.example.evans.data.Appointment;
+import com.example.evans.data.Sale;
+import com.example.evans.data.Expense;
+
+
 /**
- * A simple {@link Fragment} subclass.
+ * {@link Fragment} subclass that creates a financial report.
  */
 public class FinancialReportFragment extends Fragment
         implements DatePickerFragment.OnDateSetListener {
@@ -28,12 +34,19 @@ public class FinancialReportFragment extends Fragment
     private EditText _net;
     private EditText _startDate;
     private EditText _endDate;
-    private Button _bttnCalculate;
+    private Button   _bttnCalculate;
+
+    private List<Expense> _expenses;
+    private List<Sale> _sales;
+    private List<Appointment> _appointments;
+
+    private double _profitTotal;
+    private double _costTotal;
 
     private EditText _currentDateEdit;
 
     private DateTimeFormatter _formatter;
-
+    InteractionWithFinancialReportFragmentListener _hostActivityListener;
 
     public FinancialReportFragment() {
         // Required empty public constructor
@@ -50,11 +63,11 @@ public class FinancialReportFragment extends Fragment
         _net            = (EditText) rootView.findViewById(R.id.etxt_fin_rep_net);
         _startDate      = (EditText) rootView.findViewById(R.id.etxt_fin_rep_start);
         _endDate        = (EditText) rootView.findViewById(R.id.etxt_fin_rep_end);
-        _bttnCalculate  = (Button) rootView.findViewById(R.id.bttn_fin_rep_cancel);
+        _bttnCalculate  = (Button)   rootView.findViewById(R.id.bttn_fin_rep_cancel);
 
         _formatter = DateTimeFormat.forPattern("dd, MMMM yyyy");
 
-        // On click listener for date
+        // On click listener for start date
         _startDate.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -81,11 +94,30 @@ public class FinancialReportFragment extends Fragment
         _bttnCalculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // todo calculate the report and display
+                _expenses = getExpenses();
+                _sales = getSales();
+                _appointments = getAppointments();
 
-                _profit.setText("Profit calculation");
-                _cost.setText("Cost calculation");
-                _net.setText("Net calculation");
+                _costTotal = 0.0;
+                _profitTotal = 0.0;
+
+                for (Expense element : _expenses) {
+                    _costTotal += element.getReport();
+                }
+
+                for (Sale element : _sales) {
+                    _profitTotal += element.getReport();
+                }
+
+                for (Appointment element : _appointments) {
+                    _profitTotal += element.getReport();
+                }
+
+                double netProfit = _profitTotal - _costTotal
+
+                _profit.setText(Double.toString(_profitTotal));
+                _cost.setText(Double.toString(_costTotal));
+                _net.setText(Double.toString(netProfit);
             }
         });
 
@@ -95,10 +127,40 @@ public class FinancialReportFragment extends Fragment
     @Override
     public void onDateSet(LocalDate date) {
         _currentDateEdit.setText(_formatter.print(date));
+
+        
     }
 
     @Override
     public void setDate(LocalDate date) {
 
     }
+
+    /**
+     * Ensures parent activity has implemented the InteractionWithCustomerViewFragment interface
+     * @param activity: the host activity
+     */
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        //check for implementation by trying to cast to an instance of the interface
+        try {
+            _hostActivityListener = (InteractionWithFinancialReportFragmentListener) activity;
+        } catch (ClassCastException e) {
+            // if fails, interface wasn't implemented
+            throw new ClassCastException(activity.toString() + " must implement " +
+                    "InteractionWithFinancialFragmentListener");
+        }
+    }
+
+    /**
+     * interface to be implemented by parent activity to allow communication
+     */
+    public interface InteractionWithFinancialReportFragmentListener {
+        List<Expense> getExpenses(LocalDate beginDate, LocalDate endDate);
+        List<Sale> getSales(LocalDate beginDate, LocalDate endDate);
+        List<Appointment> getAppointments(LocalDate beginDate, LocalDate endDate);
+    }
+
 }
