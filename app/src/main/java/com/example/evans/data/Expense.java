@@ -4,7 +4,7 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 
-import java.time.LocalDateTime;
+import org.joda.time.LocalDate;
 
 /**
  * Created by Brooke Nelson on 10/30/2017.
@@ -17,16 +17,15 @@ import java.time.LocalDateTime;
 public class Expense implements Comparable, Financial {
     private String _name;
     private Double _price;
-    private LocalDateTime _date;
+    private LocalDate _date;
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    Expense(){
+    public Expense(){
         _name = "";
         _price = 0.0;
-        _date = LocalDateTime.now();
+        _date = LocalDate.now();
     }
 
-    Expense(String name, Double price, LocalDateTime date){
+    public Expense(String name, Double price, LocalDate date){
         _name = name;
         _price = price;
         _date = date;
@@ -47,10 +46,9 @@ public class Expense implements Comparable, Financial {
         this._price = price;
     }
 
-    public void setDate(LocalDateTime date) { this._date = date; }
-    public LocalDateTime getDate() { return _date; }
+    public void setDate(LocalDate date) { this._date = date; }
+    public LocalDate getDate() { return _date; }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public int compareTo(@NonNull Object o) {
         Expense expense1 = (Expense) o;

@@ -57,7 +57,8 @@ public class MainActivity extends AppCompatActivity implements
         AppointmentViewFragment.InteractionWithAppointmentViewFragmentListener,
         SalesEditFragment.OnSubmitSalesEdit,
         FinancialReportFragment.InteractionWithFinancialReportFragmentListener,
-        GoalViewFragment.InteractionWithGoalViewFragmentListener
+        GoalViewFragment.InteractionWithGoalViewFragmentListener,
+        ExpenseListFragment.InteractionWithExpenseListFragmentListener
     {
 
     // Variables
@@ -161,15 +162,23 @@ public class MainActivity extends AppCompatActivity implements
         return LAST_ASSIGNED_CUSTOMER_ID;
     }
 
+        /**** EXPENSE *****/
+    @Override
+    public void onClickExpense(Expense expense) {
+
+    }
+
+    @Override
+    public void onAddExpense() {
+        _currentFragment = new ExpenseListFragment();
+        loadCurrentFragment(false);
+    }
 
 
-
-
-        @Override
+    @Override
     public void onAddCustomer() {
         _currentFragment = new CustomerEditFragment();
         loadCurrentFragment(false);
-
     }
 
     @Override
@@ -263,8 +272,6 @@ public class MainActivity extends AppCompatActivity implements
                     "ERROR: Invalid service information enterred, cancelling operation", Snackbar.LENGTH_LONG).show();
             Log.e(TAG, "NULL service passed to MainActivity");
         }
-
-
     }
 
 
@@ -543,6 +550,11 @@ public class MainActivity extends AppCompatActivity implements
                 _currentFragment = new SalesListFragment();
                 loadCurrentFragment(true);
                 break;
+            case R.id.menu_item_expense:
+                _drawerLayout.closeDrawer(GravityCompat.START);
+                _currentFragment = new ExpenseListFragment();
+                loadCurrentFragment(true);
+                break;
             case R.id.menu_item_fin_rep:
                 _drawerLayout.closeDrawer(GravityCompat.START);
                 _currentFragment = new FinancialReportFragment();
@@ -551,7 +563,6 @@ public class MainActivity extends AppCompatActivity implements
             default:
                 _drawerLayout.closeDrawer(GravityCompat.START);
         }
-
     }
 
 
