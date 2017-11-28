@@ -5,6 +5,7 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,9 +73,16 @@ public class GoalEditFragment extends Fragment
         _btnSaveGoal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view){
-
                 KeyboardControl.closeKeyboard(getActivity());
-                goalActivitySave();
+
+                Goal newGoal = createGoal();
+
+                if(newGoal != null){
+                    _hostActivity.onGoalEditFinish(newGoal);
+                } else{
+                    Snackbar.make(getActivity().findViewById(R.id.content_frame),
+                            "ERROR: Invalid Goal data. Please review your input", Snackbar.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -115,25 +123,28 @@ public class GoalEditFragment extends Fragment
         return view;
     }
 
-    public void goalActivitySave(){
+    public Goal createGoal(){
+
+        Goal goal = null;
+
+        if(_goalName == null) { return null; }
+        if(_goalEnd == null) {return null; }
+        if(_goalStart == null) {return null; }
+
+
         String goalName   = _goalName.getText().toString();
-        String goalStart = _goalStart.getText().toString();
-        String goalEnd   = _goalEnd.getText().toString();
+        LocalDate goalStart = _selectedStartDate;
+        LocalDate goalEnd   = _selectedEndDate;
         String goalRepeat = _goalRepeat.getText().toString();
         String goalDescription = _goalDescription.getText().toString();
 
-        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-
-        LocalDate sDate = LocalDate.now();
-        LocalDate dDate = LocalDate.now();
-
         TimePeriod repeatCycle = TimePeriod.Month;
 
-        if(!goalName.equals("")) {
-            //TODO: repeatCycle is a TIME PERIOD not sure how to handle this also local date and time
-            Goal newGoal = new Goal(goalName, goalDescription, dDate, sDate, TimePeriod.Month);
-            _hostActivity.onGoalEditFinish(newGoal);
+        if(!goalName.isEmpty()) {
+            goal = new Goal(goalName, goalDescription, goalEnd, goalStart, repeatCycle);
         }
+
+        return goal;
     }
 
     @Override
