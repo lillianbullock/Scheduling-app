@@ -60,8 +60,17 @@ public class Goal implements Comparable {
     public String getId() { return _id; }
     public String getTitle() { return _title; }
     public String getDescription() { return _description; }
-    public LocalDate getDueDate() { return _dueDate; }
-    public LocalDate getStartDate() { return _startDate; }
+
+
+    public String getDueDate() { return _dueDate.toString(); }
+    public String getStartDate() { return _startDate.toString(); }
+
+    @Exclude
+    public LocalDate getLocalDateStartDate() { return _startDate;}
+
+    @Exclude
+    public LocalDate getLocalDateDueDate() { return _dueDate; }
+
     public Boolean getIsRepeat() { return _isRepeat; }
     public TimePeriod getRepeatCycle() { return _repeatCycle; }
     public Boolean isDone() { return _done; }
@@ -80,8 +89,17 @@ public class Goal implements Comparable {
     public void setId(String id) { _id = id;}
     public void setTitle(String title) { this._title = title; }
     public void setDescription(String description) { this._description = description; }
-    public void setDueDate(LocalDate dueDate) { this._dueDate = dueDate; }
-    public void setStartDate(LocalDate startDate) { this._startDate = startDate; }
+
+    public void setDueDate(String dueDateString) { this._dueDate = LocalDate.parse(dueDateString); }
+    public void setStartDate(String startDateString) { this._startDate = LocalDate.parse(startDateString); }
+
+    @Exclude
+    public  void setStartDateLocalDate(LocalDate startDate) {_startDate = startDate;}
+
+    @Exclude
+    public  void setDueDateLocalDate(LocalDate dueDate) {_dueDate = dueDate;}
+
+
     public void setDone(Boolean done) {this._done = done; }
 
     /**
