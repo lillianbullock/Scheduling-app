@@ -37,9 +37,15 @@ public class ExpenseAdapter extends ArrayAdapter<Expense> {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = inflater.inflate(R.layout.expense_adapter, null);
 
-        TextView textView = (TextView) view.findViewById(R.id.array_expense_adapter);
 
-        textView.setText(expenseList.get(position).getName());
+        TextView title = (TextView) view.findViewById(R.id.array_adapter_expense_title);
+        TextView price = (TextView) view.findViewById(R.id.array_adapter_expense_price);
+        TextView dateTime = (TextView) view.findViewById(R.id.array_adapter_expense_date);
+
+        title.setText(expenseList.get(position).getName());
+        price.setText(expenseList.get(position).getPrice().toString());
+        dateTime.setText(expenseList.get(position).getDate().toString());
+
         return view;
     }
 }
