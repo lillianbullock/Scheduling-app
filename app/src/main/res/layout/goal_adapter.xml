@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginStart="16dp"
-        android:text="@string/goal_name"
+        android:text="@string/goal_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#000"
         app:layout_constraintEnd_toStartOf="@+id/goal_adapter_complete"

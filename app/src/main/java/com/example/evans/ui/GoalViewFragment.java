@@ -7,6 +7,7 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.evans.R;
@@ -38,13 +39,26 @@ public class GoalViewFragment extends Fragment {
         TextView startD = (TextView) view.findViewById(R.id.txt_goal_view_startD);
         TextView endD = (TextView) view.findViewById(R.id.txt_goal_view_endD);
 
+        CheckBox _checkBox = (CheckBox) view.findViewById(R.id.goal_done_box);
+
         name.setText(_goal.getTitle());
         detail.setText(_goal.getDescription());
         startD.setText(_goal.getStartDate());
         endD.setText(_goal.getDueDate());
 
+        _checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onCheckBox(_goal);
+            }
+        });
+
         // Inflate the layout for this fragment
         return view;
+    }
+
+    public void onCheckBox(Goal goal){
+        goal.setDone(true);
     }
 
     @Override

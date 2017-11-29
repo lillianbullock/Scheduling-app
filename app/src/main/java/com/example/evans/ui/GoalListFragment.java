@@ -61,6 +61,8 @@ public class GoalListFragment  extends Fragment {
         Goal goal = new Goal("Two", "Do two things", LocalDate.now(), LocalDate.now());
         newGoals.add(goal);
 
+        goal.setDone(true);
+        
         //TODO information back in with database
         //goalList = (ArrayList) _hostActivity.getGoal();
 
