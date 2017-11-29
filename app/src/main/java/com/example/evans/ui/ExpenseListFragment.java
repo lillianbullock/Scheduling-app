@@ -61,6 +61,9 @@ public class ExpenseListFragment extends Fragment {
 
         simpleList = (ListView) _rootView.findViewById(R.id.expense_list);
 
+        ExpenseAdapter adapter = new ExpenseAdapter(getActivity(), R.layout.expense_adapter, expenseList);
+        simpleList.setAdapter(adapter);
+
         return _rootView;
     }
 
