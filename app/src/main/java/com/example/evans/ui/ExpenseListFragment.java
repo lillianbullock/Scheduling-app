@@ -93,8 +93,6 @@ public class ExpenseListFragment extends Fragment {
         void onAddExpense();
     }
 
-
-
     /**
      * For now we just want to let the host activity tak care of it by calling it's
      * onAddCustomer method it better had implemented our interface

@@ -17,11 +17,14 @@ import com.example.evans.R;
 import com.example.evans.data.Expense;
 
 import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ExpenseEditFragment extends Fragment {
+public class ExpenseEditFragment extends Fragment
+        implements DatePickerFragment.OnDateSetListener{
 
     private EditText _name;
     private EditText _price;
@@ -33,7 +36,7 @@ public class ExpenseEditFragment extends Fragment {
 
     private LocalDate _setDate;
 
-    InteractionWithExpenseFragmentListener _hostActivity;
+    InteractionWithExpenseEditFragmentListener _hostActivity;
 
     public ExpenseEditFragment() {
         // Required empty public constructor
@@ -54,8 +57,7 @@ public class ExpenseEditFragment extends Fragment {
         _saveBtn = rootView.findViewById(R.id.btn_edit_bar_save);
         _cancelBtn = rootView.findViewById(R.id.btn_edit_bar_cancel);
 
-        // Create a expense and let the host activity know that a request
-        // was made to create an appointment with the expense
+        // Create a expense and let the host activity know
         _date.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -69,7 +71,6 @@ public class ExpenseEditFragment extends Fragment {
         _saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 KeyboardControl.closeKeyboard(getActivity());
                 Expense expense = createExpense();
 
@@ -95,34 +96,21 @@ public class ExpenseEditFragment extends Fragment {
         Expense newExpense = null;
 
         String name = _name.getText().toString();
-        String price = _price.getText().toString();
-        LocalDate setDate = LocalDate.now();
-
-        //TODO validate data before saving
-
-        // give a default value of N/A if the phone number field is empty
-        // it's not a required field
-        /*if (phone.isEmpty()) {
-            Snackbar.make(getActivity().findViewById(R.id.content_frame), "ERROR: Invalid phone", Snackbar.LENGTH_LONG).show();
+        Double price = Double.parseDouble(_price.getText().toString());
+        LocalDate setDate = _setDate;
+        
+        //TODO is there a better way to validate these?
+        if (_name.toString().isEmpty() || _price.toString().isEmpty() || _date.toString().isEmpty()) {
+            Snackbar.make(getActivity().findViewById(R.id.content_frame),
+                    "ERROR: Please fill in all fields", Snackbar.LENGTH_LONG).show();
+        } else{
+            newExpense = new Expense(name, price, setDate);
         }
-
-
-        if (!name.isEmpty()) {
-            // Email isn't required but if it's not empty then check to make sure it's a valid email
-            if (email.isEmpty() || (!email.isEmpty() && isValidEmail(email))) {
-                newExpense = new Expense(name, phone, setDate);
-            } else {
-                Snackbar.make(getActivity().findViewById(R.id.content_frame), "ERROR: Invalid email", Snackbar.LENGTH_LONG).show();
-            }
-
-        } else {
-            Snackbar.make(getActivity().findViewById(R.id.content_frame), "ERROR: Name cannot be empty", Snackbar.LENGTH_LONG).show();
-        }*/
 
         return newExpense;
     }
 
-    /*@Override
+    @Override
     public void onResume() {
         super.onResume();
         _hostActivity.hideActionbar();
@@ -133,7 +121,7 @@ public class ExpenseEditFragment extends Fragment {
     public void onStop() {
         super.onStop();
         _hostActivity.showActionbar();
-    }*/
+    }
 
     /**
      * Ensures parent activity has implemented the InteractionWithCustomerViewFragment interface
@@ -145,7 +133,7 @@ public class ExpenseEditFragment extends Fragment {
 
         //check for implementation by trying to cast to an instance of the interface
         try {
-            _hostActivity = (InteractionWithExpenseFragmentListener) activity;
+            _hostActivity = (InteractionWithExpenseEditFragmentListener) activity;
         } catch (ClassCastException e) {
             // if fails, interface wasn't implemented
             throw new ClassCastException(activity.toString() + " must implement " +
@@ -153,16 +141,21 @@ public class ExpenseEditFragment extends Fragment {
         }
     }
 
-    //TODO implement in parent
+    @Override
+    public void onDateSet(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd, MMMM yyyy");
+        _setDate = date;
+        _date.setText(formatter.print(date));
+    }
 
     /**
      * interface to be implemented by parent activity to allow communication
      */
-    public interface InteractionWithExpenseFragmentListener {
+    public interface InteractionWithExpenseEditFragmentListener {
             void onExpenseEditFinish (Expense expense);
             void onCancel();
-            //void hideActionbar();
-            //void showActionbar();
+            void hideActionbar();
+            void showActionbar();
 
     }
 

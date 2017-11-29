@@ -153,11 +153,6 @@ public class SalesEditFragment extends Fragment
         _date.setText(formatter.print(date));
     }
 
-    @Override
-    public void setDate(LocalDate date) {
-
-    }
-
     private Sale createSale(){
         Sale sale = null;
 

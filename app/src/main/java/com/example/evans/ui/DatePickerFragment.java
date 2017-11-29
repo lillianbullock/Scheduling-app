@@ -71,6 +71,6 @@ public class DatePickerFragment extends DialogFragment
     public interface OnDateSetListener {
         void onDateSet(LocalDate date);
 
-        void setDate(LocalDate date);
+        //void setDate(LocalDate date);
     }
 }

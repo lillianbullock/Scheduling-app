@@ -161,12 +161,6 @@ public class GoalEditFragment extends Fragment
     }
 
     @Override
-    public void setDate(LocalDate date) {
-        _pickedDate = date;
-    }
-
-
-    @Override
     public void onResume() {
         super.onResume();
         _hostActivity.hideActionbar();

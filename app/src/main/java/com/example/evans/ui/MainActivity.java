@@ -58,7 +58,8 @@ public class MainActivity extends AppCompatActivity implements
         SalesEditFragment.OnSubmitSalesEdit,
         FinancialReportFragment.InteractionWithFinancialReportFragmentListener,
         GoalViewFragment.InteractionWithGoalViewFragmentListener,
-        ExpenseListFragment.InteractionWithExpenseListFragmentListener
+        ExpenseListFragment.InteractionWithExpenseListFragmentListener,
+        ExpenseEditFragment.InteractionWithExpenseEditFragmentListener
     {
 
     // Variables
@@ -161,8 +162,27 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onAddExpense() {
-        _currentFragment = new ExpenseListFragment();
+        _currentFragment = new ExpenseEditFragment();
         loadCurrentFragment(false);
+    }
+
+    @Override
+    public void onExpenseEditFinish(Expense expense) {
+        if (expense != null) {
+            _mainController.addExpense(expense);
+            _currentFragment = new ExpenseEditFragment();
+            loadCurrentFragment(false);
+
+        } else {
+
+            // If this ever happens then there's an error on our part. A null service should never be return here
+            _currentFragment = new StartPageFragment();
+            loadCurrentFragment(false);
+            Snackbar.make(findViewById(R.id.content_frame),
+                    "ERROR: Invalid expense information enterred, cancelling operation", Snackbar.LENGTH_LONG).show();
+            Log.e(TAG, "NULL expense passed to MainActivity");
+        }
+
     }
 
     /*** SALE ***/
@@ -414,7 +434,9 @@ public class MainActivity extends AppCompatActivity implements
             // TODO Handle this case
     }
 
-    @Override
+
+
+        @Override
     public void onCancel() {
         onBackPressed();
 
@@ -599,10 +621,5 @@ public class MainActivity extends AppCompatActivity implements
     public void onDateSet(LocalDate date) {
         Snackbar.make(findViewById(R.id.content_frame),
                 "SET DATE CALLED IN PARENT ACTIVITY", Snackbar.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void setDate(LocalDate date) {
-
     }
 }

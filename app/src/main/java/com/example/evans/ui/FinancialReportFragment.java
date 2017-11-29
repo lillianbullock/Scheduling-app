@@ -163,11 +163,6 @@ public class FinancialReportFragment extends Fragment
         }
     }
 
-    @Override
-    public void setDate(LocalDate date) {
-
-    }
-
     /**
      * Ensures parent activity has implemented the InteractionWithCustomerViewFragment interface
      * @param activity: the host activity
@@ -194,5 +189,4 @@ public class FinancialReportFragment extends Fragment
         List<Sale> getSales(LocalDate beginDate, LocalDate endDate);
         List<Appointment> getAppointments(LocalDate beginDate, LocalDate endDate);
     }
-
 }
