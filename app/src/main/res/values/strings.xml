@@ -48,6 +48,11 @@
     <string name="goal_repeat_times">Repeat Times</string>
     <string name="date_enter_hint">Day-Month-Year Hour:Min</string>
 
+    <string name="expense_name">Name</string>
+    <string name="expense_price">Price</string>
+    <string name="expense_date">Date</string>
+
+
     <!-- button strings-->
     <string name="button_edit">Edit</string>
     <string name="button_save">Save</string>
@@ -69,6 +74,9 @@
     <!-- set this as the default string in layouts where it will be overwritten-->
     <string name="default_string">Default</string>
     <string name="bttn_calculate">Calculate</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
     <!-- Strings below here need to be sorted-->

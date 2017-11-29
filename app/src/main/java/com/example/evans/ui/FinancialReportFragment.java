@@ -107,7 +107,7 @@ public class FinancialReportFragment extends Fragment
             public void onClick(View view) {
 
                 //TODO check if start date is before end date
-                
+
                 _expenses = _hostActivityListener.getExpenses(_selectedStartDate, _selectedEndDate);
                 _sales = _hostActivityListener.getSales(_selectedStartDate, _selectedEndDate);
                 _appointments = _hostActivityListener.getAppointments(_selectedStartDate, _selectedEndDate);
