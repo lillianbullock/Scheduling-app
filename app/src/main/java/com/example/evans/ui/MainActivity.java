@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements
 
 
 
-        /**** EXPENSE *****/
+    /**** EXPENSE *****/
     @Override
     public void onClickExpense(Expense expense) {
 
@@ -414,8 +414,7 @@ public class MainActivity extends AppCompatActivity implements
             // TODO Handle this case
     }
 
-
-        @Override
+    @Override
     public void onCancel() {
         onBackPressed();
 
@@ -437,8 +436,6 @@ public class MainActivity extends AppCompatActivity implements
         return _mainController.getExpensesBetween(beginDate, endDate);
     }
 
-
-
     @Override
     public List<Sale> getSales(LocalDate beginDate, LocalDate endDate) {
         return _mainController.getSalesBetween(beginDate, endDate);
@@ -448,6 +445,7 @@ public class MainActivity extends AppCompatActivity implements
     public List<Appointment> getAppointments(LocalDate beginDate, LocalDate endDate) {
         return _mainController.getAppointmentsBetween(beginDate, endDate);
     }
+
 
     /********************END OF OVERRIDING METHODS FOR FRAGMENTS****************************/
 
@@ -599,14 +597,12 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onDateSet(LocalDate date) {
-        Snackbar.make(findViewById(R.id.content_frame), "SET DATE CALLED IN PARENT ACTIVITY", Snackbar.LENGTH_LONG).show();
-
+        Snackbar.make(findViewById(R.id.content_frame),
+                "SET DATE CALLED IN PARENT ACTIVITY", Snackbar.LENGTH_LONG).show();
     }
 
-        @Override
-        public void setDate(LocalDate date) {
-
-        }
-
+    @Override
+    public void setDate(LocalDate date) {
 
     }
+}
