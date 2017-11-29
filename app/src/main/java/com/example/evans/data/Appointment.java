@@ -15,6 +15,7 @@ import org.joda.time.LocalTime;
  */
 
 public class Appointment implements Comparable, Financial {
+    private String _id;
     private String _title;
     private LocalDate _date;
     private LocalTime _time;
@@ -59,10 +60,12 @@ public class Appointment implements Comparable, Financial {
     public Service getService() { return _service; }
     public Boolean isSucceed() { return _succeed; }
     public LocalTime getTime() { return _time; }
-
-
-
+    public String getId() { return _id; }
     public void setTitle(String title) { this._title = title; }
+
+
+
+    public void setId(String id) { _id = id;}
     public void setDate(LocalDate date) { this._date = date; }
     public void setCustomerId(String customerId) { this._customerId = customerId; }
     public void setDue(Boolean due) { this._due = due; }
