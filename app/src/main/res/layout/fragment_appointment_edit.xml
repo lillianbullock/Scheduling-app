@@ -26,6 +26,7 @@
             android:layout_marginTop="36dp"
             android:text="@string/customer_name"
             android:textStyle="bold"
+            android:labelFor="@id/etxt_customer_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/edit_bar_in_appointment"/>
 
@@ -52,6 +53,7 @@
             android:layout_marginTop="36dp"
             android:text="@string/customer_email"
             android:textStyle="bold"
+            android:labelFor="@id/etxt_customer_email"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txt_customer_name" />
 
@@ -79,6 +81,7 @@
             android:layout_marginTop="36dp"
             android:text="@string/customer_phone"
             android:textStyle="bold"
+            android:labelFor="@id/etxt_customer_phone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txt_customer_email" />
 
@@ -171,6 +174,7 @@
             android:layout_marginTop="36dp"
             android:text="@string/service_price"
             android:textStyle="bold"
+            android:labelFor="@id/etxt_price"
             app:layout_constraintStart_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/spinner_sales_type" />
 
@@ -220,6 +224,7 @@
             android:layout_marginTop="36dp"
             android:text="@string/appointment_notes"
             android:textStyle="bold"
+            android:labelFor="@id/etxt_appointment_note"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_price" />
 

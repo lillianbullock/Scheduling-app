@@ -37,7 +37,7 @@ public class CustomerViewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_customer_view, null);
+        View view = inflater.inflate(R.layout.fragment_customer_view, container, false);
 
         //_customer = new Customer("0", "Customer1", "email1", "000 000 0000", new LocalDateTime());
 

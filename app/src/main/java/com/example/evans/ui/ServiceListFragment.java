@@ -26,11 +26,9 @@ public class ServiceListFragment extends Fragment {
     private View _rootView;  // how we can get access to view elements
     private InteractionWithServiceListFragmentListener _hostActivityListener;
 
-
     public ServiceListFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
@@ -48,24 +46,29 @@ public class ServiceListFragment extends Fragment {
             }
         });
 
-        ArrayList<Service> serviceArrayList = new ArrayList<>();
+        ArrayList<Service> serviceList = new ArrayList<>();
 
         super.onCreate(savedInstanceState);
 
-        Service test = new Service();
+        /*Service test = new Service();
         test.setTitle("Title1");
-        serviceArrayList.add(test);
+        serviceList.add(test);
 
         Service test2 = new Service();
         test2.setTitle("Title2");
-        serviceArrayList.add(test2);
+        serviceList.add(test2);*/
 
-        //TODO PLACE BACK IN CODE WITH FIREBASE UPLOAD
-        //serviceArrayList = (ArrayList) _hostActivityListener.getServices();
+        //TODO translate map data into list
+        Map<String, Service> serviceMap = _hostActivityListener.getServices();
+
+        //pull values out of map and put into array for the adapter
+        for (Map.Entry<String, Service> pair : serviceMap.entrySet()) {
+            serviceList.add(pair.getValue());
+        }
 
         ListView listView = (ListView) _rootView.findViewById(R.id.service_list);
 
-        ServiceAdapter adapter = new ServiceAdapter(getActivity(), R.layout.service_adapter, serviceArrayList);
+        ServiceAdapter adapter = new ServiceAdapter(getActivity(), R.layout.service_adapter, serviceList);
 
         listView.setAdapter(adapter);
         return _rootView;
@@ -92,13 +95,12 @@ public class ServiceListFragment extends Fragment {
     }
 
     /**
-     * For now we just want to let the host activity tak care of it by calling it's
+     * For now we just want to let the host activity take care of it by calling it's
      * onAddService method it better had implemented our interface
      */
     public void onCreateService() {
         _hostActivityListener.onAddService();
     }
-
 
     /**
      * This interface must be implemented by the container Activity

@@ -14,12 +14,13 @@
     <!-- For navigation bar menu item titles-->
     <string name="menu_customers"> Customer </string>
     <string name="menu_goals"> Goals </string>
-    <string name="menu_Appointments"> Appointments </string>
+    <string name="menu_appointments"> Appointments </string>
     <string name="menu_sales"> Sales </string>
     <string name="menu_service"> Service </string>
     <string name="menu_exit"> Exit </string>
     <string name="menu_create_report"> Create Report </string>
     <string name="menu_fin_rep">Financial Report</string>
+    <string name="menu_expense">Expense</string>
 
     <!--Field edit titles-->
     <string name="appointment_name">Name</string>

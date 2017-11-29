@@ -53,7 +53,7 @@ public class AppointmentViewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_appointment_view, null);
+        View view = inflater.inflate(R.layout.fragment_appointment_view, container, false);
 
         //todo put error messages bc these should not be implemented to null
         if (_customer == null) {

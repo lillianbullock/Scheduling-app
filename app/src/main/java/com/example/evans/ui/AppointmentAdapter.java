@@ -18,10 +18,19 @@ import com.example.evans.data.Appointment;
 class AppointmentAdapter extends ArrayAdapter<Appointment> {
 
     private ArrayList<Appointment> _appointmentList = new ArrayList<>();
+    private ViewHolder _viewHolder;
 
     public AppointmentAdapter(Context context, int textViewResourceId, ArrayList<Appointment> objects) {
         super(context, textViewResourceId, objects);
         _appointmentList = objects;
+    }
+
+    // use of the viewHolder allows faster loading because the views
+    // don't need to be collected for each item in the list view
+    static class ViewHolder {
+        TextView title;
+        TextView service;
+        TextView dateTime;
     }
 
     @Override
@@ -32,19 +41,33 @@ class AppointmentAdapter extends ArrayAdapter<Appointment> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        View view = convertView;
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = inflater.inflate(R.layout.appointment_adapter, null);
+        if(convertView==null){
+            // inflate the layout
+            LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.appointment_adapter, parent, false);
 
-        TextView title = (TextView) view.findViewById(R.id.appointment_adapter_title);
-        TextView service = (TextView) view.findViewById(R.id.appointment_adapter_service);
-        TextView dateTime = (TextView) view.findViewById(R.id.appointment_adapter_date_time);
+            // well set up the ViewHolder
+            _viewHolder = new ViewHolder();
+            _viewHolder.title = (TextView) convertView.findViewById(R.id.appointment_adapter_title);
+            _viewHolder.service = (TextView) convertView.findViewById(R.id.appointment_adapter_service);
+            _viewHolder.dateTime = (TextView) convertView.findViewById(R.id.appointment_adapter_date_time);
 
-        title.setText(_appointmentList.get(position).getTitle());
-        service.setText(_appointmentList.get(position).getService().getTitle());
-        //TODO put dateTime in a better format
-        dateTime.setText(_appointmentList.get(position).getDate().toString());
+            // store the holder with the view.
+            convertView.setTag(_viewHolder);
 
-        return view;
+        }else{
+            // we've just avoided calling findViewById() on resource every time
+            // just use the viewHolder
+            _viewHolder = (ViewHolder) convertView.getTag();
+        }
+
+        // assign values if the object is not null
+        if (_appointmentList.get(position) != null) {
+            _viewHolder.title.setText(_appointmentList.get(position).getTitle());
+            _viewHolder.service.setText(_appointmentList.get(position).getService().getTitle());
+            //TODO put dateTime in a better format
+            _viewHolder.dateTime.setText(_appointmentList.get(position).getDate().toString());
+        }
+        return convertView;
     }
 }

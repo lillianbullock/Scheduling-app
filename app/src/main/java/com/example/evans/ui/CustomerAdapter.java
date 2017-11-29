@@ -18,10 +18,17 @@ import com.example.evans.data.Customer;
 public class CustomerAdapter extends ArrayAdapter<Customer> {
 
     private ArrayList<Customer> _customerList = new ArrayList<>();
+    private ViewHolder _viewHolder;
 
     public CustomerAdapter(Context context, int textViewResourceId, ArrayList<Customer> objects) {
         super(context, textViewResourceId, objects);
         _customerList = objects;
+    }
+
+    // use of the viewHolder allows faster loading because the views
+    // don't need to be collected for each item in the list view
+    static class ViewHolder {
+        TextView name;
     }
 
     @Override
@@ -32,14 +39,27 @@ public class CustomerAdapter extends ArrayAdapter<Customer> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        View view = convertView;
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = inflater.inflate(R.layout.customer_adapter, null);
+        if (convertView == null) {
+            LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.customer_adapter, parent, false);
 
-        TextView textView = (TextView) view.findViewById(R.id.name);
+            _viewHolder = new CustomerAdapter.ViewHolder();
+            _viewHolder.name = (TextView) convertView.findViewById(R.id.customer_adapter_name);
 
-        textView.setText(_customerList.get(position).getName());
-        return view;
+            // store the holder with the view.
+            convertView.setTag(_viewHolder);
+
+        }else{
+            // we've just avoided calling findViewById() on resource every time
+            // just use the viewHolder
+            _viewHolder = (ViewHolder) convertView.getTag();
+        }
+
+        // if object not null, assigns values
+        if (_customerList.get(position) != null) {
+            _viewHolder.name.setText(_customerList.get(position).getName());
+        }
+        return convertView;
 
     }
 }

@@ -17,7 +17,7 @@
     <item
         android:id="@+id/menu_item_appointments"
         android:checkable="true"
-        android:title="@string/menu_Appointments"
+        android:title="@string/menu_appointments"
         android:icon="@drawable/ic_appointment"/>
 
     <item
@@ -35,7 +35,7 @@
     <item
         android:id="@+id/menu_item_expense"
         android:checkable="true"
-        android:title="Expense"
+        android:title="@string/menu_expense"
         android:icon="@drawable/ic_arrow_back_white"/>
 
     <item
