@@ -13,18 +13,15 @@ import com.example.evans.data.Service;
 import java.util.ArrayList;
 
 /**
- * Created by Brooke Nelson on 11/15/2017.
+ * {@link ArrayAdapter<>} extension that displays the service data in a list view
  */
-
 public class ServiceAdapter extends ArrayAdapter<Service> {
 
-    ArrayList<Service> ServiceArrayList = new ArrayList<Service>();
+    ArrayList<Service> _serviceList = new ArrayList<>();
 
     public ServiceAdapter(Context context, int textViewResourceId, ArrayList<Service> objects) {
         super(context, textViewResourceId, objects);
-
-        //Set arrayList to something that is not null
-        ServiceArrayList = objects;
+        _serviceList = objects;
     }
 
     @Override
@@ -34,14 +31,15 @@ public class ServiceAdapter extends ArrayAdapter<Service> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
+        View view = convertView;
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        view = inflater.inflate(R.layout.service_adapter, null);
 
-        View view = inflater.inflate(R.layout.service_adapter, null);
+        TextView title = (TextView) view.findViewById(R.id.service_adapter_name);
+        TextView price = (TextView) view.findViewById(R.id.service_adapter_price);
 
-        TextView textView = (TextView) view.findViewById(R.id.service_adapter_list);
-
-        textView.setText(ServiceArrayList.get(position).getTitle());
+        title.setText(_serviceList.get(position).getTitle());
+        price.setText(Double.toString(_serviceList.get(position).getPrice()));
 
         return view;
     }

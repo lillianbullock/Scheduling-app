@@ -13,9 +13,8 @@ import com.example.evans.R;
 import com.example.evans.data.Appointment;
 
 /**
- * Created by brooke on 11/14/17.
+ * {@link ArrayAdapter<>} extension that displays the appointment data in a list view
  */
-
 public class AppointmentAdapter extends ArrayAdapter<Appointment> {
 
     ArrayList<Appointment> appointmentList = new ArrayList<>();

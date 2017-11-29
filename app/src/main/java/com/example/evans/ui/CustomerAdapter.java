@@ -13,9 +13,8 @@ import com.example.evans.R;
 import com.example.evans.data.Customer;
 
 /**
- * Created by brooke on 11/14/17.
+ * {@link ArrayAdapter<>} extension that displays the customer data in a list view
  */
-
 public class CustomerAdapter extends ArrayAdapter<Customer> {
 
     ArrayList<Customer> customerList = new ArrayList<>();

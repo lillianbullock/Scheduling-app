@@ -98,7 +98,7 @@ public class ExpenseEditFragment extends Fragment
         String name = _name.getText().toString();
         Double price = Double.parseDouble(_price.getText().toString());
         LocalDate setDate = _setDate;
-        
+
         //TODO is there a better way to validate these?
         if (_name.toString().isEmpty() || _price.toString().isEmpty() || _date.toString().isEmpty()) {
             Snackbar.make(getActivity().findViewById(R.id.content_frame),
