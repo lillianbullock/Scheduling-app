@@ -217,13 +217,13 @@ public class MainActivity extends AppCompatActivity implements
     public List<Customer> getCustomerList() { return _mainController.getCustomers(); }
 
     @Override
-    public List<Appointment> getAppointmentList() { return _mainController.getAppointments(TimePeriod.Week); }
+    public List<Appointment> getAppointmentList() { return _mainController.getFirstNumberAppointments(20); }
 
 
     @Override
     public List<Goal> getGoal() {
         //TODO Figure out if we need more than one function for week day or year goals
-        return _mainController.getGoals(TimePeriod.Week);
+        return _mainController.getFirstNumberGoals(20);
     }
 
 

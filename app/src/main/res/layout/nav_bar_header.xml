@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="190dp"
-    android:background="@drawable/header_background">
+    android:background="@drawable/header_background_blue">
 
     <!-- Google guidelines:: Subtitle: 56 dp -->
     <!-- Name: Roboto Medium, 14sp, #FFFFF -->
