@@ -22,9 +22,9 @@ import java.util.Map;
  */
 public class ServiceListFragment extends Fragment {
 
-    FloatingActionButton _addFloatingBtn;
-    View _rootView;  // how we can get access to view elements
-    InteractionWithServiceListFragmentListener _hostActivityListener;
+    private FloatingActionButton _addFloatingBtn;
+    private View _rootView;  // how we can get access to view elements
+    private InteractionWithServiceListFragmentListener _hostActivityListener;
 
 
     public ServiceListFragment() {

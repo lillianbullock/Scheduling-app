@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class ServiceAdapter extends ArrayAdapter<Service> {
 
-    ArrayList<Service> _serviceList = new ArrayList<>();
+    private ArrayList<Service> _serviceList = new ArrayList<>();
 
     public ServiceAdapter(Context context, int textViewResourceId, ArrayList<Service> objects) {
         super(context, textViewResourceId, objects);

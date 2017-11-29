@@ -63,8 +63,8 @@ public class DatePickerFragment extends DialogFragment
         try {
             _caller = (OnDateSetListener) context;
         } catch (ClassCastException e) {
-            Log.e(TAG, "The Calling activity did not implement RecieveDateValueListener");
-            throw new ClassCastException(context.toString() + " must implement RecieveDateValueListener");
+            Log.e(TAG, "The Calling activity did not implement ReceiveDateValueListener");
+            throw new ClassCastException(context.toString() + " must implement ReceiveDateValueListener");
         }
     }
 

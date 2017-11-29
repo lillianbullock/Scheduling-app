@@ -24,7 +24,7 @@ import java.util.TreeMap;
 
 public class FirebaseManager {
 
-    private DatabaseReference _dababaseRoot;
+    private DatabaseReference _databaseRoot;
 
     private static final String TAG = "FirebaseManager";
 
@@ -40,7 +40,7 @@ public class FirebaseManager {
     public FirebaseManager() {
 
         // initialize our connection to firebase
-        _dababaseRoot = FirebaseDatabase.getInstance().getReference();
+        _databaseRoot = FirebaseDatabase.getInstance().getReference();
     }
 
 
@@ -53,7 +53,7 @@ public class FirebaseManager {
     public List<Customer> getAllCustomers() {
         final List<Customer> customers = new ArrayList<>();
 
-        Query allCustomersQuery = _dababaseRoot.child(CUSTOMERS);
+        Query allCustomersQuery = _databaseRoot.child(CUSTOMERS);
 
         allCustomersQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -84,7 +84,7 @@ public class FirebaseManager {
         final List<Customer> customers = new ArrayList<>();
         final String DATE = "dateAdded";
 
-        Query customerAddedBetweenDatesQuery = _dababaseRoot.child(CUSTOMERS)
+        Query customerAddedBetweenDatesQuery = _databaseRoot.child(CUSTOMERS)
                 .orderByChild(DATE).startAt(startDate.toString())
                 .endAt(endDate.toString());
 
@@ -109,7 +109,7 @@ public class FirebaseManager {
 
 
     /**
-     * Retrun the first customer found with the id
+     * Return the first customer found with the id
      * @param customerId the customer id that we're looking up
      * @return a customer with the id, null otherwise
      */
@@ -121,7 +121,7 @@ public class FirebaseManager {
         final Customer[] customerArray = new Customer[1];
         customerArray[0] = null;
 
-        Query customerWithIdQuery = _dababaseRoot.child(CUSTOMERS).orderByChild(ID).equalTo(customerId);
+        Query customerWithIdQuery = _databaseRoot.child(CUSTOMERS).orderByChild(ID).equalTo(customerId);
 
         customerWithIdQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -153,7 +153,7 @@ public class FirebaseManager {
         final Customer[] customerArray = new Customer[1];
         customerArray[0] = null;
 
-        Query customerWithIdQuery = _dababaseRoot.child(CUSTOMERS).orderByChild(NAME).equalTo(customerName);
+        Query customerWithIdQuery = _databaseRoot.child(CUSTOMERS).orderByChild(NAME).equalTo(customerName);
 
         customerWithIdQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -176,7 +176,7 @@ public class FirebaseManager {
     /**
      * Return a customer that is associated with a specific appointment
      * @param appointment the appointment that we're looking up the customer for
-     * @return customer matching the customerId in the appoinment
+     * @return customer matching the customerId in the appointment
      */
     public Customer getCustomerForAppointment(Appointment appointment) {
         String customerId = appointment.getCustomerId();
@@ -195,7 +195,7 @@ public class FirebaseManager {
 
         final List<Customer> customers = new ArrayList<>();
 
-        Query customersQuery = _dababaseRoot.child(CUSTOMERS).limitToFirst(numCustomers);
+        Query customersQuery = _databaseRoot.child(CUSTOMERS).limitToFirst(numCustomers);
 
         customersQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -224,7 +224,7 @@ public class FirebaseManager {
 
         final Map<String, Service> serviceMap = new TreeMap<>();
 
-        Query servicesQuery = _dababaseRoot.child(SERVICES).orderByChild("Title");
+        Query servicesQuery = _databaseRoot.child(SERVICES).orderByChild("Title");
 
         servicesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -254,7 +254,7 @@ public class FirebaseManager {
     public List<Appointment> getAllAppointments() {
         final List<Appointment> appointments = new ArrayList<>();
 
-        Query allCustomersQuery = _dababaseRoot.child(CUSTOMERS);
+        Query allCustomersQuery = _databaseRoot.child(CUSTOMERS);
 
         allCustomersQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -289,7 +289,7 @@ public class FirebaseManager {
         String ID = "customerId";
         String customerId = customer.getId();
 
-        Query appointmentsForCustomerQuery = _dababaseRoot.child(APPOINTMENTS).orderByChild(ID).equalTo(customerId);
+        Query appointmentsForCustomerQuery = _databaseRoot.child(APPOINTMENTS).orderByChild(ID).equalTo(customerId);
 
         appointmentsForCustomerQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -319,7 +319,7 @@ public class FirebaseManager {
         final List<Appointment> appointments = new ArrayList<>();
         final String DATE = "date";
 
-        Query appointmentsBetweenDatesQuery = _dababaseRoot.child(APPOINTMENTS)
+        Query appointmentsBetweenDatesQuery = _databaseRoot.child(APPOINTMENTS)
                 .orderByChild(DATE).startAt(startDate.toString())
                 .endAt(endDate.toString());
 
@@ -346,10 +346,10 @@ public class FirebaseManager {
      * @param numOfAppointments the number of appointments to get
      * @return List of Appointments
      */
-    public List<Appointment> getAppointmnentWithLimit(int numOfAppointments){
+    public List<Appointment> getAppointmentWithLimit(int numOfAppointments){
         final List<Appointment> appointments = new ArrayList<>();
 
-        Query appointmentsQuery = _dababaseRoot.child(APPOINTMENTS).limitToFirst(numOfAppointments);
+        Query appointmentsQuery = _databaseRoot.child(APPOINTMENTS).limitToFirst(numOfAppointments);
 
         appointmentsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -376,7 +376,7 @@ public class FirebaseManager {
     public List<Goal> getAllGoals() {
         final List<Goal> goals = new ArrayList<>();
 
-        Query goalsQuery = _dababaseRoot.child(GOALS);
+        Query goalsQuery = _databaseRoot.child(GOALS);
 
         goalsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -405,7 +405,7 @@ public class FirebaseManager {
         final List<Goal> goals = new ArrayList<>();
         final String DONE = "done";
 
-        Query unfinishedGoalsQuery = _dababaseRoot.child(GOALS).orderByChild(DONE);
+        Query unfinishedGoalsQuery = _databaseRoot.child(GOALS).orderByChild(DONE);
 
         unfinishedGoalsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -434,7 +434,7 @@ public class FirebaseManager {
         final List<Goal> goals = new ArrayList<>();
         final String DATE = "startDate";
 
-        Query goalsWithStartDatesQuery = _dababaseRoot.child(GOALS)
+        Query goalsWithStartDatesQuery = _databaseRoot.child(GOALS)
                 .orderByChild(DATE).startAt(startDate.toString())
                 .endAt(endDate.toString());
 
@@ -457,7 +457,7 @@ public class FirebaseManager {
     }
 
     /**
-     * Retrun goals with the specified end date.
+     * Return goals with the specified end date.
      * @param endDate the end date to stop looking up
      * @param startDate the end date to start looking up
      * @return List of Goals
@@ -466,7 +466,7 @@ public class FirebaseManager {
         final List<Goal> goals = new ArrayList<>();
         final String DATE = "dueDate";
 
-        Query goalsBetweenDatesQuery = _dababaseRoot.child(GOALS)
+        Query goalsBetweenDatesQuery = _databaseRoot.child(GOALS)
                 .orderByChild(DATE).startAt(startDate.toString())
                 .endAt(endDate.toString());
 
@@ -498,7 +498,7 @@ public class FirebaseManager {
 
         final List<Goal> goals = new ArrayList<>();
 
-        Query goalsQuery = _dababaseRoot.child(GOALS).limitToFirst(numGoals);
+        Query goalsQuery = _databaseRoot.child(GOALS).limitToFirst(numGoals);
 
         goalsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -527,7 +527,7 @@ public class FirebaseManager {
     public List<Expense> getAllExpenses() {
         final List<Expense> expenses = new ArrayList<>();
 
-        Query allExpensesQuery = _dababaseRoot.child(EXPENSES);
+        Query allExpensesQuery = _databaseRoot.child(EXPENSES);
 
         allExpensesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -551,13 +551,13 @@ public class FirebaseManager {
      * Return a list of expenses between the specified dates - inclusive
      * @param startDate the date to start from
      * @param endDate the date to end at
-     * @return List of Expences
+     * @return List of Expenses
      */
     public  List<Expense> getExpensesBetweenDates(LocalDate startDate, LocalDate endDate) {
         final List<Expense> expenses = new ArrayList<>();
         final String DATE = "date";
 
-        Query expensesBetweenDatesQuery = _dababaseRoot.child(EXPENSES)
+        Query expensesBetweenDatesQuery = _databaseRoot.child(EXPENSES)
                 .orderByChild(DATE).startAt(startDate.toString())
                 .endAt(endDate.toString());
 
@@ -589,7 +589,7 @@ public class FirebaseManager {
 
         final List<Expense> expenses = new ArrayList<>();
 
-        Query expenseQuery = _dababaseRoot.child(EXPENSES).limitToFirst(numExpenses);
+        Query expenseQuery = _databaseRoot.child(EXPENSES).limitToFirst(numExpenses);
 
         expenseQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -617,7 +617,7 @@ public class FirebaseManager {
     public List<Sale> getAllSales() {
         final List<Sale> sales = new ArrayList<>();
 
-        Query allSalesQuery = _dababaseRoot.child(SALES);
+        Query allSalesQuery = _databaseRoot.child(SALES);
 
         allSalesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -647,7 +647,7 @@ public class FirebaseManager {
         final List<Sale> sales = new ArrayList<>();
         final String DATE = "date";
 
-        Query salesBetweenDatesQuery = _dababaseRoot.child(SALES)
+        Query salesBetweenDatesQuery = _databaseRoot.child(SALES)
                 .orderByChild(DATE).startAt(startDate.toString())
                 .endAt(endDate.toString());
 
@@ -679,7 +679,7 @@ public class FirebaseManager {
 
         final List<Sale> sales = new ArrayList<>();
 
-        Query salesQuery = _dababaseRoot.child(SALES).limitToFirst(numSales);
+        Query salesQuery = _databaseRoot.child(SALES).limitToFirst(numSales);
 
         salesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -701,24 +701,24 @@ public class FirebaseManager {
     }
 
     public String getKeyForNewCustomer() {
-        return _dababaseRoot.child(CUSTOMERS).push().getKey();
+        return _databaseRoot.child(CUSTOMERS).push().getKey();
     }
 
     public String getKeyForNewSale() {
-        return _dababaseRoot.child(SALES).push().getKey();
+        return _databaseRoot.child(SALES).push().getKey();
     }
 
 
     public String getKeyForNewAppointment() {
-        return _dababaseRoot.child(APPOINTMENTS).push().getKey();
+        return _databaseRoot.child(APPOINTMENTS).push().getKey();
     }
 
     public String getKeyForNewGoal() {
-        return _dababaseRoot.child(GOALS).push().getKey();
+        return _databaseRoot.child(GOALS).push().getKey();
     }
 
     public String getKeyForNewExpense() {
-        return _dababaseRoot.child(EXPENSES).push().getKey();
+        return _databaseRoot.child(EXPENSES).push().getKey();
     }
 
 
@@ -737,12 +737,12 @@ public class FirebaseManager {
         }
 
 
-        _dababaseRoot.child(CUSTOMERS).child(customerId).setValue(customer);
+        _databaseRoot.child(CUSTOMERS).child(customerId).setValue(customer);
     }
 
 
     /**
-     * Adds a signle valid appointment to the database
+     * Adds a single valid appointment to the database
      * @param appointment the appointment to be added
      */
     public void addAppointment(Appointment appointment, String id) {
@@ -751,7 +751,7 @@ public class FirebaseManager {
             return;
         }
 
-        _dababaseRoot.child(APPOINTMENTS).child(id).setValue(appointment);
+        _databaseRoot.child(APPOINTMENTS).child(id).setValue(appointment);
     }
 
 
@@ -765,7 +765,7 @@ public class FirebaseManager {
             return;
         }
 
-        _dababaseRoot.child(SERVICES).child(id).setValue(service);
+        _databaseRoot.child(SERVICES).child(id).setValue(service);
     }
 
     /**
@@ -778,7 +778,7 @@ public class FirebaseManager {
             return;
         }
 
-        _dababaseRoot.child(SALES).child(id).setValue(sale);
+        _databaseRoot.child(SALES).child(id).setValue(sale);
     }
 
     /**
@@ -791,7 +791,7 @@ public class FirebaseManager {
             return;
         }
 
-        _dababaseRoot.child(GOALS).child(id).setValue(goal);
+        _databaseRoot.child(GOALS).child(id).setValue(goal);
 
     }
 
@@ -806,7 +806,7 @@ public class FirebaseManager {
             return;
         }
 
-        _dababaseRoot.child(EXPENSES).child(id).setValue(expense);
+        _databaseRoot.child(EXPENSES).child(id).setValue(expense);
 
     }
 

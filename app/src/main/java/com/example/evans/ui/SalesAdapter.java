@@ -19,13 +19,13 @@ import java.util.ArrayList;
 
 public class SalesAdapter extends ArrayAdapter<Sale> {
 
-    ArrayList<Sale> SalesArrayList = new ArrayList<>();
+    private ArrayList<Sale> _salesList = new ArrayList<>();
 
     public SalesAdapter(Context context, int textViewResourceId, ArrayList<Sale> objects) {
         super(context, textViewResourceId, objects);
 
         //Set arrayList to something that is not null
-        SalesArrayList = objects;
+        _salesList = objects;
     }
 
 
@@ -46,9 +46,9 @@ public class SalesAdapter extends ArrayAdapter<Sale> {
         TextView price = (TextView) view.findViewById(R.id.array_adapter_sales_price);
         TextView date = (TextView) view.findViewById(R.id.array_adapter_sales_date);
 
-        service.setText(SalesArrayList.get(position).getService().getTitle());
-        price.setText(SalesArrayList.get(position).getPrice().toString());
-        date.setText(SalesArrayList.get(position).getDate().toString());
+        service.setText(_salesList.get(position).getService().getTitle());
+        price.setText(_salesList.get(position).getPrice().toString());
+        date.setText(_salesList.get(position).getDate().toString());
 
         return view;
     }

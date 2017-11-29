@@ -22,9 +22,9 @@ import java.util.List;
  */
 public class CustomersListFragment extends Fragment {
 
-    FloatingActionButton _addFloatingBtn;
-    View _rootView;  // how we can get access to view elements
-    InteractionWithCustomerListFragmentListener _hostActivityListener;
+    private FloatingActionButton _addFloatingBtn;
+    private View _rootView;  // how we can get access to view elements
+    private InteractionWithCustomerListFragmentListener _hostActivityListener;
 
     public CustomersListFragment() {
         // Required empty public constructor
@@ -54,11 +54,11 @@ public class CustomersListFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         Customer test1 = new Customer();
-        test1.setName("testname");
+        test1.setName("testName");
         customerList.add(test1);
 
         Customer test2 = new Customer();
-        test2.setName("testname2");
+        test2.setName("testName2");
         customerList.add(test2);
 
         //TODO put this back when app actually gets data from database (and take out dummy data above)

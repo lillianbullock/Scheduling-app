@@ -61,7 +61,7 @@ public class Customer implements Comparable{
 
 
     /**
-     * This is the same as setDateAdded but it recieves a date not a string.
+     * This is the same as setDateAdded but it receives a date not a string.
      * This is for us to use in normal code but should be ignored by firebase
      * @return
      */

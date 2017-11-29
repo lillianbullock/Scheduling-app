@@ -18,11 +18,11 @@ import com.example.evans.data.Expense;
 
 public class ExpenseAdapter extends ArrayAdapter<Expense> {
 
-    ArrayList<Expense> expenseList = new ArrayList<>();
+    private ArrayList<Expense> _expenseList = new ArrayList<>();
 
     public ExpenseAdapter(Context context, int textViewResourceId, ArrayList<Expense> objects) {
         super(context, textViewResourceId, objects);
-        expenseList = objects;
+        _expenseList = objects;
     }
 
     @Override
@@ -42,9 +42,9 @@ public class ExpenseAdapter extends ArrayAdapter<Expense> {
         TextView price = (TextView) view.findViewById(R.id.array_adapter_expense_price);
         TextView dateTime = (TextView) view.findViewById(R.id.array_adapter_expense_date);
 
-        title.setText(expenseList.get(position).getName());
-        price.setText(expenseList.get(position).getPrice().toString());
-        dateTime.setText(expenseList.get(position).getDate().toString());
+        title.setText(_expenseList.get(position).getName());
+        price.setText(_expenseList.get(position).getPrice().toString());
+        dateTime.setText(_expenseList.get(position).getDate().toString());
 
         return view;
     }

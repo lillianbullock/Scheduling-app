@@ -44,7 +44,7 @@ public class GoalEditFragment extends Fragment
 
     private DateTimeFormatter _formatter;
 
-    OnSubmitGoalEdit _hostActivity;
+    private OnSubmitGoalEdit _hostActivity;
 
     public GoalEditFragment() {
         //Goal Fragment

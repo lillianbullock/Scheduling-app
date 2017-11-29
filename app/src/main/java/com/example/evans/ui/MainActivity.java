@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements
     // FireBase stuff
     private DatabaseReference _database;
 
-    static int LAST_ASSIGNED_CUSTOMER_ID;
+    private static int LAST_ASSIGNED_CUSTOMER_ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -179,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements
             _currentFragment = new StartPageFragment();
             loadCurrentFragment(false);
             Snackbar.make(findViewById(R.id.content_frame),
-                    "ERROR: Invalid expense information enterred, cancelling operation", Snackbar.LENGTH_LONG).show();
+                    "ERROR: Invalid expense information entered, cancelling operation", Snackbar.LENGTH_LONG).show();
             Log.e(TAG, "NULL expense passed to MainActivity");
         }
 
@@ -277,7 +277,7 @@ public class MainActivity extends AppCompatActivity implements
             _currentFragment = new StartPageFragment();
             loadCurrentFragment(false);
             Snackbar.make(findViewById(R.id.content_frame),
-                    "ERROR: Invalid service information enterred, cancelling operation", Snackbar.LENGTH_LONG).show();
+                    "ERROR: Invalid service information entered, cancelling operation", Snackbar.LENGTH_LONG).show();
             Log.e(TAG, "NULL service passed to MainActivity");
         }
     }

@@ -18,7 +18,7 @@ import java.util.ArrayList;
  */
 public class GoalAdapter extends ArrayAdapter<Goal> {
 
-    ArrayList<Goal> _goalList = new ArrayList<>();
+    private ArrayList<Goal> _goalList = new ArrayList<>();
 
     public GoalAdapter(Context context, int textViewResourceId, ArrayList<Goal> objects) {
         super(context, textViewResourceId, objects);

@@ -36,7 +36,7 @@ public class ExpenseEditFragment extends Fragment
 
     private LocalDate _setDate;
 
-    InteractionWithExpenseEditFragmentListener _hostActivity;
+    private InteractionWithExpenseEditFragmentListener _hostActivity;
 
     public ExpenseEditFragment() {
         // Required empty public constructor
