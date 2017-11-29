@@ -7,7 +7,7 @@ import com.example.evans.data.MainController;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 /**
  * Test for MainController class
@@ -17,7 +17,7 @@ public class MainControllerTest {
 
     MainController mainController = new MainController();
 
-
+/*
     @Before
     public void initInputs() {
         LocalDateTime date1 = LocalDateTime.of(2017, 11, 11, 11, 11);
@@ -30,6 +30,7 @@ public class MainControllerTest {
 
 
     }
+*/
 
     @Test
     public void test() throws Exception {

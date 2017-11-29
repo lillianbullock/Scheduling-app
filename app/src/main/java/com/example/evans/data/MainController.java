@@ -29,7 +29,7 @@ public class MainController {
     private List<Appointment>       _appointments      = new LinkedList<>();
     private List<Customer>          _customers         = new LinkedList<>();
     private List<Goal>              _goals             = new LinkedList<>();
-    private Map<String, Service>    _availableServices = new HashMap<String, Service>();
+    private Map<String, Service>    _availableServices = new HashMap<>();
     private List<Sale>              _allSales          = new LinkedList<>();
     private List<Expense>           _expenses          = new LinkedList<>();
     private FirebaseManager         _firebaseManager   = null;
@@ -58,7 +58,7 @@ public class MainController {
     /**
      * Add a single appointment to our list of appointments. The appointment should already
      * be in a valid state before this function is called.
-     * @param appointment: A valid appoinment to be added to our list
+     * @param appointment: A valid appointment to be added to our list
      */
     public void addAppointment(Appointment appointment) {
 
@@ -168,7 +168,7 @@ public class MainController {
 
 
     /**
-     * GetCustommers: Simply return a list of all the customers in our customers list
+     * GetCustomers: Simply return a list of all the customers in our customers list
      * @return List<Customer>
      */
     public List<Customer> getCustomers() {
@@ -280,7 +280,7 @@ public class MainController {
      * @return List of appointments
      */
     public List<Appointment> getFirstNumberAppointments(int numAppointments){
-        return _firebaseManager.getAppointmnentWithLimit(numAppointments);
+        return _firebaseManager.getAppointmentWithLimit(numAppointments);
     }
 
 

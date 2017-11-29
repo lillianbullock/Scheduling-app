@@ -38,7 +38,7 @@ import java.util.Map;
 public class SalesEditFragment extends Fragment
         implements DatePickerFragment.OnDateSetListener {
 
-    OnSubmitSalesEdit _hostActivity;
+    private OnSubmitSalesEdit _hostActivity;
 
     private EditText _date;
     private Spinner _serviceSpinner;
@@ -79,7 +79,7 @@ public class SalesEditFragment extends Fragment
         _servicePrice   = (EditText) view.findViewById(R.id.etxt_sale_price);
         _btnSave        = (Button) view.findViewById(R.id.btn_edit_bar_save);
         _btnCancel      = (Button) view.findViewById(R.id.btn_edit_bar_cancel);
-        _servicesMap    = new HashMap<String, Service>();
+        _servicesMap    = new HashMap<>();
         _servicesMap    = _hostActivity.getServices();
 
 
@@ -190,7 +190,7 @@ public class SalesEditFragment extends Fragment
     private void setupServicesSpinner() {
 
         List<String> servicesNames = new ArrayList<>(_hostActivity.getServices().keySet());
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this.getActivity(),
                 android.R.layout.simple_spinner_item,
                 servicesNames);

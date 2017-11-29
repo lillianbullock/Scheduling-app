@@ -53,7 +53,7 @@ public class FinancialReportFragment extends Fragment
     private char _current;
 
     private DateTimeFormatter _formatter;
-    InteractionWithFinancialReportFragmentListener _hostActivityListener;
+    private InteractionWithFinancialReportFragmentListener _hostActivityListener;
 
     public FinancialReportFragment() {
         // Required empty public constructor

@@ -21,9 +21,9 @@ import java.util.ArrayList;
  */
 public class ExpenseListFragment extends Fragment {
 
-    FloatingActionButton _addFloatingBtn;
-    View _rootView;  // how we can get access to view elements
-    InteractionWithExpenseListFragmentListener _hostActivityListener;
+    private FloatingActionButton _addFloatingBtn;
+    private View _rootView;  // how we can get access to view elements
+    private InteractionWithExpenseListFragmentListener _hostActivityListener;
 
 
     public ExpenseListFragment() {
@@ -57,7 +57,7 @@ public class ExpenseListFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         //TODO put this back when app actually gets data from database (and take out dummy data above)
-        //expenseList = (ArrayList) _hostActivityListener.getexpense();
+        //expenseList = (ArrayList) _hostActivityListener.getExpense();
 
         simpleList = (ListView) _rootView.findViewById(R.id.expense_list);
 

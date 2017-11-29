@@ -12,7 +12,7 @@ import org.joda.time.LocalTime;
 import java.util.Calendar;
 
 /**
- * Timepicker for picking time
+ * Time picker for picking time
  */
 
 public class TimePickerFragment extends DialogFragment
@@ -53,7 +53,7 @@ public class TimePickerFragment extends DialogFragment
         if (_caller != null) {
             _caller.onTimeSet(selectedTime);
         } else {
-            throw new ClassCastException("Null reference for calling fragement: Use setTargetFragment in the calling fragment");
+            throw new ClassCastException("Null reference for calling fragment: Use setTargetFragment in the calling fragment");
         }
     }
 

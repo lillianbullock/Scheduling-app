@@ -61,7 +61,7 @@ public class AppointmentEditFragment extends Fragment
     private static final int DATE_DIALOG = 1;
     private static final int TIME_DIALOG = 2;
 
-    OnSubmitAppointment _hostActivity;
+    private OnSubmitAppointment _hostActivity;
 
     public AppointmentEditFragment() {
         // Required empty public constructor
@@ -259,7 +259,7 @@ public class AppointmentEditFragment extends Fragment
     private void setupServicesSpinner() {
 
         List<String> servicesNames = new ArrayList<>(_hostActivity.getServices().keySet());
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this.getActivity(),
                 android.R.layout.simple_spinner_item,
                 servicesNames);
@@ -306,13 +306,13 @@ public class AppointmentEditFragment extends Fragment
             _hostActivity = (OnSubmitAppointment) context;
         } catch (ClassCastException e) {
             Log.e(TAG, "The Host activity did not implement OnSubmitAppointment");
-            throw new ClassCastException(context.toString() + " must implement OnSubmitAppoinment");
+            throw new ClassCastException(context.toString() + " must implement OnSubmitAppointment");
         }
 
     }
 
     /**
-     * Interface that the activate that creates this fragment must implemnent. This interface will
+     * Interface that the activate that creates this fragment must implement. This interface will
      * handle when a new appointment has been added
      */
     public interface OnSubmitAppointment {

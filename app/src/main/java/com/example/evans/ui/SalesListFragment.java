@@ -23,9 +23,9 @@ import java.util.List;
 
 public class SalesListFragment extends Fragment {
 
-    FloatingActionButton _addFloatingBtn;
-    View _rootView;
-   SalesListFragmentListener _hostActivityListener;
+    private FloatingActionButton _addFloatingBtn;
+    private View _rootView;
+    private SalesListFragmentListener _hostActivityListener;
 
     public SalesListFragment(){
         //Required empty public construction

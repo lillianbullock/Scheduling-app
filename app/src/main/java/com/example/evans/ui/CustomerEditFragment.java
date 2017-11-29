@@ -34,7 +34,7 @@ public class CustomerEditFragment extends Fragment {
 
     // define a new instance of OnSubmitCustomerEdit that would hold an instance of the host activity and will
     // be able to call the methods that we've demanded to be created
-    OnSubmitCustomerEdit _hostActivity;
+    private OnSubmitCustomerEdit _hostActivity;
 
 
     public CustomerEditFragment() {
@@ -150,7 +150,7 @@ public class CustomerEditFragment extends Fragment {
      *  isValid: Return true is the passed email string matches the specified
      *  regEx pattern, false otherwise
      */
-    public static boolean isValidEmail(String email) {
+    private boolean isValidEmail(String email) {
 
         String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
 

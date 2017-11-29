@@ -13,16 +13,15 @@ import com.example.evans.R;
 import com.example.evans.data.Customer;
 
 /**
- * Created by brooke on 11/14/17.
+ * {@link ArrayAdapter<>} extension that displays the customer data in a list view
  */
-
 public class CustomerAdapter extends ArrayAdapter<Customer> {
 
-    ArrayList<Customer> customerList = new ArrayList<>();
+    private ArrayList<Customer> _customerList = new ArrayList<>();
 
     public CustomerAdapter(Context context, int textViewResourceId, ArrayList<Customer> objects) {
         super(context, textViewResourceId, objects);
-        customerList = objects;
+        _customerList = objects;
     }
 
     @Override
@@ -39,7 +38,7 @@ public class CustomerAdapter extends ArrayAdapter<Customer> {
 
         TextView textView = (TextView) view.findViewById(R.id.name);
 
-        textView.setText(customerList.get(position).getName());
+        textView.setText(_customerList.get(position).getName());
         return view;
 
     }
