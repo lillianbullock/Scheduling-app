@@ -72,7 +72,7 @@ public class AppointmentsListFragment extends Fragment {
         appointmentList.add(test2);
 
         //TODO put this back when app actually gets data from database (and take out dummy data above)
-        //appointmentList = (ArrayList) _hostListener.getAppointments();
+        //appointmentList = (ArrayList) _hostListener.getAppointmentList();
 
         super.onCreate(savedInstanceState);
 
