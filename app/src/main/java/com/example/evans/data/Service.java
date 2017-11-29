@@ -11,6 +11,7 @@ import android.support.annotation.RequiresApi;
  */
 
 public class Service implements Comparable {
+    private String _id;
     private String _title;
     private String _description;
     private Double _price;
@@ -47,6 +48,9 @@ public class Service implements Comparable {
     public Double getPrice() {
         return _price;
     }
+
+    public String getId() { return _id; }
+    public void setId(String id) { _id = id;}
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override

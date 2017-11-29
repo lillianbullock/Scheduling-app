@@ -56,7 +56,9 @@ public class MainActivity extends AppCompatActivity implements
         SalesListFragment.SalesListFragmentListener,
         AppointmentViewFragment.InteractionWithAppointmentViewFragmentListener,
         SalesEditFragment.OnSubmitSalesEdit,
-        FinancialReportFragment.InteractionWithFinancialReportFragmentListener
+        FinancialReportFragment.InteractionWithFinancialReportFragmentListener,
+        GoalViewFragment.InteractionWithGoalViewFragmentListener,
+        ExpenseListFragment.InteractionWithExpenseListFragmentListener
     {
 
     // Variables
@@ -149,45 +151,61 @@ public class MainActivity extends AppCompatActivity implements
         Log.i(TAG, "Saved last customer id to shared preference");
     }
 
-       /**
-     * Not sure yet how we want to implement this feature
-     * there're a few ways but it should return the last id that was
-     * assigned to the last created customer
-     * @return
-     */
-    private int getLastAssignedCustomerId() {
-        //TODO change the implementation soon!
-        return LAST_ASSIGNED_CUSTOMER_ID;
+
+
+        /**** EXPENSE *****/
+    @Override
+    public void onClickExpense(Expense expense) {
+
+    }
+
+    @Override
+    public void onAddExpense() {
+        _currentFragment = new ExpenseListFragment();
+        loadCurrentFragment(false);
+    }
+
+    /*** SALE ***/
+
+    @Override
+    public List<Sale> getSale() { return _mainController.getAllSales(); }
+
+    @Override
+    public void onAddSale() {
+        _currentFragment = new SalesEditFragment();
+        loadCurrentFragment(true);
+    }
+
+    @Override
+    public void onClickSale(Sale sale) { }
+
+    @Override
+    public void onSaleCancel() {
+            onBackPressed();
+        }
+
+
+    @Override
+    public void onSaleEditFinish(Sale sale) {
+        if(sale != null){
+            _mainController.addSale(sale);
+            _currentFragment = new StartPageFragment();
+            loadCurrentFragment(false);
+        }
     }
 
 
 
-
-
-        @Override
+    @Override
     public void onAddCustomer() {
         _currentFragment = new CustomerEditFragment();
         loadCurrentFragment(false);
-
     }
 
     @Override
     public void onAddAppointment() {
         _currentFragment = new AppointmentEditFragment();
         loadCurrentFragment(true);
-    }
-
-    @Override
-    public void onAddService() {
-        _currentFragment = new ServiceEditFragment();
-        loadCurrentFragment(true);
-    }
-
-
-    @Override
-    public Map<String, Service> getServices () {
-
-        return _mainController.getAvailableServices();
     }
 
     @Override
@@ -209,36 +227,16 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 
-    /**
-     * Sales implementations
-     */
+    /***** SERVICE *******/
     @Override
-    public List<Sale> getSale() { return _mainController.getAllSales(); }
-
-    @Override
-    public void onAddSale() {
-        _currentFragment = new SalesEditFragment();
+    public void onAddService() {
+        _currentFragment = new ServiceEditFragment();
         loadCurrentFragment(true);
     }
 
     @Override
-    public void onClickSale(Sale sale) {
-
-    }
-    @Override
-    public void onSaleCancel() {
-        onBackPressed();
-    }
-
-    @Override
-    public void onSaleEditFinish(Sale sale) {
-
-        if(sale != null){
-            _mainController.addSale(sale);
-            _currentFragment = new StartPageFragment();
-            loadCurrentFragment(false);
-        }
-
+    public Map<String, Service> getServices () {
+        return _mainController.getAvailableServices();
     }
 
     @Override
@@ -246,7 +244,6 @@ public class MainActivity extends AppCompatActivity implements
 
         if (service != null) {
             _mainController.addService(service.getTitle(), service);
-
             _currentFragment = new ServiceListFragment();
             loadCurrentFragment(false);
 
@@ -263,8 +260,17 @@ public class MainActivity extends AppCompatActivity implements
                     "ERROR: Invalid service information enterred, cancelling operation", Snackbar.LENGTH_LONG).show();
             Log.e(TAG, "NULL service passed to MainActivity");
         }
+    }
 
+    @Override
+    public void onClickService(Service service) {
+            // TODO Handle service click
+    }
 
+    /******** CUSTOMER **********/
+    @Override
+    public void onClickCustomer(Customer customer) {
+            // TODO Handle customer click
     }
 
 
@@ -309,27 +315,24 @@ public class MainActivity extends AppCompatActivity implements
         return LAST_ASSIGNED_CUSTOMER_ID + 1;
     }
 
-
-    @Override
-    public void onAddAppointmentClickForCustomer(Customer customer) {
-        // TODO Handle this case
+    /**
+    * Not sure yet how we want to implement this feature
+    * there're a few ways but it should return the last id that was
+    * assigned to the last created customer
+    * @return
+    */
+    private int getLastAssignedCustomerId() {
+         //TODO change the implementation soon!
+        return LAST_ASSIGNED_CUSTOMER_ID;
     }
 
 
-    /**
-     * GOAL method Implementation
-     */
+    /******** GOAL *******/
     @Override
     public void onClickAddGoal() {
         _currentFragment = new GoalEditFragment();
         loadCurrentFragment(true);
     }
-
-    @Override
-    public void onClickCustomer(Customer customer) {
-        // TODO Handle customer click
-    }
-
 
     @Override
     public void onClickGoal() {
@@ -343,23 +346,26 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onGoalEditFinish(Goal goal) {
-        // Return to the main page for now
-        // TODO Go to goal view
-        _currentFragment = new StartPageFragment();
-        loadCurrentFragment(true);
+        if (goal == null) {
+            return;
+        }
 
+        //Connecting thee GoalViewFragment on finish
+        GoalViewFragment _frag = new GoalViewFragment();
+        _frag.setGoal(goal);
+        _currentFragment = _frag;
+
+        loadCurrentFragment(false);
         _mainController.addNewGoal(goal);
     }
+    /*
+    @Override
+    public Goal getViewGoal() {
+            return null;
+    }*/
 
 
-
-
-
-        @Override
-    public void onClickService(Service service) {
-        // TODO Handle service click
-    }
-
+    /******* APPOINTMENT ******/
     @Override
     public void onClickAppointment(Appointment appointment) {
         //TODO Handle CLick appointment
@@ -369,7 +375,6 @@ public class MainActivity extends AppCompatActivity implements
     public Customer getCustomerForAppointment() {
         return null;
     }
-
 
     @Override
     public void onAppointmentEditFinish(Customer customer, Appointment appointment) {
@@ -403,7 +408,14 @@ public class MainActivity extends AppCompatActivity implements
         _mainController.addAppointment(appointment);
     }
 
+
     @Override
+    public void onAddAppointmentClickForCustomer(Customer customer) {
+            // TODO Handle this case
+    }
+
+
+        @Override
     public void onCancel() {
         onBackPressed();
 
@@ -420,11 +432,12 @@ public class MainActivity extends AppCompatActivity implements
         }
 
     /* financial report functions*/
-
     @Override
     public List<Expense> getExpenses(LocalDate beginDate, LocalDate endDate) {
         return _mainController.getExpensesBetween(beginDate, endDate);
     }
+
+
 
     @Override
     public List<Sale> getSales(LocalDate beginDate, LocalDate endDate) {
@@ -537,6 +550,11 @@ public class MainActivity extends AppCompatActivity implements
                 _currentFragment = new SalesListFragment();
                 loadCurrentFragment(true);
                 break;
+            case R.id.menu_item_expense:
+                _drawerLayout.closeDrawer(GravityCompat.START);
+                _currentFragment = new ExpenseListFragment();
+                loadCurrentFragment(true);
+                break;
             case R.id.menu_item_fin_rep:
                 _drawerLayout.closeDrawer(GravityCompat.START);
                 _currentFragment = new FinancialReportFragment();
@@ -545,7 +563,6 @@ public class MainActivity extends AppCompatActivity implements
             default:
                 _drawerLayout.closeDrawer(GravityCompat.START);
         }
-
     }
 
 

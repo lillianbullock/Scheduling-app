@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.evans.ui.AppointmentsListFragment"
+    tools:context="com.example.evans.ui.ExpenseListFragment"
     android:background="#ffffff">
 
     <android.support.constraint.ConstraintLayout
@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/floating_add_btn_appointment"
+            android:id="@+id/floating_add_btn_expense"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -22,7 +22,7 @@
             android:backgroundTint="@color/colorAccent"/>
 
         <ListView
-            android:id="@+id/appointment_list"
+            android:id="@+id/expense_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
