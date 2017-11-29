@@ -5,6 +5,8 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 
+import com.google.firebase.database.Exclude;
+
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 
@@ -54,24 +56,36 @@ public class Appointment implements Comparable, Financial {
     }
 
     public String getTitle() { return _title; }
-    public LocalDate getDate() { return _date; }
     public String getCustomerId() { return _customerId; }
     public Boolean isDue() { return _due; }
     public Service getService() { return _service; }
     public Boolean isSucceed() { return _succeed; }
-    public LocalTime getTime() { return _time; }
+    public String getDate() { return _date.toString(); }
+    public String getTime() { return _time.toString(); }
+
+    @Exclude
+    public LocalDate getAppointDate() {return _date;}
+
+    @Exclude
+    public LocalTime getAppointmentTime() {return _time;}
+
     public String getId() { return _id; }
     public void setTitle(String title) { this._title = title; }
 
 
 
     public void setId(String id) { _id = id;}
-    public void setDate(LocalDate date) { this._date = date; }
+    public void setDate(String dateString) { this._date = LocalDate.parse(dateString); }
     public void setCustomerId(String customerId) { this._customerId = customerId; }
     public void setDue(Boolean due) { this._due = due; }
     public void setService(Service service) { this._service = service; }
     public void setSucceed(Boolean succeed) { this._succeed = succeed; }
-    public void setTime(LocalTime _time) { this._time = _time; }
+    public void setTime(String timeString) { this._time = LocalTime.parse(timeString); }
+
+    @Exclude
+    public void setAppointmentDate(LocalDate date) {_date = date;}
+
+    @Exclude void setAppointmentTime(LocalTime time) {_time = time;}
 
 
     @Override
