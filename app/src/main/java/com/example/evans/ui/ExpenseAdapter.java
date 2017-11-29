@@ -37,7 +37,7 @@ public class ExpenseAdapter extends ArrayAdapter<Expense> {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = inflater.inflate(R.layout.expense_adapter, null);
 
-        TextView textView = (TextView) view.findViewById(R.id.name);
+        TextView textView = (TextView) view.findViewById(R.id.array_expense_adapter);
 
         textView.setText(expenseList.get(position).getName());
         return view;
