@@ -14,9 +14,8 @@ import com.example.evans.data.Sale;
 import java.util.ArrayList;
 
 /**
- * Created by Brooke Nelson on 11/15/2017.
+ * {@link ArrayAdapter<>} extension that displays the sales data in a list view
  */
-
 public class SalesAdapter extends ArrayAdapter<Sale> {
 
     private ArrayList<Sale> _salesList = new ArrayList<>();
@@ -39,7 +38,7 @@ public class SalesAdapter extends ArrayAdapter<Sale> {
 
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View view = inflater.inflate(R.layout.sales_adapter, null);
+        View view = inflater.inflate(R.layout.sales_adapter, parent, false);
 
 
         TextView service = (TextView) view.findViewById(R.id.array_adapter_sales_service);

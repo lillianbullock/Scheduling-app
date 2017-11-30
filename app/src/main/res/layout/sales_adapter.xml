@@ -2,18 +2,18 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
-<TextView
+    <TextView
         android:id="@+id/array_adapter_sales_service"
         android:layout_width="fill_parent"
         android:layout_height="32dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:layout_gravity="center"
-        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:text="@string/default_string"
         android:textColor="#000"
         app:layout_constraintRight_toRightOf="parent"

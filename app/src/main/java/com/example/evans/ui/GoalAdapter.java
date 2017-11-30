@@ -35,7 +35,7 @@ public class GoalAdapter extends ArrayAdapter<Goal> {
 
         View view = convertView;
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = inflater.inflate(R.layout.goal_adapter, null);
+        view = inflater.inflate(R.layout.goal_adapter, parent, false);
 
         TextView title = (TextView) view.findViewById(R.id.goal_adapter_title);
         TextView dueDate = (TextView) view.findViewById(R.id.goal_adapter_due_date);

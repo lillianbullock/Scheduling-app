@@ -13,9 +13,8 @@ import com.example.evans.R;
 import com.example.evans.data.Expense;
 
 /**
- * Created by brooke on 11/14/17.
+ * {@link ArrayAdapter<>} extension that displays the expense data in a list view
  */
-
 public class ExpenseAdapter extends ArrayAdapter<Expense> {
 
     private ArrayList<Expense> _expenseList = new ArrayList<>();
@@ -35,7 +34,7 @@ public class ExpenseAdapter extends ArrayAdapter<Expense> {
 
         View view = convertView;
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = inflater.inflate(R.layout.expense_adapter, null);
+        view = inflater.inflate(R.layout.expense_adapter, parent, false);
 
 
         TextView title = (TextView) view.findViewById(R.id.array_adapter_expense_title);

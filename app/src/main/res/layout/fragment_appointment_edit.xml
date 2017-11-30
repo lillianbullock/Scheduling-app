@@ -23,23 +23,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="36dp"
+            android:labelFor="@id/etxt_customer_name"
             android:text="@string/customer_name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_bar_in_appointment"/>
+            app:layout_constraintBaseline_toBaselineOf="@+id/etxt_customer_name"
+            app:layout_constraintStart_toStartOf="parent" />
 
 
         <EditText
             android:id="@+id/etxt_customer_name"
-            android:layout_width="300dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
             android:ems="10"
             android:imeOptions="actionDone"
             android:inputType="textPersonName"
-            app:layout_constraintStart_toEndOf="@+id/txt_customer_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/spinner_sales_type"
             app:layout_constraintTop_toBottomOf="@id/edit_bar_in_appointment" />
 
 
@@ -49,24 +51,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="36dp"
+            android:labelFor="@id/etxt_customer_email"
             android:text="@string/customer_email"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_customer_name" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/etxt_customer_email"
+            app:layout_constraintStart_toStartOf="parent" />
 
 
         <EditText
             android:id="@+id/etxt_customer_email"
-            android:layout_width="300dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
             android:ems="10"
             android:imeOptions="actionDone"
             android:inputType="textEmailAddress"
-            app:layout_constraintStart_toEndOf="@+id/txt_customer_email"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/spinner_sales_type"
             app:layout_constraintTop_toBottomOf="@id/etxt_customer_name" />
 
 
@@ -76,24 +79,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="36dp"
+            android:labelFor="@id/etxt_customer_phone"
             android:text="@string/customer_phone"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_customer_email" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/etxt_customer_phone"
+            app:layout_constraintStart_toStartOf="parent" />
 
 
         <EditText
             android:id="@+id/etxt_customer_phone"
-            android:layout_width="300dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
             android:ems="10"
             android:imeOptions="actionDone"
             android:inputType="phone"
-            app:layout_constraintStart_toEndOf="@+id/txt_customer_phone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/spinner_sales_type"
             app:layout_constraintTop_toBottomOf="@id/etxt_customer_email" />
 
 
@@ -103,41 +107,39 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="36dp"
             android:text="@string/appointment_date"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etxt_customer_phone" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/etxt_appointment_date"
+            app:layout_constraintStart_toStartOf="parent" />
 
 
         <EditText
             android:id="@+id/etxt_appointment_date"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="10dp"
-            android:ems="10"
-            android:hint="@string/appointment_date"
+            android:layout_width="0dp"
+            android:layout_height="43dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
             android:clickable="true"
+            android:ems="10"
             android:focusable="false"
+            android:hint="@string/appointment_date"
             android:inputType="datetime"
-            app:layout_constraintHorizontal_bias="0.556"
-            app:layout_constraintStart_toEndOf="@+id/txt_appointment_date"
+            app:layout_constraintEnd_toStartOf="@+id/etxt_appointment_time"
+            app:layout_constraintLeft_toLeftOf="@+id/spinner_sales_type"
             app:layout_constraintTop_toBottomOf="@id/etxt_customer_phone" />
 
         <EditText
             android:id="@+id/etxt_appointment_time"
-            android:layout_width="100dp"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="@string/appointment_time"
+            android:layout_marginEnd="16dp"
             android:clickable="true"
             android:focusable="false"
-            app:layout_constraintTop_toBottomOf="@id/etxt_customer_phone"
-            app:layout_constraintStart_toEndOf="@id/etxt_appointment_date"
 
-            />
+            android:hint="@string/appointment_time"
+            app:layout_constraintBaseline_toBaselineOf="@+id/etxt_appointment_date"
+            app:layout_constraintEnd_toEndOf="parent" />
 
 
         <!-- Service type -->
@@ -146,8 +148,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="24dp"
             android:text="@string/appointment_service"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txt_appointment_date" />
@@ -155,10 +158,12 @@
 
         <Spinner
             android:id="@+id/spinner_sales_type"
-            android:layout_width="190dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/txt_service_type"
             app:layout_constraintTop_toBottomOf="@id/etxt_appointment_date" />
 
@@ -168,73 +173,78 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="36dp"
+            android:labelFor="@id/etxt_price"
             android:text="@string/service_price"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/spinner_sales_type" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/etxt_price"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/textView"
+            android:layout_width="11dp"
             android:layout_height="wrap_content"
             android:text="@string/dollar_sign"
-            android:layout_marginTop="30dp"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/spinner_sales_type"
-            app:layout_constraintStart_toEndOf="@id/txt_price"
-            android:layout_marginLeft="8dp"/>
+            app:layout_constraintBaseline_toBaselineOf="@+id/txt_price"
+            app:layout_constraintStart_toStartOf="@+id/etxt_price" />
 
 
         <EditText
             android:id="@+id/etxt_price"
-            android:layout_width="72dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="16dp"
             android:ems="10"
-            android:imeOptions="actionDone"
             android:focusable="false"
+            android:imeOptions="actionDone"
             android:inputType="numberDecimal"
-            app:layout_constraintStart_toEndOf="@+id/txt_price"
-            app:layout_constraintTop_toBottomOf="@id/spinner_sales_type" />
+            app:layout_constraintEnd_toStartOf="@+id/chk_showed_up"
+            app:layout_constraintLeft_toLeftOf="@+id/spinner_sales_type"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_sales_type" />
 
 
         <CheckBox
             android:id="@+id/chk_showed_up"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
             android:text="@string/showed_up"
-            app:layout_constraintStart_toEndOf="@id/etxt_price"
-            app:layout_constraintTop_toBottomOf="@id/txt_service_type" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_sales_type" />
 
 
         <!-- Notes -->
         <TextView
             android:id="@+id/txt_appointment_note"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="22dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="16dp"
+            android:labelFor="@id/etxt_appointment_note"
             android:text="@string/appointment_notes"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_price" />
+            app:layout_constraintTop_toBottomOf="@+id/etxt_price" />
 
         <EditText
             android:id="@+id/etxt_appointment_note"
-            android:layout_width="300dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="16dp"
             android:ems="10"
-            android:maxLines="3"
-            android:inputType="textImeMultiLine"
             android:imeOptions="actionDone"
-            app:layout_constraintStart_toEndOf="@+id/txt_appointment_note"
-            app:layout_constraintTop_toBottomOf="@+id/txt_price" />
+            android:inputType="textImeMultiLine"
+            android:maxLines="3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_appointment_note" />
 
     </android.support.constraint.ConstraintLayout>
 

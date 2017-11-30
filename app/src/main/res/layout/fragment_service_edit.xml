@@ -20,49 +20,52 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="40dp"
-            android:textStyle="bold"
             android:labelFor="@id/etxt_service_title"
             android:text="@string/service_title"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_bar_service_edit" />
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintBaseline_toBaselineOf="@+id/etxt_service_title"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
             android:id="@+id/etxt_service_title"
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
+            android:layout_width="0dp"
+            android:layout_height="41dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
             android:ems="10"
             android:imeOptions="actionDone"
             android:inputType="textPersonName"
-            android:layout_marginStart="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txt_service_title" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/etxt_service_description"
+            app:layout_constraintTop_toBottomOf="@+id/edit_bar_service_edit" />
 
         <TextView
             android:id="@+id/txt_service_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
             android:layout_marginStart="16dp"
-            android:textStyle="bold"
             android:labelFor="@id/etxt_service_description"
             android:text="@string/service_description"
-            app:layout_constraintTop_toBottomOf="@id/etxt_service_title"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintBaseline_toBaselineOf="@+id/etxt_service_description"
             app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
             android:id="@+id/etxt_service_description"
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:ems="10"
-            android:maxLines="1"
             android:imeOptions="actionDone"
             android:inputType="textImeMultiLine"
-            android:layout_marginStart="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_service_description" />
+            android:maxLines="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/txt_service_description"
+            app:layout_constraintTop_toBottomOf="@+id/etxt_service_title" />
 
 
         <TextView
@@ -70,11 +73,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:textStyle="bold"
             android:labelFor="@id/etxt_service_price"
             android:text="@string/service_price"
-            app:layout_constraintTop_toBottomOf="@id/etxt_service_description"
+            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintBaseline_toBaselineOf="@+id/etxt_service_price"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -84,29 +87,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/dollar_sign"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="16dp"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/txt_service_price"
-            app:layout_constraintStart_toStartOf="parent"
-            />
-
+            app:layout_constraintBaseline_toBaselineOf="@+id/etxt_service_price"
+            app:layout_constraintStart_toStartOf="@+id/etxt_service_price" />
 
 
         <EditText
             android:id="@+id/etxt_service_price"
-            android:layout_width="72dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
             android:ems="10"
             android:inputType="numberDecimal"
-            app:layout_constraintStart_toEndOf="@id/txt_service_dollar_sign"
-            app:layout_constraintTop_toBottomOf="@+id/txt_service_price" />
-
-
-
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/etxt_service_description"
+            app:layout_constraintTop_toBottomOf="@+id/etxt_service_description" />
 
     </android.support.constraint.ConstraintLayout>
 

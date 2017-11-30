@@ -21,23 +21,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="36dp"
-            android:text="@string/customer_name"
             android:labelFor="@id/etxt_name"
+            android:text="@string/customer_name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintBaseline_toBaselineOf="@+id/etxt_name"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_bar_in_customer_edit" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
             android:id="@+id/etxt_name"
-            android:layout_width="300dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:ems="10"
             android:imeOptions="actionDone"
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/etxt_phone"
             app:layout_constraintTop_toBottomOf="@id/edit_bar_in_customer_edit" />
 
         <TextView
@@ -46,23 +47,25 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="36dp"
-            android:text="@string/customer_phone"
             android:labelFor="@id/etxt_phone"
+            android:text="@string/customer_phone"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintBaseline_toBaselineOf="@+id/etxt_phone"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_name" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
             android:id="@+id/etxt_phone"
-            android:layout_width="300dp"
-            android:layout_marginEnd="16dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:ems="10"
             android:imeOptions="actionDone"
             android:inputType="phone"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/txt_phone"
             app:layout_constraintTop_toBottomOf="@+id/etxt_name" />
 
         <TextView
@@ -71,24 +74,25 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="36dp"
-            android:text="@string/customer_email"
             android:labelFor="@id/etxt_email"
+            android:text="@string/customer_email"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintBaseline_toBaselineOf="@+id/etxt_email"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_phone" />
+            app:layout_constraintStart_toStartOf="parent" />
 
 
         <EditText
             android:id="@+id/etxt_email"
-            android:layout_width="300dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:ems="10"
             android:imeOptions="actionDone"
             android:inputType="textEmailAddress"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/etxt_phone"
             app:layout_constraintTop_toBottomOf="@+id/etxt_phone" />
 
         <Button

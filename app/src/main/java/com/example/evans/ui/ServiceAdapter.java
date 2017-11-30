@@ -33,7 +33,7 @@ public class ServiceAdapter extends ArrayAdapter<Service> {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = inflater.inflate(R.layout.service_adapter, null);
+        view = inflater.inflate(R.layout.service_adapter, parent, false);
 
         TextView title = (TextView) view.findViewById(R.id.service_adapter_name);
         TextView price = (TextView) view.findViewById(R.id.service_adapter_price);
