@@ -258,6 +258,12 @@ public class AppointmentEditFragment extends Fragment
      */
     private void setupServicesSpinner() {
 
+        List<Service> newTest = new ArrayList<>();
+
+        for(Service service: _hostActivity.getServices().values()){
+
+        }
+
         List<String> servicesNames = new ArrayList<>(_hostActivity.getServices().keySet());
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this.getActivity(),

@@ -4,6 +4,8 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 
+import com.google.firebase.database.Exclude;
+
 import org.joda.time.LocalDate;
 
 /**
@@ -47,8 +49,16 @@ public class Expense implements Comparable, Financial {
         this._price = price;
     }
 
+
+    public void setDate(String dateString) { this._date = LocalDate.parse(dateString); }
+
+    @Exclude
     public void setDate(LocalDate date) { this._date = date; }
-    public LocalDate getDate() { return _date; }
+
+    public String getDate() { return _date.toString(); }
+
+    @Exclude
+    public LocalDate getSaleDate() { return _date; }
 
     public String getId() { return _id; }
     public void setId(String id) { _id = id;}

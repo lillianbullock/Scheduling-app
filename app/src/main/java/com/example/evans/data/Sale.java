@@ -3,6 +3,9 @@ package com.example.evans.data;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+
+import com.google.firebase.database.Exclude;
+
 import org.joda.time.LocalDate;
 
 
@@ -49,7 +52,14 @@ public class Sale implements Comparable, Financial{
     public Double getPrice() { return _price; }
     public void setPrice(Double price) { this._price = price; }
 
-    public LocalDate getDate() { return _date; }
+    public String getDate() { return _date.toString(); }
+
+    @Exclude
+    public LocalDate getSaleDate() { return _date; }
+
+    public void setDate(String dateString) { this._date = LocalDate.parse(dateString); }
+
+    @Exclude
     public void setDate(LocalDate dateTime) { this._date = dateTime; }
 
     public String getCustomerId() { return _customerId; }
