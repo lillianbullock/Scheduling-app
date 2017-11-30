@@ -78,6 +78,8 @@ public class MainActivity extends AppCompatActivity implements
 
     private static int LAST_ASSIGNED_CUSTOMER_ID;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,7 +108,6 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     protected void onStop() {
         super.onStop();
-
         saveSharedPreference();
     }
 
@@ -161,6 +162,9 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
+    public void onExpenseCancel() { onBackPressed(); }
+
+        @Override
     public void onAddExpense() {
         _currentFragment = new ExpenseEditFragment();
         loadCurrentFragment(false);
@@ -186,7 +190,6 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     /*** SALE ***/
-
     @Override
     public List<Sale> getSale() { return _mainController.getAllSales(); }
 
@@ -216,25 +219,6 @@ public class MainActivity extends AppCompatActivity implements
 
 
 
-    @Override
-    public void onAddCustomer() {
-        _currentFragment = new CustomerEditFragment();
-        loadCurrentFragment(false);
-    }
-
-    @Override
-    public void onAddAppointment() {
-        _currentFragment = new AppointmentEditFragment();
-        loadCurrentFragment(true);
-    }
-
-    @Override
-    public Customer getViewCustomer() {
-        return null;
-    }
-
-    @Override
-    public List<Customer> getCustomerList() { return _mainController.getCustomers(); }
 
     @Override
     public List<Appointment> getAppointmentList() { return _mainController.getFirstNumberAppointments(20); }
@@ -286,13 +270,18 @@ public class MainActivity extends AppCompatActivity implements
     public void onClickService(Service service) {
             // TODO Handle service click
     }
+    @Override
+    public void onServiceCancel() { onBackPressed(); }
 
-    /******** CUSTOMER **********/
+
+        /******** CUSTOMER **********/
     @Override
     public void onClickCustomer(Customer customer) {
-            // TODO Handle customer click
+        // TODO Handle customer click
     }
 
+    @Override
+    public void onCustomerCancel() { onBackPressed(); }
 
     @Override
     public void onCustomerEditFinish(Customer customer) {
@@ -347,6 +336,21 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 
+    @Override
+    public void onAddCustomer() {
+        _currentFragment = new CustomerEditFragment();
+        loadCurrentFragment(false);
+    }
+
+    @Override
+    public Customer getViewCustomer() {
+            return null;
+        }
+
+    @Override
+    public List<Customer> getCustomerList() { return _mainController.getCustomers(); }
+
+
     /******** GOAL *******/
     @Override
     public void onClickAddGoal() {
@@ -392,6 +396,15 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
+    public void onAppointmentCancel() { onBackPressed(); }
+
+        @Override
+    public void onAddAppointment() {
+        _currentFragment = new AppointmentEditFragment();
+        loadCurrentFragment(true);
+    }
+
+    @Override
     public Customer getCustomerForAppointment() {
         return null;
     }
@@ -417,14 +430,11 @@ public class MainActivity extends AppCompatActivity implements
         // set the appointment's customerId so we can keep track of which customer had the appointment
         appointment.setCustomerId(customer.getId());
 
-
         AppointmentViewFragment _frag = new AppointmentViewFragment();
         _frag.setRelatedCustomer(customer);
         _frag.setAppointment(appointment);
         _currentFragment = _frag;
-
         loadCurrentFragment(false);
-
         _mainController.addAppointment(appointment);
     }
 
@@ -432,14 +442,6 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onAddAppointmentClickForCustomer(Customer customer) {
             // TODO Handle this case
-    }
-
-
-
-        @Override
-    public void onCancel() {
-        onBackPressed();
-
     }
 
     @Override

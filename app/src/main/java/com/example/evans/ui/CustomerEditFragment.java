@@ -94,7 +94,7 @@ public class CustomerEditFragment extends Fragment {
         _cancelBtn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 KeyboardControl.closeKeyboard(getActivity());
-                _hostActivity.onCancel();
+                _hostActivity.onCustomerCancel();
             }
         });
 
@@ -179,7 +179,7 @@ public class CustomerEditFragment extends Fragment {
         void onCustomerEditFinish (Customer customer);
         void onAddAppointmentClickForCustomer(Customer customer);
         int getNextCustomerId();
-        void onCancel();
+        void onCustomerCancel();
         void hideActionbar();
         void showActionbar();
 

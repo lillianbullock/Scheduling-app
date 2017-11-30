@@ -84,7 +84,7 @@ public class ExpenseEditFragment extends Fragment
         _cancelBtn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 KeyboardControl.closeKeyboard(getActivity());
-                _hostActivity.onCancel();
+                _hostActivity.onExpenseCancel();
             }
         });
 
@@ -153,7 +153,7 @@ public class ExpenseEditFragment extends Fragment
      */
     public interface InteractionWithExpenseEditFragmentListener {
             void onExpenseEditFinish (Expense expense);
-            void onCancel();
+            void onExpenseCancel();
             void hideActionbar();
             void showActionbar();
 

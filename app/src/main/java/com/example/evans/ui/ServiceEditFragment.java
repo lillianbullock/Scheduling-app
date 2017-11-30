@@ -91,7 +91,7 @@ public class ServiceEditFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 KeyboardControl.closeKeyboard(getActivity());
-                _hostActivity.onCancel();
+                _hostActivity.onServiceCancel();
             }
         });
 
@@ -173,7 +173,7 @@ public class ServiceEditFragment extends Fragment {
      */
     public interface OnSubmitServiceEdit {
         void onServiceEditFinish (Service service);
-        void onCancel();
+        void onServiceCancel();
         void hideActionbar();
         void showActionbar();
     }
