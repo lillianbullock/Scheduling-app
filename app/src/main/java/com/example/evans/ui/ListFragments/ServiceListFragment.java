@@ -1,4 +1,4 @@
-package com.example.evans.ui;
+package com.example.evans.ui.ListFragments;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -8,13 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.evans.R;
 import com.example.evans.data.Service;
+import com.example.evans.ui.Adapters.ServiceAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,6 +23,7 @@ public class ServiceListFragment extends Fragment {
 
     private FloatingActionButton _addFloatingBtn;
     private View _rootView;  // how we can get access to view elements
+    private ArrayList<Service> _services = new ArrayList<>();
     private InteractionWithServiceListFragmentListener _hostActivityListener;
 
     public ServiceListFragment() {
@@ -46,7 +46,6 @@ public class ServiceListFragment extends Fragment {
             }
         });
 
-        ArrayList<Service> serviceList = new ArrayList<>();
 
         super.onCreate(savedInstanceState);
 
@@ -58,20 +57,24 @@ public class ServiceListFragment extends Fragment {
         test2.setTitle("Title2");
         serviceList.add(test2);*/
 
-        //TODO translate map data into list
-        Map<String, Service> serviceMap = _hostActivityListener.getServices();
-
-        //pull values out of map and put into array for the adapter
-        for (Map.Entry<String, Service> pair : serviceMap.entrySet()) {
-            serviceList.add(pair.getValue());
-        }
 
         ListView listView = (ListView) _rootView.findViewById(R.id.service_list);
 
-        ServiceAdapter adapter = new ServiceAdapter(getActivity(), R.layout.service_adapter, serviceList);
+        ServiceAdapter adapter = new ServiceAdapter(getActivity(), R.layout.service_adapter, _services);
 
         listView.setAdapter(adapter);
         return _rootView;
+    }
+
+    public void setServices(Map<String, Service> services) {
+
+        _services.addAll(services.values());
+
+        /*
+        for (Service service: services.values()){
+            _services.add(service);
+        } */
+
     }
 
     /**
@@ -109,6 +112,5 @@ public class ServiceListFragment extends Fragment {
     public interface InteractionWithServiceListFragmentListener{
         void onClickService(Service service);
         void onAddService();
-        Map<String, Service> getServices ();
     }
 }

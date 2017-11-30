@@ -1,4 +1,4 @@
-package com.example.evans.ui;
+package com.example.evans.ui.ListFragments;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -11,6 +11,7 @@ import android.widget.ListView;
 
 import com.example.evans.R;
 import com.example.evans.data.Sale;
+import com.example.evans.ui.Adapters.SalesAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

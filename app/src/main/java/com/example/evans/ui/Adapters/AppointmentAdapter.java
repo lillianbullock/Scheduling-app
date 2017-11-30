@@ -1,4 +1,4 @@
-package com.example.evans.ui;
+package com.example.evans.ui.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,7 +15,7 @@ import com.example.evans.data.Appointment;
 /**
  * {@link ArrayAdapter<>} extension that displays the appointment data in a list view
  */
-class AppointmentAdapter extends ArrayAdapter<Appointment> {
+public class AppointmentAdapter extends ArrayAdapter<Appointment> {
 
     private ArrayList<Appointment> _appointmentList = new ArrayList<>();
     private ViewHolder _viewHolder;

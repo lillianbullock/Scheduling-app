@@ -1,4 +1,4 @@
-package com.example.evans.ui;
+package com.example.evans.ui.EditFragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import android.widget.EditText;
 
 import com.example.evans.R;
 import com.example.evans.data.Customer;
+import com.example.evans.ui.KeyboardControl;
 
 import org.joda.time.LocalDate;
 

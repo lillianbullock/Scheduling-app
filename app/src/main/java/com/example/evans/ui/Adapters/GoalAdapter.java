@@ -1,4 +1,4 @@
-package com.example.evans.ui;
+package com.example.evans.ui.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;

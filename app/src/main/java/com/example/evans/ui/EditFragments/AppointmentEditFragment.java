@@ -1,4 +1,4 @@
-package com.example.evans.ui;
+package com.example.evans.ui.EditFragments;
 
 import android.app.DialogFragment;
 import android.content.Context;
@@ -20,6 +20,9 @@ import com.example.evans.data.Appointment;
 import com.example.evans.data.Customer;
 import com.example.evans.data.InvalidCustomerException;
 import com.example.evans.data.Service;
+import com.example.evans.ui.DialogFragements.DatePickerFragment;
+import com.example.evans.ui.DialogFragements.TimePickerFragment;
+import com.example.evans.ui.KeyboardControl;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;

@@ -1,12 +1,10 @@
-package com.example.evans.ui;
+package com.example.evans.ui.EditFragments;
 
 import android.app.Activity;
 import android.app.DialogFragment;
-import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +13,8 @@ import android.widget.EditText;
 
 import com.example.evans.R;
 import com.example.evans.data.Expense;
+import com.example.evans.ui.DialogFragements.DatePickerFragment;
+import com.example.evans.ui.KeyboardControl;
 
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;

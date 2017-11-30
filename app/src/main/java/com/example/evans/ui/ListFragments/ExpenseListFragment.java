@@ -1,4 +1,4 @@
-package com.example.evans.ui;
+package com.example.evans.ui.ListFragments;
 
 
 import android.app.Activity;
@@ -12,6 +12,7 @@ import android.widget.ListView;
 
 import com.example.evans.R;
 import com.example.evans.data.Expense;
+import com.example.evans.ui.Adapters.ExpenseAdapter;
 
 import org.joda.time.LocalDate;
 import java.util.ArrayList;

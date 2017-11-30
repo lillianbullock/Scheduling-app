@@ -1,4 +1,4 @@
-package com.example.evans.ui;
+package com.example.evans.ui.DialogFragements;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
