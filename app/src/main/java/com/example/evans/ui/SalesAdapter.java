@@ -19,10 +19,18 @@ import java.util.ArrayList;
 public class SalesAdapter extends ArrayAdapter<Sale> {
 
     private ArrayList<Sale> _salesList = new ArrayList<>();
+    private SaleViewHolder _viewHolder;
+
+    // use of the viewHolder allows faster loading because the views
+    // don't need to be collected for each item in the list view
+    static class SaleViewHolder {
+        TextView service;
+        TextView price;
+        TextView date;
+    }
 
     public SalesAdapter(Context context, int textViewResourceId, ArrayList<Sale> objects) {
         super(context, textViewResourceId, objects);
-
         //Set arrayList to something that is not null
         _salesList = objects;
     }
@@ -38,17 +46,17 @@ public class SalesAdapter extends ArrayAdapter<Sale> {
 
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        View view = inflater.inflate(R.layout.sales_adapter, parent, false);
+        convertView = inflater.inflate(R.layout.sales_adapter, parent, false);
 
+        _viewHolder = new SaleViewHolder();
+        _viewHolder.service = (TextView) convertView.findViewById(R.id.array_adapter_sales_service);
+        _viewHolder.price = (TextView) convertView.findViewById(R.id.array_adapter_sales_price);
+        _viewHolder.date = (TextView) convertView.findViewById(R.id.array_adapter_sales_date);
 
-        TextView service = (TextView) view.findViewById(R.id.array_adapter_sales_service);
-        TextView price = (TextView) view.findViewById(R.id.array_adapter_sales_price);
-        TextView date = (TextView) view.findViewById(R.id.array_adapter_sales_date);
+        _viewHolder.service.setText(_salesList.get(position).getService().getTitle());
+        _viewHolder.price.setText(_salesList.get(position).getPrice().toString());
+        _viewHolder.date.setText(_salesList.get(position).getDate().toString());
 
-        service.setText(_salesList.get(position).getService().getTitle());
-        price.setText(_salesList.get(position).getPrice().toString());
-        date.setText(_salesList.get(position).getDate().toString());
-
-        return view;
+        return convertView;
     }
 }

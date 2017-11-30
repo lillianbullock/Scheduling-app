@@ -62,7 +62,7 @@ public class GoalListFragment  extends Fragment {
         newGoals.add(goal);
 
         goal.setDone(true);
-        
+
         //TODO information back in with database
         //goalList = (ArrayList) _hostActivity.getGoal();
 
