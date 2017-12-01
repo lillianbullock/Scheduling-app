@@ -1,4 +1,4 @@
-package com.example.evans.ui;
+package com.example.evans.ui.ViewFragments;
 
 
 import android.app.Activity;

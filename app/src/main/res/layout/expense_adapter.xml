@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
         <TextView
-            android:id="@+id/array_adapter_expense_title"
+            android:id="@+id/expense_adapter_title"
             android:layout_width="fill_parent"
             android:layout_height="32dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -21,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/array_adapter_expense_price"
+            android:id="@+id/expense_adapter_price"
             android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -31,10 +31,10 @@
             android:textColor="#000"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/array_adapter_expense_title" />
+            app:layout_constraintTop_toBottomOf="@id/expense_adapter_title" />
 
         <TextView
-            android:id="@+id/array_adapter_expense_date"
+            android:id="@+id/expense_adapter_date"
             android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:layout_gravity="center"
@@ -44,5 +44,5 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#000"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/array_adapter_expense_title" />
+            app:layout_constraintTop_toBottomOf="@id/expense_adapter_title" />
 </android.support.constraint.ConstraintLayout>

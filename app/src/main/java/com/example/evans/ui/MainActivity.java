@@ -16,7 +16,6 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.example.evans.R;
 import com.example.evans.data.Appointment;
@@ -26,10 +25,24 @@ import com.example.evans.data.Goal;
 import com.example.evans.data.MainController;
 import com.example.evans.data.Sale;
 import com.example.evans.data.Service;
-import com.example.evans.data.TimePeriod;
+import com.example.evans.ui.DialogFragements.DatePickerFragment;
+import com.example.evans.ui.EditFragments.AppointmentEditFragment;
+import com.example.evans.ui.EditFragments.CustomerEditFragment;
+import com.example.evans.ui.EditFragments.ExpenseEditFragment;
+import com.example.evans.ui.EditFragments.GoalEditFragment;
+import com.example.evans.ui.EditFragments.SalesEditFragment;
+import com.example.evans.ui.EditFragments.ServiceEditFragment;
+import com.example.evans.ui.ListFragments.AppointmentsListFragment;
+import com.example.evans.ui.ListFragments.CustomersListFragment;
+import com.example.evans.ui.ListFragments.ExpenseListFragment;
+import com.example.evans.ui.ListFragments.GoalListFragment;
+import com.example.evans.ui.ListFragments.SalesListFragment;
+import com.example.evans.ui.ListFragments.ServiceListFragment;
+import com.example.evans.ui.ViewFragments.AppointmentViewFragment;
+import com.example.evans.ui.ViewFragments.CustomerViewFragment;
+import com.example.evans.ui.ViewFragments.GoalViewFragment;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.gson.Gson;
 
 import org.joda.time.LocalDate;
 
@@ -78,6 +91,8 @@ public class MainActivity extends AppCompatActivity implements
 
     private static int LAST_ASSIGNED_CUSTOMER_ID;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,7 +121,6 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     protected void onStop() {
         super.onStop();
-
         saveSharedPreference();
     }
 
@@ -161,6 +175,9 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
+    public void onExpenseCancel() { onBackPressed(); }
+
+        @Override
     public void onAddExpense() {
         _currentFragment = new ExpenseEditFragment();
         loadCurrentFragment(false);
@@ -186,7 +203,6 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     /*** SALE ***/
-
     @Override
     public List<Sale> getSale() { return _mainController.getAllSales(); }
 
@@ -216,25 +232,6 @@ public class MainActivity extends AppCompatActivity implements
 
 
 
-    @Override
-    public void onAddCustomer() {
-        _currentFragment = new CustomerEditFragment();
-        loadCurrentFragment(false);
-    }
-
-    @Override
-    public void onAddAppointment() {
-        _currentFragment = new AppointmentEditFragment();
-        loadCurrentFragment(true);
-    }
-
-    @Override
-    public Customer getViewCustomer() {
-        return null;
-    }
-
-    @Override
-    public List<Customer> getCustomerList() { return _mainController.getCustomers(); }
 
     @Override
     public List<Appointment> getAppointmentList() { return _mainController.getFirstNumberAppointments(20); }
@@ -286,13 +283,18 @@ public class MainActivity extends AppCompatActivity implements
     public void onClickService(Service service) {
             // TODO Handle service click
     }
+    @Override
+    public void onServiceCancel() { onBackPressed(); }
 
-    /******** CUSTOMER **********/
+
+        /******** CUSTOMER **********/
     @Override
     public void onClickCustomer(Customer customer) {
-            // TODO Handle customer click
+        // TODO Handle customer click
     }
 
+    @Override
+    public void onCustomerCancel() { onBackPressed(); }
 
     @Override
     public void onCustomerEditFinish(Customer customer) {
@@ -347,6 +349,21 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 
+    @Override
+    public void onAddCustomer() {
+        _currentFragment = new CustomerEditFragment();
+        loadCurrentFragment(false);
+    }
+
+    @Override
+    public Customer getViewCustomer() {
+            return null;
+        }
+
+    @Override
+    public List<Customer> getCustomerList() { return _mainController.getCustomers(); }
+
+
     /******** GOAL *******/
     @Override
     public void onClickAddGoal() {
@@ -392,6 +409,15 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
+    public void onAppointmentCancel() { onBackPressed(); }
+
+        @Override
+    public void onAddAppointment() {
+        _currentFragment = new AppointmentEditFragment();
+        loadCurrentFragment(true);
+    }
+
+    @Override
     public Customer getCustomerForAppointment() {
         return null;
     }
@@ -417,14 +443,11 @@ public class MainActivity extends AppCompatActivity implements
         // set the appointment's customerId so we can keep track of which customer had the appointment
         appointment.setCustomerId(customer.getId());
 
-
         AppointmentViewFragment _frag = new AppointmentViewFragment();
         _frag.setRelatedCustomer(customer);
         _frag.setAppointment(appointment);
         _currentFragment = _frag;
-
         loadCurrentFragment(false);
-
         _mainController.addAppointment(appointment);
     }
 
@@ -432,14 +455,6 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onAddAppointmentClickForCustomer(Customer customer) {
             // TODO Handle this case
-    }
-
-
-
-        @Override
-    public void onCancel() {
-        onBackPressed();
-
     }
 
     @Override
@@ -562,7 +577,9 @@ public class MainActivity extends AppCompatActivity implements
                 break;
             case R.id.menu_item_service:
                 _drawerLayout.closeDrawer(GravityCompat.START);
-                _currentFragment = new ServiceListFragment();
+                ServiceListFragment serviceListFragment = new ServiceListFragment();
+                serviceListFragment.setServices(_mainController.getAvailableServices());
+                _currentFragment = serviceListFragment;
                 loadCurrentFragment(true);
                 break;
             case R.id.menu_item_sales:

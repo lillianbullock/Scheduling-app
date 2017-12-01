@@ -1,20 +1,17 @@
-package com.example.evans.ui;
+package com.example.evans.ui.ListFragments;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.evans.R;
 import com.example.evans.data.Goal;
+import com.example.evans.ui.Adapters.GoalAdapter;
 
 import org.joda.time.LocalDate;
 
@@ -62,7 +59,7 @@ public class GoalListFragment  extends Fragment {
         newGoals.add(goal);
 
         goal.setDone(true);
-        
+
         //TODO information back in with database
         //goalList = (ArrayList) _hostActivity.getGoal();
 

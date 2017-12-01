@@ -1,4 +1,4 @@
-package com.example.evans.ui;
+package com.example.evans.ui.EditFragments;
 
 import android.app.DialogFragment;
 import android.content.Context;
@@ -18,6 +18,8 @@ import android.widget.Spinner;
 import com.example.evans.R;
 import com.example.evans.data.Sale;
 import com.example.evans.data.Service;
+import com.example.evans.ui.DialogFragements.DatePickerFragment;
+import com.example.evans.ui.KeyboardControl;
 
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;

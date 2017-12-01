@@ -1,13 +1,10 @@
-package com.example.evans.ui;
+package com.example.evans.ui.EditFragments;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +12,10 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.evans.R;
 import com.example.evans.data.Service;
+import com.example.evans.ui.KeyboardControl;
 
 
 /**
@@ -91,7 +87,7 @@ public class ServiceEditFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 KeyboardControl.closeKeyboard(getActivity());
-                _hostActivity.onCancel();
+                _hostActivity.onServiceCancel();
             }
         });
 
@@ -173,7 +169,7 @@ public class ServiceEditFragment extends Fragment {
      */
     public interface OnSubmitServiceEdit {
         void onServiceEditFinish (Service service);
-        void onCancel();
+        void onServiceCancel();
         void hideActionbar();
         void showActionbar();
     }
