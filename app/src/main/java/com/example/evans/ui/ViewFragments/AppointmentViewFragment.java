@@ -84,8 +84,8 @@ public class AppointmentViewFragment extends Fragment {
         date.setText(_appointment.getDate().toString());
         time.setText(_appointment.getDate().toString());
         // TODO implement this properly
-        if (_appointment.isSucceed() != null)
-            showedUp.setChecked(_appointment.isSucceed());
+        if (_appointment.isAttended() != null)
+            showedUp.setChecked(_appointment.isAttended());
 
         return view;
     }

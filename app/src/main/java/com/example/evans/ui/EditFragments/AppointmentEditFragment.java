@@ -18,7 +18,6 @@ import android.widget.Spinner;
 import com.example.evans.R;
 import com.example.evans.data.Appointment;
 import com.example.evans.data.Customer;
-import com.example.evans.data.InvalidCustomerException;
 import com.example.evans.data.Service;
 import com.example.evans.ui.DialogFragements.DatePickerFragment;
 import com.example.evans.ui.DialogFragements.TimePickerFragment;

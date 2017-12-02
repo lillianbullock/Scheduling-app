@@ -16,11 +16,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-
 /**
  * Manages our connection with Google Firebase. Handles create, update and delete operations.
  */
-
 public class FirebaseManager {
 
     private DatabaseReference _databaseRoot;
@@ -34,20 +32,17 @@ public class FirebaseManager {
     private static String SALES = "Sales";
     private static String EXPENSES = "Expenses";
 
-
-
     public FirebaseManager() {
 
         // initialize our connection to firebase
         _databaseRoot = FirebaseDatabase.getInstance().getReference();
     }
 
-
     /* Getters start here */
 
     /**
      * Get a list of all customers in the database
-     * @return
+     * @return all customers
      */
     public List<Customer> getAllCustomers() {
         final List<Customer> customers = new ArrayList<>();
@@ -104,8 +99,6 @@ public class FirebaseManager {
 
         return customers;
     }
-
-
 
     /**
      * Return the first customer found with the id
@@ -187,8 +180,8 @@ public class FirebaseManager {
 
     /**
      * Return a list of customers limited to the specified number
-     * @return
      * @param numCustomers the number of customers to retrieve
+     * @return list of customers
      */
     public List<Customer> getCustomersWithLimit(int numCustomers) {
 
@@ -242,7 +235,6 @@ public class FirebaseManager {
                 Log.w(TAG, "Unable to retrieve services from the database");
             }
         });
-
 
         return serviceMap;
     }
@@ -675,8 +667,8 @@ public class FirebaseManager {
 
     /**
      * Return a list of sales limited to the specified number
-     * @return
      * @param numSales the number of sales to retrieve
+     * @return list of sales
      */
     public List<Sale> getSalesWithLimit(int numSales) {
 
@@ -818,7 +810,7 @@ public class FirebaseManager {
 
     /* Delete operations */
 
-
+    //TODO implement the delete from database functions
     /**
      * Deletes a single customer from the database
      * @param customer the customer to be deleted
@@ -846,7 +838,7 @@ public class FirebaseManager {
 
     /**
      * Delete a single sale from the database
-     * @param sale
+     * @param sale The sale to be deleted
      */
     public void deleteSale(Sale sale){
 

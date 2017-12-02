@@ -16,11 +16,7 @@ import java.util.Map;
  *
  * License: Private - Class work
  * version: 0.0.1
- *
  */
-
-
-
 public class MainController {
 
     private List<Appointment>       _appointments      = new LinkedList<>();
@@ -31,10 +27,8 @@ public class MainController {
     private List<Expense>           _expenses          = new LinkedList<>();
     private FirebaseManager         _firebaseManager   = null;
 
-
     /**
-     * The constructor will do nothing for now. As we progress we'll change it so that it loads data
-     * from the database and from the phone and populate the data for the app session
+     * Default constructor loads data from firebase
      */
     public MainController() {
 
@@ -43,22 +37,19 @@ public class MainController {
     }
 
     /**
-     * This function will get populate our map of services with some
-     * previously stored services. Pull from the cloud or device memory
+     * Populate map of services with previously stored services
+     * Pull from the cloud or device memory
      */
     private void populateServices() {
         _availableServices = _firebaseManager.getServices();
-
     }
 
-
     /**
-     * Add a single appointment to our list of appointments. The appointment should already
-     * be in a valid state before this function is called.
-     * @param appointment: A valid appointment to be added to our list
+     * Add an appointment to the list of appointments.
+     * No validation is carried out in this function
+     * @param appointment: valid appointment to be added to the list
      */
     public void addAppointment(Appointment appointment) {
-
         if (appointment == null) {
             return;
         }
@@ -66,14 +57,13 @@ public class MainController {
         appointment.setId(_firebaseManager.getKeyForNewAppointment());
         _appointments.add(appointment);
         _firebaseManager.addAppointment(appointment, appointment.getId());
-
     }
 
     /**
      * Add a new service to the list of services that is offered
      */
     public void addService(String title, Service service){
-        if(service == null){
+        if (service == null){
             return;
         }
 
@@ -88,15 +78,15 @@ public class MainController {
         return _expenses;
     }
 
-
     /**
-     * Add an already created customer to our list of customers
-     * Note that the customer class should be used to create the customer before
-     * calling this method.
-     * @param customer: A valid customer to be added to our list
+     * Add a customer to the list of customers
+     * This method will also set the customer's id, and
+     * return the edited customer
+     * No validation is carried out in this function
+     * @param customer: valid customer to be added to the list
+     * @return : passed customer with set id value
      */
     public Customer addCustomer(Customer customer) {
-
         if (customer == null) {
             return null;
         }
@@ -110,15 +100,13 @@ public class MainController {
 
         // we're returning the customer because we set the id here
         return customer;
-
     }
 
 
     /**
-     * AddSale: Add a single sale to our list of sales. Note that the Sale class should be
-     * used to create the sale then the already created sale should be passed to this
-     * method.
-     * @param sale: The sale to be added to our sales list
+     * AddSale: Add a sale to the list of sales.
+     * No validation is carried out in this function
+     * @param sale: The sale to be added to the sales list
      */
     public void addSale(Sale sale) {
 
@@ -135,8 +123,8 @@ public class MainController {
 
 
     /**
-     * Add a single goal to our list of goals. Again the goal at this point should be in
-     * a valid state.
+     * Add a single goal to the list of goals.
+     * No validation is carried out in this function
      * @param goal: The goal to be added
      */
     public void addNewGoal(Goal goal) {
@@ -154,9 +142,9 @@ public class MainController {
 
 
     /**
-     * Add a valid expense to our list of expenses. Again the list item here should be in
+     * Add a valid expense to the list of expenses. Again the list item here should be in
      * a valid state.
-     * @param expense: The expense item to be added to our list.
+     * @param expense: expense to be added to the list.
      */
     public void addExpense(Expense expense) {
 
@@ -172,7 +160,7 @@ public class MainController {
 
 
     /**
-     * GetCustomers: Simply return a list of all the customers in our customers list
+     * Return a list of all the customers in the customers list
      * @return List<Customer>
      */
     public List<Customer> getCustomers() {
@@ -183,7 +171,7 @@ public class MainController {
     /**
      * Return all the appointments for a particular customer
      * @param customer: The customer that we're looking up appointments for
-     * @return: A list of appointments for the customer
+     * @return A list of appointments for the customer
      */
     public List<Appointment> getAppointmentsForCustomer(Customer customer) {
 
@@ -199,7 +187,6 @@ public class MainController {
         return _firebaseManager.getCustomerWithId(id);
     }
 
-
     /**
      * Return the first customer that matches the name. Return null
      * if nothing was found
@@ -214,13 +201,11 @@ public class MainController {
     /**
      * Return a list of goals that are due by a certain date
      * @param date: The month we're looking at
-     * @return: A list of goals
+     * @return A list of goals
      */
     public List<Goal> getGoalsByDueDate(LocalDate date) {
         return _firebaseManager.getGoalsWithEndDateBetween(date, date);
     }
-
-
 
     /**
      * Return a list of customers that were added in the last month. This method may be
@@ -235,10 +220,9 @@ public class MainController {
         return _firebaseManager.getCustomersAddedBetweenDates(lastMonth, today);
     }
 
-
-
     /**
-     * Simply return a list of all the services in our data list. Note that this is a list of the the kind
+     * Return a list of all the services in the data list.
+     * This is a list of the the kind
      * of services that the company offers
      * @return LinkedList<Service>
      */
@@ -250,7 +234,7 @@ public class MainController {
 
 
     /**
-     * GetAllSales: Simply return a list of all the sales in our data collection
+     * Return a list of all the sales in the data collection.
      * @return LinkedList<Sale>
      */
     public List<Sale> getAllSales() {
@@ -260,7 +244,7 @@ public class MainController {
 
     /**
      * Return the number of customers specified in the parameter
-     * @param numOfCustomers the number of customers to be returned if available
+     * @param numOfCustomers: the number of customers to be returned if available
      * @return List of customers
      */
     public List<Customer> getFirstNumberCustomers(int numOfCustomers){
@@ -270,17 +254,16 @@ public class MainController {
 
     /**
      * Return the number of sales specified in the parameter
-     * @param numOfSales the number of sales to be returned if available
+     * @param numOfSales: the number of sales to be returned if available
      * @return List of sales
      */
     public List<Sale> getFirstNumberSales(int numOfSales){
         return _firebaseManager.getSalesWithLimit(numOfSales);
     }
 
-
     /**
      * Return the number of appointments specified in the parameter
-     * @param numAppointments the number of appointments to be returned if available
+     * @param numAppointments: the number of appointments to be returned if available
      * @return List of appointments
      */
     public List<Appointment> getFirstNumberAppointments(int numAppointments){
@@ -292,7 +275,7 @@ public class MainController {
      * Return the number of goals specified in the parameter
      *
      * This will return the most recent goals.
-     * @param numGoals the number of goals to be returned if available
+     * @param numGoals: the number of goals to be returned if available
      * @return List of goals
      */
     public List<Goal> getFirstNumberGoals(int numGoals){
@@ -304,7 +287,7 @@ public class MainController {
      * Return the number of expenses specified in the parameter
      *
      * This will return the most recent expenses.
-     * @param numExpenses the number of expenses to be returned if available
+     * @param numExpenses: the number of expenses to be returned if available
      * @return List of expenses
      */
     public List<Expense> getFirstNumberExpenses(int numExpenses){
@@ -314,7 +297,6 @@ public class MainController {
 
     /*getters for financial report*/
     public List<Appointment> getAppointmentsBetween(LocalDate beginDate, LocalDate endDate) {
-
          return  _firebaseManager.getAppointmentsBetween(beginDate, endDate);
     }
 

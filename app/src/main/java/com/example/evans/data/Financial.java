@@ -2,6 +2,7 @@ package com.example.evans.data;
 
 /**
  * Interface to deal with money
+ * Used for the financial report
  */
 public interface Financial {
     /**

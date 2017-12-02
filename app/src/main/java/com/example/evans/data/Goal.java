@@ -21,8 +21,8 @@ public class Goal implements Comparable {
     private LocalDate _dueDate;
     private LocalDate _startDate;
     private Boolean _isRepeat;
-    private Boolean _done;
     private TimePeriod _repeatCycle;
+    private Boolean _done;
 
     public Goal() {
         _title = "";
@@ -54,54 +54,27 @@ public class Goal implements Comparable {
 
     }
 
-    /**
-     * getter functions for each of the member variables
-     */
     public String getId() { return _id; }
+    public void setId(String id) { _id = id;}
+
     public String getTitle() { return _title; }
+    public void setTitle(String title) { this._title = title; }
+
     public String getDescription() { return _description; }
+    public void setDescription(String description) { this._description = description; }
 
-
-    public String getDueDate() { return _dueDate.toString(); }
+    @Exclude public LocalDate getStartDateObject() { return _startDate;}
+    @Exclude public  void setStartDateObject(LocalDate startDate) {_startDate = startDate;}
     public String getStartDate() { return _startDate.toString(); }
+    public void setStartDate(String startDateString) { this._startDate = LocalDate.parse(startDateString); }
 
-    @Exclude
-    public LocalDate getLocalDateStartDate() { return _startDate;}
-
-    @Exclude
-    public LocalDate getLocalDateDueDate() { return _dueDate; }
+    @Exclude public LocalDate getDueDateObject() { return _dueDate; }
+    @Exclude public  void setDueDateObject(LocalDate dueDate) {_dueDate = dueDate;}
+    public String getDueDate() { return _dueDate.toString(); }
+    public void setDueDate(String dueDateString) { this._dueDate = LocalDate.parse(dueDateString); }
 
     public Boolean getIsRepeat() { return _isRepeat; }
     public TimePeriod getRepeatCycle() { return _repeatCycle; }
-    public Boolean isDone() { return _done; }
-
-
-
-    public Boolean isPastPastDue() {
-        LocalDate currentDay = LocalDate.now();
-        return _dueDate.isAfter(currentDay);
-    }
-
-
-    /**
-     * setter functions for each of the member functions
-     */
-    public void setId(String id) { _id = id;}
-    public void setTitle(String title) { this._title = title; }
-    public void setDescription(String description) { this._description = description; }
-
-    public void setDueDate(String dueDateString) { this._dueDate = LocalDate.parse(dueDateString); }
-    public void setStartDate(String startDateString) { this._startDate = LocalDate.parse(startDateString); }
-
-    @Exclude
-    public  void setStartDateLocalDate(LocalDate startDate) {_startDate = startDate;}
-
-    @Exclude
-    public  void setDueDateLocalDate(LocalDate dueDate) {_dueDate = dueDate;}
-
-
-    public void setDone(Boolean done) {this._done = done; }
-
     /**
      * sets the repeat cycle to the passed value and sets _isRepeat based on that
      * @param repeatCycle: TimePeriod that is how often the goal repeats
@@ -112,16 +85,29 @@ public class Goal implements Comparable {
         } else _isRepeat = true;
     }
 
+    public Boolean isDone() { return _done; }
+    public void setDone(Boolean done) {this._done = done; }
+
+    /**
+     * Tests to see if it is past the due date of the goal
+     * @return whether the due date has passed
+     */
+    public Boolean isPastPastDue() {
+        LocalDate currentDay = LocalDate.now();
+        return _dueDate.isAfter(currentDay);
+    }
+
     @Override
     @Exclude
     public int compareTo(@NonNull Object o) {
         Goal goal1 = (Goal) o;
-        if(this._dueDate.isAfter(goal1._dueDate))
+        if (this._dueDate.isAfter(goal1._dueDate))
             return 1;
-        else if(this._dueDate.isBefore(goal1._dueDate))
+
+        if (this._dueDate.isBefore(goal1._dueDate))
             return -1;
-        else
-            return 0;
+
+        return 0;
     }
 }
 
