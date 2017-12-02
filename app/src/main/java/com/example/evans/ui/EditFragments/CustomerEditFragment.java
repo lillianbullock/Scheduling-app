@@ -28,7 +28,7 @@ public class CustomerEditFragment extends Fragment {
     private EditText _email;
     private static final String TAG = "CustomerEditFragment";
 
-    private Button _setAppointmentBtn;
+    //private Button _setAppointmentBtn;
     private Button _saveBtn;
     private Button _cancelBtn;
 
@@ -55,7 +55,7 @@ public class CustomerEditFragment extends Fragment {
         _phone = rootView.findViewById(R.id.etxt_phone);
         _email = rootView.findViewById(R.id.etxt_email);
 
-        _setAppointmentBtn = rootView.findViewById(R.id.btn_set_appt);
+        //_setAppointmentBtn = rootView.findViewById(R.id.btn_set_appt);
         _saveBtn = rootView.findViewById(R.id.btn_edit_bar_save);
         _cancelBtn = rootView.findViewById(R.id.btn_edit_bar_cancel);
 
@@ -63,7 +63,7 @@ public class CustomerEditFragment extends Fragment {
 
         // Create a customer and let the host activity know that a request
         // was made to create an appointment with the customer
-        _setAppointmentBtn.setOnClickListener(new View.OnClickListener() {
+        /*_setAppointmentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -74,7 +74,7 @@ public class CustomerEditFragment extends Fragment {
                     _hostActivity.onCustomerEditFinish(customer);
                 }
             }
-        });
+        });*/
 
         // Create a customer on save click and return it to the host activity
         _saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -178,7 +178,7 @@ public class CustomerEditFragment extends Fragment {
     public interface OnSubmitCustomerEdit {
 
         void onCustomerEditFinish (Customer customer);
-        void onAddAppointmentClickForCustomer(Customer customer);
+        //void onAddAppointmentClickForCustomer(Customer customer);
         void onCancelCustomerEdit();
         void hideActionbar();
         void showActionbar();

@@ -54,6 +54,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity implements
         CustomerEditFragment.OnSubmitCustomerEdit,
         CustomerListFragment.CustomerListFragmentListener,
+        CustomerViewFragment.InteractionWithCustomerViewFragmentListener,
         ServiceEditFragment.OnSubmitServiceEdit,
         ServiceListFragment.ServiceListFragmentListener,
         GoalEditFragment.OnSubmitGoalEdit,
@@ -61,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements
         AppointmentListFragment.AppointmentListFragmentListener,
         AppointmentEditFragment.OnSubmitAppointment,
         DatePickerFragment.OnDateSetListener,
-        CustomerViewFragment.InteractionWithCustomerViewFragmentListener,
         SaleListFragment.SaleListFragmentListener,
         AppointmentViewFragment.InteractionWithAppointmentViewFragmentListener,
         SaleEditFragment.OnSubmitSaleEdit,
@@ -327,6 +327,12 @@ public class MainActivity extends AppCompatActivity implements
         loadCurrentFragment(false);
         _mainController.addNewGoal(goal);
     }
+
+    @Override
+    public List<Goal> getGoal(int num){
+        return _mainController.getGoalsWithLimit(num);
+    }
+
     /*
     @Override
     public Goal getViewGoal() {
@@ -504,6 +510,8 @@ public class MainActivity extends AppCompatActivity implements
                 break;
             case R.id.menu_item_goals:
                 _drawerLayout.closeDrawer(GravityCompat.START);
+                GoalListFragment goalListFragment = new GoalListFragment();
+                goalListFragment.setGoals(_mainController.getAllGoals());
                 _currentFragment = new GoalListFragment();
                 loadCurrentFragment(true);
                 break;

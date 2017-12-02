@@ -1,7 +1,5 @@
 package com.example.evans.data;
 
-import com.google.firebase.database.DatabaseReference;
-
 import org.joda.time.LocalDate;
 
 import java.util.HashMap;
@@ -33,15 +31,20 @@ public class MainController {
     public MainController() {
 
         _firebaseManager = new FirebaseManager();
-        populateServices();
+        populateData();
     }
 
     /**
-     * Populate map of services with previously stored services
+     * Populate lists and maps with previously stored data
      * Pull from the cloud or device memory
      */
-    private void populateServices() {
+    private void populateData() {
         _availableServices = _firebaseManager.getServices();
+        _goals = _firebaseManager.getAllGoals();
+        _expenses = _firebaseManager.getAllExpenses();
+        _allSales = _firebaseManager.getAllSales();
+        _appointments = _firebaseManager.getAllAppointments();
+        _customers = _firebaseManager.getAllCustomers();
     }
 
     /**
@@ -77,6 +80,19 @@ public class MainController {
     public List<Expense> getAllExpenses() {
         return _expenses;
     }
+
+    public List<Customer> getAllCustomers() {
+        return _customers;
+    }
+
+    public List<Appointment> getAllAppointments() {
+        return _appointments;
+    }
+
+    public List<Goal> getAllGoals(){
+        return _goals;
+    }
+
 
     /**
      * Add a customer to the list of customers
@@ -207,6 +223,18 @@ public class MainController {
         return _firebaseManager.getGoalsWithEndDateBetween(date, date);
     }
 
+
+    /**
+     * This will return a number of goals
+     * @param numGoals number of goal we want
+     * @return Goals are returns with a numLimit
+     */
+    public List getGoalsWithLimit(int numGoals){
+        return  _firebaseManager.getGoalsWithLimit(numGoals);
+    }
+
+
+
     /**
      * Return a list of customers that were added in the last month. This method may be
      * changed later to accept a parameter that specifies the duration to check for
@@ -222,8 +250,7 @@ public class MainController {
 
     /**
      * Return a list of all the services in the data list.
-     * This is a list of the the kind
-     * of services that the company offers
+     * This is a list of the the kind of services that the company offers
      * @return LinkedList<Service>
      */
     public Map<String, Service> getAvailableServices() {
@@ -238,13 +265,13 @@ public class MainController {
      * @return LinkedList<Sale>
      */
     public List<Sale> getAllSales() {
-        return _firebaseManager.getAllSales();
+        return _allSales;
     }
 
 
     /**
      * Return the number of customers specified in the parameter
-     * @param numOfCustomers: the number of customers to be returned if available
+     * @param numOfCustomers the number of customers to be returned if available
      * @return List of customers
      */
     public List<Customer> getFirstNumberCustomers(int numOfCustomers){
@@ -254,7 +281,7 @@ public class MainController {
 
     /**
      * Return the number of sales specified in the parameter
-     * @param numOfSales: the number of sales to be returned if available
+     * @param numOfSales the number of sales to be returned if available
      * @return List of sales
      */
     public List<Sale> getFirstNumberSales(int numOfSales){
@@ -263,7 +290,7 @@ public class MainController {
 
     /**
      * Return the number of appointments specified in the parameter
-     * @param numAppointments: the number of appointments to be returned if available
+     * @param numAppointments the number of appointments to be returned if available
      * @return List of appointments
      */
     public List<Appointment> getFirstNumberAppointments(int numAppointments){
@@ -275,7 +302,7 @@ public class MainController {
      * Return the number of goals specified in the parameter
      *
      * This will return the most recent goals.
-     * @param numGoals: the number of goals to be returned if available
+     * @param numGoals the number of goals to be returned if available
      * @return List of goals
      */
     public List<Goal> getFirstNumberGoals(int numGoals){
@@ -287,7 +314,7 @@ public class MainController {
      * Return the number of expenses specified in the parameter
      *
      * This will return the most recent expenses.
-     * @param numExpenses: the number of expenses to be returned if available
+     * @param numExpenses the number of expenses to be returned if available
      * @return List of expenses
      */
     public List<Expense> getFirstNumberExpenses(int numExpenses){
@@ -300,10 +327,12 @@ public class MainController {
          return  _firebaseManager.getAppointmentsBetween(beginDate, endDate);
     }
 
+    /*Getting Sales between a certain time*/
     public List<Sale> getSalesBetween(LocalDate beginDate, LocalDate endDate) {
         return  _firebaseManager.getSalesBetweenDates(beginDate, endDate);
     }
 
+    /*Getting Expenses between a certain time*/
     public List<Expense> getExpensesBetween(LocalDate beginDate, LocalDate endDate) {
         return  _firebaseManager.getExpensesBetweenDates(beginDate, endDate);
     }
