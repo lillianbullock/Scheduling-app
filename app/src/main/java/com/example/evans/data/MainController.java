@@ -1,7 +1,5 @@
 package com.example.evans.data;
 
-import com.google.firebase.database.DatabaseReference;
-
 import org.joda.time.LocalDate;
 
 import java.util.HashMap;
@@ -39,15 +37,20 @@ public class MainController {
     public MainController() {
 
         _firebaseManager = new FirebaseManager();
-        populateServices();
+        populateData();
     }
 
     /**
      * This function will get populate our map of services with some
      * previously stored services. Pull from the cloud or device memory
      */
-    private void populateServices() {
+    private void populateData() {
         _availableServices = _firebaseManager.getServices();
+        _goals = _firebaseManager.getAllGoals();
+        _expenses = _firebaseManager.getAllExpenses();
+        _allSales = _firebaseManager.getAllSales();
+        _appointments = _firebaseManager.getAllAppointments();
+        _customers = _firebaseManager.getAllCustomers();
 
     }
 
@@ -86,6 +89,18 @@ public class MainController {
 
     public List<Expense> getAllExpenses() {
         return _expenses;
+    }
+
+    public List<Customer> getAllCustomers() {
+        return _customers;
+    }
+
+    public List<Appointment> getAllAppointments() {
+        return _appointments;
+    }
+
+    public List<Goal> getAllGoals(){
+        return _goals;
     }
 
 
@@ -259,7 +274,7 @@ public class MainController {
      * @return LinkedList<Sale>
      */
     public List<Sale> getAllSales() {
-        return _firebaseManager.getAllSales();
+        return _allSales;
     }
 
 

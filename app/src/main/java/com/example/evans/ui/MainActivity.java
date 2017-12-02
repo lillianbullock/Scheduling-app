@@ -511,7 +511,7 @@ public class MainActivity extends AppCompatActivity implements
             case R.id.menu_item_goals:
                 _drawerLayout.closeDrawer(GravityCompat.START);
                 GoalListFragment goalListFragment = new GoalListFragment();
-                goalListFragment.setGoals(_mainController.getGoalsWithLimit(100));
+                goalListFragment.setGoals(_mainController.getAllGoals());
                 _currentFragment = new GoalListFragment();
                 loadCurrentFragment(true);
                 break;
