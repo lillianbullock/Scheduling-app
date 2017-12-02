@@ -197,8 +197,8 @@ public class MainController {
 
     /**
      * Return all the appointments for a particular customer
-     * @param customer: The customer that we're looking up appointments for
-     * @return: A list of appointments for the customer
+     * @param customer Needed customer for appointment
+     * @return appointments for customer is returned
      */
     public List<Appointment> getAppointmentsForCustomer(Customer customer) {
 
@@ -236,6 +236,11 @@ public class MainController {
     }
 
 
+    /**
+     * This will return a number of goals
+     * @param numGoals number of goal we want
+     * @return Goals are returns with a numLimit
+     */
     public List getGoalsWithLimit(int numGoals){
         return  _firebaseManager.getGoalsWithLimit(numGoals);
     }
@@ -338,10 +343,12 @@ public class MainController {
          return  _firebaseManager.getAppointmentsBetween(beginDate, endDate);
     }
 
+    /*Getting Sales between a certain time*/
     public List<Sale> getSalesBetween(LocalDate beginDate, LocalDate endDate) {
         return  _firebaseManager.getSalesBetweenDates(beginDate, endDate);
     }
 
+    /*Getting Expenses between a certain time*/
     public List<Expense> getExpensesBetween(LocalDate beginDate, LocalDate endDate) {
         return  _firebaseManager.getExpensesBetweenDates(beginDate, endDate);
     }
