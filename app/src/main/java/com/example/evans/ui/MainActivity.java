@@ -244,8 +244,34 @@ public class MainActivity extends AppCompatActivity implements
     public void onServiceCancel() { onBackPressed(); }
 
 
-        /******** CUSTOMER **********/
+
+    /******** CUSTOMER **********/
+
+
     @Override
+    public void onSetAppointmentCustomer(Customer customer) {
+        AppointmentEditFragment frag = new AppointmentEditFragment();
+        frag.setCustomer(customer);
+        _currentFragment = frag;
+        loadCurrentFragment(true);
+    }
+
+    @Override
+    public void onEditCustomer(Customer customer) {
+
+        if (customer != null){
+            CustomerEditFragment frag = new CustomerEditFragment();
+            frag.setExistingCustomer(customer);
+            _currentFragment = frag;
+            loadCurrentFragment(true);
+
+        } else {
+            Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid customer from mainactivity", Snackbar.LENGTH_LONG).show();
+
+        }
+    }
+
+        @Override
     public void onClickCustomer(Customer customer) {
         // TODO Handle customer click
     }
