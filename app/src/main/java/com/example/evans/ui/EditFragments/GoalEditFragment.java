@@ -21,6 +21,8 @@ import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.util.List;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -178,6 +180,7 @@ public class GoalEditFragment extends Fragment
 
     public interface OnSubmitGoalEdit {
         void onGoalEditFinish (Goal goal);
+        List<Goal> getGoal();
         void onGoalEditCancel();
         void hideActionbar();
         void showActionbar();

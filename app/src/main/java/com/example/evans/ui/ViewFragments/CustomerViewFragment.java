@@ -12,9 +12,6 @@ import android.widget.TextView;
 import com.example.evans.R;
 import com.example.evans.data.Customer;
 
-import org.joda.time.LocalDateTime;
-
-
 /**
  * {@link Fragment} subclass to view the customer data.
  */

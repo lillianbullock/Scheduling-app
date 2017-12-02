@@ -21,7 +21,6 @@ public class GoalAdapter extends ArrayAdapter<Goal> {
     private ArrayList<Goal> _goalList = new ArrayList<>();
     private ViewHolder _viewHolder;
 
-
     // use of the viewHolder allows faster loading because the views
     // don't need to be collected for each item in the list view
     static class ViewHolder {
@@ -29,7 +28,6 @@ public class GoalAdapter extends ArrayAdapter<Goal> {
         TextView dueDate;
         CheckBox complete;
     }
-
 
     public GoalAdapter(Context context, int textViewResourceId, ArrayList<Goal> objects) {
         super(context, textViewResourceId, objects);
@@ -44,22 +42,28 @@ public class GoalAdapter extends ArrayAdapter<Goal> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        convertView = inflater.inflate(R.layout.goal_adapter, parent, false);
+        if(convertView == null) {
+            LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.goal_adapter, parent, false);
 
-        // well set up the ViewHolder
-        _viewHolder = new ViewHolder();
-        _viewHolder.title = (TextView) convertView.findViewById(R.id.goal_adapter_title);
-        _viewHolder.dueDate= (TextView) convertView.findViewById(R.id.goal_adapter_due_date);
-        _viewHolder.complete = (CheckBox) convertView.findViewById(R.id.goal_adapter_complete);
-
-        _viewHolder.title.setText(_goalList.get(position).getTitle());
-        _viewHolder.dueDate.setText(_goalList.get(position).getDueDate());
-
-        if (_goalList.get(position).isDone() != null) {
-            _viewHolder.complete.setChecked(_goalList.get(position).isDone());
+            // well set up the ViewHolder
+            _viewHolder = new ViewHolder();
+            _viewHolder.title = (TextView) convertView.findViewById(R.id.goal_adapter_title);
+            _viewHolder.dueDate = (TextView) convertView.findViewById(R.id.goal_adapter_due_date);
+            _viewHolder.complete = (CheckBox) convertView.findViewById(R.id.goal_adapter_complete);
+        }else{
+            _viewHolder = (ViewHolder) convertView.getTag();
         }
-        return convertView;
 
+        if(_goalList.get(position) != null) {
+            _viewHolder.title.setText(_goalList.get(position).getTitle());
+            _viewHolder.dueDate.setText(_goalList.get(position).getDueDate());
+
+            if (_goalList.get(position).isDone() != null) {
+                _viewHolder.complete.setChecked(_goalList.get(position).isDone());
+            }
+        }
+
+        return convertView;
     }
 }
