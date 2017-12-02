@@ -117,7 +117,7 @@ public class AppointmentEditFragment extends Fragment
             @Override
             public void onClick(View view) {
                 KeyboardControl.closeKeyboard(getActivity());
-                _hostActivity.onAppointmentCancel();
+                _hostActivity.onAppointmentEditCancel();
             }
         });
 
@@ -234,13 +234,18 @@ public class AppointmentEditFragment extends Fragment
      */
     private void initializeCustomerDetails() {
 
-        _selectedCustomer = _hostActivity.getCustomerForAppointment();
 
         if (_selectedCustomer != null) {
             _name.setText(_selectedCustomer.getName());
             _email.setText(_selectedCustomer.getEmail());
             _phone.setText(_selectedCustomer.getPhone());
             _customerId = _selectedCustomer.getId();
+        }
+    }
+
+    public void setCustomer(Customer customer) {
+        if (customer != null) {
+            _selectedCustomer = customer;
         }
     }
 
@@ -277,15 +282,6 @@ public class AppointmentEditFragment extends Fragment
 
         _serviceSpinner.setAdapter(adapter);
 
-    }
-
-    public void setSelectedCustomer(Customer customer) throws Exception{
-
-        if (customer != null) {
-            _selectedCustomer = customer;
-        } else {
-            throw new InvalidCustomerException("NULL customer data received from the calling method");
-        }
     }
 
 
@@ -326,11 +322,10 @@ public class AppointmentEditFragment extends Fragment
      */
     public interface OnSubmitAppointment {
         void onAppointmentEditFinish (Customer customer, Appointment appointment);
-        void onAppointmentCancel();
+        void onAppointmentEditCancel();
         Map<String, Service> getServices();
         void hideActionbar();
         void showActionbar();
-        Customer getCustomerForAppointment();
     }
 
 

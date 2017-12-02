@@ -29,7 +29,7 @@ public class AppointmentsListFragment extends Fragment {
 
     private FloatingActionButton _addFloatingBtn;
     private View _rootView;  // how we can get access to view elements
-    private InteractionWithAppointmentListFragmentListener _hostListener;
+    private AppointmentListFragmentListener _hostListener;
 
 
     public AppointmentsListFragment() {
@@ -95,7 +95,7 @@ public class AppointmentsListFragment extends Fragment {
         super.onAttach(activity);
 
         try {
-            _hostListener = (InteractionWithAppointmentListFragmentListener) activity;
+            _hostListener = (AppointmentListFragmentListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement " +
                     "InteractionWithAppointmentFragmentListener");
@@ -112,7 +112,7 @@ public class AppointmentsListFragment extends Fragment {
      * This interface must be implemented by the container Activity
      * This is how we'll be able to communicate with the parent activity.
      */
-    public interface InteractionWithAppointmentListFragmentListener{
+    public interface AppointmentListFragmentListener {
         void onClickAppointment(Appointment appointment);
         void onAddAppointment();
         List<Appointment> getAppointmentList();

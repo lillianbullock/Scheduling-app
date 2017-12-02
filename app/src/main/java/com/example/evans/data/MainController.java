@@ -87,6 +87,10 @@ public class MainController {
         _firebaseManager.addService(service, service.getId());
     }
 
+    public List<Expense> getAllExpenses() {
+        return _expenses;
+    }
+
 
     /**
      * Add an already created customer to our list of customers
@@ -94,10 +98,10 @@ public class MainController {
      * calling this method.
      * @param customer: A valid customer to be added to our list
      */
-    public void addCustomer(Customer customer) {
+    public Customer addCustomer(Customer customer) {
 
         if (customer == null) {
-            return;
+            return null;
         }
 
         // get the id from the database manager. It's auto-generated with
@@ -106,6 +110,9 @@ public class MainController {
 
         _customers.add(customer);
         _firebaseManager.addCustomer(customer, customer.getId());
+
+        // we're returning the customer because we set the id here
+        return customer;
 
     }
 

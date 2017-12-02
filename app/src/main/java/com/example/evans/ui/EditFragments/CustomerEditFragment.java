@@ -95,7 +95,7 @@ public class CustomerEditFragment extends Fragment {
         _cancelBtn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 KeyboardControl.closeKeyboard(getActivity());
-                _hostActivity.onCustomerCancel();
+                _hostActivity.onCancelCustomerEdit();
             }
         });
 
@@ -106,7 +106,7 @@ public class CustomerEditFragment extends Fragment {
 
         Customer newCustomer = null;
 
-        String id = String.valueOf(_hostActivity.getNextCustomerId());
+        String id = "";
         String name = _name.getText().toString();
         String phone = _phone.getText().toString();
         String email = _email.getText().toString();
@@ -179,8 +179,7 @@ public class CustomerEditFragment extends Fragment {
 
         void onCustomerEditFinish (Customer customer);
         void onAddAppointmentClickForCustomer(Customer customer);
-        int getNextCustomerId();
-        void onCustomerCancel();
+        void onCancelCustomerEdit();
         void hideActionbar();
         void showActionbar();
 
