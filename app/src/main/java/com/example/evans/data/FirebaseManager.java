@@ -2,7 +2,6 @@ package com.example.evans.data;
 
 import android.util.Log;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -223,6 +222,7 @@ public class FirebaseManager {
     public Map<String, Service> getServices() {
 
         final Map<String, Service> serviceMap = new TreeMap<>();
+
 
         Query servicesQuery = _databaseRoot.child(SERVICES).orderByChild("Title");
 
@@ -589,7 +589,10 @@ public class FirebaseManager {
 
         final List<Expense> expenses = new ArrayList<>();
 
+
         Query expenseQuery = _databaseRoot.child(EXPENSES).limitToFirst(numExpenses);
+
+
 
         expenseQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

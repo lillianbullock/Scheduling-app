@@ -1,7 +1,6 @@
 package com.example.evans.ui.Adapters;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,7 @@ import java.util.ArrayList;
 /**
  * {@link ArrayAdapter<>} extension that displays the sales data in a list view
  */
-public class SalesAdapter extends ArrayAdapter<Sale> {
+public class SaleAdapter extends ArrayAdapter<Sale> {
 
     private ArrayList<Sale> _salesList = new ArrayList<>();
     private SaleViewHolder _viewHolder;
@@ -29,7 +28,7 @@ public class SalesAdapter extends ArrayAdapter<Sale> {
         TextView date;
     }
 
-    public SalesAdapter(Context context, int textViewResourceId, ArrayList<Sale> objects) {
+    public SaleAdapter(Context context, int textViewResourceId, ArrayList<Sale> objects) {
         super(context, textViewResourceId, objects);
         //Set arrayList to something that is not null
         _salesList = objects;
@@ -47,7 +46,7 @@ public class SalesAdapter extends ArrayAdapter<Sale> {
         if(convertView == null) {
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            convertView = inflater.inflate(R.layout.sales_adapter, parent, false);
+        convertView = inflater.inflate(R.layout.sale_adapter, parent, false);
 
             _viewHolder = new SaleViewHolder();
             _viewHolder.service = (TextView) convertView.findViewById(R.id.array_adapter_sales_service);

@@ -16,6 +16,7 @@ import com.example.evans.ui.Adapters.ExpenseAdapter;
 
 import org.joda.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,24 +24,27 @@ import java.util.ArrayList;
 public class ExpenseListFragment extends Fragment {
 
     private FloatingActionButton _addFloatingBtn;
-    private View _rootView;  // how we can get access to view elements
-    private InteractionWithExpenseListFragmentListener _hostActivityListener;
+    private ExpenseListFragmentListener _hostActivityListener;
 
 
     public ExpenseListFragment() {
         // Required empty public constructor
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        // Inflate the layout for this fragment
-        _rootView = inflater.inflate(R.layout.fragment_expense_list, container, false);
 
-        _addFloatingBtn = (FloatingActionButton) _rootView.findViewById(R.id.floating_add_btn_expense);
+        View rootView;
+        rootView = inflater.inflate(R.layout.fragment_expense_list, container, false);
 
-        // Set the onClickListener for the floating button.
+        ListView simpleList;
+        simpleList = (ListView) rootView.findViewById(R.id.expense_list);
+
+        _addFloatingBtn = (FloatingActionButton) rootView.findViewById(R.id.floating_add_btn_expense);
         _addFloatingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,23 +53,13 @@ public class ExpenseListFragment extends Fragment {
         });
 
         //setting arrayAdapter
-        ListView simpleList;
-        ArrayList<Expense> expenseList = new ArrayList<>();
+        ArrayList<Expense> expenseList = new ArrayList<>(_hostActivityListener.getExpenses());
 
-        Expense expense1 = new Expense("new name", 15.00, LocalDate.now());
-        expenseList.add(expense1);
-
-        super.onCreate(savedInstanceState);
-
-        //TODO put this back when app actually gets data from database (and take out dummy data above)
-        //expenseList = (ArrayList) _hostActivityListener.getExpense();
-
-        simpleList = (ListView) _rootView.findViewById(R.id.expense_list);
 
         ExpenseAdapter adapter = new ExpenseAdapter(getActivity(), R.layout.expense_adapter, expenseList);
         simpleList.setAdapter(adapter);
 
-        return _rootView;
+        return rootView;
     }
 
     /**
@@ -81,10 +75,10 @@ public class ExpenseListFragment extends Fragment {
         super.onAttach(activity);
 
         try {
-            _hostActivityListener = (InteractionWithExpenseListFragmentListener) activity;
+            _hostActivityListener = (ExpenseListFragmentListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement " +
-                    "InteractionWithExpenseListFragmentListener");
+                    "ExpenseListFragmentListener");
         }
     }
 
@@ -92,9 +86,10 @@ public class ExpenseListFragment extends Fragment {
      * This interface must be implemented by the container Activity
      * This is how we'll be able to communicate with the parent activity.
      */
-    public interface InteractionWithExpenseListFragmentListener{
+    public interface ExpenseListFragmentListener {
         void onClickExpense(Expense expense);
         void onAddExpense();
+        List<Expense> getExpenses();
     }
 
     /**

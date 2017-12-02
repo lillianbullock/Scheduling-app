@@ -2,47 +2,72 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- These menu items will be used in our navigation bar -->
-    <item
-        android:id="@+id/menu_item_customers"
-        android:checkable="true"
-        android:title="@string/menu_customers"
-        android:icon="@drawable/ic_people"/>
 
-    <item
-        android:id="@+id/menu_item_goals"
-        android:checkable="true"
-        android:title="@string/menu_goals"
-        android:icon="@drawable/ic_goal"/>
+    <group>
+        <item
+            android:id="@+id/menu_item_customers"
+            android:checkable="true"
+            android:title="@string/menu_customers"
+            android:icon="@drawable/ic_people"/>
 
-    <item
-        android:id="@+id/menu_item_appointments"
-        android:checkable="true"
-        android:title="@string/menu_appointments"
-        android:icon="@drawable/ic_appointment"/>
+        <item
+            android:id="@+id/menu_item_goals"
+            android:checkable="true"
+            android:title="@string/menu_goals"
+            android:icon="@drawable/ic_goal"/>
 
-    <item
-        android:id="@+id/menu_item-sales"
-        android:checkable="true"
-        android:title="@string/menu_sales"
-        android:icon="@drawable/ic_money"/>
+        <item
+            android:id="@+id/menu_item_appointments"
+            android:checkable="true"
+            android:title="@string/menu_appointments"
+            android:icon="@drawable/ic_appointment"/>
 
-    <item
-        android:id="@+id/menu_item_service"
-        android:checkable="true"
-        android:title="@string/menu_service"
-        android:icon="@drawable/ic_grain_black"/>
+        <item
+            android:id="@+id/menu_item-sales"
+            android:checkable="true"
+            android:title="@string/menu_sales"
+            android:icon="@drawable/ic_money"/>
 
-    <item
-        android:id="@+id/menu_item_expense"
-        android:checkable="true"
-        android:title="@string/menu_expense"
-        android:icon="@drawable/ic_arrow_back_white"/>
 
-    <item
-        android:id="@+id/menu_item_fin_rep"
-        android:checkable="true"
-        android:title="@string/menu_fin_rep"
-        android:icon="@drawable/ic_money"/>
+
+    </group>
+
+
+    <group>
+        <item android:title="@string/label_manage">
+            <menu>
+                <item
+                    android:id="@+id/menu_item_service"
+                    android:checkable="true"
+                    android:title="@string/menu_service"
+                    android:icon="@drawable/ic_grain_black"/>
+
+                <item
+                    android:id="@+id/menu_item_expense"
+                    android:checkable="true"
+                    android:title="@string/menu_expense"
+                    android:icon="@drawable/ic_arrow_back_white"/>
+
+                <item
+                    android:id="@+id/menu_item_fin_rep"
+                    android:checkable="true"
+                    android:title="@string/menu_fin_rep"
+                    android:icon="@drawable/ic_money"/>
+            </menu>
+        </item>
+    </group>
+
+
+    <group>
+        <item android:title="@string/label_app">
+            <menu>
+                <item
+                    android:id="@+id/exit_app"
+                    android:title="@string/exit"
+                    android:icon="@drawable/ic_exit"/>
+            </menu>
+        </item>
+    </group>
 
 
 </menu>

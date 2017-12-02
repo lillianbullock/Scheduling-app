@@ -95,7 +95,7 @@ public class GoalEditFragment extends Fragment
             @Override
             public void onClick(View v) {
                 KeyboardControl.closeKeyboard(getActivity());
-                _hostActivity.onGoalCancel();
+                _hostActivity.onGoalEditCancel();
             }
         });
 
@@ -180,8 +180,8 @@ public class GoalEditFragment extends Fragment
 
     public interface OnSubmitGoalEdit {
         void onGoalEditFinish (Goal goal);
-        void onGoalCancel();
         List<Goal> getGoal();
+        void onGoalEditCancel();
         void hideActionbar();
         void showActionbar();
     }

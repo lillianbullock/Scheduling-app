@@ -3,8 +3,6 @@ package com.example.evans.ui;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -30,19 +28,17 @@ import com.example.evans.ui.EditFragments.AppointmentEditFragment;
 import com.example.evans.ui.EditFragments.CustomerEditFragment;
 import com.example.evans.ui.EditFragments.ExpenseEditFragment;
 import com.example.evans.ui.EditFragments.GoalEditFragment;
-import com.example.evans.ui.EditFragments.SalesEditFragment;
+import com.example.evans.ui.EditFragments.SaleEditFragment;
 import com.example.evans.ui.EditFragments.ServiceEditFragment;
-import com.example.evans.ui.ListFragments.AppointmentsListFragment;
-import com.example.evans.ui.ListFragments.CustomersListFragment;
+import com.example.evans.ui.ListFragments.AppointmentListFragment;
+import com.example.evans.ui.ListFragments.CustomerListFragment;
 import com.example.evans.ui.ListFragments.ExpenseListFragment;
 import com.example.evans.ui.ListFragments.GoalListFragment;
-import com.example.evans.ui.ListFragments.SalesListFragment;
+import com.example.evans.ui.ListFragments.SaleListFragment;
 import com.example.evans.ui.ListFragments.ServiceListFragment;
 import com.example.evans.ui.ViewFragments.AppointmentViewFragment;
 import com.example.evans.ui.ViewFragments.CustomerViewFragment;
 import com.example.evans.ui.ViewFragments.GoalViewFragment;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import org.joda.time.LocalDate;
 
@@ -57,23 +53,24 @@ import java.util.Map;
  */
 public class MainActivity extends AppCompatActivity implements
         CustomerEditFragment.OnSubmitCustomerEdit,
-        CustomersListFragment.InteractionWithCustomerListFragmentListener,
+        CustomerListFragment.CustomerListFragmentListener,
         ServiceEditFragment.OnSubmitServiceEdit,
-        ServiceListFragment.InteractionWithServiceListFragmentListener,
+        ServiceListFragment.ServiceListFragmentListener,
         GoalEditFragment.OnSubmitGoalEdit,
-        GoalListFragment.InteractionWithGoalsListFragmentListener,
-        AppointmentsListFragment.InteractionWithAppointmentListFragmentListener,
+        GoalListFragment.GoalsListFragmentListener,
+        AppointmentListFragment.AppointmentListFragmentListener,
         AppointmentEditFragment.OnSubmitAppointment,
         DatePickerFragment.OnDateSetListener,
         CustomerViewFragment.InteractionWithCustomerViewFragmentListener,
-        SalesListFragment.SalesListFragmentListener,
+        SaleListFragment.SaleListFragmentListener,
         AppointmentViewFragment.InteractionWithAppointmentViewFragmentListener,
-        SalesEditFragment.OnSubmitSalesEdit,
+        SaleEditFragment.OnSubmitSaleEdit,
         FinancialReportFragment.InteractionWithFinancialReportFragmentListener,
         GoalViewFragment.InteractionWithGoalViewFragmentListener,
-        ExpenseListFragment.InteractionWithExpenseListFragmentListener,
+        ExpenseListFragment.ExpenseListFragmentListener,
         ExpenseEditFragment.InteractionWithExpenseEditFragmentListener
     {
+
 
     // Variables
     private MainController _mainController;
@@ -81,16 +78,11 @@ public class MainActivity extends AppCompatActivity implements
     private DrawerLayout _drawerLayout;
     private ActionBarDrawerToggle _actionBarToggle;
 
-    private static final String DATABASE_CUSTOMER_REF = "Customers";
+
+    private static final int DEFAULTLOADNUMBER = 20;
     private static final String TAG = "MainActivity";
     private static final String APP_PREFS = "com.example.evans";
     private static final String PREF_LAST_CUS_ID = "Last Used Customer ID";
-
-    // FireBase stuff
-    private DatabaseReference _database;
-
-    private static int LAST_ASSIGNED_CUSTOMER_ID;
-
 
 
     @Override
@@ -103,7 +95,6 @@ public class MainActivity extends AppCompatActivity implements
 
        // Initialize class variables
         _mainController = new MainController();
-        _database = FirebaseDatabase.getInstance().getReference();
 
         // load any saved data from the shared preference
         loadSharedPreference();
@@ -111,7 +102,6 @@ public class MainActivity extends AppCompatActivity implements
         // Initialize and launch the start page fragment
         _currentFragment = new StartPageFragment();
         loadCurrentFragment(false);
-        LAST_ASSIGNED_CUSTOMER_ID = getLastAssignedCustomerId();
 
     }
 
@@ -125,45 +115,17 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     /**
-     * Load LAST_ASSIGNED_CUSTOMER_ID from shared preferences. This is the only thing that we're
-     * loading for now
+     * Load saved shared preference
      */
     private void loadSharedPreference() {
-
-        SharedPreferences prefs = getSharedPreferences(APP_PREFS, Context.MODE_PRIVATE);
-
-        int loadedId = 0;
-
-
-        // Make sure that it's valid before attempting to load data from prefs
-        // NOTE that if the value is not found, we'll get -1 back
-        if (prefs != null) {
-            loadedId = prefs.getInt(PREF_LAST_CUS_ID, -1);
-        }
-
-        // Could not find the value
-        if (loadedId == -1) {
-            loadedId = 0;
-            Log.w(TAG, "Unable to read last assigned user id from sharedPreference");
-        } else {
-            Log.i(TAG, "Loaded id = " + loadedId);
-        }
-
-        LAST_ASSIGNED_CUSTOMER_ID = loadedId;
 
     }
 
     /**
-     * Save LAST_ASSIGNED_CUSTOMER_ID from shared preferences. This is the only thing that we're
-     * saving for now
+     * Save light data to shared preference
      */
     private void saveSharedPreference() {
-        SharedPreferences prefs = getSharedPreferences(APP_PREFS, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
 
-        editor.putInt(PREF_LAST_CUS_ID, LAST_ASSIGNED_CUSTOMER_ID);
-        editor.apply();
-        Log.i(TAG, "Saved last customer id to shared preference");
     }
 
 
@@ -180,19 +142,19 @@ public class MainActivity extends AppCompatActivity implements
         @Override
     public void onAddExpense() {
         _currentFragment = new ExpenseEditFragment();
-        loadCurrentFragment(false);
+        loadCurrentFragment(true);
     }
 
     @Override
     public void onExpenseEditFinish(Expense expense) {
         if (expense != null) {
             _mainController.addExpense(expense);
-            _currentFragment = new ExpenseEditFragment();
+            _currentFragment = new ExpenseListFragment();
             loadCurrentFragment(false);
 
         } else {
 
-            // If this ever happens then there's an error on our part. A null service should never be return here
+            // If this ever happens then there's an error on our part. A null service should never be returned here
             _currentFragment = new StartPageFragment();
             loadCurrentFragment(false);
             Snackbar.make(findViewById(R.id.content_frame),
@@ -208,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onAddSale() {
-        _currentFragment = new SalesEditFragment();
+        _currentFragment = new SaleEditFragment();
         loadCurrentFragment(true);
     }
 
@@ -225,22 +187,21 @@ public class MainActivity extends AppCompatActivity implements
     public void onSaleEditFinish(Sale sale) {
         if(sale != null){
             _mainController.addSale(sale);
-            _currentFragment = new StartPageFragment();
-            loadCurrentFragment(false);
+
+            // since w're not viewing the sale, we'll just go back to the previous fragment
+            onBackPressed();
         }
     }
 
 
-
-
     @Override
-    public List<Appointment> getAppointmentList() { return _mainController.getFirstNumberAppointments(20); }
+    public List<Appointment> getAppointmentList() { return _mainController.getFirstNumberAppointments(DEFAULTLOADNUMBER); }
 
 
     @Override
     public List<Goal> getGoal() {
         //TODO Figure out if we need more than one function for week day or year goals
-        return _mainController.getFirstNumberGoals(20);
+        return _mainController.getFirstNumberGoals(DEFAULTLOADNUMBER);
     }
 
 
@@ -263,10 +224,6 @@ public class MainActivity extends AppCompatActivity implements
             _mainController.addService(service.getTitle(), service);
             _currentFragment = new ServiceListFragment();
             loadCurrentFragment(false);
-
-            String title = service.getTitle();
-            String description = service.getDescription();
-            Double price = service.getPrice();
 
         } else {
 
@@ -294,7 +251,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onCustomerCancel() { onBackPressed(); }
+    public void onCancelCustomerEdit() { onBackPressed(); }
 
     @Override
     public void onCustomerEditFinish(Customer customer) {
@@ -312,47 +269,22 @@ public class MainActivity extends AppCompatActivity implements
             return;
         }
 
-        // A valid customer was created so increase the value of LAST_ASSIGNED_CUSTOMER_ID
-        LAST_ASSIGNED_CUSTOMER_ID += 1;
+        // addCustomer returns the same customer but with a valid id
+        customer = _mainController.addCustomer(customer);
 
-         CustomerViewFragment _frag = new CustomerViewFragment();
+        CustomerViewFragment _frag = new CustomerViewFragment();
         _frag.setCustomer(customer);
         _currentFragment = _frag;
 
         loadCurrentFragment(false);
 
-        // TODO Add the new customer to the database for now. We'll need to coordinate with Main controller to sync properly
-        _database.child(DATABASE_CUSTOMER_REF).child(String.valueOf(customer.getId())).setValue(customer);
-
-        _mainController.addCustomer(customer);
-    }
-
-    /**
-     * Return the next possible number to use as a customer id for a new customer
-     * @return
-     */
-    @Override
-    public int getNextCustomerId() {
-        // We can work with this for now
-        return LAST_ASSIGNED_CUSTOMER_ID + 1;
-    }
-
-    /**
-    * Not sure yet how we want to implement this feature
-    * there're a few ways but it should return the last id that was
-    * assigned to the last created customer
-    * @return
-    */
-    private int getLastAssignedCustomerId() {
-         //TODO change the implementation soon!
-        return LAST_ASSIGNED_CUSTOMER_ID;
     }
 
 
     @Override
     public void onAddCustomer() {
         _currentFragment = new CustomerEditFragment();
-        loadCurrentFragment(false);
+        loadCurrentFragment(true);
     }
 
     @Override
@@ -377,7 +309,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onGoalCancel() {
+    public void onGoalEditCancel() {
         onBackPressed();
     }
 
@@ -415,18 +347,14 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onAppointmentCancel() { onBackPressed(); }
+    public void onAppointmentEditCancel() { onBackPressed(); }
 
-        @Override
+    @Override
     public void onAddAppointment() {
         _currentFragment = new AppointmentEditFragment();
         loadCurrentFragment(true);
     }
 
-    @Override
-    public Customer getCustomerForAppointment() {
-        return null;
-    }
 
     @Override
     public void onAppointmentEditFinish(Customer customer, Appointment appointment) {
@@ -435,14 +363,11 @@ public class MainActivity extends AppCompatActivity implements
             return;
         }
 
-
-
-        // Check if the customer was created in the appointment view. The id would be set to null if it was
-        if (customer.getId() == null){
+        // Check if the customer was created in the appointment view. The id would be set to "" if it was
+        if (customer.getId().isEmpty()){
             // check if we have a customer like that already if not add it
             if (_mainController.getCustomerByName(customer.getName()) == null) {
-                customer.setId(String.valueOf(getNextCustomerId()));
-                _mainController.addCustomer(customer);
+                customer = _mainController.addCustomer(customer);
             }
         }
 
@@ -460,7 +385,12 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onAddAppointmentClickForCustomer(Customer customer) {
-            // TODO Handle this case
+
+        AppointmentEditFragment appointmentEditFragment = new AppointmentEditFragment();
+        appointmentEditFragment.setCustomer(customer);
+
+        _currentFragment = appointmentEditFragment;
+        loadCurrentFragment(false);
     }
 
     @Override
@@ -484,7 +414,14 @@ public class MainActivity extends AppCompatActivity implements
         return _mainController.getSalesBetween(beginDate, endDate);
     }
 
+
     @Override
+    public List<Expense> getExpenses() {
+
+        return _mainController.getFirstNumberExpenses(DEFAULTLOADNUMBER);
+    }
+
+        @Override
     public List<Appointment> getAppointments(LocalDate beginDate, LocalDate endDate) {
         return _mainController.getAppointmentsBetween(beginDate, endDate);
     }
@@ -568,7 +505,7 @@ public class MainActivity extends AppCompatActivity implements
 
             case R.id.menu_item_customers:
                 _drawerLayout.closeDrawer(GravityCompat.START);
-                _currentFragment = new CustomersListFragment();
+                _currentFragment = new CustomerListFragment();
                 loadCurrentFragment(true);
                 break;
             case R.id.menu_item_goals:
@@ -580,7 +517,7 @@ public class MainActivity extends AppCompatActivity implements
                 break;
             case R.id.menu_item_appointments:
                 _drawerLayout.closeDrawer(GravityCompat.START);
-                _currentFragment = new AppointmentsListFragment();
+                _currentFragment = new AppointmentListFragment();
                 loadCurrentFragment(true);
                 break;
             case R.id.menu_item_service:
@@ -592,7 +529,7 @@ public class MainActivity extends AppCompatActivity implements
                 break;
             case R.id.menu_item_sales:
                 _drawerLayout.closeDrawer(GravityCompat.START);
-                _currentFragment = new SalesListFragment();
+                _currentFragment = new SaleListFragment();
                 loadCurrentFragment(true);
                 break;
             case R.id.menu_item_expense:
@@ -605,6 +542,8 @@ public class MainActivity extends AppCompatActivity implements
                 _currentFragment = new FinancialReportFragment();
                 loadCurrentFragment(true);
                 break;
+            case R.id.exit_app:
+                finish();
             default:
                 _drawerLayout.closeDrawer(GravityCompat.START);
         }
@@ -634,6 +573,9 @@ public class MainActivity extends AppCompatActivity implements
      */
     @Override
     public void onBackPressed() {
+        if (_drawerLayout.isDrawerOpen(GravityCompat.START)){
+            _drawerLayout.closeDrawer(GravityCompat.START);
+        }
         // I'm pretty sure we don't want to pop off an empty backStack!
         if (getFragmentManager().getBackStackEntryCount() > 0) {
             getFragmentManager().popBackStack();

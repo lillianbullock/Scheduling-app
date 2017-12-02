@@ -1,9 +1,7 @@
 package com.example.evans.data;
 
 
-import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 
 import com.google.firebase.database.Exclude;
 

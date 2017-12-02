@@ -1,5 +1,6 @@
 package com.example.evans.ui.ListFragments;
 
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -10,8 +11,12 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.evans.R;
-import com.example.evans.data.Customer;
-import com.example.evans.ui.Adapters.CustomerAdapter;
+import com.example.evans.data.Appointment;
+import com.example.evans.data.Service;
+import com.example.evans.ui.Adapters.AppointmentAdapter;
+
+import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,13 +25,14 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CustomersListFragment extends Fragment {
+public class AppointmentListFragment extends Fragment {
 
     private FloatingActionButton _addFloatingBtn;
     private View _rootView;  // how we can get access to view elements
-    private InteractionWithCustomerListFragmentListener _hostActivityListener;
+    private AppointmentListFragmentListener _hostListener;
 
-    public CustomersListFragment() {
+
+    public AppointmentListFragment() {
         // Required empty public constructor
     }
 
@@ -34,39 +40,43 @@ public class CustomersListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
-        // Inflate the layout for this fragment
-        _rootView = inflater.inflate(R.layout.fragment_customers_list, container, false);
 
-        _addFloatingBtn = (FloatingActionButton) _rootView.findViewById(R.id.floating_add_btn);
+        // Inflate the layout for this fragment
+        _rootView = inflater.inflate(R.layout.fragment_appointment_list, container, false);
+
+        _addFloatingBtn = (FloatingActionButton) _rootView.findViewById(R.id.floating_add_bttn_appointment);
 
         // Set the onClickListener for the floating button.
         _addFloatingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onCreateCustomer();
+                onCreateAppointment();
             }
         });
 
         //setting arrayAdapter
         ListView simpleList;
-        ArrayList<Customer> customerList = new ArrayList<>();
+        ArrayList<Appointment> appointmentList = new ArrayList<>();
+
+        Service s1 = new Service("Service1", "", 2.00);
+        Service s2 = new Service("Service2", "", 3.00);
+
+        Appointment test1 = new Appointment("testName", LocalDate.now(), LocalTime.now(), "0",
+                s1);
+        appointmentList.add(test1);
+
+        Appointment test2 = new Appointment("testName2", LocalDate.now(), LocalTime.now(), "0",
+                s2);
+        appointmentList.add(test2);
+
+        //TODO put this back when app actually gets data from database (and take out dummy data above)
+        //appointmentList = (ArrayList) _hostListener.getAppointmentList();
 
         super.onCreate(savedInstanceState);
 
-        Customer test1 = new Customer();
-        test1.setName("testName");
-        customerList.add(test1);
+        simpleList = (ListView) _rootView.findViewById(R.id.appointment_list);
 
-        Customer test2 = new Customer();
-        test2.setName("testName2");
-        customerList.add(test2);
-
-        //TODO put this back when app actually gets data from database (and take out dummy data above)
-        //customerList = (ArrayList) _hostActivityListener.getCustomers();
-
-        simpleList = (ListView) _rootView.findViewById(R.id.customer_list);
-
-        CustomerAdapter adapter = new CustomerAdapter(getActivity(), R.layout.customer_adapter, customerList);
+        AppointmentAdapter adapter = new AppointmentAdapter(getActivity(), R.layout.customer_adapter, appointmentList);
         simpleList.setAdapter(adapter);
 
         return _rootView;
@@ -85,31 +95,29 @@ public class CustomersListFragment extends Fragment {
         super.onAttach(activity);
 
         try {
-            _hostActivityListener = (InteractionWithCustomerListFragmentListener) activity;
+            _hostListener = (AppointmentListFragmentListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement " +
-                    "InteractionWithCustomerListFragmentListener");
+                    "InteractionWithAppointmentFragmentListener");
         }
     }
+
+    /**
+     *OnCreateAppointment()
+     */
+    public void onCreateAppointment() { _hostListener.onAddAppointment(); }
+
 
     /**
      * This interface must be implemented by the container Activity
      * This is how we'll be able to communicate with the parent activity.
      */
-    public interface InteractionWithCustomerListFragmentListener{
-        void onClickCustomer(Customer customer);
-        void onAddCustomer();
-        List<Customer> getCustomerList();
+    public interface AppointmentListFragmentListener {
+        void onClickAppointment(Appointment appointment);
+        void onAddAppointment();
+        List<Appointment> getAppointmentList();
     }
 
 
-
-    /**
-     * For now we just want to let the host activity tak care of it by calling it's
-     * onAddCustomer method it better had implemented our interface
-     */
-    public void onCreateCustomer() {
-        _hostActivityListener.onAddCustomer();
-    }
 
 }

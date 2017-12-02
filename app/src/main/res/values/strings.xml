@@ -61,10 +61,10 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="done">Done</string>
-    <string name="salesDate">Pick Date</string>
+    <string name="sale_date">Pick Date</string>
     <string name="sale_service">Select Service</string>
-    <string name="salesPrice">Sales Price</string>
-    <string name="salesCustomer">Sales Customer</string>
+    <string name="sale_price">Sales Price</string>
+    <string name="sale_customer">Sales Customer</string>
 
     <string name="fin_rep_start_date">Start Date</string>
     <string name="fin_rep_end_date">End Date</string>
@@ -82,6 +82,11 @@
     <string name="goal_title">Title</string>
 
     <string name="currency"> $ </string>
+
+    <string name="label_manage">Manage</string>
+
+    <string name="label_app">App</string>
+    <string name="exit">Exit</string>
 
 
     <!-- Strings below here need to be sorted-->
