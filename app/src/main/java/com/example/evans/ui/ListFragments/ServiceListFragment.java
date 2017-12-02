@@ -49,15 +49,6 @@ public class ServiceListFragment extends Fragment {
 
         super.onCreate(savedInstanceState);
 
-        /*Service test = new Service();
-        test.setTitle("Title1");
-        serviceList.add(test);
-
-        Service test2 = new Service();
-        test2.setTitle("Title2");
-        serviceList.add(test2);*/
-
-
         ListView listView = (ListView) _rootView.findViewById(R.id.service_list);
 
         ServiceAdapter adapter = new ServiceAdapter(getActivity(), R.layout.service_adapter, _services);
@@ -69,12 +60,6 @@ public class ServiceListFragment extends Fragment {
     public void setServices(Map<String, Service> services) {
 
         _services.addAll(services.values());
-
-        /*
-        for (Service service: services.values()){
-            _services.add(service);
-        } */
-
     }
 
     /**

@@ -217,6 +217,11 @@ public class MainController {
     }
 
 
+    public List getGoalsWithLimit(int numGoals){
+        return  _firebaseManager.getGoalsWithLimit(numGoals);
+    }
+
+
 
     /**
      * Return a list of customers that were added in the last month. This method may be

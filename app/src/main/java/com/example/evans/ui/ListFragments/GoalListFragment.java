@@ -27,6 +27,7 @@ public class GoalListFragment  extends Fragment {
     private FloatingActionButton _addFloatingBtn;
     private View _rootView;  // how we can get access to view elements
     private InteractionWithGoalsListFragmentListener _hostActivity;
+    private ArrayList<Goal> _goals = new ArrayList<>();
 
 
     public GoalListFragment() {
@@ -51,26 +52,28 @@ public class GoalListFragment  extends Fragment {
 
         //setting arrayAdapter
         ArrayList<Goal> newGoals = new ArrayList<>();
-        ListView goalList;
 
         super.onCreate(savedInstanceState);
 
-        Goal goal = new Goal("Two", "Do two things", LocalDate.now(), LocalDate.now());
+       /* Goal goal = new Goal("Two", "Do two things", LocalDate.now(), LocalDate.now());
         newGoals.add(goal);
 
         goal.setDone(true);
 
         //TODO information back in with database
-        //goalList = (ArrayList) _hostActivity.getGoal();
+        //goalList = (ArrayList) _hostActivity.getGoal();*/
 
-        goalList = (ListView) _rootView.findViewById(R.id.goal_list);
+        ListView goalList = (ListView) _rootView.findViewById(R.id.goal_list);
 
-        GoalAdapter goalArrayAdapter = new GoalAdapter(getActivity(), R.layout.goal_adapter, newGoals);
+        GoalAdapter goalArrayAdapter = new GoalAdapter(getActivity(), R.layout.goal_adapter, _goals);
         goalList.setAdapter(goalArrayAdapter);
 
         return _rootView;
     }
 
+    public void setGoals(List<Goal> goals){
+        _goals.addAll(goals);
+    }
 
     @Override
     public void onAttach(Activity activity) {
@@ -90,7 +93,7 @@ public class GoalListFragment  extends Fragment {
     public interface InteractionWithGoalsListFragmentListener {
         void onClickGoal();
         void onClickAddGoal();
-        List<Goal> getGoal();
+        List<Goal> getGoal(int num);
     }
 
     public void onCreateGoal() {

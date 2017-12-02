@@ -44,18 +44,27 @@ public class SalesAdapter extends ArrayAdapter<Sale> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        if(convertView == null) {
+            LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        convertView = inflater.inflate(R.layout.sales_adapter, parent, false);
+            convertView = inflater.inflate(R.layout.sales_adapter, parent, false);
 
-        _viewHolder = new SaleViewHolder();
-        _viewHolder.service = (TextView) convertView.findViewById(R.id.array_adapter_sales_service);
-        _viewHolder.price = (TextView) convertView.findViewById(R.id.array_adapter_sales_price);
-        _viewHolder.date = (TextView) convertView.findViewById(R.id.array_adapter_sales_date);
+            _viewHolder = new SaleViewHolder();
+            _viewHolder.service = (TextView) convertView.findViewById(R.id.array_adapter_sales_service);
+            _viewHolder.price = (TextView) convertView.findViewById(R.id.array_adapter_sales_price);
+            _viewHolder.date = (TextView) convertView.findViewById(R.id.array_adapter_sales_date);
 
-        _viewHolder.service.setText(_salesList.get(position).getService().getTitle());
-        _viewHolder.price.setText(_salesList.get(position).getPrice().toString());
-        _viewHolder.date.setText(_salesList.get(position).getDate().toString());
+            convertView.setTag(_viewHolder);
+
+        }else{
+            _viewHolder = (SaleViewHolder) convertView.getTag();
+        }
+
+        if(_salesList.get(position) != null) {
+            _viewHolder.service.setText(_salesList.get(position).getService().getTitle());
+            _viewHolder.price.setText(_salesList.get(position).getPrice().toString());
+            _viewHolder.date.setText(_salesList.get(position).getDate().toString());
+        }
 
         return convertView;
     }

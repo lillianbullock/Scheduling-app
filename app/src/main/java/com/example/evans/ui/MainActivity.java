@@ -395,6 +395,12 @@ public class MainActivity extends AppCompatActivity implements
         loadCurrentFragment(false);
         _mainController.addNewGoal(goal);
     }
+
+    @Override
+    public List<Goal> getGoal(int num){
+        return _mainController.getGoalsWithLimit(num);
+    }
+
     /*
     @Override
     public Goal getViewGoal() {
@@ -567,6 +573,8 @@ public class MainActivity extends AppCompatActivity implements
                 break;
             case R.id.menu_item_goals:
                 _drawerLayout.closeDrawer(GravityCompat.START);
+                GoalListFragment goalListFragment = new GoalListFragment();
+                goalListFragment.setGoals(_mainController.getGoalsWithLimit(100));
                 _currentFragment = new GoalListFragment();
                 loadCurrentFragment(true);
                 break;
