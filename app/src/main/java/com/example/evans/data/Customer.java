@@ -4,21 +4,15 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 
-
 import com.google.firebase.database.Exclude;
 
-import org.joda.time.LocalDate;
 import org.joda.time.LocalDate;
 
 import java.util.List;
 
 /**
- * Created by Brooke Nelson on 10/30/2017.
- * This is the Customer class:
- *  It will handle and work with the customer information
- *
+ * Class to handle customer information
  */
-
 public class Customer implements Comparable{
     private String _id;
     private String _name;
@@ -34,14 +28,6 @@ public class Customer implements Comparable{
         _dateAdded = LocalDate.now();
     }
 
-    public Customer(String id, String name, String email, String phone, LocalDate dateAdded, Appointment appointment){
-        _id = id;
-        _name = name;
-        _email = email;
-        _phone = phone;
-        _dateAdded = dateAdded;
-    }
-
     public Customer(String id, String name, String email, String phone, LocalDate dateAdded){
         _id = id;
         _name = name;
@@ -49,7 +35,6 @@ public class Customer implements Comparable{
         _phone = phone;
         _dateAdded = dateAdded;
     }
-
 
     /**
      * This is the same as getDateAdded but it returns a date not a string.

@@ -13,7 +13,7 @@
 
         <!-- Customer name -->
         <TextView
-            android:id="@+id/txt_apptv_customer_name"
+            android:id="@+id/txt_appt_view_customer_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -26,7 +26,7 @@
 
         <!-- Customer email -->
         <TextView
-            android:id="@+id/txt_apptv_customer_email"
+            android:id="@+id/txt_appt_view_customer_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -35,11 +35,11 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_apptv_customer_name" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_appt_view_customer_name" />
 
         <!-- Customer phone -->
         <TextView
-            android:id="@+id/txt_apptv_customer_phone"
+            android:id="@+id/txt_appt_view_customer_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
@@ -48,7 +48,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_apptv_customer_name" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_appt_view_customer_name" />
 
         <!-- Appointment Date -->
         <TextView
@@ -61,7 +61,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_apptv_customer_email" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_appt_view_customer_email" />
 
         <TextView
             android:id="@+id/txt_appointment_view_time"
@@ -73,7 +73,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_apptv_customer_phone" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_appt_view_customer_phone" />
 
         <!-- Service type -->
         <TextView

@@ -65,9 +65,9 @@ public class AppointmentViewFragment extends Fragment {
         }
 
         // collects the views that need to be changed to display stuff
-        TextView name = (TextView) view.findViewById(R.id.txt_apptv_customer_name);
-        TextView email = (TextView) view.findViewById(R.id.txt_apptv_customer_email);
-        TextView phone = (TextView) view.findViewById(R.id.txt_apptv_customer_phone);
+        TextView name = (TextView) view.findViewById(R.id.txt_appt_view_customer_name);
+        TextView email = (TextView) view.findViewById(R.id.txt_appt_view_customer_email);
+        TextView phone = (TextView) view.findViewById(R.id.txt_appt_view_customer_phone);
         TextView service = (TextView) view.findViewById(R.id.txt_appointment_view_service);
         TextView price = (TextView) view.findViewById(R.id.txt_appointment_view_price);
         TextView date = (TextView) view.findViewById(R.id.txt_appointment_view_date);

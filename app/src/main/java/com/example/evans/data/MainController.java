@@ -1,12 +1,9 @@
 package com.example.evans.data;
 
-
-
 import com.google.firebase.database.DatabaseReference;
 
 import org.joda.time.LocalDate;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
