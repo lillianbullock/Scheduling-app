@@ -20,7 +20,7 @@ public class GoalAdapter extends ArrayAdapter<Goal> {
 
     private ArrayList<Goal> _goalList = new ArrayList<>();
     private ViewHolder _viewHolder;
-
+    
     // use of the viewHolder allows faster loading because the views
     // don't need to be collected for each item in the list view
     static class ViewHolder {
