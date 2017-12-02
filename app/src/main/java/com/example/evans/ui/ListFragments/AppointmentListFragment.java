@@ -44,7 +44,7 @@ public class AppointmentListFragment extends Fragment {
         // Inflate the layout for this fragment
         _rootView = inflater.inflate(R.layout.fragment_appointment_list, container, false);
 
-        _addFloatingBtn = (FloatingActionButton) _rootView.findViewById(R.id.floating_add_btn_appointment);
+        _addFloatingBtn = (FloatingActionButton) _rootView.findViewById(R.id.floating_add_bttn_appointment);
 
         // Set the onClickListener for the floating button.
         _addFloatingBtn.setOnClickListener(new View.OnClickListener() {
