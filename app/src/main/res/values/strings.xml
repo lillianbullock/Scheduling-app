@@ -83,6 +83,11 @@
 
     <string name="currency"> $ </string>
 
+    <string name="label_manage">Manage</string>
+
+    <string name="label_app">App</string>
+    <string name="exit">Exit</string>
+
 
     <!-- Strings below here need to be sorted-->
 

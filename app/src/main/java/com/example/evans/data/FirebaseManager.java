@@ -223,6 +223,7 @@ public class FirebaseManager {
 
         final Map<String, Service> serviceMap = new TreeMap<>();
 
+
         Query servicesQuery = _databaseRoot.child(SERVICES).orderByChild("Title");
 
         servicesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -588,7 +589,10 @@ public class FirebaseManager {
 
         final List<Expense> expenses = new ArrayList<>();
 
+
         Query expenseQuery = _databaseRoot.child(EXPENSES).limitToFirst(numExpenses);
+
+
 
         expenseQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

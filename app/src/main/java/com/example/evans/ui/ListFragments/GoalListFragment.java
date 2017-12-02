@@ -26,7 +26,7 @@ public class GoalListFragment  extends Fragment {
 
     private FloatingActionButton _addFloatingBtn;
     private View _rootView;  // how we can get access to view elements
-    private InteractionWithGoalsListFragmentListener _hostActivity;
+    private GoalsListFragmentListener _hostActivity;
 
 
     public GoalListFragment() {
@@ -77,17 +77,17 @@ public class GoalListFragment  extends Fragment {
         super.onAttach(activity);
 
         try{
-            _hostActivity = (InteractionWithGoalsListFragmentListener) activity;
+            _hostActivity = (GoalsListFragmentListener) activity;
         } catch (ClassCastException e){
             throw new ClassCastException(activity.toString() + " must implement " +
-                    "InteractionWithGoalsListFragmentListener");
+                    "GoalsListFragmentListener");
         }
     }
 
     /**
      * Interface that should be implemented by the container the activity that
      * creates this fragment. This method should be invoked when the user clicks on the plus button */
-    public interface InteractionWithGoalsListFragmentListener {
+    public interface GoalsListFragmentListener {
         void onClickGoal();
         void onClickAddGoal();
         List<Goal> getGoal();

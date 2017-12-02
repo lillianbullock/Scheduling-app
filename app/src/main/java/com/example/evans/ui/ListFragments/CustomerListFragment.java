@@ -24,7 +24,7 @@ public class CustomerListFragment extends Fragment {
 
     private FloatingActionButton _addFloatingBtn;
     private View _rootView;  // how we can get access to view elements
-    private InteractionWithCustomerListFragmentListener _hostActivityListener;
+    private CustomerListFragmentListener _hostActivityListener;
 
     public CustomerListFragment() {
         // Required empty public constructor
@@ -85,10 +85,10 @@ public class CustomerListFragment extends Fragment {
         super.onAttach(activity);
 
         try {
-            _hostActivityListener = (InteractionWithCustomerListFragmentListener) activity;
+            _hostActivityListener = (CustomerListFragmentListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement " +
-                    "InteractionWithCustomerListFragmentListener");
+                    "CustomerListFragmentListener");
         }
     }
 
@@ -96,7 +96,7 @@ public class CustomerListFragment extends Fragment {
      * This interface must be implemented by the container Activity
      * This is how we'll be able to communicate with the parent activity.
      */
-    public interface InteractionWithCustomerListFragmentListener{
+    public interface CustomerListFragmentListener {
         void onClickCustomer(Customer customer);
         void onAddCustomer();
         List<Customer> getCustomerList();
