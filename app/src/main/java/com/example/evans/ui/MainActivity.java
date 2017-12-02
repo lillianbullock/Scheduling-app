@@ -30,13 +30,13 @@ import com.example.evans.ui.EditFragments.AppointmentEditFragment;
 import com.example.evans.ui.EditFragments.CustomerEditFragment;
 import com.example.evans.ui.EditFragments.ExpenseEditFragment;
 import com.example.evans.ui.EditFragments.GoalEditFragment;
-import com.example.evans.ui.EditFragments.SalesEditFragment;
+import com.example.evans.ui.EditFragments.SaleEditFragment;
 import com.example.evans.ui.EditFragments.ServiceEditFragment;
-import com.example.evans.ui.ListFragments.AppointmentsListFragment;
-import com.example.evans.ui.ListFragments.CustomersListFragment;
+import com.example.evans.ui.ListFragments.AppointmentListFragment;
+import com.example.evans.ui.ListFragments.CustomerListFragment;
 import com.example.evans.ui.ListFragments.ExpenseListFragment;
 import com.example.evans.ui.ListFragments.GoalListFragment;
-import com.example.evans.ui.ListFragments.SalesListFragment;
+import com.example.evans.ui.ListFragments.SaleListFragment;
 import com.example.evans.ui.ListFragments.ServiceListFragment;
 import com.example.evans.ui.ViewFragments.AppointmentViewFragment;
 import com.example.evans.ui.ViewFragments.CustomerViewFragment;
@@ -57,18 +57,18 @@ import java.util.Map;
  */
 public class MainActivity extends AppCompatActivity implements
         CustomerEditFragment.OnSubmitCustomerEdit,
-        CustomersListFragment.InteractionWithCustomerListFragmentListener,
+        CustomerListFragment.InteractionWithCustomerListFragmentListener,
         ServiceEditFragment.OnSubmitServiceEdit,
         ServiceListFragment.InteractionWithServiceListFragmentListener,
         GoalEditFragment.OnSubmitGoalEdit,
         GoalListFragment.InteractionWithGoalsListFragmentListener,
-        AppointmentsListFragment.InteractionWithAppointmentListFragmentListener,
+        AppointmentListFragment.InteractionWithAppointmentListFragmentListener,
         AppointmentEditFragment.OnSubmitAppointment,
         DatePickerFragment.OnDateSetListener,
         CustomerViewFragment.InteractionWithCustomerViewFragmentListener,
-        SalesListFragment.SalesListFragmentListener,
+        SaleListFragment.SaleListFragmentListener,
         AppointmentViewFragment.InteractionWithAppointmentViewFragmentListener,
-        SalesEditFragment.OnSubmitSalesEdit,
+        SaleEditFragment.OnSubmitSaleEdit,
         FinancialReportFragment.InteractionWithFinancialReportFragmentListener,
         GoalViewFragment.InteractionWithGoalViewFragmentListener,
         ExpenseListFragment.InteractionWithExpenseListFragmentListener,
@@ -208,7 +208,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onAddSale() {
-        _currentFragment = new SalesEditFragment();
+        _currentFragment = new SaleEditFragment();
         loadCurrentFragment(true);
     }
 
@@ -562,7 +562,7 @@ public class MainActivity extends AppCompatActivity implements
 
             case R.id.menu_item_customers:
                 _drawerLayout.closeDrawer(GravityCompat.START);
-                _currentFragment = new CustomersListFragment();
+                _currentFragment = new CustomerListFragment();
                 loadCurrentFragment(true);
                 break;
             case R.id.menu_item_goals:
@@ -572,7 +572,7 @@ public class MainActivity extends AppCompatActivity implements
                 break;
             case R.id.menu_item_appointments:
                 _drawerLayout.closeDrawer(GravityCompat.START);
-                _currentFragment = new AppointmentsListFragment();
+                _currentFragment = new AppointmentListFragment();
                 loadCurrentFragment(true);
                 break;
             case R.id.menu_item_service:
@@ -584,7 +584,7 @@ public class MainActivity extends AppCompatActivity implements
                 break;
             case R.id.menu_item_sales:
                 _drawerLayout.closeDrawer(GravityCompat.START);
-                _currentFragment = new SalesListFragment();
+                _currentFragment = new SaleListFragment();
                 loadCurrentFragment(true);
                 break;
             case R.id.menu_item_expense:

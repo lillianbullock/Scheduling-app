@@ -20,13 +20,13 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CustomersListFragment extends Fragment {
+public class CustomerListFragment extends Fragment {
 
     private FloatingActionButton _addFloatingBtn;
     private View _rootView;  // how we can get access to view elements
     private InteractionWithCustomerListFragmentListener _hostActivityListener;
 
-    public CustomersListFragment() {
+    public CustomerListFragment() {
         // Required empty public constructor
     }
 
@@ -35,7 +35,7 @@ public class CustomersListFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        _rootView = inflater.inflate(R.layout.fragment_customers_list, container, false);
+        _rootView = inflater.inflate(R.layout.fragment_customer_list, container, false);
 
         _addFloatingBtn = (FloatingActionButton) _rootView.findViewById(R.id.floating_add_btn);
 

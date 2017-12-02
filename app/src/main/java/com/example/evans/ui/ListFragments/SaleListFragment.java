@@ -11,24 +11,24 @@ import android.widget.ListView;
 
 import com.example.evans.R;
 import com.example.evans.data.Sale;
-import com.example.evans.ui.Adapters.SalesAdapter;
+import com.example.evans.ui.Adapters.SaleAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
- * Sales List Fragment
+ * Sale List Fragment
  * {@link Fragment} subclass
  */
 
-public class SalesListFragment extends Fragment {
+public class SaleListFragment extends Fragment {
 
     private FloatingActionButton _addFloatingBtn;
     private View _rootView;
-    private SalesListFragmentListener _hostActivityListener;
+    private SaleListFragmentListener _hostActivityListener;
 
-    public SalesListFragment(){
+    public SaleListFragment(){
         //Required empty public construction
     }
 
@@ -37,7 +37,7 @@ public class SalesListFragment extends Fragment {
                              Bundle savedInstanceState){
 
         //Set rootView to layout
-        _rootView = inflater.inflate(R.layout.fragment_sales_list, contain, false);
+        _rootView = inflater.inflate(R.layout.fragment_sale_list, contain, false);
 
         _addFloatingBtn = (FloatingActionButton) _rootView.findViewById(R.id.floating_sale_btn);
 
@@ -60,15 +60,15 @@ public class SalesListFragment extends Fragment {
         saleList.add(test);
 
         Sale test2 = new Sale();
-        test2.getService().setTitle("Here is a new Sales");
+        test2.getService().setTitle("Here is a new Sale");
         saleList.add(test2);
 
         //TODO ADD IN WITH FIREBASE
         //saleList = (ArrayList) _hostActivityListener.getSale();
 
-        simpleList = (ListView) _rootView.findViewById(R.id.sales_list);
+        simpleList = (ListView) _rootView.findViewById(R.id.sale_list);
 
-        SalesAdapter adapter = new SalesAdapter(getActivity(), R.layout.sales_adapter, saleList);
+        SaleAdapter adapter = new SaleAdapter(getActivity(), R.layout.sale_adapter, saleList);
         simpleList.setAdapter(adapter);
 
         return _rootView;
@@ -76,8 +76,8 @@ public class SalesListFragment extends Fragment {
 
 
     /**
-     * Sales Attach, want to make sure that the activity that uses this fragment
-     * has implemented our SalesListFragmentListener interface
+     * Sale Attach, want to make sure that the activity that uses this fragment
+     * has implemented our SaleListFragmentListener interface
      * @param activity: the host activity
      */
     @Override
@@ -85,10 +85,10 @@ public class SalesListFragment extends Fragment {
         super.onAttach(activity);
 
         try {
-            _hostActivityListener = (SalesListFragmentListener) activity;
+            _hostActivityListener = (SaleListFragmentListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement " +
-                    "SalesListFragmentListener");
+                    "SaleListFragmentListener");
         }
     }
 
@@ -104,7 +104,7 @@ public class SalesListFragment extends Fragment {
      * This interface must be implemented by the container Activity
      * This is how we'll be able to communicate with the parent activity.
      */
-    public interface SalesListFragmentListener {
+    public interface SaleListFragmentListener {
         List<Sale> getSale();
         void onAddSale();
         void onClickSale(Sale sale);

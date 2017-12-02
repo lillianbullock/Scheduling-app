@@ -25,14 +25,14 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AppointmentsListFragment extends Fragment {
+public class AppointmentListFragment extends Fragment {
 
     private FloatingActionButton _addFloatingBtn;
     private View _rootView;  // how we can get access to view elements
     private InteractionWithAppointmentListFragmentListener _hostListener;
 
 
-    public AppointmentsListFragment() {
+    public AppointmentListFragment() {
         // Required empty public constructor
     }
 
@@ -42,7 +42,7 @@ public class AppointmentsListFragment extends Fragment {
 
 
         // Inflate the layout for this fragment
-        _rootView = inflater.inflate(R.layout.fragment_appointments_list, container, false);
+        _rootView = inflater.inflate(R.layout.fragment_appointment_list, container, false);
 
         _addFloatingBtn = (FloatingActionButton) _rootView.findViewById(R.id.floating_add_btn_appointment);
 

@@ -32,15 +32,15 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * SalesEdit Fragment:
- * This Class will control the SalesEdit Fragment and the View information
+ * SaleEdit Fragment:
+ * This Class will control the SaleEdit Fragment and the View information
  * that will be entered in the view from edit Fragment
  * {@link Fragment} subclass
  */
-public class SalesEditFragment extends Fragment
+public class SaleEditFragment extends Fragment
         implements DatePickerFragment.OnDateSetListener {
 
-    private OnSubmitSalesEdit _hostActivity;
+    private OnSubmitSaleEdit _hostActivity;
 
     private EditText _date;
     private Spinner _serviceSpinner;
@@ -55,16 +55,16 @@ public class SalesEditFragment extends Fragment
     private LocalDate _selectedDate;
     private Double _price;
 
-    private static final String TAG = "SalesEditFragment";
+    private static final String TAG = "SaleEditFragment";
 
-    public SalesEditFragment() {
+    public SaleEditFragment() {
         // Required empty public constructor
     }
 
 
     /**
-     * SalesEditFragment
-     * This createView will handle the calling and view of Sales Edit Fragment
+     * SaleEditFragment
+     * This createView will handle the calling and view of Sale Edit Fragment
      * @param inflater
      * @param container
      * @param savedInstanceState
@@ -74,10 +74,10 @@ public class SalesEditFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_sales_edit, container, false);
+        View view = inflater.inflate(R.layout.fragment_sale_edit, container, false);
 
         _date           = (EditText) view.findViewById(R.id.etxt_sale_date);
-        _serviceSpinner = (Spinner) view.findViewById(R.id.spinner_sales_type);
+        _serviceSpinner = (Spinner) view.findViewById(R.id.spinner_sale_type);
         _servicePrice   = (EditText) view.findViewById(R.id.etxt_sale_price);
         _btnSave        = (Button) view.findViewById(R.id.btn_edit_bar_save);
         _btnCancel      = (Button) view.findViewById(R.id.btn_edit_bar_cancel);
@@ -122,7 +122,7 @@ public class SalesEditFragment extends Fragment
             @Override
             public void onClick(View view) {
                 DialogFragment dateFragment = new DatePickerFragment();
-                dateFragment.setTargetFragment(SalesEditFragment.this, 0);
+                dateFragment.setTargetFragment(SaleEditFragment.this, 0);
                 dateFragment.show(getFragmentManager(), "DatePicker");
             }
         });
@@ -214,18 +214,18 @@ public class SalesEditFragment extends Fragment
         // make sure that the container class implemented our interface. If it did then it can be casted
         // if not then we know it did not therefore throw an error
         try {
-            _hostActivity = (OnSubmitSalesEdit) context;
+            _hostActivity = (OnSubmitSaleEdit) context;
         } catch (ClassCastException e) {
-            Log.e(TAG, "We have a problem in our Sales Edit Fragment");
+            Log.e(TAG, "We have a problem in our Sale Edit Fragment");
             throw new ClassCastException(context.toString() + " must implement OnSubmitSaleEdit");
         }
     }
 
 
     /**
-     * Interface for sales edit holding function to be implemented
+     * Interface for sale edit holding function to be implemented
      */
-    public interface OnSubmitSalesEdit {
+    public interface OnSubmitSaleEdit {
         void onSaleEditFinish (Sale sale);
         void onSaleCancel();
         Map<String, Service> getServices();
