@@ -7,10 +7,12 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.evans.R;
 import com.example.evans.data.Customer;
+import com.example.evans.ui.KeyboardControl;
 
 /**
  * {@link Fragment} subclass to view the customer data.
@@ -18,6 +20,7 @@ import com.example.evans.data.Customer;
 public class CustomerViewFragment extends Fragment {
 
     private Customer _customer;
+    private Button _setAppointmentBtn;
     private InteractionWithCustomerViewFragmentListener _hostListener;
 
     public CustomerViewFragment() {
@@ -43,10 +46,19 @@ public class CustomerViewFragment extends Fragment {
         TextView email = (TextView) view.findViewById(R.id.txt_view_email);
         TextView phone = (TextView) view.findViewById(R.id.txt_view_phone);
 
+        _setAppointmentBtn = view.findViewById(R.id.btn_set_appt);
+
         //sets views to the customer data
         name.setText(_customer.getName());
         email.setText(_customer.getEmail());
         phone.setText(_customer.getPhone());
+
+        _setAppointmentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                _hostListener.getViewCustomer();
+            }
+        });
 
         return view;
     }
@@ -74,5 +86,6 @@ public class CustomerViewFragment extends Fragment {
      */
     public interface InteractionWithCustomerViewFragmentListener{
         Customer getViewCustomer();
+        void onAddAppointmentClickForCustomer(Customer customer);
     }
 }

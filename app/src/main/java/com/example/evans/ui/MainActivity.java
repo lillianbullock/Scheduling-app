@@ -54,6 +54,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity implements
         CustomerEditFragment.OnSubmitCustomerEdit,
         CustomerListFragment.CustomerListFragmentListener,
+        CustomerViewFragment.InteractionWithCustomerViewFragmentListener,
         ServiceEditFragment.OnSubmitServiceEdit,
         ServiceListFragment.ServiceListFragmentListener,
         GoalEditFragment.OnSubmitGoalEdit,
@@ -61,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements
         AppointmentListFragment.AppointmentListFragmentListener,
         AppointmentEditFragment.OnSubmitAppointment,
         DatePickerFragment.OnDateSetListener,
-        CustomerViewFragment.InteractionWithCustomerViewFragmentListener,
         SaleListFragment.SaleListFragmentListener,
         AppointmentViewFragment.InteractionWithAppointmentViewFragmentListener,
         SaleEditFragment.OnSubmitSaleEdit,
