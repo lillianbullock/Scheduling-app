@@ -1,9 +1,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.evans.ui.ListFragments.SalesListFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.evans.ui.ListFragments.CustomerListFragment"
     android:background="#ffffff">
 
     <android.support.constraint.ConstraintLayout
@@ -11,21 +11,22 @@
         android:layout_height="match_parent">
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/floating_sale_btn"
+            android:id="@+id/floating_add_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginRight="16dp"
-            android:backgroundTint="@color/colorAccent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:srcCompat="@drawable/ic_add_black_24dp" />
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            app:srcCompat="@drawable/ic_add_black_24dp"
+            android:backgroundTint="@color/colorAccent"/>
 
         <ListView
-            android:id="@+id/sales_list"
+            android:id="@+id/customer_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </ListView>
+
     </android.support.constraint.ConstraintLayout>
 
 </FrameLayout>

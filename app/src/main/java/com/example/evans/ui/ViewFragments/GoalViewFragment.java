@@ -36,8 +36,8 @@ public class GoalViewFragment extends Fragment {
 
         TextView name = (TextView) view.findViewById(R.id.txt_goal_view_name);
         TextView detail = (TextView) view.findViewById(R.id.txt_goal_detail);
-        TextView startD = (TextView) view.findViewById(R.id.txt_goal_view_startD);
-        TextView endD = (TextView) view.findViewById(R.id.txt_goal_view_endD);
+        TextView startD = (TextView) view.findViewById(R.id.txt_goal_view_start_date);
+        TextView endD = (TextView) view.findViewById(R.id.txt_goal_view_end_date);
 
         CheckBox _checkBox = (CheckBox) view.findViewById(R.id.goal_done_box);
 
