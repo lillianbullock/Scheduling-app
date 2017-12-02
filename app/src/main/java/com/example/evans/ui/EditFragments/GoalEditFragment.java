@@ -36,10 +36,12 @@ public class GoalEditFragment extends Fragment
     private EditText _goalEnd;
     private EditText _goalRepeat;
     private EditText _goalDescription;
+    private EditText _goalId;
     private LocalDate _pickedDate;
     private char current;
-
     private EditText _currentDateEdit;
+
+    private Goal _selectedGoal;
 
     private LocalDate _selectedStartDate;
     private LocalDate _selectedEndDate;
@@ -74,6 +76,8 @@ public class GoalEditFragment extends Fragment
 
         _btnSaveGoal = (Button) view.findViewById(R.id.btn_edit_bar_save);
         _btnCancelGoal = (Button) view.findViewById(R.id.btn_edit_bar_cancel);
+
+        initializeGoalDetails();
 
         _btnSaveGoal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,6 +168,28 @@ public class GoalEditFragment extends Fragment
             _selectedEndDate = date;
        }
     }
+
+    /**
+     * to initialize the customer details for edit
+     */
+    private void initializeGoalDetails() {
+
+        if (_selectedGoal != null) {
+            _goalName.setText(_selectedGoal.getTitle());
+            _goalDescription.setText(_selectedGoal.getDescription());
+            _goalStart.setText(_selectedGoal.getStartDate());
+            _goalEnd.setText(_selectedGoal.getDueDate());
+        }
+    }
+
+    /**
+     * when an existing goal is called to edit
+     * @param goal passes to set up existing
+     */
+    public void setExistingGoal(Goal goal){
+        _selectedGoal = goal;
+    }
+
 
     @Override
     public void onResume() {

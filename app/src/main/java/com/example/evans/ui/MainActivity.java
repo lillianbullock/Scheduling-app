@@ -329,6 +329,21 @@ public class MainActivity extends AppCompatActivity implements
         loadCurrentFragment(true);
     }
 
+
+    @Override
+    public void onEditGoal(Goal goal) {
+        if (goal != null){
+            GoalEditFragment frag = new GoalEditFragment();
+            frag.setExistingGoal(goal);
+            _currentFragment = frag;
+            loadCurrentFragment(true);
+
+        } else {
+            Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid Goal from main activity",
+                    Snackbar.LENGTH_LONG).show();
+        }
+    }
+
     @Override
     public void onClickGoal() {
         // TODO Implement
