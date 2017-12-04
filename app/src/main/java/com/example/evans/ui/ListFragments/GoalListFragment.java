@@ -67,6 +67,15 @@ public class GoalListFragment  extends Fragment implements OnGetDataListener {
         });
 
 
+        _goalListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(getActivity(), "Hey", Toast.LENGTH_LONG).show();
+            }
+        });
+
+
+
         //setting arrayAdapter
         ArrayList<Goal> newGoals = new ArrayList<>();
 
@@ -133,7 +142,7 @@ public class GoalListFragment  extends Fragment implements OnGetDataListener {
      * Interface that should be implemented by the container the activity that
      * creates this fragment. This method should be invoked when the user clicks on the plus button */
     public interface GoalsListFragmentListener {
-        void onClickGoal();
+        void viewWithGoal(Goal goal);
         void onClickAddGoal();
         List<Goal> getGoal(int num);
     }
