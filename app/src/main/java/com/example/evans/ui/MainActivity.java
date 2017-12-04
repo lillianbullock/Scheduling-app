@@ -54,6 +54,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity implements
         CustomerEditFragment.OnSubmitCustomerEdit,
         CustomerListFragment.CustomerListFragmentListener,
+        CustomerViewFragment.InteractionWithCustomerViewFragmentListener,
         ServiceEditFragment.OnSubmitServiceEdit,
         ServiceListFragment.ServiceListFragmentListener,
         GoalEditFragment.OnSubmitGoalEdit,
@@ -61,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements
         AppointmentListFragment.AppointmentListFragmentListener,
         AppointmentEditFragment.OnSubmitAppointment,
         DatePickerFragment.OnDateSetListener,
-        CustomerViewFragment.InteractionWithCustomerViewFragmentListener,
         SaleListFragment.SaleListFragmentListener,
         AppointmentViewFragment.InteractionWithAppointmentViewFragmentListener,
         SaleEditFragment.OnSubmitSaleEdit,
@@ -244,8 +244,34 @@ public class MainActivity extends AppCompatActivity implements
     public void onServiceCancel() { onBackPressed(); }
 
 
-        /******** CUSTOMER **********/
+
+    /******** CUSTOMER **********/
+
+
     @Override
+    public void onSetAppointmentCustomer(Customer customer) {
+        AppointmentEditFragment frag = new AppointmentEditFragment();
+        frag.setCustomer(customer);
+        _currentFragment = frag;
+        loadCurrentFragment(true);
+    }
+
+    @Override
+    public void onEditCustomer(Customer customer) {
+
+        if (customer != null){
+            CustomerEditFragment frag = new CustomerEditFragment();
+            frag.setExistingCustomer(customer);
+            _currentFragment = frag;
+            loadCurrentFragment(true);
+
+        } else {
+            Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid customer from mainactivity", Snackbar.LENGTH_LONG).show();
+
+        }
+    }
+
+        @Override
     public void onClickCustomer(Customer customer) {
         // TODO Handle customer click
     }
@@ -301,6 +327,21 @@ public class MainActivity extends AppCompatActivity implements
     public void onClickAddGoal() {
         _currentFragment = new GoalEditFragment();
         loadCurrentFragment(true);
+    }
+
+
+    @Override
+    public void onEditGoal(Goal goal) {
+        if (goal != null){
+            GoalEditFragment frag = new GoalEditFragment();
+            frag.setExistingGoal(goal);
+            _currentFragment = frag;
+            loadCurrentFragment(true);
+
+        } else {
+            Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid Goal from main activity",
+                    Snackbar.LENGTH_LONG).show();
+        }
     }
 
     @Override

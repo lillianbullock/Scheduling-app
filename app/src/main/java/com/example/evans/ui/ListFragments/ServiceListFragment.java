@@ -1,13 +1,18 @@
 package com.example.evans.ui.ListFragments;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.evans.R;
 import com.example.evans.data.Service;
@@ -25,6 +30,9 @@ public class ServiceListFragment extends Fragment {
     private View _rootView;  // how we can get access to view elements
     private ArrayList<Service> _services = new ArrayList<>();
     private ServiceListFragmentListener _hostActivityListener;
+
+    private ListView _listViewService;
+
 
     public ServiceListFragment() {
         // Required empty public constructor
@@ -49,11 +57,20 @@ public class ServiceListFragment extends Fragment {
 
         super.onCreate(savedInstanceState);
 
-        ListView listView = (ListView) _rootView.findViewById(R.id.service_list);
+        _listViewService = (ListView) _rootView.findViewById(R.id.service_list);
 
         ServiceAdapter adapter = new ServiceAdapter(getActivity(), R.layout.service_adapter, _services);
 
-        listView.setAdapter(adapter);
+        _listViewService.setAdapter(adapter);
+
+        _listViewService.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getContext(),"This is a Toast test", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         return _rootView;
     }
 
