@@ -7,9 +7,11 @@ import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.evans.R;
 import com.example.evans.data.FirebaseManager;
@@ -32,7 +34,7 @@ public class GoalListFragment  extends Fragment implements OnGetDataListener {
     private View _rootView;  // how we can get access to view elements
     private GoalsListFragmentListener _hostActivity;
     private ArrayList<Goal> _goals = new ArrayList<>();
-    ListView _goalList;
+    ListView _goalListView;
     private ProgressBar _progressBar;
     private GoalAdapter _goalArrayAdapter;
     private OnGetDataListener _onGetDataListener;
@@ -54,7 +56,7 @@ public class GoalListFragment  extends Fragment implements OnGetDataListener {
 
         _addFloatingBtn = (FloatingActionButton) _rootView.findViewById(R.id.floating_btn);
         _progressBar = _rootView.findViewById(R.id.goals_list_progressbar);
-        _goalList = (ListView) _rootView.findViewById(R.id.goal_list);
+        _goalListView = (ListView) _rootView.findViewById(R.id.goal_list);
         _goalArrayAdapter = new GoalAdapter(getActivity(), R.layout.goal_adapter, _goals);
 
         _addFloatingBtn.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +65,7 @@ public class GoalListFragment  extends Fragment implements OnGetDataListener {
                 onCreateGoal();
             }
         });
+
 
         //setting arrayAdapter
         ArrayList<Goal> newGoals = new ArrayList<>();
@@ -103,15 +106,9 @@ public class GoalListFragment  extends Fragment implements OnGetDataListener {
 
         _progressBar.setVisibility(ProgressBar.INVISIBLE);
 
-        ArrayList<String> strings = new ArrayList<>();
 
-        for (int i = 0; i < _goals.size(); i++){
-            String string = _goals.get(i).getTitle();
-            strings.add(string);
-        }
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, strings);
-        _goalList.setAdapter(arrayAdapter);
+        GoalAdapter goalAdapter = new GoalAdapter(getActivity(), R.layout.goal_adapter, _goals);
+        _goalListView.setAdapter(goalAdapter);
 
     }
 
