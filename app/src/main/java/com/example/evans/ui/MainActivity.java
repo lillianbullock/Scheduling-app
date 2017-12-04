@@ -573,9 +573,11 @@ public class MainActivity extends AppCompatActivity implements
      */
     @Override
     public void onBackPressed() {
-        if (_drawerLayout.isDrawerOpen(GravityCompat.START)){
+        if (_drawerLayout.isDrawerOpen(GravityCompat.START)
+                && getFragmentManager().getBackStackEntryCount() > 0){
             _drawerLayout.closeDrawer(GravityCompat.START);
         }
+
         // I'm pretty sure we don't want to pop off an empty backStack!
         if (getFragmentManager().getBackStackEntryCount() > 0) {
             getFragmentManager().popBackStack();

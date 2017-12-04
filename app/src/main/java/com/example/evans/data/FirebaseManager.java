@@ -219,7 +219,11 @@ public class FirebaseManager {
      * Get all the services in the database
      * @return List of Services
      */
-    public Map<String, Service> getServices() {
+    public Map<String, Service> getServices(final OnGetDataListener dataListener) {
+
+        if (dataListener == null){
+            throw new NullPointerException("NULL OnGetDataListener");
+        }
 
         final Map<String, Service> serviceMap = new TreeMap<>();
 
@@ -229,12 +233,7 @@ public class FirebaseManager {
         servicesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
-                // loop through anf get each service
-                for (DataSnapshot child: dataSnapshot.getChildren()){
-                    Service service = child.getValue(Service.class);
-                    serviceMap.put(service.getTitle(), service);
-                }
+                dataListener.onDataLoadSucceed(dataSnapshot);
             }
 
             @Override
@@ -373,7 +372,14 @@ public class FirebaseManager {
      * Returns all the goals in the database
      * @return List of Goals
      */
-    public List<Goal> getAllGoals() {
+    public List<Goal> getAllGoals(final OnGetDataListener onGetDataListener) {
+
+        if (onGetDataListener == null){
+            throw new NullPointerException("OnGetDataListener was not");
+        }
+
+        onGetDataListener.onDataLoadStarted();
+
         final List<Goal> goals = new ArrayList<>();
 
         Query goalsQuery = _databaseRoot.child(GOALS);
@@ -381,14 +387,12 @@ public class FirebaseManager {
         goalsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot child: dataSnapshot.getChildren()){
-                    Goal newGoal = child.getValue(Goal.class);
-                    goals.add(newGoal);
-                }
+                onGetDataListener.onDataLoadSucceed(dataSnapshot);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                onGetDataListener.onDataLoadFailed(databaseError);
                 Log.w(TAG, "Query to database for all goals cancelled");
             }
         });
