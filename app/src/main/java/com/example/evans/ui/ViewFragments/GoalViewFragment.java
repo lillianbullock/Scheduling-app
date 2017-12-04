@@ -89,6 +89,7 @@ public class GoalViewFragment extends Fragment {
     public interface InteractionWithGoalViewFragmentListener{
         //Goal getViewGoal();
         void onEditGoal(Goal goal);
+        void viewWithGoal(Goal goal);
     }
 
 }

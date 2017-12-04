@@ -34,6 +34,10 @@ public class GoalAdapter extends ArrayAdapter<Goal> {
         _goalList = objects;
     }
 
+    public GoalAdapter(Context context, int textViewResourceId){
+        super(context, textViewResourceId);
+    }
+
     @Override
     public int getCount() {
         return super.getCount();

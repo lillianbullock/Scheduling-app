@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.evans.R;
 import com.example.evans.data.Appointment;
@@ -345,11 +346,6 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onClickGoal() {
-        // TODO Implement
-    }
-
-    @Override
     public void onGoalEditCancel() {
         onBackPressed();
     }
@@ -374,14 +370,17 @@ public class MainActivity extends AppCompatActivity implements
         return _mainController.getGoalsWithLimit(num);
     }
 
-    /*
     @Override
-    public Goal getViewGoal() {
-            return null;
-    }*/
+    public void viewWithGoal(Goal goal) {
+        GoalViewFragment _frag = new GoalViewFragment();
+        _frag.setGoal(goal);
+        _currentFragment = _frag;
 
+        loadCurrentFragment(false);
 
-    /******* APPOINTMENT ******/
+    }
+
+        /******* APPOINTMENT ******/
     @Override
     public void onClickAppointment(Appointment appointment) {
         //TODO Handle CLick appointment
