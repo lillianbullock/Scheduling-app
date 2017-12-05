@@ -35,14 +35,14 @@ public class GoalViewFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_goal_view,container, false);
 
-        TextView name = (TextView) view.findViewById(R.id.txt_goal_view_name);
-        TextView detail = (TextView) view.findViewById(R.id.txt_goal_detail);
-        TextView startD = (TextView) view.findViewById(R.id.txt_goal_view_start_date);
-        TextView endD = (TextView) view.findViewById(R.id.txt_goal_view_end_date);
+        TextView name = view.findViewById(R.id.txt_goal_view_name);
+        TextView detail = view.findViewById(R.id.txt_goal_detail);
+        TextView startD = view.findViewById(R.id.txt_goal_view_start_date);
+        TextView endD = view.findViewById(R.id.txt_goal_view_end_date);
 
-        _editGoalBtn = (Button) view.findViewById(R.id.btn_edit_goal);
+        _editGoalBtn = view.findViewById(R.id.btn_edit_goal);
 
-        CheckBox _checkBox = (CheckBox) view.findViewById(R.id.goal_done_box);
+        CheckBox _checkBox = view.findViewById(R.id.goal_done_box);
 
         name.setText(_goal.getTitle());
         detail.setText(_goal.getDescription());
@@ -84,6 +84,10 @@ public class GoalViewFragment extends Fragment {
     }
 
 
+    /**
+     * Ensures parent activity has implemented the InteractionWithGoalViewFragment interface
+     * @param activity: the host activity
+     */
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);

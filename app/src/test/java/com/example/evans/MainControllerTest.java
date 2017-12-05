@@ -39,7 +39,7 @@ public class MainControllerTest {
         //List<Goal> getCurrentWeekGoals(LocalDateTime today)
 
         //List<Appointments> getAppointmentsForCustomer(Customer customer)
-        //List<Appointments> getTodaysAppointments(LocalDateTime today)
+        //List<Appointments> getTodayAppointments(LocalDateTime today)
         //List<Appointments> getAppointmentByMonth(Month month)
 
         //public List<Customer> getNewCustomers()

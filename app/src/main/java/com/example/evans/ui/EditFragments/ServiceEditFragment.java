@@ -54,7 +54,7 @@ public class ServiceEditFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_service_edit, container, false);
 
-        _title = (EditText) rootView.findViewById(R.id.etxt_service_title);
+        _title = rootView.findViewById(R.id.etxt_service_title);
         _description = rootView.findViewById(R.id.etxt_service_description);
         _price = rootView.findViewById(R.id.etxt_service_price);
 

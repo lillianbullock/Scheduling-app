@@ -28,7 +28,7 @@ public class StartPageFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_start_page, container, false);
     }
 
-    
+
 
     /**
      * This interface must be implemented by the container Activity

@@ -72,7 +72,6 @@
     <!-- set this as the default string in layouts where it will be overwritten-->
     <string name="default_string">Default</string>
 
-    <string name="currency">$</string>
     <string name="title">Title</string>
 
     <string name="currency"> $ </string>

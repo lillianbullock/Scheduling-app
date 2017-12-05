@@ -37,7 +37,7 @@ public class SaleListFragment extends Fragment {
         //Set rootView to layout
         _rootView = inflater.inflate(R.layout.fragment_sale_list, contain, false);
 
-        _addFloatingBtn = (FloatingActionButton) _rootView.findViewById(R.id.floating_sale_btn);
+        _addFloatingBtn = _rootView.findViewById(R.id.floating_sale_btn);
 
         // Set the onClickListener for the floating button.
         _addFloatingBtn.setOnClickListener(new View.OnClickListener() {
@@ -64,7 +64,7 @@ public class SaleListFragment extends Fragment {
         //TODO ADD IN WITH FIREBASE
         //saleList = (ArrayList) _hostActivityListener.getSale();
 
-        simpleList = (ListView) _rootView.findViewById(R.id.sale_list);
+        simpleList = _rootView.findViewById(R.id.sale_list);
 
         SaleAdapter adapter = new SaleAdapter(getActivity(), R.layout.sale_adapter, saleList);
         simpleList.setAdapter(adapter);
@@ -81,8 +81,7 @@ public class SaleListFragment extends Fragment {
     }
 
     /**
-     * Sale Attach, want to make sure that the activity that uses this fragment
-     * has implemented our SaleListFragmentListener interface
+     * Ensures parent activity has implemented the InteractionWithSaleListFragment interface
      * @param activity: the host activity
      */
     @Override

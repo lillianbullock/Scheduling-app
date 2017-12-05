@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.example.evans.R;
 import com.example.evans.data.Appointment;
@@ -267,7 +266,7 @@ public class MainActivity extends AppCompatActivity implements
             loadCurrentFragment(true);
 
         } else {
-            Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid customer from mainactivity", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid customer from mainActivity", Snackbar.LENGTH_LONG).show();
 
         }
     }
@@ -423,7 +422,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 
-    @Override
+    /*@Override
     public void onAddAppointmentClickForCustomer(Customer customer) {
 
         AppointmentEditFragment appointmentEditFragment = new AppointmentEditFragment();
@@ -431,7 +430,7 @@ public class MainActivity extends AppCompatActivity implements
 
         _currentFragment = appointmentEditFragment;
         loadCurrentFragment(false);
-    }
+    }*/
 
     @Override
     public void hideActionbar() {
@@ -495,12 +494,12 @@ public class MainActivity extends AppCompatActivity implements
     private void initializeToolbarAndNavigationDrawer() {
 
         // Set the app toolbar programmatically
-        Toolbar toolbar = (Toolbar) findViewById(R.id.app_toolbar);
+        Toolbar toolbar = findViewById(R.id.app_toolbar);
         toolbar.setTitle(R.string.app_name);
         setSupportActionBar(toolbar);
 
         // Initialize the navigation view (nav bar) and set a click listener for its menu items
-        NavigationView navigationView = (NavigationView) findViewById(R.id.main_nav_view);
+        NavigationView navigationView = findViewById(R.id.main_nav_view);
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -512,7 +511,7 @@ public class MainActivity extends AppCompatActivity implements
 
 
         // More initialization
-        _drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        _drawerLayout = findViewById(R.id.drawer_layout);
 
         // This will add the hamburger icon to the left of the screen and allow for toggling
         _actionBarToggle = new ActionBarDrawerToggle(MainActivity.this,

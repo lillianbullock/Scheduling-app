@@ -16,24 +16,27 @@ public class Appointment implements Comparable, Financial {
     private LocalDate _date;
     private LocalTime _time;
     private String _customerId;
-    private Boolean _due;
     private Service _service;
+    private Boolean _due;
     private Boolean _attended;
     
     public Appointment() {
+        _id = null;
         _title = "";
         _date = LocalDate.now();
         _time = LocalTime.now();
         _customerId = null;
-        _due = false;
         _service = null;
+        _due = false;
         _attended = false;
     }
 
-    public Appointment(String title, LocalDate date, String customerId, Boolean due,
+    public Appointment(String title, LocalDate date, LocalTime time, String customerId, Boolean due,
                 Service service, Boolean attended) {
+        this._id = null;
         this._title = title;
         this._date = date;
+        this._time = time;
         this._customerId = customerId;
         this._due = due;
         this._service = service;
@@ -41,11 +44,14 @@ public class Appointment implements Comparable, Financial {
     }
 
     public Appointment(String title, LocalDate date, LocalTime time, String customerId, Service service) {
+        this._id = null;
         this._title = title;
         this._date = date;
+        this._time = time;
         this._customerId = customerId;
         this._service = service;
-        this._time = time;
+        this._due = false;
+        this._attended = false;
     }
 
     public String getId() { return _id; }

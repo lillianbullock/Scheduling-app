@@ -1,6 +1,5 @@
 package com.example.evans.ui.ListFragments;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
@@ -45,7 +44,7 @@ public class ServiceListFragment extends Fragment {
 
         // Inflate the layout for this fragment
         _rootView = inflater.inflate(R.layout.fragment_service_list, container, false);
-        _addFloatingBtn = (FloatingActionButton) _rootView.findViewById(R.id.floating_add_btn);
+        _addFloatingBtn = _rootView.findViewById(R.id.floating_add_btn);
 
         // Set the onClickListener for the floating button.
         _addFloatingBtn.setOnClickListener(new View.OnClickListener() {
@@ -58,7 +57,7 @@ public class ServiceListFragment extends Fragment {
 
         super.onCreate(savedInstanceState);
 
-        _listViewService = (ListView) _rootView.findViewById(R.id.service_list);
+        _listViewService = _rootView.findViewById(R.id.service_list);
 
         ServiceAdapter adapter = new ServiceAdapter(getActivity(), R.layout.service_adapter, _services);
 
@@ -89,11 +88,7 @@ public class ServiceListFragment extends Fragment {
     }
 
     /**
-     * We want to make sure that the activity that uses this fragment
-     * has implemented our InteractionWithServiceFragment interface. We
-     * check for this by trying to cast the activity to an instance of
-     * InteractionWithServiceFragment, if it fails then that means that the
-     * interface wasn't implemented. We have to say something about that!
+     * Ensures parent activity has implemented the InteractionWithServiceListFragment interface
      * @param activity: the host activity
      */
     @Override

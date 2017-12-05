@@ -73,11 +73,11 @@ public class SaleEditFragment extends Fragment
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_sale_edit, container, false);
 
-        _date           = (EditText) view.findViewById(R.id.etxt_sale_date);
-        _serviceSpinner = (Spinner) view.findViewById(R.id.spinner_sale_type);
-        _servicePrice   = (EditText) view.findViewById(R.id.etxt_sale_price);
-        _btnSave        = (Button) view.findViewById(R.id.btn_edit_bar_save);
-        _btnCancel      = (Button) view.findViewById(R.id.btn_edit_bar_cancel);
+        _date           = view.findViewById(R.id.etxt_sale_date);
+        _serviceSpinner = view.findViewById(R.id.spinner_sale_type);
+        _servicePrice   = view.findViewById(R.id.etxt_sale_price);
+        _btnSave        = view.findViewById(R.id.btn_edit_bar_save);
+        _btnCancel      = view.findViewById(R.id.btn_edit_bar_cancel);
         _servicesMap    = new HashMap<>();
         _servicesMap    = _hostActivity.getServices();
 

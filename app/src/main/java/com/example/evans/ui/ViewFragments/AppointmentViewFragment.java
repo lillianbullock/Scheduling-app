@@ -65,14 +65,14 @@ public class AppointmentViewFragment extends Fragment {
         }
 
         // collects the views that need to be changed to display stuff
-        TextView name = (TextView) view.findViewById(R.id.txt_appt_view_customer_name);
-        TextView email = (TextView) view.findViewById(R.id.txt_appt_view_customer_email);
-        TextView phone = (TextView) view.findViewById(R.id.txt_appt_view_customer_phone);
-        TextView service = (TextView) view.findViewById(R.id.txt_appointment_view_service);
-        TextView price = (TextView) view.findViewById(R.id.txt_appointment_view_price);
-        TextView date = (TextView) view.findViewById(R.id.txt_appointment_view_date);
-        TextView time = (TextView) view.findViewById(R.id.txt_appointment_view_time);
-        CheckBox showedUp = (CheckBox) view.findViewById(R.id.chk_showed_up);
+        TextView name = view.findViewById(R.id.txt_appt_view_customer_name);
+        TextView email = view.findViewById(R.id.txt_appt_view_customer_email);
+        TextView phone = view.findViewById(R.id.txt_appt_view_customer_phone);
+        TextView service = view.findViewById(R.id.txt_appointment_view_service);
+        TextView price = view.findViewById(R.id.txt_appointment_view_price);
+        TextView date = view.findViewById(R.id.txt_appointment_view_date);
+        TextView time = view.findViewById(R.id.txt_appointment_view_time);
+        CheckBox showedUp = view.findViewById(R.id.chk_showed_up);
 
         // sets the views with the data from passed classes
         name.setText(_customer.getName());
@@ -103,7 +103,7 @@ public class AppointmentViewFragment extends Fragment {
     }
 
     /**
-     * Ensures parent activity has implemented the InteractionWithCustomerViewFragment interface.
+     * Ensures parent activity has implemented the InteractionWithAppointmentViewFragment interface.
      *
      * @param activity: the host activity
      */

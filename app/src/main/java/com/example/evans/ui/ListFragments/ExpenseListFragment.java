@@ -14,7 +14,6 @@ import com.example.evans.R;
 import com.example.evans.data.Expense;
 import com.example.evans.ui.Adapters.ExpenseAdapter;
 
-import org.joda.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,9 +42,9 @@ public class ExpenseListFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_expense_list, container, false);
 
         ListView simpleList;
-        simpleList = (ListView) rootView.findViewById(R.id.expense_list);
+        simpleList = rootView.findViewById(R.id.expense_list);
 
-        _addFloatingBtn = (FloatingActionButton) rootView.findViewById(R.id.floating_add_btn_expense);
+        _addFloatingBtn = rootView.findViewById(R.id.floating_add_btn_expense);
         _addFloatingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,7 +54,6 @@ public class ExpenseListFragment extends Fragment {
 
         //setting arrayAdapter
         ArrayList<Expense> expenseList = new ArrayList<>(_hostActivityListener.getExpenses());
-
 
         ExpenseAdapter adapter = new ExpenseAdapter(getActivity(), R.layout.expense_adapter, expenseList);
         simpleList.setAdapter(adapter);
@@ -72,11 +70,7 @@ public class ExpenseListFragment extends Fragment {
     }
 
     /**
-     * We want to make sure that the activity that uses this fragment
-     * has implemented our InteractionWithCustomerFragment interface. We
-     * check for this by trying to cast the activity to an instance of
-     * InteractionWithCustomerFragment, if it fails then that means that the
-     * interface wasn't implemented. We have to say something about that!
+     * Ensures parent activity has implemented the InteractionWithExpenseListFragment interface
      * @param activity: the host activity
      */
     @Override

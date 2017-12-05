@@ -60,7 +60,7 @@ public class GoalAdapter extends ArrayAdapter<Goal> {
             _viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        if(_goalList.get(position) != null) {
+        if((_goalList.get(position)) != null) {
             _viewHolder.title.setText(_goalList.get(position).getTitle());
             _viewHolder.dueDate.setText(_goalList.get(position).getDueDate());
 

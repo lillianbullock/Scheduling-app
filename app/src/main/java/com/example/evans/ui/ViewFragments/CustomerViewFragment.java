@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.example.evans.R;
 import com.example.evans.data.Customer;
-import com.example.evans.ui.KeyboardControl;
 
 /**
  * {@link Fragment} subclass to view the customer data.
@@ -45,12 +44,11 @@ public class CustomerViewFragment extends Fragment {
         //_customer = new Customer("0", "Customer1", "email1", "000 000 0000", new LocalDateTime());
 
         // collects the views to display the data
-        TextView name = (TextView) view.findViewById(R.id.txt_view_name);
-        TextView email = (TextView) view.findViewById(R.id.txt_view_email);
-        TextView phone = (TextView) view.findViewById(R.id.txt_view_phone);
+        TextView name = view.findViewById(R.id.txt_view_name);
+        TextView email = view.findViewById(R.id.txt_view_email);
+        TextView phone = view.findViewById(R.id.txt_view_phone);
 
         _setAppointmentBtn = view.findViewById(R.id.btn_set_appt);
-        _editAppointmentBtn = view.findViewById(R.id.btn_edit_customer);
 
         //sets views to the customer data
         name.setText(_customer.getName());

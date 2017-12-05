@@ -1,6 +1,6 @@
 package com.example.evans.ui.ViewFragments;
 
-import android.content.Context;
+import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -89,13 +89,17 @@ public class SalesViewFragment extends Fragment {
         _hostActivity.showActionbar();
     }
 
+    /**
+     * Ensures parent activity has implemented the InteractionWithSalesViewFragment interface
+     * @param activity: the host activity
+     */
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            _hostActivity = (OnFragmentInteractionListener) context;
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof OnFragmentInteractionListener) {
+            _hostActivity = (OnFragmentInteractionListener) activity;
         } else {
-            throw new RuntimeException(context.toString()
+            throw new RuntimeException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
         }
     }

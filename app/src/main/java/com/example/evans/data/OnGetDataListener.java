@@ -9,15 +9,16 @@ import com.google.firebase.database.DatabaseError;
  */
 
 public interface OnGetDataListener {
+    //strings are all static
+    String SERVICES = "Services";
+    String CUSTOMERS = "Customers";
+    String APPOINTMENTS = "Appointments";
+    String GOALS = "Goals";
+    String SALES = "Sales";
+    String EXPENSES = "Expenses";
 
-    static String SERVICES = "Services";
-    static String CUSTOMERS = "Customers";
-    static String APPOINTMENTS = "Appointments";
-    static String GOALS = "Goals";
-    static String SALES = "Sales";
-    static String EXPENSES = "Expenses";
-
-    public void onDataLoadStarted();
-    public void onDataLoadSucceed(DataSnapshot dataSnapshot);
-    public void onDataLoadFailed(DatabaseError databaseError);
+    //interface functions are public
+    void onDataLoadStarted();
+    void onDataLoadSucceed(DataSnapshot dataSnapshot);
+    void onDataLoadFailed(DatabaseError databaseError);
 }

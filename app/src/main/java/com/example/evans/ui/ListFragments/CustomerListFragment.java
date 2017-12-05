@@ -38,7 +38,7 @@ public class CustomerListFragment extends Fragment {
         // Inflate the layout for this fragment
         _rootView = inflater.inflate(R.layout.fragment_customer_list, container, false);
 
-        _addFloatingBtn = (FloatingActionButton) _rootView.findViewById(R.id.floating_add_btn);
+        _addFloatingBtn = _rootView.findViewById(R.id.floating_add_btn);
 
         // Set the onClickListener for the floating button.
         _addFloatingBtn.setOnClickListener(new View.OnClickListener() {
@@ -65,7 +65,7 @@ public class CustomerListFragment extends Fragment {
         //TODO put this back when app actually gets data from database (and take out dummy data above)
         //customerList = (ArrayList) _hostActivityListener.getCustomers();
 
-        simpleList = (ListView) _rootView.findViewById(R.id.customer_list);
+        simpleList = _rootView.findViewById(R.id.customer_list);
 
         CustomerAdapter adapter = new CustomerAdapter(getActivity(), R.layout.customer_adapter, customerList);
         simpleList.setAdapter(adapter);
@@ -82,11 +82,7 @@ public class CustomerListFragment extends Fragment {
     }
 
     /**
-     * We want to make sure that the activity that uses this fragment
-     * has implemented our InteractionWithCustomerFragment interface. We
-     * check for this by trying to cast the activity to an instance of
-     * InteractionWithCustomerFragment, if it fails then that means that the
-     * interface wasn't implemented. We have to say something about that!
+     * Ensures parent activity has implemented the InteractionWithCustomerListFragment interface
      * @param activity: the host activity
      */
     @Override

@@ -65,12 +65,12 @@ public class FinancialReportFragment extends Fragment
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_financial_report, container, false);
 
-        _profit         = (EditText) rootView.findViewById(R.id.etxt_fin_rep_profit);
-        _cost           = (EditText) rootView.findViewById(R.id.etxt_fin_rep_cost);
-        _net            = (EditText) rootView.findViewById(R.id.etxt_fin_rep_net);
-        _startDate      = (EditText) rootView.findViewById(R.id.etxt_fin_rep_start);
-        _endDate        = (EditText) rootView.findViewById(R.id.etxt_fin_rep_end);
-        _bttnCalculate  = (Button)   rootView.findViewById(R.id.bttn_fin_rep_cancel);
+        _profit         = rootView.findViewById(R.id.etxt_fin_rep_profit);
+        _cost           = rootView.findViewById(R.id.etxt_fin_rep_cost);
+        _net            = rootView.findViewById(R.id.etxt_fin_rep_net);
+        _startDate      = rootView.findViewById(R.id.etxt_fin_rep_start);
+        _endDate        = rootView.findViewById(R.id.etxt_fin_rep_end);
+        _bttnCalculate  = rootView.findViewById(R.id.bttn_fin_rep_cancel);
 
         _formatter = DateTimeFormat.forPattern("dd, MMMM yyyy");
 

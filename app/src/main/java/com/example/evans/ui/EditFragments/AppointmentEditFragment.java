@@ -2,7 +2,6 @@ package com.example.evans.ui.EditFragments;
 
 import android.app.Activity;
 import android.app.DialogFragment;
-import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.Snackbar;
@@ -74,16 +73,16 @@ public class AppointmentEditFragment extends Fragment
                              Bundle savedInstanceState) {
         View rootView =inflater.inflate(R.layout.fragment_appointment_edit, container, false);
 
-        _name           = (EditText) rootView.findViewById(R.id.etxt_customer_name);
-        _phone          = (EditText) rootView.findViewById(R.id.etxt_customer_phone);
-        _email          = (EditText) rootView.findViewById(R.id.etxt_customer_email);
-        _date           = (EditText) rootView.findViewById(R.id.etxt_appointment_date);
-        _time           = (EditText) rootView.findViewById(R.id.etxt_appointment_time);
-        _serviceSpinner = (Spinner) rootView.findViewById(R.id.spinner_sales_type);
-        _servicePrice   = (EditText) rootView.findViewById(R.id.etxt_price);
-        _notes          = (EditText) rootView.findViewById(R.id.etxt_appointment_note);
-        _btnSave        = (Button) rootView.findViewById(R.id.btn_edit_bar_save);
-        _btnCancel      = (Button) rootView.findViewById(R.id.btn_edit_bar_cancel);
+        _name           = rootView.findViewById(R.id.etxt_customer_name);
+        _phone          = rootView.findViewById(R.id.etxt_customer_phone);
+        _email          = rootView.findViewById(R.id.etxt_customer_email);
+        _date           = rootView.findViewById(R.id.etxt_appointment_date);
+        _time           = rootView.findViewById(R.id.etxt_appointment_time);
+        _serviceSpinner = rootView.findViewById(R.id.spinner_sales_type);
+        _servicePrice   = rootView.findViewById(R.id.etxt_price);
+        _notes          = rootView.findViewById(R.id.etxt_appointment_note);
+        _btnSave        = rootView.findViewById(R.id.btn_edit_bar_save);
+        _btnCancel      = rootView.findViewById(R.id.btn_edit_bar_cancel);
 
         _servicesMap    = _hostActivity.getServices();
 
