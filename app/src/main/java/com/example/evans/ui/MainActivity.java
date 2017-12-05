@@ -39,6 +39,7 @@ import com.example.evans.ui.ListFragments.ServiceListFragment;
 import com.example.evans.ui.ViewFragments.AppointmentViewFragment;
 import com.example.evans.ui.ViewFragments.CustomerViewFragment;
 import com.example.evans.ui.ViewFragments.GoalViewFragment;
+import com.example.evans.ui.ViewFragments.ServiceViewFragment;
 
 import org.joda.time.LocalDate;
 
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements
         CustomerListFragment.CustomerListFragmentListener,
         CustomerViewFragment.InteractionWithCustomerViewFragmentListener,
         ServiceEditFragment.OnSubmitServiceEdit,
+        ServiceViewFragment.InteractionWithServiceViewFragmentListener,
         ServiceListFragment.ServiceListFragmentListener,
         GoalEditFragment.OnSubmitGoalEdit,
         GoalListFragment.GoalsListFragmentListener,
@@ -222,7 +224,12 @@ public class MainActivity extends AppCompatActivity implements
 
         if (service != null) {
             _mainController.addService(service.getTitle(), service);
-            _currentFragment = new ServiceListFragment();
+            _currentFragment = new ServiceViewFragment();
+
+            ServiceViewFragment _frag = new ServiceViewFragment();
+            _frag.setService(service);
+            _currentFragment = _frag;
+
             loadCurrentFragment(false);
 
         } else {
@@ -238,16 +245,38 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onClickService(Service service) {
-            // TODO Handle service click
+        ServiceViewFragment _frag = new ServiceViewFragment();
+        _frag.setService(service);
+        _currentFragment = _frag;
+        loadCurrentFragment(false);
     }
+
     @Override
     public void onServiceCancel() { onBackPressed(); }
+
+    @Override
+    public void onEditService(Service service) {
+        if (service != null){
+            ServiceEditFragment frag = new ServiceEditFragment();
+            frag.setExistingService(service);
+            _currentFragment = frag;
+            loadCurrentFragment(true);
+
+        } else {
+            Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid customer from mainactivity", Snackbar.LENGTH_LONG).show();
+
+        }
+
+    }
+
+    @Override
+    public void viewWithService(Service service) {
+
+    }
 
 
 
     /******** CUSTOMER **********/
-
-
     @Override
     public void onSetAppointmentCustomer(Customer customer) {
         AppointmentEditFragment frag = new AppointmentEditFragment();
@@ -271,9 +300,13 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
-        @Override
+    @Override
     public void onClickCustomer(Customer customer) {
-        // TODO Handle customer click
+            CustomerViewFragment _frag = new CustomerViewFragment();
+            _frag.setCustomer(customer);
+            _currentFragment = _frag;
+
+            loadCurrentFragment(false);
     }
 
     @Override

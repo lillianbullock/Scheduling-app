@@ -28,13 +28,13 @@ public class ServiceEditFragment extends Fragment {
     private EditText _description;
     private EditText _price;
 
+    private Service _selectedService;
+
     private Button _saveBtn;
     private Button _cancelBtn;
 
-
     // for closing the keyboard
     private static final int DONE = EditorInfo.IME_ACTION_DONE;
-
 
     // define a new instance of OnSubmitServiceEdit that would hold an instance of the host activity and will
     // be able to call the methods that we've demanded to be created
@@ -44,7 +44,6 @@ public class ServiceEditFragment extends Fragment {
     public ServiceEditFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,8 +61,7 @@ public class ServiceEditFragment extends Fragment {
         _cancelBtn = rootView.findViewById(R.id.btn_edit_bar_cancel);
 
 
-
-
+        initializeServiceDetails();
 
         // Set the click lister
         _saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +79,6 @@ public class ServiceEditFragment extends Fragment {
                 }
             }
         });
-
 
         // onCancel
         _cancelBtn.setOnClickListener(new View.OnClickListener() {
@@ -104,7 +101,6 @@ public class ServiceEditFragment extends Fragment {
         } catch (Exception e) {
             // Do nothing
         }
-
     }
 
     private Service createService() {
@@ -112,7 +108,6 @@ public class ServiceEditFragment extends Fragment {
         if (_title.getText().toString().isEmpty() || _price.getText().toString().isEmpty()) {
             return null;
         }
-
 
         Service newService = null;
 
@@ -131,6 +126,27 @@ public class ServiceEditFragment extends Fragment {
      */
     double convertPriceStringToDouble(String priceStr) {
         return Double.parseDouble(priceStr.replaceAll("[^0-9.]", ""));
+    }
+
+    /**
+     * to initialize the customer details for edit
+     */
+    private void initializeServiceDetails() {
+
+        if (_selectedService != null) {
+            _title.setText(_selectedService.getTitle());
+            _price.setText(_selectedService.getPrice().toString());
+            _description.setText(_selectedService.getDescription());
+        }
+    }
+
+
+    /**
+     * when an existing goal is called to edit
+     * @param service passes to set up existing
+     */
+    public void setExistingService(Service service){
+        _selectedService = service;
     }
 
     @Override
@@ -162,6 +178,8 @@ public class ServiceEditFragment extends Fragment {
             throw new ClassCastException(activity.toString() + " must implement OnSubmitServiceEdit");
         }
     }
+
+
 
     /**
      * This interface must be implemented by the container Activity

@@ -734,8 +734,6 @@ public class FirebaseManager {
         if(customer == null){
             return;
         }
-
-
         _databaseRoot.child(CUSTOMERS).child(customerId).setValue(customer);
     }
 
@@ -749,7 +747,6 @@ public class FirebaseManager {
         if(appointment == null){
             return;
         }
-
         _databaseRoot.child(APPOINTMENTS).child(id).setValue(appointment);
     }
 
@@ -763,7 +760,6 @@ public class FirebaseManager {
         if (service == null){
             return;
         }
-
         _databaseRoot.child(SERVICES).child(id).setValue(service);
     }
 
@@ -776,7 +772,6 @@ public class FirebaseManager {
         if(sale == null){
             return;
         }
-
         _databaseRoot.child(SALES).child(id).setValue(sale);
     }
 
@@ -789,7 +784,6 @@ public class FirebaseManager {
         if(goal == null){
             return;
         }
-
         _databaseRoot.child(GOALS).child(id).setValue(goal);
 
     }
@@ -808,8 +802,6 @@ public class FirebaseManager {
         _databaseRoot.child(EXPENSES).child(id).setValue(expense);
 
     }
-
-
 
 
     /* Delete operations */

@@ -29,7 +29,7 @@
             app:layout_constraintTop_toBottomOf="@+id/goal_view_bar" />
 
         <TextView
-            android:id="@+id/txt_goal_detail"
+            android:id="@+id/txt_goal_details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -52,7 +52,7 @@
             android:textSize="20sp"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_goal_detail" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_goal_details" />
 
         <TextView
             android:id="@+id/txt_goal_view_end_date"
@@ -64,7 +64,7 @@
             android:textSize="20sp"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_goal_detail" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_goal_details" />
 
         <Button
             android:id="@+id/btn_edit_goal"
