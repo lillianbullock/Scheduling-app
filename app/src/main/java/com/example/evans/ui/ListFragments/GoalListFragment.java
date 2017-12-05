@@ -19,9 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Brooke Nelson on 11/9/2017
+ * {@link Fragment} subclass that lists all relevant appointments
+ * uses the {@link GoalAdapter} to display each item.
  */
-
 public class GoalListFragment  extends Fragment {
 
     private FloatingActionButton _addFloatingBtn;
@@ -75,6 +75,10 @@ public class GoalListFragment  extends Fragment {
         _goals.addAll(goals);
     }
 
+    public void onCreateGoal() {
+        _hostActivity.onClickAddGoal();
+    }
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -88,15 +92,12 @@ public class GoalListFragment  extends Fragment {
     }
 
     /**
-     * Interface that should be implemented by the container the activity that
-     * creates this fragment. This method should be invoked when the user clicks on the plus button */
+     * This interface must be implemented by the container Activity
+     * This is how we'll be able to communicate with the parent activity.
+     */
     public interface GoalsListFragmentListener {
         void onClickGoal();
         void onClickAddGoal();
         List<Goal> getGoal(int num);
-    }
-
-    public void onCreateGoal() {
-        _hostActivity.onClickAddGoal();
     }
 }

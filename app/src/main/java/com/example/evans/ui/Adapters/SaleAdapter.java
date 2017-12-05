@@ -34,7 +34,6 @@ public class SaleAdapter extends ArrayAdapter<Sale> {
         _salesList = objects;
     }
 
-
     @Override
     public int getCount() {
         return super.getCount();
@@ -49,9 +48,9 @@ public class SaleAdapter extends ArrayAdapter<Sale> {
         convertView = inflater.inflate(R.layout.sale_adapter, parent, false);
 
             _viewHolder = new SaleViewHolder();
-            _viewHolder.service = (TextView) convertView.findViewById(R.id.array_adapter_sales_service);
-            _viewHolder.price = (TextView) convertView.findViewById(R.id.array_adapter_sales_price);
-            _viewHolder.date = (TextView) convertView.findViewById(R.id.array_adapter_sales_date);
+            _viewHolder.service = convertView.findViewById(R.id.array_adapter_sales_service);
+            _viewHolder.price = convertView.findViewById(R.id.array_adapter_sales_price);
+            _viewHolder.date = convertView.findViewById(R.id.array_adapter_sales_date);
 
             convertView.setTag(_viewHolder);
 

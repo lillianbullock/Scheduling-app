@@ -1,8 +1,8 @@
 package com.example.evans.ui.EditFragments;
 
 
+import android.app.Activity;
 import android.app.DialogFragment;
-import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.Snackbar;
@@ -25,8 +25,7 @@ import java.util.List;
 
 
 /**
- * A simple {@link Fragment} subclass.
- *
+ * {@link Fragment} subclass to edit goal data.
  */
 public class GoalEditFragment extends Fragment
         implements DatePickerFragment.OnDateSetListener {
@@ -177,7 +176,27 @@ public class GoalEditFragment extends Fragment
         _hostActivity.showActionbar();
     }
 
+    /**
+     * Override onAttach to make sure that the container activity has implemented the callback we specified in
+     * our interface
+     */
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
 
+        // make sure that the container class implemented our interface. If it did then it can be casted
+        // if not then we know it did not therefore throw an error
+        try {
+            _hostActivity = (OnSubmitGoalEdit) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement OnSubmitGoalEdit");
+        }
+    }
+
+    /**
+     * This interface must be implemented by the container Activity
+     * This is how we'll be able to communicate with the parent activity.
+     */
     public interface OnSubmitGoalEdit {
         void onGoalEditFinish (Goal goal);
         List<Goal> getGoal();
@@ -186,21 +205,4 @@ public class GoalEditFragment extends Fragment
         void showActionbar();
     }
 
-
-    /**
-     * Override onAttach to make sure that the container activity has implemented the callback we specified in
-     * our interface
-     */
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        // make sure that the container class implemented our interface. If it did then it can be casted
-        // if not then we know it did not therefore throw an error
-        try {
-            _hostActivity = (OnSubmitGoalEdit) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement OnSubmitGoalEdit");
-        }
-    }
 }

@@ -1,5 +1,6 @@
 package com.example.evans.ui.EditFragments;
 
+import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -34,8 +35,7 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * This fragment will be loaded when the user tries to create a new appointment
- * or edit an existing appointment
+ * {@link Fragment} subclass to edit appointment data.
  */
 public class AppointmentEditFragment extends Fragment
         implements DatePickerFragment.OnDateSetListener,
@@ -93,7 +93,6 @@ public class AppointmentEditFragment extends Fragment
         // Initialize customer details
         initializeCustomerDetails();
 
-
         // Onclick listener for the save button
         _btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,8 +139,6 @@ public class AppointmentEditFragment extends Fragment
             }
         });
 
-
-
         /* Listen for when an item is selected and set the price accordingly */
         _serviceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -168,7 +165,6 @@ public class AppointmentEditFragment extends Fragment
         // return the inflated layout for this fragment
         return rootView;
     }
-
 
     /**
      * Create an appointment
@@ -207,10 +203,7 @@ public class AppointmentEditFragment extends Fragment
 
         // return appointment;
         return appointment;
-
-
     }
-
 
     @Override
     public void onDateSet(LocalDate date) {
@@ -226,14 +219,11 @@ public class AppointmentEditFragment extends Fragment
         _time.setText(timeFormatter.print(time));
     }
 
-
     /**
      * Call the host activity's getCustomerForAppointment and use the customer details
      * to initialize the customer details for the appointment
      */
     private void initializeCustomerDetails() {
-
-
         if (_selectedCustomer != null) {
             _name.setText(_selectedCustomer.getName());
             _email.setText(_selectedCustomer.getEmail());
@@ -267,9 +257,9 @@ public class AppointmentEditFragment extends Fragment
 
         List<Service> newTest = new ArrayList<>();
 
-        for(Service service: _hostActivity.getServices().values()){
-
-        }
+        //TODO this was in here, and we don't think it has a purpose
+        /*for(Service service: _hostActivity.getServices().values()){
+        }*/
 
         List<String> servicesNames = new ArrayList<>(_hostActivity.getServices().keySet());
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
@@ -278,46 +268,39 @@ public class AppointmentEditFragment extends Fragment
                 servicesNames);
 
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-
         _serviceSpinner.setAdapter(adapter);
-
     }
-
 
     /**
      *  isValid: Return true is the passed email string matches the specified
      *  regEx pattern, false otherwise
      */
     public static boolean isValidEmail(String email) {
-
         String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-
-        return (email.matches(EMAIL_REGEX));
+        return email.matches(EMAIL_REGEX);
     }
-
 
     /**
      * Override onAttach to make sure that the container activity has implemented the callback we specified in
      * our interface
      */
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
 
         // make sure that the container class implemented our interface. If it did then it can be casted
         // if not then we know it did not therefore throw an error
         try {
-            _hostActivity = (OnSubmitAppointment) context;
+            _hostActivity = (OnSubmitAppointment) activity;
         } catch (ClassCastException e) {
             Log.e(TAG, "The Host activity did not implement OnSubmitAppointment");
-            throw new ClassCastException(context.toString() + " must implement OnSubmitAppointment");
+            throw new ClassCastException(activity.toString() + " must implement OnSubmitAppointment");
         }
-
     }
 
     /**
-     * Interface that the activate that creates this fragment must implement. This interface will
-     * handle when a new appointment has been added
+     * This interface must be implemented by the container Activity
+     * This is how we'll be able to communicate with the parent activity.
      */
     public interface OnSubmitAppointment {
         void onAppointmentEditFinish (Customer customer, Appointment appointment);
@@ -326,6 +309,4 @@ public class AppointmentEditFragment extends Fragment
         void hideActionbar();
         void showActionbar();
     }
-
-
 }

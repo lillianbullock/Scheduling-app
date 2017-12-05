@@ -15,13 +15,12 @@ import com.example.evans.data.Goal;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * {@link Fragment} subclass to view goal data.
  */
-
 public class GoalViewFragment extends Fragment {
 
     private Goal _goal;
-    private InteractionWithGoalViewFragmentListener _hostListener;
+    private InteractionWithGoalViewFragmentListener _hostActivity;
 
     public GoalViewFragment() {
         // Required empty public constructor
@@ -62,11 +61,24 @@ public class GoalViewFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        _hostActivity.hideActionbar();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        _hostActivity.showActionbar();
+    }
+
+
+    @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         //check for implementation by trying to cast to an instance of the interface
         try {
-            _hostListener = (InteractionWithGoalViewFragmentListener) activity;
+            _hostActivity = (InteractionWithGoalViewFragmentListener) activity;
         } catch (ClassCastException e) {
             // if fails, interface wasn't implemented
             throw new ClassCastException(activity.toString() + " must implement " +
@@ -74,7 +86,14 @@ public class GoalViewFragment extends Fragment {
         }
     }
 
+    /**
+     * This interface must be implemented by the container Activity
+     * This is how we'll be able to communicate with the parent activity.
+     */
     public interface InteractionWithGoalViewFragmentListener{
+        void hideActionbar();
+        void showActionbar();
+
         //Goal getViewGoal();
     }
 

@@ -19,7 +19,7 @@
             android:layout_marginBottom="16dp"
             android:layout_marginEnd="16dp"
             app:srcCompat="@drawable/ic_add_black_24dp"
-            android:backgroundTint="@color/colorAccent"/>
+            android:backgroundTint="@color/color_accent"/>
 
     <ListView
         android:id="@+id/service_list"

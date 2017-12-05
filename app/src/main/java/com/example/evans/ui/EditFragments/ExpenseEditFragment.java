@@ -21,7 +21,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 /**
- * A simple {@link Fragment} subclass.
+ * {@link Fragment} subclass to edit expense data.
  */
 public class ExpenseEditFragment extends Fragment
         implements DatePickerFragment.OnDateSetListener{
@@ -123,6 +123,13 @@ public class ExpenseEditFragment extends Fragment
         _hostActivity.showActionbar();
     }
 
+    @Override
+    public void onDateSet(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd, MMMM yyyy");
+        _setDate = date;
+        _date.setText(formatter.print(date));
+    }
+
     /**
      * Ensures parent activity has implemented the InteractionWithCustomerViewFragment interface
      * @param activity: the host activity
@@ -141,15 +148,9 @@ public class ExpenseEditFragment extends Fragment
         }
     }
 
-    @Override
-    public void onDateSet(LocalDate date) {
-        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd, MMMM yyyy");
-        _setDate = date;
-        _date.setText(formatter.print(date));
-    }
-
     /**
-     * interface to be implemented by parent activity to allow communication
+     * This interface must be implemented by the container Activity
+     * This is how we'll be able to communicate with the parent activity.
      */
     public interface InteractionWithExpenseEditFragmentListener {
             void onExpenseEditFinish (Expense expense);

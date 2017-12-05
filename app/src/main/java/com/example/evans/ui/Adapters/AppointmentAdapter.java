@@ -48,9 +48,9 @@ public class AppointmentAdapter extends ArrayAdapter<Appointment> {
 
             // well set up the ViewHolder
             _viewHolder = new ViewHolder();
-            _viewHolder.title = (TextView) convertView.findViewById(R.id.appointment_adapter_title);
-            _viewHolder.service = (TextView) convertView.findViewById(R.id.appointment_adapter_service);
-            _viewHolder.dateTime = (TextView) convertView.findViewById(R.id.appointment_adapter_date_time);
+            _viewHolder.title = convertView.findViewById(R.id.appointment_adapter_title);
+            _viewHolder.service = convertView.findViewById(R.id.appointment_adapter_service);
+            _viewHolder.dateTime = convertView.findViewById(R.id.appointment_adapter_date_time);
 
             // store the holder with the view.
             convertView.setTag(_viewHolder);

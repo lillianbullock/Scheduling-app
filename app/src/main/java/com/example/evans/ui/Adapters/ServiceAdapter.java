@@ -62,7 +62,6 @@ public class ServiceAdapter extends ArrayAdapter<Service> {
             _viewHolder = (ViewHolder) convertView.getTag();
         }
 
-
         // set the values for the views if the current item in our list of services
         // is not null
         if (_serviceList.get(position) != null) {

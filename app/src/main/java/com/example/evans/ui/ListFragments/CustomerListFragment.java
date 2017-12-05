@@ -18,7 +18,8 @@ import java.util.List;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * {@link Fragment} subclass that lists all relevant customers
+ * uses the {@link CustomerAdapter} to display each item.
  */
 public class CustomerListFragment extends Fragment {
 
@@ -73,6 +74,14 @@ public class CustomerListFragment extends Fragment {
     }
 
     /**
+     * For now we just want to let the host activity tak care of it by calling it's
+     * onAddCustomer method it better had implemented our interface
+     */
+    public void onCreateCustomer() {
+        _hostActivityListener.onAddCustomer();
+    }
+
+    /**
      * We want to make sure that the activity that uses this fragment
      * has implemented our InteractionWithCustomerFragment interface. We
      * check for this by trying to cast the activity to an instance of
@@ -101,15 +110,4 @@ public class CustomerListFragment extends Fragment {
         void onAddCustomer();
         List<Customer> getCustomerList();
     }
-
-
-
-    /**
-     * For now we just want to let the host activity tak care of it by calling it's
-     * onAddCustomer method it better had implemented our interface
-     */
-    public void onCreateCustomer() {
-        _hostActivityListener.onAddCustomer();
-    }
-
 }

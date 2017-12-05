@@ -10,6 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!-- Include our standard view header -->
+        <include layout="@layout/view_top_bar"
+            android:id="@+id/customer_view_bar"
+            />
+
         <TextView
             android:id="@+id/txt_view_name"
             android:layout_width="wrap_content"
@@ -22,7 +27,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/customer_view_bar"/>
 
         <TextView
             android:id="@+id/txt_view_phone"
@@ -56,27 +61,15 @@
             android:id="@+id/btn_set_appt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginTop="24dp"
+            android:background="@color/color_accent"
             android:text="@string/set_appt"
-            android:background="@color/colorAccent"
-            android:textColor="#ffffff"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_view_email" />
-
-        <Button
-            android:id="@+id/btn_save_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="24dp"
-            android:text="@string/button_edit"
-            android:background="@color/colorAccent"
-            android:textColor="#ffffff"
+            android:textColor="@color/color_accent_text"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_view_email" />
+
     </android.support.constraint.ConstraintLayout>
 
     <!-- TODO next appointment portion -->

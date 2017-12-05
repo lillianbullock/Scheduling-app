@@ -19,7 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A simple {@link Fragment} subclass.
+ * {@link Fragment} subclass that lists all relevant expenses
+ * uses the {@link ExpenseAdapter} to display each item.
  */
 public class ExpenseListFragment extends Fragment {
 
@@ -63,6 +64,14 @@ public class ExpenseListFragment extends Fragment {
     }
 
     /**
+     * For now we just want to let the host activity tak care of it by calling it's
+     * onAddCustomer method it better had implemented our interface
+     */
+    public void onCreateExpense() {
+        _hostActivityListener.onAddExpense();
+    }
+
+    /**
      * We want to make sure that the activity that uses this fragment
      * has implemented our InteractionWithCustomerFragment interface. We
      * check for this by trying to cast the activity to an instance of
@@ -91,14 +100,4 @@ public class ExpenseListFragment extends Fragment {
         void onAddExpense();
         List<Expense> getExpenses();
     }
-
-    /**
-     * For now we just want to let the host activity tak care of it by calling it's
-     * onAddCustomer method it better had implemented our interface
-     */
-    public void onCreateExpense() {
-        _hostActivityListener.onAddExpense();
-    }
-
-
 }

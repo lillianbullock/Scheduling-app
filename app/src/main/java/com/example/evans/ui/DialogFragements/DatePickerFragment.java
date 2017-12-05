@@ -1,5 +1,6 @@
 package com.example.evans.ui.DialogFragements;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
@@ -14,9 +15,9 @@ import org.joda.time.LocalDate;
 import java.util.Calendar;
 
 /**
- * For picking a date
+ * { @link DialogFragment } extension that creates a UI way for the user to pick a date
+ * Displays a calendar and sets a {@link org.joda.time.DateTime}
  */
-
 public class DatePickerFragment extends DialogFragment
         implements DatePickerDialog.OnDateSetListener {
 
@@ -55,22 +56,23 @@ public class DatePickerFragment extends DialogFragment
         _caller.onDateSet(selectedDate);
     }
 
-    // TODO we don't need this anymore. Remove onAttach
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
 
         try {
-            _caller = (OnDateSetListener) context;
+            _caller = (OnDateSetListener) activity;
         } catch (ClassCastException e) {
             Log.e(TAG, "The Calling activity did not implement ReceiveDateValueListener");
-            throw new ClassCastException(context.toString() + " must implement ReceiveDateValueListener");
+            throw new ClassCastException(activity.toString() + " must implement ReceiveDateValueListener");
         }
     }
 
+    /**
+     * This interface must be implemented by the container Activity
+     * This is how we'll be able to communicate with the parent activity.
+     */
     public interface OnDateSetListener {
         void onDateSet(LocalDate date);
-
-        //void setDate(LocalDate date);
     }
 }

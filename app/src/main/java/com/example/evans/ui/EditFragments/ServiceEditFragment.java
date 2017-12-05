@@ -1,6 +1,7 @@
 package com.example.evans.ui.EditFragments;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -19,7 +20,7 @@ import com.example.evans.ui.KeyboardControl;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * {@link Fragment} subclass to edit service data.
  */
 public class ServiceEditFragment extends Fragment {
 
@@ -149,23 +150,22 @@ public class ServiceEditFragment extends Fragment {
      * our interface
      */
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
 
         // make sure that the container class implemented our interface. If it did then it can be casted
         // if not then we know it did not therefore throw an error
         try {
-            _hostActivity = (ServiceEditFragment.OnSubmitServiceEdit) context;
+            _hostActivity = (ServiceEditFragment.OnSubmitServiceEdit) activity;
         } catch (ClassCastException e) {
             //they refused to honor the contract!!
-            throw new ClassCastException(context.toString() + " must implement OnSubmitServiceEdit");
+            throw new ClassCastException(activity.toString() + " must implement OnSubmitServiceEdit");
         }
-
     }
 
     /**
-     * Declare an interface that the activate that creates this fragment must implement. This interface will
-     * handle when a new service has been added
+     * This interface must be implemented by the container Activity
+     * This is how we'll be able to communicate with the parent activity.
      */
     public interface OnSubmitServiceEdit {
         void onServiceEditFinish (Service service);

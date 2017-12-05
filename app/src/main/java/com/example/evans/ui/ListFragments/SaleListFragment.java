@@ -17,11 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * Sale List Fragment
- * {@link Fragment} subclass
+ * {@link Fragment} subclass that lists all relevant appointments
+ * uses the {@link SaleAdapter} to display each item.
  */
-
 public class SaleListFragment extends Fragment {
 
     private FloatingActionButton _addFloatingBtn;
@@ -74,6 +72,13 @@ public class SaleListFragment extends Fragment {
         return _rootView;
     }
 
+    /**
+     * For now we just want to let the host activity tak care of it by calling it's
+     * onAddCustomer method it better had implemented our interface
+     */
+    public void onCreateSale() {
+        _hostActivityListener.onAddSale();
+    }
 
     /**
      * Sale Attach, want to make sure that the activity that uses this fragment
@@ -93,14 +98,6 @@ public class SaleListFragment extends Fragment {
     }
 
     /**
-     * For now we just want to let the host activity tak care of it by calling it's
-     * onAddCustomer method it better had implemented our interface
-     */
-    public void onCreateSale() {
-        _hostActivityListener.onAddSale();
-    }
-
-    /**
      * This interface must be implemented by the container Activity
      * This is how we'll be able to communicate with the parent activity.
      */
@@ -109,6 +106,4 @@ public class SaleListFragment extends Fragment {
         void onAddSale();
         void onClickSale(Sale sale);
     }
-
-
 }

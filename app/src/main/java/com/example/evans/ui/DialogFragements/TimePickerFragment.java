@@ -1,8 +1,10 @@
 package com.example.evans.ui.DialogFragements;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TimePicker;
@@ -12,9 +14,9 @@ import org.joda.time.LocalTime;
 import java.util.Calendar;
 
 /**
- * Time picker for picking time
+ * { @link DialogFragment } extension that creates a UI way for the user to pick a time
+ * Displays a clock and sets a {@link org.joda.time.LocalTime}
  */
-
 public class TimePickerFragment extends DialogFragment
         implements TimePickerDialog.OnTimeSetListener {
 
@@ -38,15 +40,8 @@ public class TimePickerFragment extends DialogFragment
 
         _caller = (OnTimeSetListener) getTargetFragment();
 
-        /*try {
-            _caller = (OnTimeSetListener) getTargetFragment();
-        } catch (ClassCastException e) {
-            Log.e(TAG, "The calling fragment did not implement OnDateSetListener");
-        }*/
-
         // Set the time
         LocalTime selectedTime = new LocalTime(hour, minute);
-
 
         // call the caller's onDateSet to do with the time what it wants to do. It's not our business
         // we did our job by getting the date for them
@@ -57,6 +52,22 @@ public class TimePickerFragment extends DialogFragment
         }
     }
 
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
+        try {
+            _caller = (OnTimeSetListener) activity;
+        } catch (ClassCastException e) {
+            Log.e(TAG, "The Calling activity did not implement ReceiveDateValueListener");
+            throw new ClassCastException(activity.toString() + " must implement ReceiveDateValueListener");
+        }
+    }
+
+    /**
+     * This interface must be implemented by the container Activity
+     * This is how we'll be able to communicate with the parent activity.
+     */
     public interface OnTimeSetListener {
         void onTimeSet(LocalTime time);
     }

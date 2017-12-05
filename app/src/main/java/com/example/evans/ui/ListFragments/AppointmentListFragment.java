@@ -23,7 +23,8 @@ import java.util.List;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * {@link Fragment} subclass that lists all relevant appointments
+ * uses the {@link AppointmentAdapter} to display each item.
  */
 public class AppointmentListFragment extends Fragment {
 
@@ -83,6 +84,11 @@ public class AppointmentListFragment extends Fragment {
     }
 
     /**
+     *OnCreateAppointment()
+     */
+    public void onCreateAppointment() { _hostListener.onAddAppointment(); }
+
+    /**
      * We want to make sure that the activity that uses this fragment
      * has implemented our InteractionWithCustomerFragment interface. We
      * check for this by trying to cast the activity to an instance of
@@ -101,12 +107,6 @@ public class AppointmentListFragment extends Fragment {
                     "InteractionWithAppointmentFragmentListener");
         }
     }
-
-    /**
-     *OnCreateAppointment()
-     */
-    public void onCreateAppointment() { _hostListener.onAddAppointment(); }
-
 
     /**
      * This interface must be implemented by the container Activity

@@ -182,7 +182,8 @@ public class FinancialReportFragment extends Fragment
     }
 
     /**
-     * interface to be implemented by parent activity to allow communication
+     * This interface must be implemented by the container Activity
+     * This is how we'll be able to communicate with the parent activity.
      */
     public interface InteractionWithFinancialReportFragmentListener {
         List<Expense> getExpenses(LocalDate beginDate, LocalDate endDate);

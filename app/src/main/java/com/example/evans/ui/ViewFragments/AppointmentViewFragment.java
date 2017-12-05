@@ -25,7 +25,7 @@ public class AppointmentViewFragment extends Fragment {
 
     private Appointment _appointment;
     private Customer _customer;
-    private InteractionWithAppointmentViewFragmentListener _hostListener;
+    private InteractionWithAppointmentViewFragmentListener _hostActivity;
 
     private static final String TAG = "AppointmentView";
 
@@ -90,6 +90,18 @@ public class AppointmentViewFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        _hostActivity.hideActionbar();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        _hostActivity.showActionbar();
+    }
+
     /**
      * Ensures parent activity has implemented the InteractionWithCustomerViewFragment interface.
      *
@@ -101,7 +113,7 @@ public class AppointmentViewFragment extends Fragment {
 
         //check for implementation by trying to cast to an instance of the interface
         try {
-            _hostListener = (InteractionWithAppointmentViewFragmentListener) activity;
+            _hostActivity = (InteractionWithAppointmentViewFragmentListener) activity;
         } catch (ClassCastException e) {
             // if fails, interface wasn't implemented
             throw new ClassCastException(activity.toString() + " must implement " +
@@ -114,6 +126,8 @@ public class AppointmentViewFragment extends Fragment {
      * This is how we'll be able to communicate with the parent activity.
      */
     public interface InteractionWithAppointmentViewFragmentListener{
+        void hideActionbar();
+        void showActionbar();
         //Appointment getViewAppointment();
     }
 }

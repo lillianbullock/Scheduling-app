@@ -7,9 +7,7 @@ import android.view.inputmethod.InputMethodManager;
 /**
  * Provides a static method to close the keyboard
  */
-
 public class KeyboardControl {
-
 
     /**
      * Close the keyboard
@@ -23,12 +21,9 @@ public class KeyboardControl {
         } catch (Exception e) {
             // Do nothing
         }
-
     }
 
     private KeyboardControl(){
 
     }
-
-
 }

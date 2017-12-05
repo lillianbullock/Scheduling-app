@@ -17,7 +17,8 @@ import java.util.ArrayList;
 import java.util.Map;
 
 /**
- * A simple {@link Fragment} subclass.
+ * {@link Fragment} subclass that lists all relevant appointments
+ * uses the {@link ServiceAdapter} to display each item.
  */
 public class ServiceListFragment extends Fragment {
 
@@ -63,6 +64,14 @@ public class ServiceListFragment extends Fragment {
     }
 
     /**
+     * For now we just want to let the host activity take care of it by calling it's
+     * onAddService method it better had implemented our interface
+     */
+    public void onCreateService() {
+        _hostActivityListener.onAddService();
+    }
+
+    /**
      * We want to make sure that the activity that uses this fragment
      * has implemented our InteractionWithServiceFragment interface. We
      * check for this by trying to cast the activity to an instance of
@@ -80,14 +89,6 @@ public class ServiceListFragment extends Fragment {
             throw new ClassCastException(activity.toString() + " must implement " +
                     "InteractionWithServiceFragmentListener");
         }
-    }
-
-    /**
-     * For now we just want to let the host activity take care of it by calling it's
-     * onAddService method it better had implemented our interface
-     */
-    public void onCreateService() {
-        _hostActivityListener.onAddService();
     }
 
     /**
