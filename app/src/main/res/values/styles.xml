@@ -18,6 +18,26 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+
+    <style name="TextAppearance.Widget.ActionBar.Title"
+        parent="@android:style/TextAppearance.Medium">
+    </style>
+
+    <style name="TextAppearance.Widget.ActionBar.Subtitle"
+        parent="@android:style/TextAppearance.Small">
+    </style>
+
+    <style name="TextAppearance_Medium">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
+
+    <style name="TextAppearance_Small">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">?textColorSecondary</item>
+    </style>
+
 </resources>
 
 

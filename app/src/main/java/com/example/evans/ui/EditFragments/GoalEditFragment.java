@@ -35,10 +35,10 @@ public class GoalEditFragment extends Fragment
     private EditText _goalEnd;
     private EditText _goalRepeat;
     private EditText _goalDescription;
-    private LocalDate _pickedDate;
     private char current;
-
     private EditText _currentDateEdit;
+
+    private Goal _selectedGoal;
 
     private LocalDate _selectedStartDate;
     private LocalDate _selectedEndDate;
@@ -65,14 +65,16 @@ public class GoalEditFragment extends Fragment
 
         _formatter = DateTimeFormat.forPattern("dd, MMMM yyyy");
 
-        _goalName = (EditText) view.findViewById(R.id.etxt_goal_name);
-        _goalStart=  (EditText) view.findViewById(R.id.etxt_start_date);
-        _goalEnd =  (EditText) view.findViewById(R.id.etxt_end_date);
-        _goalRepeat =  (EditText) view.findViewById(R.id.etxt_repeat_time);
-        _goalDescription =  (EditText) view.findViewById(R.id.etxt_goal_details);
+        _goalName = view.findViewById(R.id.etxt_goal_name);
+        _goalStart= view.findViewById(R.id.etxt_start_date);
+        _goalEnd =  view.findViewById(R.id.etxt_end_date);
+        _goalRepeat = view.findViewById(R.id.etxt_repeat_time);
+        _goalDescription = view.findViewById(R.id.etxt_goal_details);
 
-        _btnSaveGoal = (Button) view.findViewById(R.id.btn_edit_bar_save);
-        _btnCancelGoal = (Button) view.findViewById(R.id.btn_edit_bar_cancel);
+        _btnSaveGoal = view.findViewById(R.id.btn_edit_bar_save);
+        _btnCancelGoal = view.findViewById(R.id.btn_edit_bar_cancel);
+
+        initializeGoalDetails();
 
         _btnSaveGoal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,6 +165,28 @@ public class GoalEditFragment extends Fragment
             _selectedEndDate = date;
        }
     }
+
+    /**
+     * to initialize the customer details for edit
+     */
+    private void initializeGoalDetails() {
+
+        if (_selectedGoal != null) {
+            _goalName.setText(_selectedGoal.getTitle());
+            _goalDescription.setText(_selectedGoal.getDescription());
+            _goalStart.setText(_selectedGoal.getStartDate());
+            _goalEnd.setText(_selectedGoal.getDueDate());
+        }
+    }
+
+    /**
+     * when an existing goal is called to edit
+     * @param goal passes to set up existing
+     */
+    public void setExistingGoal(Goal goal){
+        _selectedGoal = goal;
+    }
+
 
     @Override
     public void onResume() {

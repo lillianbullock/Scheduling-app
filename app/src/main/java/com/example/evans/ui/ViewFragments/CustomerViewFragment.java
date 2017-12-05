@@ -4,6 +4,7 @@ package com.example.evans.ui.ViewFragments;
 import android.app.Activity;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,8 @@ public class CustomerViewFragment extends Fragment {
 
     private Customer _customer;
     private Button _setAppointmentBtn;
+    private Button _editAppointmentBtn;
+
     private InteractionWithCustomerViewFragmentListener _hostActivity;
 
     public CustomerViewFragment() {
@@ -47,21 +50,35 @@ public class CustomerViewFragment extends Fragment {
         TextView phone = (TextView) view.findViewById(R.id.txt_view_phone);
 
         _setAppointmentBtn = view.findViewById(R.id.btn_set_appt);
+        _editAppointmentBtn = view.findViewById(R.id.btn_edit_customer);
 
         //sets views to the customer data
         name.setText(_customer.getName());
         email.setText(_customer.getEmail());
         phone.setText(_customer.getPhone());
 
+        // Take Customer that we have and Connect it to the edit for appointmentFragment
         _setAppointmentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                _hostActivity.getViewCustomer();
+                _hostActivity.onSetAppointmentCustomer(_customer);
             }
         });
 
-        return view;
-    }
+        _editAppointmentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (_customer != null){
+                    _hostActivity.onEditCustomer(_customer);
+                } else {
+                    Snackbar.make(getActivity().findViewById(R.id.content_frame), "ERROR: Invalid customer", Snackbar.LENGTH_LONG).show();
+
+                }
+            }
+     });
+
+     return view;
+     }
 
     @Override
     public void onResume() {
@@ -103,6 +120,7 @@ public class CustomerViewFragment extends Fragment {
         void showActionbar();
 
         Customer getViewCustomer();
-        void onAddAppointmentClickForCustomer(Customer customer);
+        void onSetAppointmentCustomer(Customer customer);
+        void onEditCustomer(Customer customer);
     }
 }

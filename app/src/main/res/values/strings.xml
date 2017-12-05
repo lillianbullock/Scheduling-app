@@ -73,6 +73,9 @@
     <string name="default_string">Default</string>
 
     <string name="currency">$</string>
+    <string name="title">Title</string>
+
+    <string name="currency"> $ </string>
 
     <string name="label_manage">Manage</string>
     <string name="label_app">App</string>

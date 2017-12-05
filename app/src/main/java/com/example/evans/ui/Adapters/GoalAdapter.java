@@ -1,6 +1,7 @@
 package com.example.evans.ui.Adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,7 @@ public class GoalAdapter extends ArrayAdapter<Goal> {
 
     private ArrayList<Goal> _goalList = new ArrayList<>();
     private ViewHolder _viewHolder;
-    
+
     // use of the viewHolder allows faster loading because the views
     // don't need to be collected for each item in the list view
     static class ViewHolder {
@@ -32,6 +33,10 @@ public class GoalAdapter extends ArrayAdapter<Goal> {
     public GoalAdapter(Context context, int textViewResourceId, ArrayList<Goal> objects) {
         super(context, textViewResourceId, objects);
         _goalList = objects;
+    }
+
+    public GoalAdapter(Context context, int textViewResourceId){
+        super(context, textViewResourceId);
     }
 
     @Override

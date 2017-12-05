@@ -7,6 +7,7 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
@@ -21,6 +22,7 @@ public class GoalViewFragment extends Fragment {
 
     private Goal _goal;
     private InteractionWithGoalViewFragmentListener _hostActivity;
+    private Button _editGoalBtn;
 
     public GoalViewFragment() {
         // Required empty public constructor
@@ -38,12 +40,21 @@ public class GoalViewFragment extends Fragment {
         TextView startD = (TextView) view.findViewById(R.id.txt_goal_view_start_date);
         TextView endD = (TextView) view.findViewById(R.id.txt_goal_view_end_date);
 
+        _editGoalBtn = (Button) view.findViewById(R.id.btn_edit_goal);
+
         CheckBox _checkBox = (CheckBox) view.findViewById(R.id.goal_done_box);
 
         name.setText(_goal.getTitle());
         detail.setText(_goal.getDescription());
         startD.setText(_goal.getStartDate());
         endD.setText(_goal.getDueDate());
+
+        _editGoalBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                _hostActivity.onEditGoal(_goal);
+            }
+        });
 
         _checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +106,8 @@ public class GoalViewFragment extends Fragment {
         void showActionbar();
 
         //Goal getViewGoal();
+        void onEditGoal(Goal goal);
+        void viewWithGoal(Goal goal);
     }
 
 }

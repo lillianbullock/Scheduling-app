@@ -32,6 +32,10 @@ public class CustomerEditFragment extends Fragment {
     private Button _saveBttn;
     private Button _cancelBttn;
 
+    private Customer _selectedCustomer;
+    private String   _customerId;
+
+
     // define a new instance of OnSubmitCustomerEdit that would hold an instance of the host activity and will
     // be able to call the methods that we've demanded to be created
     private OnSubmitCustomerEdit _hostActivity;
@@ -57,21 +61,7 @@ public class CustomerEditFragment extends Fragment {
         _cancelBttn = rootView.findViewById(R.id.btn_edit_bar_cancel);
         _setAppointmentBttn = rootView.findViewById(R.id.btn_set_appt);
 
-        //TODO implement the set appointment button
-        // Create a customer and let the host activity know that a request
-        // was made to create an appointment with the customer
-        /*_setAppointmentBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                KeyboardControl.closeKeyboard(getActivity());
-                Customer customer = createCustomer();
-
-                if (customer != null) {
-                    _hostActivity.onCustomerEditFinish(customer);
-                }
-            }
-        });*/
+        initializeCustomerDetails();
 
         // Create a customer on save click and return it to the host activity
         _saveBttn.setOnClickListener(new View.OnClickListener() {
@@ -103,11 +93,11 @@ public class CustomerEditFragment extends Fragment {
 
         Customer newCustomer = null;
 
-        String id = "";
-        String name = _name.getText().toString();
-        String phone = _phone.getText().toString();
-        String email = _email.getText().toString();
-        LocalDate currentDate = LocalDate.now();
+            String id = "";
+            String name = _name.getText().toString();
+            String phone = _phone.getText().toString();
+            String email = _email.getText().toString();
+            LocalDate currentDate = LocalDate.now();
 
         // give a default value of N/A if the phone number field is empty
         // it's not a required field
@@ -129,6 +119,28 @@ public class CustomerEditFragment extends Fragment {
         }
 
         return newCustomer;
+    }
+
+    /**
+     * to initialize the customer details for edit
+     */
+    private void initializeCustomerDetails() {
+
+        if (_selectedCustomer != null) {
+            _name.setText(_selectedCustomer.getName());
+            _email.setText(_selectedCustomer.getEmail());
+            _phone.setText(_selectedCustomer.getPhone());
+            _customerId = _selectedCustomer.getId();
+        }
+    }
+
+    /**
+     * when an existing Customer is called to edit
+     * @param customer passes to set up existing
+     */
+    public void setExistingCustomer(Customer customer){
+
+        _selectedCustomer = customer;
     }
 
     @Override

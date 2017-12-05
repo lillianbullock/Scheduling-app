@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.evans.R;
 import com.example.evans.data.Appointment;
@@ -244,8 +245,34 @@ public class MainActivity extends AppCompatActivity implements
     public void onServiceCancel() { onBackPressed(); }
 
 
-        /******** CUSTOMER **********/
+
+    /******** CUSTOMER **********/
+
+
     @Override
+    public void onSetAppointmentCustomer(Customer customer) {
+        AppointmentEditFragment frag = new AppointmentEditFragment();
+        frag.setCustomer(customer);
+        _currentFragment = frag;
+        loadCurrentFragment(true);
+    }
+
+    @Override
+    public void onEditCustomer(Customer customer) {
+
+        if (customer != null){
+            CustomerEditFragment frag = new CustomerEditFragment();
+            frag.setExistingCustomer(customer);
+            _currentFragment = frag;
+            loadCurrentFragment(true);
+
+        } else {
+            Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid customer from mainactivity", Snackbar.LENGTH_LONG).show();
+
+        }
+    }
+
+        @Override
     public void onClickCustomer(Customer customer) {
         // TODO Handle customer click
     }
@@ -303,9 +330,19 @@ public class MainActivity extends AppCompatActivity implements
         loadCurrentFragment(true);
     }
 
+
     @Override
-    public void onClickGoal() {
-        // TODO Implement
+    public void onEditGoal(Goal goal) {
+        if (goal != null){
+            GoalEditFragment frag = new GoalEditFragment();
+            frag.setExistingGoal(goal);
+            _currentFragment = frag;
+            loadCurrentFragment(true);
+
+        } else {
+            Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid Goal from main activity",
+                    Snackbar.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -333,14 +370,17 @@ public class MainActivity extends AppCompatActivity implements
         return _mainController.getGoalsWithLimit(num);
     }
 
-    /*
     @Override
-    public Goal getViewGoal() {
-            return null;
-    }*/
+    public void viewWithGoal(Goal goal) {
+        GoalViewFragment _frag = new GoalViewFragment();
+        _frag.setGoal(goal);
+        _currentFragment = _frag;
 
+        loadCurrentFragment(true);
 
-    /******* APPOINTMENT ******/
+    }
+
+        /******* APPOINTMENT ******/
     @Override
     public void onClickAppointment(Appointment appointment) {
         //TODO Handle CLick appointment
@@ -573,9 +613,11 @@ public class MainActivity extends AppCompatActivity implements
      */
     @Override
     public void onBackPressed() {
-        if (_drawerLayout.isDrawerOpen(GravityCompat.START)){
+        if (_drawerLayout.isDrawerOpen(GravityCompat.START)
+                && getFragmentManager().getBackStackEntryCount() > 0){
             _drawerLayout.closeDrawer(GravityCompat.START);
         }
+
         // I'm pretty sure we don't want to pop off an empty backStack!
         if (getFragmentManager().getBackStackEntryCount() > 0) {
             getFragmentManager().popBackStack();

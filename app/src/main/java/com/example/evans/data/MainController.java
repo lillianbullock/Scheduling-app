@@ -1,5 +1,10 @@
 package com.example.evans.data;
 
+import android.util.Log;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+
 import org.joda.time.LocalDate;
 
 import java.util.HashMap;
@@ -15,7 +20,7 @@ import java.util.Map;
  * License: Private - Class work
  * version: 0.0.1
  */
-public class MainController {
+public class MainController implements OnGetDataListener{
 
     private List<Appointment>       _appointments      = new LinkedList<>();
     private List<Customer>          _customers         = new LinkedList<>();
@@ -24,6 +29,9 @@ public class MainController {
     private List<Sale>              _allSales          = new LinkedList<>();
     private List<Expense>           _expenses          = new LinkedList<>();
     private FirebaseManager         _firebaseManager   = null;
+
+    private static final String TAG = "MainController";
+
 
     /**
      * Default constructor loads data from firebase
@@ -39,12 +47,45 @@ public class MainController {
      * Pull from the cloud or device memory
      */
     private void populateData() {
-        _availableServices = _firebaseManager.getServices();
-        _goals = _firebaseManager.getAllGoals();
+        _availableServices = _firebaseManager.getServices(new OnGetDataListener() {
+            @Override
+            public void onDataLoadStarted() { }
+
+            @Override
+            public void onDataLoadSucceed(DataSnapshot dataSnapshot) {
+                for (DataSnapshot child: dataSnapshot.getChildren()){
+                    Service service = child.getValue(Service.class);
+                    _availableServices.put(service.getTitle(), service);
+                }
+            }
+
+            @Override
+            public void onDataLoadFailed(DatabaseError databaseError) {
+                Log.w(TAG, "unable to load services from firebase");
+            }
+        });
+        /*_goals = _firebaseManager.getAllGoals();
         _expenses = _firebaseManager.getAllExpenses();
         _allSales = _firebaseManager.getAllSales();
         _appointments = _firebaseManager.getAllAppointments();
-        _customers = _firebaseManager.getAllCustomers();
+        _customers = _firebaseManager.getAllCustomers();*/
+
+    }
+
+
+    @Override
+    public void onDataLoadStarted() {
+
+    }
+
+    @Override
+    public void onDataLoadSucceed(DataSnapshot data) {
+
+    }
+
+    @Override
+    public void onDataLoadFailed(DatabaseError databaseError) {
+
     }
 
     /**
@@ -254,8 +295,6 @@ public class MainController {
      * @return LinkedList<Service>
      */
     public Map<String, Service> getAvailableServices() {
-
-        // we don't need to retrieve this data from the database since it's populated on initialization
         return _availableServices;
     }
 
