@@ -40,7 +40,7 @@ public class GoalListFragment  extends Fragment implements OnGetDataListener {
     private View _rootView;  // how we can get access to view elements
     private GoalsListFragmentListener _hostActivity;
     private ArrayList<Goal> _goals = new ArrayList<>();
-    private ListView _goalList;
+    ListView _goalListView;
     private ProgressBar _progressBar;
     private GoalAdapter _goalArrayAdapter;
     private OnGetDataListener _onGetDataListener;
@@ -62,7 +62,7 @@ public class GoalListFragment  extends Fragment implements OnGetDataListener {
 
         _addFloatingBtn = (FloatingActionButton) _rootView.findViewById(R.id.floating_btn);
         _progressBar = _rootView.findViewById(R.id.goals_list_progressbar);
-        _goalList = (ListView) _rootView.findViewById(R.id.goal_list);
+        _goalListView = (ListView) _rootView.findViewById(R.id.goal_list);
         _goalArrayAdapter = new GoalAdapter(getActivity(), R.layout.goal_adapter, _goals);
 
 
@@ -73,7 +73,7 @@ public class GoalListFragment  extends Fragment implements OnGetDataListener {
             }
         });
 
-        _goalList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        _goalListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
                 Goal goal = _goalArrayAdapter.getItem(position);
@@ -120,15 +120,9 @@ public class GoalListFragment  extends Fragment implements OnGetDataListener {
 
         _progressBar.setVisibility(ProgressBar.INVISIBLE);
 
-        ArrayList<String> strings = new ArrayList<>();
 
-        for (int i = 0; i < _goals.size(); i++){
-            String string = _goals.get(i).getTitle();
-            strings.add(string);
-        }
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, strings);
-        _goalList.setAdapter(arrayAdapter);
+        GoalAdapter goalAdapter = new GoalAdapter(getActivity(), R.layout.goal_adapter, _goals);
+        _goalListView.setAdapter(goalAdapter);
 
     }
 

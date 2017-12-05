@@ -81,6 +81,8 @@
     <string name="goal_complete">Complete</string>
     <string name="goal_title">Title</string>
 
+    <string name="title">Title</string>
+
     <string name="currency"> $ </string>
 
     <string name="label_manage">Manage</string>
