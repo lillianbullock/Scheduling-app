@@ -73,6 +73,8 @@ public class ServiceListFragment extends Fragment {
             }
         });
 
+
+
         return _rootView;
     }
 
@@ -85,6 +87,10 @@ public class ServiceListFragment extends Fragment {
         ServiceAdapter adapter = new ServiceAdapter(getActivity(), R.layout.service_adapter, _services);
 
         _listViewService.setAdapter(adapter);
+    }
+
+    public void setServices(Map<String, Service> serviceMap){
+        _services = serviceMap;
     }
 
     /**

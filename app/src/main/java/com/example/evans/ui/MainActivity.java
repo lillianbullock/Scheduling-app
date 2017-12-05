@@ -511,7 +511,9 @@ public class MainActivity extends AppCompatActivity implements
                 break;
             case R.id.menu_item_service:
                 _drawerLayout.closeDrawer(GravityCompat.START);
-                _currentFragment = new ServiceListFragment();
+                ServiceListFragment serviceListFragment = new ServiceListFragment();
+                serviceListFragment.setServices(_mainController.getAvailableServices());
+                _currentFragment = serviceListFragment;
                 loadCurrentFragment(true);
                 break;
             case R.id.menu_item_sales:
