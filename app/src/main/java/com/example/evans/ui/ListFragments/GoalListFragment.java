@@ -149,7 +149,6 @@ public class GoalListFragment  extends Fragment implements OnGetDataListener {
     public interface GoalsListFragmentListener {
         void viewWithGoal(Goal goal);
         void onClickAddGoal();
-        List<Goal> getGoal(int num);
     }
 
     public void onCreateGoal() {

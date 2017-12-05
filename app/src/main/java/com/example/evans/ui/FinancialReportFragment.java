@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,9 +21,15 @@ import org.joda.time.format.DateTimeFormatter;
 import java.util.List;
 
 import com.example.evans.data.Appointment;
+import com.example.evans.data.FirebaseManager;
+import com.example.evans.data.MainController;
+import com.example.evans.data.OnGetDataListener;
 import com.example.evans.data.Sale;
 import com.example.evans.data.Expense;
 import com.example.evans.ui.DialogFragements.DatePickerFragment;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Exclude;
 
 
 /**
@@ -44,6 +51,8 @@ public class FinancialReportFragment extends Fragment
     private List<Sale> _sales;
     private List<Appointment> _appointments;
 
+    private MainController _mainController;
+
     private double _profitTotal;
     private double _costTotal;
     private LocalDate _selectedStartDate;
@@ -53,7 +62,6 @@ public class FinancialReportFragment extends Fragment
     private char _current;
 
     private DateTimeFormatter _formatter;
-    private InteractionWithFinancialReportFragmentListener _hostActivityListener;
 
     public FinancialReportFragment() {
         // Required empty public constructor
@@ -71,6 +79,7 @@ public class FinancialReportFragment extends Fragment
         _startDate      = (EditText) rootView.findViewById(R.id.etxt_fin_rep_start);
         _endDate        = (EditText) rootView.findViewById(R.id.etxt_fin_rep_end);
         _bttnCalculate  = (Button)   rootView.findViewById(R.id.bttn_fin_rep_cancel);
+        _mainController = new MainController();
 
         _formatter = DateTimeFormat.forPattern("dd, MMMM yyyy");
 
@@ -107,47 +116,135 @@ public class FinancialReportFragment extends Fragment
             public void onClick(View view) {
 
                 //TODO check if start date is before end date
+                if (!_selectedEndDate.isBefore(_selectedStartDate)){
 
-                _expenses = _hostActivityListener.getExpenses(_selectedStartDate, _selectedEndDate);
-                _sales = _hostActivityListener.getSales(_selectedStartDate, _selectedEndDate);
-                _appointments = _hostActivityListener.getAppointments(_selectedStartDate, _selectedEndDate);
 
-                _costTotal = 0.0;
-                _profitTotal = 0.0;
+                    loadExpenses();
+                    loadSales();
+                    loadAppointments();
 
-                if (_expenses != null) {
-                    for (Expense element : _expenses) {
-                        _costTotal += element.getReport();
+
+                    _costTotal = 0.0;
+                    _profitTotal = 0.0;
+
+                    if (_expenses != null) {
+                        for (Expense element : _expenses) {
+                            _costTotal += element.getReport();
+                        }
+                    } else {
+                        Log.w(TAG, "expenses list returned from database is null");
                     }
+
+                    if (_sales != null) {
+                        for (Sale element : _sales) {
+                            _profitTotal += element.getReport();
+                        }
+                    } else {
+                        Log.w(TAG, "sales list returned from database is null");
+                    }
+
+                    if (_appointments != null) {
+                        for (Appointment element : _appointments) {
+                            _profitTotal += element.getReport();
+                        }
+                    } else {
+                        Log.w(TAG, "appointment list returned from database is null");
+                    }
+
+                    double netProfit = _profitTotal - _costTotal;
+
+                    _profit.setText(Double.toString(_profitTotal));
+                    _cost.setText(Double.toString(_costTotal));
+                    _net.setText(Double.toString(netProfit));
+
                 } else {
-                    Log.w(TAG, "expenses list returned from database is null");
+
+                    Snackbar.make(getActivity().findViewById(R.id.content_frame), "ERROR: End date cannot be before the begin date", Snackbar.LENGTH_SHORT).show();
                 }
 
-                if (_sales != null) {
-                    for (Sale element : _sales) {
-                        _profitTotal += element.getReport();
-                    }
-                } else {
-                    Log.w(TAG, "sales list returned from database is null");
-                }
-
-                if (_appointments != null) {
-                    for (Appointment element : _appointments) {
-                        _profitTotal += element.getReport();
-                    }
-                } else {
-                    Log.w(TAG, "appointment list returned from database is null");
-                }
-
-                double netProfit = _profitTotal - _costTotal;
-
-                _profit.setText(Double.toString(_profitTotal));
-                _cost.setText(Double.toString(_costTotal));
-                _net.setText(Double.toString(netProfit));
             }
         });
 
         return rootView;
+    }
+
+    private void loadSales() {
+
+        _mainController.getSalesBetween(_selectedStartDate, _selectedEndDate, new OnGetDataListener() {
+            @Override
+            public void onDataLoadStarted() {
+
+            }
+
+            @Override
+            public void onDataLoadSucceed(DataSnapshot dataSnapshot) {
+                for (DataSnapshot child: dataSnapshot.getChildren()){
+                    _sales.add(child.getValue(Sale.class));
+                }
+            }
+
+            @Override
+            public void onDataLoadFailed(DatabaseError databaseError) {
+                Snackbar.make(getActivity().findViewById(R.id.content_frame),
+                        "ERROR: Unable to load data. Please check your network connection",
+                        Snackbar.LENGTH_SHORT).show();
+
+            }
+        });
+
+    }
+
+
+    private void loadAppointments() {
+
+        _mainController.getSalesBetween(_selectedStartDate, _selectedEndDate, new OnGetDataListener() {
+            @Override
+            public void onDataLoadStarted() {
+
+            }
+
+            @Override
+            public void onDataLoadSucceed(DataSnapshot dataSnapshot) {
+                for (DataSnapshot child: dataSnapshot.getChildren()){
+                    _appointments.add(child.getValue(Appointment.class));
+                }
+            }
+
+            @Override
+            public void onDataLoadFailed(DatabaseError databaseError) {
+                Snackbar.make(getActivity().findViewById(R.id.content_frame),
+                        "ERROR: Unable to load data. Please check your network connection",
+                        Snackbar.LENGTH_SHORT).show();
+
+            }
+        });
+
+    }
+
+
+    private void loadExpenses() {
+
+        _mainController.getExpensesBetween(_selectedStartDate, _selectedEndDate, new OnGetDataListener() {
+            @Override
+            public void onDataLoadStarted() {
+
+            }
+
+            @Override
+            public void onDataLoadSucceed(DataSnapshot dataSnapshot) {
+                for (DataSnapshot child: dataSnapshot.getChildren()){
+                    _expenses.add(child.getValue(Expense.class));
+                }
+            }
+
+            @Override
+            public void onDataLoadFailed(DatabaseError databaseError) {
+                Snackbar.make(getActivity().findViewById(R.id.content_frame),
+                        "ERROR: Unable to load data. Please check your network connection",
+                        Snackbar.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
     @Override
@@ -163,30 +260,7 @@ public class FinancialReportFragment extends Fragment
         }
     }
 
-    /**
-     * Ensures parent activity has implemented the InteractionWithCustomerViewFragment interface
-     * @param activity: the host activity
-     */
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
 
-        //check for implementation by trying to cast to an instance of the interface
-        try {
-            _hostActivityListener = (InteractionWithFinancialReportFragmentListener) activity;
-        } catch (ClassCastException e) {
-            // if fails, interface wasn't implemented
-            throw new ClassCastException(activity.toString() + " must implement " +
-                    "InteractionWithFinancialFragmentListener");
-        }
-    }
 
-    /**
-     * interface to be implemented by parent activity to allow communication
-     */
-    public interface InteractionWithFinancialReportFragmentListener {
-        List<Expense> getExpenses(LocalDate beginDate, LocalDate endDate);
-        List<Sale> getSales(LocalDate beginDate, LocalDate endDate);
-        List<Appointment> getAppointments(LocalDate beginDate, LocalDate endDate);
-    }
+
 }

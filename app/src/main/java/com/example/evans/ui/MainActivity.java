@@ -66,11 +66,11 @@ public class MainActivity extends AppCompatActivity implements
         SaleListFragment.SaleListFragmentListener,
         AppointmentViewFragment.InteractionWithAppointmentViewFragmentListener,
         SaleEditFragment.OnSubmitSaleEdit,
-        FinancialReportFragment.InteractionWithFinancialReportFragmentListener,
         GoalViewFragment.InteractionWithGoalViewFragmentListener,
         ExpenseListFragment.ExpenseListFragmentListener,
         ExpenseEditFragment.InteractionWithExpenseEditFragmentListener
     {
+
 
 
     // Variables
@@ -167,9 +167,6 @@ public class MainActivity extends AppCompatActivity implements
 
     /*** SALE ***/
     @Override
-    public List<Sale> getSale() { return _mainController.getAllSales(); }
-
-    @Override
     public void onAddSale() {
         _currentFragment = new SaleEditFragment();
         loadCurrentFragment(true);
@@ -195,15 +192,6 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 
-    @Override
-    public List<Appointment> getAppointmentList() { return _mainController.getFirstNumberAppointments(DEFAULTLOADNUMBER); }
-
-
-    @Override
-    public List<Goal> getGoal() {
-        //TODO Figure out if we need more than one function for week day or year goals
-        return _mainController.getFirstNumberGoals(DEFAULTLOADNUMBER);
-    }
 
 
     /***** SERVICE *******/
@@ -319,8 +307,6 @@ public class MainActivity extends AppCompatActivity implements
             return null;
         }
 
-    @Override
-    public List<Customer> getCustomerList() { return _mainController.getCustomers(); }
 
 
     /******** GOAL *******/
@@ -365,10 +351,6 @@ public class MainActivity extends AppCompatActivity implements
         _mainController.addNewGoal(goal);
     }
 
-    @Override
-    public List<Goal> getGoal(int num){
-        return _mainController.getGoalsWithLimit(num);
-    }
 
     @Override
     public void viewWithGoal(Goal goal) {
@@ -403,16 +385,7 @@ public class MainActivity extends AppCompatActivity implements
             return;
         }
 
-        // Check if the customer was created in the appointment view. The id would be set to "" if it was
-        if (customer.getId().isEmpty()){
-            // check if we have a customer like that already if not add it
-            if (_mainController.getCustomerByName(customer.getName()) == null) {
-                customer = _mainController.addCustomer(customer);
-            }
-        }
 
-        // set the appointment's customerId so we can keep track of which customer had the appointment
-        appointment.setCustomerId(customer.getId());
 
         AppointmentViewFragment _frag = new AppointmentViewFragment();
         _frag.setRelatedCustomer(customer);
@@ -443,28 +416,6 @@ public class MainActivity extends AppCompatActivity implements
             getSupportActionBar().show();
         }
 
-    /* financial report functions*/
-    @Override
-    public List<Expense> getExpenses(LocalDate beginDate, LocalDate endDate) {
-        return _mainController.getExpensesBetween(beginDate, endDate);
-    }
-
-    @Override
-    public List<Sale> getSales(LocalDate beginDate, LocalDate endDate) {
-        return _mainController.getSalesBetween(beginDate, endDate);
-    }
-
-
-    @Override
-    public List<Expense> getExpenses() {
-
-        return _mainController.getFirstNumberExpenses(DEFAULTLOADNUMBER);
-    }
-
-        @Override
-    public List<Appointment> getAppointments(LocalDate beginDate, LocalDate endDate) {
-        return _mainController.getAppointmentsBetween(beginDate, endDate);
-    }
 
 
     /********************END OF OVERRIDING METHODS FOR FRAGMENTS****************************/
@@ -550,8 +501,6 @@ public class MainActivity extends AppCompatActivity implements
                 break;
             case R.id.menu_item_goals:
                 _drawerLayout.closeDrawer(GravityCompat.START);
-                GoalListFragment goalListFragment = new GoalListFragment();
-                goalListFragment.setGoals(_mainController.getAllGoals());
                 _currentFragment = new GoalListFragment();
                 loadCurrentFragment(true);
                 break;
@@ -562,9 +511,7 @@ public class MainActivity extends AppCompatActivity implements
                 break;
             case R.id.menu_item_service:
                 _drawerLayout.closeDrawer(GravityCompat.START);
-                ServiceListFragment serviceListFragment = new ServiceListFragment();
-                serviceListFragment.setServices(_mainController.getAvailableServices());
-                _currentFragment = serviceListFragment;
+                _currentFragment = new ServiceListFragment();
                 loadCurrentFragment(true);
                 break;
             case R.id.menu_item_sales:

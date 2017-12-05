@@ -115,7 +115,6 @@ public class AppointmentListFragment extends Fragment {
     public interface AppointmentListFragmentListener {
         void onClickAppointment(Appointment appointment);
         void onAddAppointment();
-        List<Appointment> getAppointmentList();
     }
 
 

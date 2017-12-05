@@ -53,11 +53,11 @@ public class ExpenseListFragment extends Fragment {
         });
 
         //setting arrayAdapter
-        ArrayList<Expense> expenseList = new ArrayList<>(_hostActivityListener.getExpenses());
+       // ArrayList<Expense> expenseList = new ArrayList<>(_hostActivityListener.getExpenses());
 
 
-        ExpenseAdapter adapter = new ExpenseAdapter(getActivity(), R.layout.expense_adapter, expenseList);
-        simpleList.setAdapter(adapter);
+       // ExpenseAdapter adapter = new ExpenseAdapter(getActivity(), R.layout.expense_adapter, expenseList);
+        // simpleList.setAdapter(adapter);
 
         return rootView;
     }
@@ -89,7 +89,6 @@ public class ExpenseListFragment extends Fragment {
     public interface ExpenseListFragmentListener {
         void onClickExpense(Expense expense);
         void onAddExpense();
-        List<Expense> getExpenses();
     }
 
     /**

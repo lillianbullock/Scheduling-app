@@ -99,7 +99,6 @@ public class CustomerListFragment extends Fragment {
     public interface CustomerListFragmentListener {
         void onClickCustomer(Customer customer);
         void onAddCustomer();
-        List<Customer> getCustomerList();
     }
 
 

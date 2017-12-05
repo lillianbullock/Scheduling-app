@@ -20,7 +20,6 @@ import java.util.ArrayList;
 public class GoalAdapter extends ArrayAdapter<Goal> {
 
     private ArrayList<Goal> _goalList = new ArrayList<>();
-    private ViewHolder _viewHolder;
 
     // use of the viewHolder allows faster loading because the views
     // don't need to be collected for each item in the list view
@@ -46,6 +45,8 @@ public class GoalAdapter extends ArrayAdapter<Goal> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
+        ViewHolder _viewHolder;
 
         if(convertView == null) {
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);

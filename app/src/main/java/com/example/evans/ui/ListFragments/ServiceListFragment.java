@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.evans.R;
+import com.example.evans.data.MainController;
 import com.example.evans.data.Service;
 import com.example.evans.ui.Adapters.ServiceAdapter;
 
@@ -27,9 +28,9 @@ import java.util.Map;
 public class ServiceListFragment extends Fragment {
 
     private FloatingActionButton _addFloatingBtn;
-    private View _rootView;  // how we can get access to view elements
     private ArrayList<Service> _services = new ArrayList<>();
     private ServiceListFragmentListener _hostActivityListener;
+    private MainController _mainController;
 
     private ListView _listViewService;
 
@@ -42,9 +43,14 @@ public class ServiceListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
+        super.onCreate(savedInstanceState);
+
+        View _rootView;
+
         // Inflate the layout for this fragment
         _rootView = inflater.inflate(R.layout.fragment_service_list, container, false);
         _addFloatingBtn = (FloatingActionButton) _rootView.findViewById(R.id.floating_add_btn);
+        _mainController = new MainController();
 
         // Set the onClickListener for the floating button.
         _addFloatingBtn.setOnClickListener(new View.OnClickListener() {
@@ -54,14 +60,10 @@ public class ServiceListFragment extends Fragment {
             }
         });
 
-
-        super.onCreate(savedInstanceState);
-
         _listViewService = (ListView) _rootView.findViewById(R.id.service_list);
+        loadServices();
 
-        ServiceAdapter adapter = new ServiceAdapter(getActivity(), R.layout.service_adapter, _services);
 
-        _listViewService.setAdapter(adapter);
 
         _listViewService.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -74,9 +76,15 @@ public class ServiceListFragment extends Fragment {
         return _rootView;
     }
 
-    public void setServices(Map<String, Service> services) {
+    public void loadServices() {
 
-        _services.addAll(services.values());
+        Map<String, Service> serviceMap = _mainController.getAvailableServices();
+
+        _services.addAll(serviceMap.values());
+
+        ServiceAdapter adapter = new ServiceAdapter(getActivity(), R.layout.service_adapter, _services);
+
+        _listViewService.setAdapter(adapter);
     }
 
     /**

@@ -35,7 +35,7 @@
 
     <style name="TextAppearance_Small">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">?textColorSecondary</item>
+        <item name="android:textColor">#ffffff</item>
     </style>
 
 </resources>

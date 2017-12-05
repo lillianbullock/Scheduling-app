@@ -19,10 +19,14 @@ import com.example.evans.R;
 import com.example.evans.data.Appointment;
 import com.example.evans.data.Customer;
 import com.example.evans.data.InvalidCustomerException;
+import com.example.evans.data.MainController;
+import com.example.evans.data.OnGetDataListener;
 import com.example.evans.data.Service;
 import com.example.evans.ui.DialogFragements.DatePickerFragment;
 import com.example.evans.ui.DialogFragements.TimePickerFragment;
 import com.example.evans.ui.KeyboardControl;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
@@ -46,7 +50,6 @@ public class AppointmentEditFragment extends Fragment
     private EditText _email;
 
     private EditText _phone;
-    private String   _customerId;
     private EditText _date;
     private EditText _time;
     private Spinner _serviceSpinner;
@@ -65,6 +68,7 @@ public class AppointmentEditFragment extends Fragment
     private static final int TIME_DIALOG = 2;
 
     private OnSubmitAppointment _hostActivity;
+    private MainController _maincontroller;
 
     public AppointmentEditFragment() {
         // Required empty public constructor
@@ -85,6 +89,7 @@ public class AppointmentEditFragment extends Fragment
         _notes          = (EditText) rootView.findViewById(R.id.etxt_appointment_note);
         _btnSave        = (Button) rootView.findViewById(R.id.btn_edit_bar_save);
         _btnCancel      = (Button) rootView.findViewById(R.id.btn_edit_bar_cancel);
+        _maincontroller = new MainController();
 
         _servicesMap    = _hostActivity.getServices();
 
@@ -192,8 +197,16 @@ public class AppointmentEditFragment extends Fragment
         String email = _email.getText().toString();
         String notes;
 
+        //
         if (_selectedCustomer == null) {
-            _selectedCustomer = new Customer(null, title, email, phone, LocalDate.now());
+            _selectedCustomer = _maincontroller.getCustomerWithName(title);
+
+            if (_selectedCustomer == null){
+                String id = _maincontroller.getIdForNewCustomer();
+                // there's no existing customer, create one then
+                _selectedCustomer = new Customer(id, title, email, phone, LocalDate.now());
+                _maincontroller.addCustomer(_selectedCustomer);
+            }
         }
 
         // this should be optional
@@ -202,8 +215,7 @@ public class AppointmentEditFragment extends Fragment
         }
 
         if (!title.isEmpty() && _selectedService != null) {
-            appointment = new Appointment(title, _selectedDate, _selectedTime, _customerId, _selectedService);
-
+            appointment = new Appointment(title, _selectedDate, _selectedTime, _selectedCustomer.getId(), _selectedService);
         }
 
         // return appointment;
@@ -211,6 +223,7 @@ public class AppointmentEditFragment extends Fragment
 
 
     }
+
 
 
     @Override
@@ -239,7 +252,6 @@ public class AppointmentEditFragment extends Fragment
             _name.setText(_selectedCustomer.getName());
             _email.setText(_selectedCustomer.getEmail());
             _phone.setText(_selectedCustomer.getPhone());
-            _customerId = _selectedCustomer.getId();
         }
     }
 

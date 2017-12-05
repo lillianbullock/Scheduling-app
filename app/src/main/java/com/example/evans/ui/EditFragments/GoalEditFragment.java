@@ -204,7 +204,6 @@ public class GoalEditFragment extends Fragment
 
     public interface OnSubmitGoalEdit {
         void onGoalEditFinish (Goal goal);
-        List<Goal> getGoal();
         void onGoalEditCancel();
         void hideActionbar();
         void showActionbar();

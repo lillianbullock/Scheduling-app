@@ -12,6 +12,7 @@ import com.google.firebase.database.ValueEventListener;
 import org.joda.time.LocalDate;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -49,27 +50,29 @@ public class FirebaseManager {
      * Get a list of all customers in the database
      * @return
      */
-    public List<Customer> getAllCustomers() {
-        final List<Customer> customers = new ArrayList<>();
+    public void getAllCustomers(final OnGetDataListener onGetDataListener) {
 
+        if (onGetDataListener == null){
+            throw new NullPointerException("Invalid OnGetDataListener");
+        }
+
+
+        onGetDataListener.onDataLoadStarted();
         Query allCustomersQuery = _databaseRoot.child(CUSTOMERS);
 
         allCustomersQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot child: dataSnapshot.getChildren()){
-                    Customer newCustomer = child.getValue(Customer.class);
-                    customers.add(newCustomer);
-                }
+                onGetDataListener.onDataLoadSucceed(dataSnapshot);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                onGetDataListener.onDataLoadFailed(databaseError);
                 Log.w(TAG, "Unable to load customers from the database");
             }
         });
 
-        return customers;
     }
 
 
@@ -79,9 +82,10 @@ public class FirebaseManager {
      * @param endDate the date to end the query at
      * @return List of Customers added between the dates
      */
-    public List<Customer> getCustomersAddedBetweenDates(LocalDate startDate, LocalDate endDate){
-        final List<Customer> customers = new ArrayList<>();
+    public void getCustomersAddedBetweenDates(LocalDate startDate, LocalDate endDate, final OnGetDataListener onGetDataListener){
+
         final String DATE = "dateAdded";
+        onGetDataListener.onDataLoadStarted();
 
         Query customerAddedBetweenDatesQuery = _databaseRoot.child(CUSTOMERS)
                 .orderByChild(DATE).startAt(startDate.toString())
@@ -90,19 +94,16 @@ public class FirebaseManager {
         customerAddedBetweenDatesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot child: dataSnapshot.getChildren()){
-                    Customer newCustomer = child.getValue(Customer.class);
-                    customers.add(newCustomer);
-                }
+                onGetDataListener.onDataLoadSucceed(dataSnapshot);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                onGetDataListener.onDataLoadFailed(databaseError);
                 Log.w(TAG, "Query to database for customers cancelled");
             }
         });
 
-        return customers;
     }
 
 
@@ -112,31 +113,28 @@ public class FirebaseManager {
      * @param customerId the customer id that we're looking up
      * @return a customer with the id, null otherwise
      */
-    public Customer getCustomerWithId(String customerId) {
+    public void getCustomerWithId(String customerId, final OnGetDataListener onGetDataListener) {
 
         String ID = "id";
 
         // this is a hack around Java not letting us change variables in an inner class
         final Customer[] customerArray = new Customer[1];
-        customerArray[0] = null;
 
         Query customerWithIdQuery = _databaseRoot.child(CUSTOMERS).orderByChild(ID).equalTo(customerId);
 
         customerWithIdQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot child: dataSnapshot.getChildren()){
-                     customerArray[0] = child.getValue(Customer.class);
-                }
+                onGetDataListener.onDataLoadSucceed(dataSnapshot);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                onGetDataListener.onDataLoadFailed(databaseError);
 
             }
         });
 
-        return customerArray[0];
     }
 
     /**
@@ -144,45 +142,29 @@ public class FirebaseManager {
      * @param customerName the name of the customer to look up
      * @return a customer with the name, null if no matching customer exist
      */
-    public Customer getCustomerWithName(String customerName) {
+    public void getCustomerWithName(String customerName, final OnGetDataListener onGetDataListener) {
 
         String NAME = "name";
 
         // this is a hack around Java not letting us change variables in an inner class
-        final Customer[] customerArray = new Customer[1];
-        customerArray[0] = null;
+        onGetDataListener.onDataLoadStarted();
 
         Query customerWithIdQuery = _databaseRoot.child(CUSTOMERS).orderByChild(NAME).equalTo(customerName);
 
         customerWithIdQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot child: dataSnapshot.getChildren()){
-                    customerArray[0] = child.getValue(Customer.class);
-                }
+                onGetDataListener.onDataLoadSucceed(dataSnapshot);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                 onGetDataListener.onDataLoadFailed(databaseError);
             }
         });
 
-        return customerArray[0];
     }
 
-
-    /**
-     * Return a customer that is associated with a specific appointment
-     * @param appointment the appointment that we're looking up the customer for
-     * @return customer matching the customerId in the appointment
-     */
-    public Customer getCustomerForAppointment(Appointment appointment) {
-        String customerId = appointment.getCustomerId();
-
-        // easy way out hee haw!!
-        return getCustomerWithId(customerId);
-    }
 
 
     /**
@@ -190,28 +172,23 @@ public class FirebaseManager {
      * @return
      * @param numCustomers the number of customers to retrieve
      */
-    public List<Customer> getCustomersWithLimit(int numCustomers) {
+    public void getCustomersWithLimit(int numCustomers, final OnGetDataListener onGetDataListener) {
 
-        final List<Customer> customers = new ArrayList<>();
 
         Query customersQuery = _databaseRoot.child(CUSTOMERS).limitToFirst(numCustomers);
 
         customersQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot child: dataSnapshot.getChildren()) {
-                    Customer newCustomer = child.getValue(Customer.class);
-                    customers.add(newCustomer);
-                }
+                onGetDataListener.onDataLoadSucceed(dataSnapshot);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                onGetDataListener.onDataLoadFailed(databaseError);
                 Log.i(TAG, "Query cancelled");
             }
         });
-
-        return customers;
 
     }
 
@@ -219,14 +196,11 @@ public class FirebaseManager {
      * Get all the services in the database
      * @return List of Services
      */
-    public Map<String, Service> getServices(final OnGetDataListener dataListener) {
+    public void getServices(final OnGetDataListener dataListener) {
 
         if (dataListener == null){
             throw new NullPointerException("NULL OnGetDataListener");
         }
-
-        final Map<String, Service> serviceMap = new TreeMap<>();
-
 
         Query servicesQuery = _databaseRoot.child(SERVICES).orderByChild("Title");
 
@@ -242,35 +216,54 @@ public class FirebaseManager {
             }
         });
 
+    }
 
-        return serviceMap;
+    public Map<String, Service> getAllServices() {
+        final Map<String, Service> services = new HashMap<>();
+
+        Query servicesQuery = _databaseRoot.child(SERVICES).orderByChild("Title");
+
+        servicesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot child: dataSnapshot.getChildren()){
+                    Service service = child.getValue(Service.class);
+                    services.put(service.getTitle(), service);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w(TAG, "Unable to retrieve services from the database");
+            }
+        });
+
+        return services;
+
     }
 
     /**
      * Get all the appointments in the database
      * @return list of appointments
      */
-    public List<Appointment> getAllAppointments() {
-        final List<Appointment> appointments = new ArrayList<>();
+    public void getAllAppointments(final OnGetDataListener onGetDataListener) {
 
+        onGetDataListener.onDataLoadStarted();
         Query allCustomersQuery = _databaseRoot.child(CUSTOMERS);
 
         allCustomersQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot child: dataSnapshot.getChildren()){
-                    Appointment newAppointment = child.getValue(Appointment.class);
-                    appointments.add(newAppointment);
-                }
+                onGetDataListener.onDataLoadSucceed(dataSnapshot);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                onGetDataListener.onDataLoadFailed(databaseError);
                 Log.w(TAG, "Unable to load customers from the database");
             }
         });
 
-        return appointments;
     }
 
     /**
@@ -278,33 +271,31 @@ public class FirebaseManager {
      * @param customer the customer to lookup
      * @return list of appointments. Return null if none is found
      */
-    public List<Appointment> getAppointmentsForCustomer(Customer customer) {
+    public void getAppointmentsForCustomer(Customer customer, final OnGetDataListener onGetDataListener) {
 
         if (customer == null) {
-            return null;
+            return;
         }
 
-        List<Appointment> customerAppointments = new ArrayList<>();
         String ID = "customerId";
         String customerId = customer.getId();
 
         Query appointmentsForCustomerQuery = _databaseRoot.child(APPOINTMENTS).orderByChild(ID).equalTo(customerId);
+        onGetDataListener.onDataLoadStarted();
 
         appointmentsForCustomerQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot child: dataSnapshot.getChildren()){
-                    Appointment appointment = child.getValue(Appointment.class);
-                }
+                onGetDataListener.onDataLoadSucceed(dataSnapshot);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                onGetDataListener.onDataLoadFailed(databaseError);
                 Log.i(TAG, "Firebase query operation cancelled");
             }
         });
 
-        return customerAppointments;
     }
 
     /**
@@ -313,31 +304,29 @@ public class FirebaseManager {
      * @param endDate the date to end at
      * @return List of Appointments
      */
-    public List<Appointment> getAppointmentsBetween(LocalDate startDate, LocalDate endDate){
+    public void getAppointmentsBetween(LocalDate startDate, LocalDate endDate, final OnGetDataListener onGetDataListener){
 
-        final List<Appointment> appointments = new ArrayList<>();
         final String DATE = "date";
 
         Query appointmentsBetweenDatesQuery = _databaseRoot.child(APPOINTMENTS)
                 .orderByChild(DATE).startAt(startDate.toString())
                 .endAt(endDate.toString());
+        onGetDataListener.onDataLoadStarted();
 
         appointmentsBetweenDatesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot child: dataSnapshot.getChildren()){
-                    Appointment newAppointment = child.getValue(Appointment.class);
-                    appointments.add(newAppointment);
-                }
+               onGetDataListener.onDataLoadSucceed(dataSnapshot);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                onGetDataListener.onDataLoadFailed(databaseError);
                 Log.w(TAG, "Query to database for appointments cancelled");
             }
         });
 
-        return appointments;
+
     }
 
     /**
@@ -345,42 +334,38 @@ public class FirebaseManager {
      * @param numOfAppointments the number of appointments to get
      * @return List of Appointments
      */
-    public List<Appointment> getAppointmentWithLimit(int numOfAppointments){
-        final List<Appointment> appointments = new ArrayList<>();
+    public void getAppointmentWithLimit(int numOfAppointments, final OnGetDataListener onGetDataListener){
+
 
         Query appointmentsQuery = _databaseRoot.child(APPOINTMENTS).limitToFirst(numOfAppointments);
+        onGetDataListener.onDataLoadStarted();
 
         appointmentsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot child: dataSnapshot.getChildren()) {
-                    Appointment appointment = child.getValue(Appointment.class);
-                    appointments.add(appointment);
-                }
+                onGetDataListener.onDataLoadSucceed(dataSnapshot);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                onGetDataListener.onDataLoadFailed(databaseError);
                 Log.w(TAG, "Query to database for appointments cancelled");
             }
         });
 
-        return appointments;
     }
 
     /**
      * Returns all the goals in the database
      * @return List of Goals
      */
-    public List<Goal> getAllGoals(final OnGetDataListener onGetDataListener) {
+    public void getAllGoals(final OnGetDataListener onGetDataListener) {
 
         if (onGetDataListener == null){
             throw new NullPointerException("OnGetDataListener was not");
         }
 
         onGetDataListener.onDataLoadStarted();
-
-        final List<Goal> goals = new ArrayList<>();
 
         Query goalsQuery = _databaseRoot.child(GOALS);
 
@@ -397,36 +382,33 @@ public class FirebaseManager {
             }
         });
 
-        return goals;
+
     }
 
     /**
      * Get all goals that have not been marked as finished
      * @return List of Goals
      */
-    public List<Goal> getUnFinishedGoals() {
+    public void getUnFinishedGoals(final OnGetDataListener onGetDataListener) {
 
-        final List<Goal> goals = new ArrayList<>();
         final String DONE = "done";
 
         Query unfinishedGoalsQuery = _databaseRoot.child(GOALS).orderByChild(DONE);
+        onGetDataListener.onDataLoadStarted();
 
         unfinishedGoalsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot child: dataSnapshot.getChildren()){
-                    Goal newGoal = child.getValue(Goal.class);
-                    goals.add(newGoal);
-                }
+                onGetDataListener.onDataLoadSucceed(dataSnapshot);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                onGetDataListener.onDataLoadFailed(databaseError);
                 Log.w(TAG, "Query to database for unfinished goals cancelled");
             }
         });
 
-        return goals;
     }
 
     /**
@@ -434,10 +416,11 @@ public class FirebaseManager {
      * @param startDate the start date that we're looking up
      * @return List of Goals
      */
-    public List<Goal> getGoalsWithStartDateBetween(LocalDate startDate, LocalDate endDate) {
-        final List<Goal> goals = new ArrayList<>();
+    public void getGoalsWithStartDateBetween(LocalDate startDate, LocalDate endDate, final OnGetDataListener onGetDataListener) {
+
         final String DATE = "startDate";
 
+        onGetDataListener.onDataLoadStarted();
         Query goalsWithStartDatesQuery = _databaseRoot.child(GOALS)
                 .orderByChild(DATE).startAt(startDate.toString())
                 .endAt(endDate.toString());
@@ -445,19 +428,16 @@ public class FirebaseManager {
         goalsWithStartDatesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot child: dataSnapshot.getChildren()){
-                    Goal newGoal = child.getValue(Goal.class);
-                    goals.add(newGoal);
-                }
+               onGetDataListener.onDataLoadSucceed(dataSnapshot);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                onGetDataListener.onDataLoadFailed(databaseError);
                 Log.w(TAG, "Query to database for goals cancelled");
             }
         });
 
-        return goals;
     }
 
     /**
@@ -466,30 +446,29 @@ public class FirebaseManager {
      * @param startDate the end date to start looking up
      * @return List of Goals
      */
-    public List<Goal> getGoalsWithEndDateBetween(LocalDate startDate, LocalDate endDate) {
-        final List<Goal> goals = new ArrayList<>();
+    public void getGoalsWithEndDateBetween(LocalDate startDate, LocalDate endDate, final OnGetDataListener onGetDataListener) {
+
         final String DATE = "dueDate";
 
         Query goalsBetweenDatesQuery = _databaseRoot.child(GOALS)
                 .orderByChild(DATE).startAt(startDate.toString())
                 .endAt(endDate.toString());
+        onGetDataListener.onDataLoadStarted();
 
         goalsBetweenDatesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot child: dataSnapshot.getChildren()){
-                    Goal newGoal = child.getValue(Goal.class);
-                    goals.add(newGoal);
-                }
+                onGetDataListener.onDataLoadSucceed(dataSnapshot);
+
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                onGetDataListener.onDataLoadFailed(databaseError);
                 Log.w(TAG, "Query to database for goals cancelled");
             }
         });
 
-        return goals;
     }
 
 
@@ -498,28 +477,25 @@ public class FirebaseManager {
      * @return list of Goals
      * @param numGoals the number of goals to retrieve
      */
-    public List<Goal> getGoalsWithLimit(int numGoals) {
+    public void getGoalsWithLimit(int numGoals, final OnGetDataListener onGetDataListener) {
 
-        final List<Goal> goals = new ArrayList<>();
 
         Query goalsQuery = _databaseRoot.child(GOALS).limitToFirst(numGoals);
+        onGetDataListener.onDataLoadStarted();
 
         goalsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot child: dataSnapshot.getChildren()) {
-                    Goal newGoal = child.getValue(Goal.class);
-                    goals.add(newGoal);
-                }
+                onGetDataListener.onDataLoadSucceed(dataSnapshot);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                onGetDataListener.onDataLoadFailed(databaseError);
                 Log.i(TAG, "Query cancelled");
             }
         });
 
-        return goals;
 
     }
 
@@ -528,27 +504,26 @@ public class FirebaseManager {
      * Return all the expenses in the database
      * @return List of Expenses
      */
-    public List<Expense> getAllExpenses() {
-        final List<Expense> expenses = new ArrayList<>();
+    public void getAllExpenses(final OnGetDataListener onGetDataListener) {
 
         Query allExpensesQuery = _databaseRoot.child(EXPENSES);
+        onGetDataListener.onDataLoadStarted();
+
 
         allExpensesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot child: dataSnapshot.getChildren()){
-                    Expense newExpense = child.getValue(Expense.class);
-                    expenses.add(newExpense);
-                }
+                onGetDataListener.onDataLoadSucceed(dataSnapshot);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                onGetDataListener.onDataLoadFailed(databaseError);
                 Log.w(TAG, "Unable to load expenses from the database");
             }
         });
 
-        return expenses;
+
     }
 
     /**
@@ -557,30 +532,28 @@ public class FirebaseManager {
      * @param endDate the date to end at
      * @return List of Expenses
      */
-    public  List<Expense> getExpensesBetweenDates(LocalDate startDate, LocalDate endDate) {
-        final List<Expense> expenses = new ArrayList<>();
+    public  void getExpensesBetweenDates(LocalDate startDate, LocalDate endDate, final OnGetDataListener onGetDataListener) {
+
         final String DATE = "date";
 
         Query expensesBetweenDatesQuery = _databaseRoot.child(EXPENSES)
                 .orderByChild(DATE).startAt(startDate.toString())
                 .endAt(endDate.toString());
+        onGetDataListener.onDataLoadStarted();
 
         expensesBetweenDatesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot child: dataSnapshot.getChildren()){
-                    Expense newExpense = child.getValue(Expense.class);
-                    expenses.add(newExpense);
-                }
+                onGetDataListener.onDataLoadSucceed(dataSnapshot);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                onGetDataListener.onDataLoadFailed(databaseError);
                 Log.w(TAG, "Query to database for expenses cancelled");
             }
         });
 
-        return expenses;
     }
 
 
@@ -589,31 +562,27 @@ public class FirebaseManager {
      * @return List of expenses
      * @param numExpenses the number of expenses to retrieve
      */
-    public List<Expense> getExpensesWithLimit(int numExpenses) {
-
-        final List<Expense> expenses = new ArrayList<>();
+    public void getExpensesWithLimit(int numExpenses, final OnGetDataListener onGetDataListener) {
 
 
         Query expenseQuery = _databaseRoot.child(EXPENSES).limitToFirst(numExpenses);
+        onGetDataListener.onDataLoadStarted();
 
 
 
         expenseQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot child: dataSnapshot.getChildren()) {
-                    Expense newExpense = child.getValue(Expense.class);
-                    expenses.add(newExpense);
-                }
+                onGetDataListener.onDataLoadSucceed(dataSnapshot);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                onGetDataListener.onDataLoadFailed(databaseError);
                 Log.i(TAG, "Query cancelled");
             }
         });
 
-        return expenses;
     }
 
 
@@ -621,27 +590,26 @@ public class FirebaseManager {
      * Return all the sales in the database
      * @return List of Sales
      */
-    public List<Sale> getAllSales() {
-        final List<Sale> sales = new ArrayList<>();
+    public void getAllSales(final OnGetDataListener onGetDataListener) {
+
 
         Query allSalesQuery = _databaseRoot.child(SALES);
+        onGetDataListener.onDataLoadStarted();
+
 
         allSalesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot child: dataSnapshot.getChildren()){
-                    Sale newSale = child.getValue(Sale.class);
-                    sales.add(newSale);
-                }
+                onGetDataListener.onDataLoadSucceed(dataSnapshot);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                onGetDataListener.onDataLoadFailed(databaseError);
                 Log.w(TAG, "Unable to load expenses from the database");
             }
         });
 
-        return sales;
     }
 
     /**
@@ -650,30 +618,29 @@ public class FirebaseManager {
      * @param endDate the date to end the query at
      * @return List of Sales between the dates
      */
-    public List<Sale> getSalesBetweenDates(LocalDate startDate, LocalDate endDate){
-        final List<Sale> sales = new ArrayList<>();
+    public void getSalesBetweenDates(LocalDate startDate, LocalDate endDate, final OnGetDataListener onGetDataListener){
+
         final String DATE = "date";
 
         Query salesBetweenDatesQuery = _databaseRoot.child(SALES)
                 .orderByChild(DATE).startAt(startDate.toString())
                 .endAt(endDate.toString());
+        onGetDataListener.onDataLoadStarted();
 
         salesBetweenDatesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot child: dataSnapshot.getChildren()){
-                    Sale newSale = child.getValue(Sale.class);
-                    sales.add(newSale);
-                }
+                onGetDataListener.onDataLoadSucceed(dataSnapshot);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                onGetDataListener.onDataLoadFailed(databaseError);
                 Log.w(TAG, "Query to database for sales cancelled");
             }
         });
 
-        return sales;
+
     }
 
 
@@ -682,28 +649,26 @@ public class FirebaseManager {
      * @return
      * @param numSales the number of sales to retrieve
      */
-    public List<Sale> getSalesWithLimit(int numSales) {
+    public void getSalesWithLimit(int numSales, final OnGetDataListener onGetDataListener) {
 
         final List<Sale> sales = new ArrayList<>();
 
         Query salesQuery = _databaseRoot.child(SALES).limitToFirst(numSales);
+        onGetDataListener.onDataLoadStarted();
 
         salesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot child: dataSnapshot.getChildren()) {
-                    Sale newSale = child.getValue(Sale.class);
-                    sales.add(newSale);
-                }
+                onGetDataListener.onDataLoadSucceed(dataSnapshot);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                onGetDataListener.onDataLoadFailed(databaseError);
                 Log.i(TAG, "Query cancelled");
             }
         });
 
-        return sales;
 
     }
 
@@ -742,7 +707,6 @@ public class FirebaseManager {
         if(customer == null){
             return;
         }
-
 
         _databaseRoot.child(CUSTOMERS).child(customerId).setValue(customer);
     }
@@ -816,8 +780,6 @@ public class FirebaseManager {
         _databaseRoot.child(EXPENSES).child(id).setValue(expense);
 
     }
-
-
 
 
     /* Delete operations */
