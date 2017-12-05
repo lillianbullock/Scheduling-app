@@ -1,6 +1,5 @@
 package com.example.evans.ui.ListFragments;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
@@ -31,6 +30,8 @@ public class ServiceListFragment extends Fragment {
     private ArrayList<Service> _services = new ArrayList<>();
     private ServiceListFragmentListener _hostActivityListener;
 
+    private ServiceAdapter _serviceAdapter;
+
     private ListView _listViewService;
 
 
@@ -45,6 +46,12 @@ public class ServiceListFragment extends Fragment {
         // Inflate the layout for this fragment
         _rootView = inflater.inflate(R.layout.fragment_service_list, container, false);
         _addFloatingBtn = (FloatingActionButton) _rootView.findViewById(R.id.floating_add_btn);
+        _serviceAdapter = new ServiceAdapter(getActivity(), R.layout.service_adapter, _services);
+
+        super.onCreate(savedInstanceState);
+
+        _listViewService = (ListView) _rootView.findViewById(R.id.service_list);
+        _listViewService.setAdapter(_serviceAdapter);
 
         // Set the onClickListener for the floating button.
         _addFloatingBtn.setOnClickListener(new View.OnClickListener() {
@@ -54,20 +61,14 @@ public class ServiceListFragment extends Fragment {
             }
         });
 
-
-        super.onCreate(savedInstanceState);
-
-        _listViewService = (ListView) _rootView.findViewById(R.id.service_list);
-
-        ServiceAdapter adapter = new ServiceAdapter(getActivity(), R.layout.service_adapter, _services);
-
-        _listViewService.setAdapter(adapter);
-
         _listViewService.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getContext(),"This is a Toast test", Toast.LENGTH_SHORT).show();
+
+                Service service = _serviceAdapter.getItem(position);
+                _hostActivityListener.onClickService(service);
             }
         });
 
