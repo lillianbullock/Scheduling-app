@@ -409,7 +409,7 @@ public class MainActivity extends AppCompatActivity implements
         _frag.setGoal(goal);
         _currentFragment = _frag;
 
-        loadCurrentFragment(false);
+        loadCurrentFragment(true);
 
     }
 

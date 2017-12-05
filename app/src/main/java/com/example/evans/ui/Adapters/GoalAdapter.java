@@ -1,6 +1,7 @@
 package com.example.evans.ui.Adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,13 +60,16 @@ public class GoalAdapter extends ArrayAdapter<Goal> {
             _viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        if(_goalList.get(position) != null) {
+        if(_goalList.get(position) != null && _viewHolder != null) {
+
             _viewHolder.title.setText(_goalList.get(position).getTitle());
             _viewHolder.dueDate.setText(_goalList.get(position).getDueDate());
+
 
             if (_goalList.get(position).isDone() != null) {
                 _viewHolder.complete.setChecked(_goalList.get(position).isDone());
             }
+
         }
 
         return convertView;
