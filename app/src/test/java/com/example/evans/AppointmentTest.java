@@ -14,9 +14,9 @@ import static org.junit.Assert.*;
  * Tests the 3 constructors as well as the compareTo and getReport
  */
 
-public class appointmentTest {
+public class AppointmentTest {
     @Test
-    public void testCons() throws Exception {
+    public void test() throws Exception {
 
         // default constructor
         Appointment defaultAppt = new Appointment();

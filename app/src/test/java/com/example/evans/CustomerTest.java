@@ -12,10 +12,9 @@ import static org.junit.Assert.*;
  * Tests for the customer class
  * Tests the 2 constructors as well as the compareTo
  */
-
-public class customerTest {
+public class CustomerTest {
     @Test
-    public void testCons() throws Exception {
+    public void test() throws Exception {
         // default constructor
         Customer defaultCustomer = new Customer();
         assertEquals("default Customer id", defaultCustomer.getId(), "");
@@ -41,15 +40,5 @@ public class customerTest {
         // test compareTo
         assertEquals("customer compareTo should be less", nonDefCustomer.compareTo(defaultCustomer), -1);
         assertEquals("customer compareTo should be same", nonDefCustomer.compareTo(nonDefCustomer), 0);
-
-
-        /* TODO test this
-    @Override
-    public int compareTo(@NonNull Object o) {
-        //Customer customer1 = (Customer) o;
-
-        return this._name.compareTo(((Customer) o)._name);
-    }
-*/
     }
 }
