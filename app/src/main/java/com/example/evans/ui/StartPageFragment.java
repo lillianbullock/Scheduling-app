@@ -1,6 +1,7 @@
 package com.example.evans.ui;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -28,13 +29,18 @@ public class StartPageFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_start_page, container, false);
     }
 
-
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+    }
 
     /**
      * This interface must be implemented by the container Activity
      * This is how we'll be able to communicate with the parent activity.
      */
-    public interface InteractWithStartPageFragment{
+    public interface StartPageFragmentListener {
+        void showActionbar();
+        void hideActionbar();
         void onClickGoalsSeeMore();
         void onClickAppointmentsSeeMore();
         void onClickAppointment(Appointment appointment);

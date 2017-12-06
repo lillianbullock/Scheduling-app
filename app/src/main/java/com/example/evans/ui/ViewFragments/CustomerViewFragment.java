@@ -94,7 +94,6 @@ public class CustomerViewFragment extends Fragment {
         _hostActivity.showActionbar();
     }
 
-
     /**
      * Ensures parent activity has implemented the InteractionWithCustomerViewFragment interface
      * @param activity: the host activity
