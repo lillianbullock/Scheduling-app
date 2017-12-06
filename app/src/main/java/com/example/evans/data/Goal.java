@@ -20,38 +20,41 @@ public class Goal implements Comparable {
     private String _description;
     private LocalDate _dueDate;
     private LocalDate _startDate;
-    private Boolean _isRepeat;
+    private Boolean _repeat;
     private TimePeriod _repeatCycle;
     private Boolean _done;
 
     public Goal() {
+        _id = "";
         _title = "";
         _description = "";
         _dueDate = LocalDate.now();
         _startDate = LocalDate.now();
-        _repeatCycle = null;
+        setRepeatCycle(null);
+        _done = null;
     }
 
     public Goal(String title, String description, LocalDate dueDate,
          LocalDate startDate, TimePeriod repeatCycle) {
+        this._id = "";
         this._title = title;
         this._description = description;
         this._dueDate = dueDate;
         this._startDate = startDate;
-        this._repeatCycle = repeatCycle;
-
-        if (_repeatCycle == null) {
-            _isRepeat = false;
-        } else _isRepeat = true;
+        this._done = false;
+        setRepeatCycle(repeatCycle);
     }
 
     public Goal(String title, String description, LocalDate dueDate,
                 LocalDate startDate) {
+        this._id = "";
         this._title = title;
         this._description = description;
         this._dueDate = dueDate;
         this._startDate = startDate;
-
+        this._done = false;
+        _repeatCycle = null;
+        _repeat = false;
     }
 
     public String getId() { return _id; }
@@ -73,16 +76,17 @@ public class Goal implements Comparable {
     public String getDueDate() { return _dueDate.toString(); }
     public void setDueDate(String dueDateString) { this._dueDate = LocalDate.parse(dueDateString); }
 
-    public Boolean getIsRepeat() { return _isRepeat; }
+    public Boolean isRepeat() { return _repeat; }
     public TimePeriod getRepeatCycle() { return _repeatCycle; }
     /**
      * sets the repeat cycle to the passed value and sets _isRepeat based on that
      * @param repeatCycle: TimePeriod that is how often the goal repeats
      */
     public void setRepeatCycle(TimePeriod repeatCycle) {
+        _repeatCycle = repeatCycle;
         if (_repeatCycle == null) {
-            _isRepeat = false;
-        } else _isRepeat = true;
+            _repeat = false;
+        } else _repeat = true;
     }
 
     public Boolean isDone() { return _done; }
@@ -92,9 +96,9 @@ public class Goal implements Comparable {
      * Tests to see if it is past the due date of the goal
      * @return whether the due date has passed
      */
-    public Boolean isPastPastDue() {
+    public Boolean isPastDue() {
         LocalDate currentDay = LocalDate.now();
-        return _dueDate.isAfter(currentDay);
+        return _dueDate.isBefore(currentDay);
     }
 
     @Override
