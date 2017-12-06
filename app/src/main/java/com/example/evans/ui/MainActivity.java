@@ -135,7 +135,11 @@ public class MainActivity extends AppCompatActivity implements
     /**** EXPENSE *****/
     @Override
     public void onClickExpense(Expense expense) {
+        ExpenseEditFragment _frag = new ExpenseEditFragment();
+        _frag.setExistingExpense(expense);
+        _currentFragment = _frag;
 
+        loadCurrentFragment(false);
     }
 
     @Override

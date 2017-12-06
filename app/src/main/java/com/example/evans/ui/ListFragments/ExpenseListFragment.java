@@ -8,6 +8,7 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.evans.R;
@@ -26,6 +27,9 @@ public class ExpenseListFragment extends Fragment {
     private FloatingActionButton _addFloatingBtn;
     private ExpenseListFragmentListener _hostActivityListener;
 
+    private ListView _expenseListView;
+    private ArrayList<Expense> _expenseList;
+    private ExpenseAdapter _expenseAdapter;
 
     public ExpenseListFragment() {
         // Required empty public constructor
@@ -37,14 +41,15 @@ public class ExpenseListFragment extends Fragment {
                              Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         View rootView;
         rootView = inflater.inflate(R.layout.fragment_expense_list, container, false);
 
-        ListView simpleList;
-        simpleList = rootView.findViewById(R.id.expense_list);
-
+        _expenseListView = rootView.findViewById(R.id.expense_list);
+        _expenseList = new ArrayList<>(_hostActivityListener.getExpenses());
+        _expenseAdapter = new ExpenseAdapter(getActivity(), R.layout.expense_adapter, _expenseList);
         _addFloatingBtn = rootView.findViewById(R.id.floating_add_btn_expense);
+
+
         _addFloatingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,11 +57,15 @@ public class ExpenseListFragment extends Fragment {
             }
         });
 
-        //setting arrayAdapter
-        ArrayList<Expense> expenseList = new ArrayList<>(_hostActivityListener.getExpenses());
+        _expenseListView.setAdapter(_expenseAdapter);
 
-        ExpenseAdapter adapter = new ExpenseAdapter(getActivity(), R.layout.expense_adapter, expenseList);
-        simpleList.setAdapter(adapter);
+        _expenseListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Expense expense = _expenseAdapter.getItem(position);
+                _hostActivityListener.onClickExpense(expense);
+            }
+        });
 
         return rootView;
     }
