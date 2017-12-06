@@ -14,7 +14,7 @@ import static org.junit.Assert.assertNull;
  * Created by Brooke Nelson on 11/2/2017.
  */
 
-public class saleTest {
+public class SaleTest {
     /*@Test
     public void testCons() throws Exception{
         Service service = new Service();
