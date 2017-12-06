@@ -1,7 +1,7 @@
 package com.example.evans.ui.EditFragments;
 
+import android.app.Activity;
 import android.app.DialogFragment;
-import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.Snackbar;
@@ -32,10 +32,7 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * SaleEdit Fragment:
- * This Class will control the SaleEdit Fragment and the View information
- * that will be entered in the view from edit Fragment
- * {@link Fragment} subclass
+ * {@link Fragment} subclass to edit sales data.
  */
 public class SaleEditFragment extends Fragment
         implements DatePickerFragment.OnDateSetListener {
@@ -76,11 +73,11 @@ public class SaleEditFragment extends Fragment
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_sale_edit, container, false);
 
-        _date           = (EditText) view.findViewById(R.id.etxt_sale_date);
-        _serviceSpinner = (Spinner) view.findViewById(R.id.spinner_sale_type);
-        _servicePrice   = (EditText) view.findViewById(R.id.etxt_sale_price);
-        _btnSave        = (Button) view.findViewById(R.id.btn_edit_bar_save);
-        _btnCancel      = (Button) view.findViewById(R.id.btn_edit_bar_cancel);
+        _date           = view.findViewById(R.id.etxt_sale_date);
+        _serviceSpinner = view.findViewById(R.id.spinner_sale_type);
+        _servicePrice   = view.findViewById(R.id.etxt_sale_price);
+        _btnSave        = view.findViewById(R.id.btn_edit_bar_save);
+        _btnCancel      = view.findViewById(R.id.btn_edit_bar_cancel);
         _servicesMap    = new HashMap<>();
         _servicesMap    = _hostActivity.getServices();
 
@@ -173,7 +170,6 @@ public class SaleEditFragment extends Fragment
         return sale;
     }
 
-
     @Override
     public void onResume() {
         super.onResume();
@@ -192,15 +188,11 @@ public class SaleEditFragment extends Fragment
     private void setupServicesSpinner() {
 
         List<String> servicesNames = new ArrayList<>(_hostActivity.getServices().keySet());
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                this.getActivity(),
-                android.R.layout.simple_spinner_item,
-                servicesNames);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>( this.getActivity(),
+                android.R.layout.simple_spinner_item, servicesNames);
 
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-
         _serviceSpinner.setAdapter(adapter);
-
     }
 
     /**
@@ -208,22 +200,22 @@ public class SaleEditFragment extends Fragment
      * our interface
      */
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
 
         // make sure that the container class implemented our interface. If it did then it can be casted
         // if not then we know it did not therefore throw an error
         try {
-            _hostActivity = (OnSubmitSaleEdit) context;
+            _hostActivity = (OnSubmitSaleEdit) activity;
         } catch (ClassCastException e) {
             Log.e(TAG, "We have a problem in our Sale Edit Fragment");
-            throw new ClassCastException(context.toString() + " must implement OnSubmitSaleEdit");
+            throw new ClassCastException(activity.toString() + " must implement OnSubmitSaleEdit");
         }
     }
 
-
     /**
-     * Interface for sale edit holding function to be implemented
+     * This interface must be implemented by the container Activity
+     * This is how we'll be able to communicate with the parent activity.
      */
     public interface OnSubmitSaleEdit {
         void onSaleEditFinish (Sale sale);

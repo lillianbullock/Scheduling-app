@@ -1,15 +1,10 @@
 package com.example.evans.data;
 
-import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 
 /**
- * Created by Brooke Nelson on 10/30/2017.
- * Service class collects and compare the
- * Services offered and the prices that they correspond to
+ * Services offered and corresponding prices
  */
-
 public class Service implements Comparable {
     private String _id;
     private String _title;
@@ -28,6 +23,9 @@ public class Service implements Comparable {
         _price = price;
     }
 
+    public String getId() { return _id; }
+    public void setId(String id) { _id = id;}
+
     public String getTitle() {
         return _title;
     }
@@ -35,29 +33,23 @@ public class Service implements Comparable {
         this._title = title;
     }
 
-    public void setDescription(String description) {
-        this._description = description;
-    }
     public String getDescription() {
         return _description;
     }
-
-    public void setPrice(Double price) {
-        this._price = price;
+    public void setDescription(String description) {
+        this._description = description;
     }
+
     public Double getPrice() {
         return _price;
     }
+    public void setPrice(Double price) {
+        this._price = price;
+    }
 
-    public String getId() { return _id; }
-    public void setId(String id) { _id = id;}
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public int compareTo(@NonNull Object o) {
-
-        Service service1 = (Service) o;
-        return this._title.compareTo(service1._title);
-
+//        Service service1 = (Service) o;
+        return this._title.compareTo(((Service) o)._title);
     }
 }

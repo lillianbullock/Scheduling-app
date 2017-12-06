@@ -13,7 +13,7 @@
 
         <include
             layout="@layout/edit_bar"
-            android:id="@+id/edit_bar_in_customer_edit"
+            android:id="@+id/customer_edit_bar"
             />
 
         <TextView
@@ -39,7 +39,7 @@
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toLeftOf="@+id/etxt_phone"
-            app:layout_constraintTop_toBottomOf="@id/edit_bar_in_customer_edit" />
+            app:layout_constraintTop_toBottomOf="@id/customer_edit_bar" />
 
         <TextView
             android:id="@+id/txt_phone"

@@ -43,7 +43,7 @@ public class CustomerAdapter extends ArrayAdapter<Customer> {
             convertView = inflater.inflate(R.layout.customer_adapter, parent, false);
 
             _viewHolder = new ViewHolder();
-            _viewHolder.name = (TextView) convertView.findViewById(R.id.customer_adapter_name);
+            _viewHolder.name = convertView.findViewById(R.id.customer_adapter_name);
 
             // store the holder with the view.
             convertView.setTag(_viewHolder);

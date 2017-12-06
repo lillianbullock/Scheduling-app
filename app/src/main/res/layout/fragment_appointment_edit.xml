@@ -13,7 +13,7 @@
 
         <!-- Include our standard edit header -->
         <include layout="@layout/edit_bar"
-            android:id="@+id/edit_bar_in_appointment"
+            android:id="@+id/appointment_edit_bar"
             />
 
 
@@ -42,7 +42,7 @@
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toLeftOf="@+id/spinner_sales_type"
-            app:layout_constraintTop_toBottomOf="@id/edit_bar_in_appointment" />
+            app:layout_constraintTop_toBottomOf="@id/appointment_edit_bar" />
 
 
         <!-- Customer email -->
@@ -184,7 +184,7 @@
             android:id="@+id/textView"
             android:layout_width="11dp"
             android:layout_height="wrap_content"
-            android:text="@string/dollar_sign"
+            android:text="@string/currency"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBaseline_toBaselineOf="@+id/txt_price"

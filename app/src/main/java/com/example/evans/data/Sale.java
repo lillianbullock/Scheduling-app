@@ -1,8 +1,6 @@
 package com.example.evans.data;
 
-import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 
 import com.google.firebase.database.Exclude;
 
@@ -10,13 +8,9 @@ import org.joda.time.LocalDate;
 
 
 /**
- * Sale class:
- * This is the Sale model. It models each sale that was made in the college.
- * It should mostly be getters and setters
- *
- * Version: 0.0.1
+ * Class to handle sale information
+ * Models each sale that was made in the college.
  */
-
 public class Sale implements Comparable, Financial{
     private String _id;
     private Service _service;
@@ -45,6 +39,8 @@ public class Sale implements Comparable, Financial{
         _date = dateTime;
     }
 
+    public String getId() { return _id; }
+    public void setId(String id) { _id = id;}
 
     public Service getService() { return _service; }
     public void setService(Service service) { this._service = service; }
@@ -53,31 +49,23 @@ public class Sale implements Comparable, Financial{
     public void setPrice(Double price) { this._price = price; }
 
     public String getDate() { return _date.toString(); }
-
-    @Exclude
-    public LocalDate getSaleDate() { return _date; }
-
     public void setDate(String dateString) { this._date = LocalDate.parse(dateString); }
-
-    @Exclude
-    public void setDate(LocalDate dateTime) { this._date = dateTime; }
+    @Exclude public LocalDate getDateObject() { return _date; }
+    @Exclude public void setDateObject(LocalDate dateTime) { this._date = dateTime; }
 
     public String getCustomerId() { return _customerId; }
     public void setCustomerId(String customerId) { this._customerId = customerId; }
 
-    public String getId() { return _id; }
-    public void setId(String id) { _id = id;}
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public int compareTo(@NonNull Object o) {
         Sale sale1 = (Sale) o;
-        if(this._date.isAfter(sale1._date))
+        if (this._date.isAfter(sale1._date))
             return 1;
-        else if(this._date.isBefore(sale1._date))
+
+        if (this._date.isBefore(sale1._date))
             return -1;
-        else
-            return 0;
+
+        return 0;
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.example.evans.ui.ListFragments;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,7 +22,8 @@ import java.util.ArrayList;
 import java.util.Map;
 
 /**
- * A simple {@link Fragment} subclass.
+ * {@link Fragment} subclass that lists all relevant appointments
+ * uses the {@link ServiceAdapter} to display each item.
  */
 public class ServiceListFragment extends Fragment {
 
@@ -31,6 +31,8 @@ public class ServiceListFragment extends Fragment {
     private ArrayList<Service> _services = new ArrayList<>();
     private ServiceListFragmentListener _hostActivityListener;
     private MainController _mainController;
+
+    private ServiceAdapter _serviceAdapter;
 
     private ListView _listViewService;
 
@@ -49,8 +51,15 @@ public class ServiceListFragment extends Fragment {
 
         // Inflate the layout for this fragment
         _rootView = inflater.inflate(R.layout.fragment_service_list, container, false);
-        _addFloatingBtn = (FloatingActionButton) _rootView.findViewById(R.id.floating_add_btn);
+        _addFloatingBtn = _rootView.findViewById(R.id.floating_add_btn);
+        _addFloatingBtn = _rootView.findViewById(R.id.floating_add_btn);
         _mainController = new MainController();
+        _serviceAdapter = new ServiceAdapter(getActivity(), R.layout.service_adapter, _services);
+
+        super.onCreate(savedInstanceState);
+
+        _listViewService = (ListView) _rootView.findViewById(R.id.service_list);
+        _listViewService.setAdapter(_serviceAdapter);
 
         // Set the onClickListener for the floating button.
         _addFloatingBtn.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +80,9 @@ public class ServiceListFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(getContext(),"This is a Toast test", Toast.LENGTH_SHORT).show();
+
+                Service service = _serviceAdapter.getItem(position);
+                _hostActivityListener.onClickService(service);
             }
         });
 
@@ -86,11 +98,15 @@ public class ServiceListFragment extends Fragment {
     }
 
     /**
-     * We want to make sure that the activity that uses this fragment
-     * has implemented our InteractionWithServiceFragment interface. We
-     * check for this by trying to cast the activity to an instance of
-     * InteractionWithServiceFragment, if it fails then that means that the
-     * interface wasn't implemented. We have to say something about that!
+     * For now we just want to let the host activity take care of it by calling it's
+     * onAddService method it better had implemented our interface
+     */
+    public void onCreateService() {
+        _hostActivityListener.onAddService();
+    }
+
+    /**
+     * Ensures parent activity has implemented the InteractionWithServiceListFragment interface
      * @param activity: the host activity
      */
     @Override
@@ -103,14 +119,6 @@ public class ServiceListFragment extends Fragment {
             throw new ClassCastException(activity.toString() + " must implement " +
                     "InteractionWithServiceFragmentListener");
         }
-    }
-
-    /**
-     * For now we just want to let the host activity take care of it by calling it's
-     * onAddService method it better had implemented our interface
-     */
-    public void onCreateService() {
-        _hostActivityListener.onAddService();
     }
 
     /**

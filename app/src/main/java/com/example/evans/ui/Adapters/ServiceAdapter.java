@@ -51,8 +51,8 @@ public class ServiceAdapter extends ArrayAdapter<Service> {
 
             // set up the ViewHolder
             _viewHolder = new ViewHolder();
-            _viewHolder.title = (TextView) convertView.findViewById(R.id.service_adapter_name);
-            _viewHolder.price = (TextView) convertView.findViewById(R.id.service_adapter_price);
+            _viewHolder.title = convertView.findViewById(R.id.service_adapter_name);
+            _viewHolder.price = convertView.findViewById(R.id.service_adapter_price);
 
             // save the holder with the view
             convertView.setTag(_viewHolder);
@@ -61,7 +61,6 @@ public class ServiceAdapter extends ArrayAdapter<Service> {
             // just use the viewHolder
             _viewHolder = (ViewHolder) convertView.getTag();
         }
-
 
         // set the values for the views if the current item in our list of services
         // is not null

@@ -17,11 +17,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-
 /**
  * Manages our connection with Google Firebase. Handles create, update and delete operations.
  */
-
 public class FirebaseManager {
 
     private DatabaseReference _databaseRoot;
@@ -35,20 +33,17 @@ public class FirebaseManager {
     private static String SALES = "Sales";
     private static String EXPENSES = "Expenses";
 
-
-
     public FirebaseManager() {
 
         // initialize our connection to firebase
         _databaseRoot = FirebaseDatabase.getInstance().getReference();
     }
 
-
     /* Getters start here */
 
     /**
      * Get a list of all customers in the database
-     * @return
+     * @return all customers
      */
     public void getAllCustomers(final OnGetDataListener onGetDataListener) {
 
@@ -105,8 +100,6 @@ public class FirebaseManager {
         });
 
     }
-
-
 
     /**
      * Return the first customer found with the id
@@ -169,7 +162,6 @@ public class FirebaseManager {
 
     /**
      * Return a list of customers limited to the specified number
-     * @return
      * @param numCustomers the number of customers to retrieve
      */
     public void getCustomersWithLimit(int numCustomers, final OnGetDataListener onGetDataListener) {
@@ -623,7 +615,6 @@ public class FirebaseManager {
 
     /**
      * Return a list of sales limited to the specified number
-     * @return
      * @param numSales the number of sales to retrieve
      */
     public void getSalesWithLimit(int numSales, final OnGetDataListener onGetDataListener) {
@@ -698,7 +689,6 @@ public class FirebaseManager {
         if(appointment == null){
             return;
         }
-
         _databaseRoot.child(APPOINTMENTS).child(id).setValue(appointment);
     }
 
@@ -712,7 +702,6 @@ public class FirebaseManager {
         if (service == null){
             return;
         }
-
         _databaseRoot.child(SERVICES).child(id).setValue(service);
     }
 
@@ -725,7 +714,6 @@ public class FirebaseManager {
         if(sale == null){
             return;
         }
-
         _databaseRoot.child(SALES).child(id).setValue(sale);
     }
 
@@ -738,7 +726,6 @@ public class FirebaseManager {
         if(goal == null){
             return;
         }
-
         _databaseRoot.child(GOALS).child(id).setValue(goal);
 
     }
@@ -761,7 +748,7 @@ public class FirebaseManager {
 
     /* Delete operations */
 
-
+    //TODO implement the delete from database functions
     /**
      * Deletes a single customer from the database
      * @param customer the customer to be deleted
@@ -789,7 +776,7 @@ public class FirebaseManager {
 
     /**
      * Delete a single sale from the database
-     * @param sale
+     * @param sale The sale to be deleted
      */
     public void deleteSale(Sale sale){
 

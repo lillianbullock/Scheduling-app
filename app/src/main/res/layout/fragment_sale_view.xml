@@ -9,6 +9,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!-- Include our standard view header -->
+        <include layout="@layout/view_top_bar"
+            android:id="@+id/sale_view_bar"
+            />
+
+        <TextView
+            android:id="@+id/txt_sales_customer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/sale_customer"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/txt_sales_service"
             android:layout_width="wrap_content"
@@ -32,16 +47,6 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_sales_customer" />
-
-        <TextView
-            android:id="@+id/txt_sales_customer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="@string/sale_customer"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/txt_sales_date"

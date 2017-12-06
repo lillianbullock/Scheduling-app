@@ -14,12 +14,12 @@ import com.example.evans.R;
 import com.example.evans.data.Expense;
 import com.example.evans.ui.Adapters.ExpenseAdapter;
 
-import org.joda.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A simple {@link Fragment} subclass.
+ * {@link Fragment} subclass that lists all relevant expenses
+ * uses the {@link ExpenseAdapter} to display each item.
  */
 public class ExpenseListFragment extends Fragment {
 
@@ -42,9 +42,9 @@ public class ExpenseListFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_expense_list, container, false);
 
         ListView simpleList;
-        simpleList = (ListView) rootView.findViewById(R.id.expense_list);
+        simpleList = rootView.findViewById(R.id.expense_list);
 
-        _addFloatingBtn = (FloatingActionButton) rootView.findViewById(R.id.floating_add_btn_expense);
+        _addFloatingBtn = rootView.findViewById(R.id.floating_add_btn_expense);
         _addFloatingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,11 +63,15 @@ public class ExpenseListFragment extends Fragment {
     }
 
     /**
-     * We want to make sure that the activity that uses this fragment
-     * has implemented our InteractionWithCustomerFragment interface. We
-     * check for this by trying to cast the activity to an instance of
-     * InteractionWithCustomerFragment, if it fails then that means that the
-     * interface wasn't implemented. We have to say something about that!
+     * For now we just want to let the host activity tak care of it by calling it's
+     * onAddCustomer method it better had implemented our interface
+     */
+    public void onCreateExpense() {
+        _hostActivityListener.onAddExpense();
+    }
+
+    /**
+     * Ensures parent activity has implemented the InteractionWithExpenseListFragment interface
      * @param activity: the host activity
      */
     @Override
@@ -90,14 +94,4 @@ public class ExpenseListFragment extends Fragment {
         void onClickExpense(Expense expense);
         void onAddExpense();
     }
-
-    /**
-     * For now we just want to let the host activity tak care of it by calling it's
-     * onAddCustomer method it better had implemented our interface
-     */
-    public void onCreateExpense() {
-        _hostActivityListener.onAddExpense();
-    }
-
-
 }

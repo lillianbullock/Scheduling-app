@@ -8,17 +8,15 @@
     <!-- For the navigation drawer -->
     <string name="open">Open</string>
     <string name="close">Close</string>
-    <string name="business_address"> 67 Winn Dr, Rexburg, ID 83440 </string>
-    <string name="dollar_sign">$</string>
+    <string name="business_address">67 Winn Dr, Rexburg, ID 83440</string>
 
     <!-- For navigation bar menu item titles-->
-    <string name="menu_customers"> Customer </string>
-    <string name="menu_goals"> Goals </string>
-    <string name="menu_appointments"> Appointments </string>
-    <string name="menu_sales"> Sales </string>
-    <string name="menu_service"> Service </string>
-    <string name="menu_exit"> Exit </string>
-    <string name="menu_create_report"> Create Report </string>
+    <string name="menu_customers">Customer</string>
+    <string name="menu_goals">Goals</string>
+    <string name="menu_appointments">Appointments</string>
+    <string name="menu_sales">Sales</string>
+    <string name="menu_service">Service</string>
+    <string name="menu_exit">Exit</string>
     <string name="menu_fin_rep">Financial Report</string>
     <string name="menu_expense">Expense</string>
 
@@ -47,20 +45,13 @@
     <string name="goal_end_date">End Date</string>
     <string name="goal_details">Details of Goal</string>
     <string name="goal_repeat_times">Repeat Times</string>
-    <string name="date_enter_hint">Day-Month-Year Hour:Min</string>
+    <string name="goal_done">Done</string>
+    <string name="goal_title">Title</string>
 
     <string name="expense_name">Name</string>
     <string name="expense_price">Price</string>
     <string name="expense_date">Date</string>
 
-
-    <!-- button strings-->
-    <string name="button_edit">Edit</string>
-    <string name="button_save">Save</string>
-    <string name="button_cancel">Cancel</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="done">Done</string>
     <string name="sale_date">Pick Date</string>
     <string name="sale_service">Select Service</string>
     <string name="sale_price">Sales Price</string>
@@ -72,22 +63,22 @@
     <string name="fin_rep_net">Net</string>
     <string name="fin_rep_profit">Profit</string>
 
+    <!-- button strings-->
+    <string name="button_edit">Edit</string>
+    <string name="button_save">Save</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="button_calculate">Calculate</string>
+
     <!-- set this as the default string in layouts where it will be overwritten-->
     <string name="default_string">Default</string>
-    <string name="bttn_calculate">Calculate</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="goal_complete">Complete</string>
-    <string name="goal_title">Title</string>
 
     <string name="title">Title</string>
 
     <string name="currency"> $ </string>
 
     <string name="label_manage">Manage</string>
-
     <string name="label_app">App</string>
+
     <string name="exit">Exit</string>
 
 

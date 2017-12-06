@@ -1,6 +1,7 @@
 package com.example.evans.ui.EditFragments;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -19,7 +20,7 @@ import com.example.evans.ui.KeyboardControl;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * {@link Fragment} subclass to edit service data.
  */
 public class ServiceEditFragment extends Fragment {
 
@@ -27,13 +28,13 @@ public class ServiceEditFragment extends Fragment {
     private EditText _description;
     private EditText _price;
 
+    private Service _selectedService;
+
     private Button _saveBtn;
     private Button _cancelBtn;
 
-
     // for closing the keyboard
     private static final int DONE = EditorInfo.IME_ACTION_DONE;
-
 
     // define a new instance of OnSubmitServiceEdit that would hold an instance of the host activity and will
     // be able to call the methods that we've demanded to be created
@@ -44,7 +45,6 @@ public class ServiceEditFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -53,7 +53,7 @@ public class ServiceEditFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_service_edit, container, false);
 
-        _title = (EditText) rootView.findViewById(R.id.etxt_service_title);
+        _title = rootView.findViewById(R.id.etxt_service_title);
         _description = rootView.findViewById(R.id.etxt_service_description);
         _price = rootView.findViewById(R.id.etxt_service_price);
 
@@ -61,8 +61,7 @@ public class ServiceEditFragment extends Fragment {
         _cancelBtn = rootView.findViewById(R.id.btn_edit_bar_cancel);
 
 
-
-
+        initializeServiceDetails();
 
         // Set the click lister
         _saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +79,6 @@ public class ServiceEditFragment extends Fragment {
                 }
             }
         });
-
 
         // onCancel
         _cancelBtn.setOnClickListener(new View.OnClickListener() {
@@ -103,7 +101,6 @@ public class ServiceEditFragment extends Fragment {
         } catch (Exception e) {
             // Do nothing
         }
-
     }
 
     private Service createService() {
@@ -111,7 +108,6 @@ public class ServiceEditFragment extends Fragment {
         if (_title.getText().toString().isEmpty() || _price.getText().toString().isEmpty()) {
             return null;
         }
-
 
         Service newService = null;
 
@@ -132,6 +128,27 @@ public class ServiceEditFragment extends Fragment {
         return Double.parseDouble(priceStr.replaceAll("[^0-9.]", ""));
     }
 
+    /**
+     * to initialize the customer details for edit
+     */
+    private void initializeServiceDetails() {
+
+        if (_selectedService != null) {
+            _title.setText(_selectedService.getTitle());
+            _price.setText(_selectedService.getPrice().toString());
+            _description.setText(_selectedService.getDescription());
+        }
+    }
+
+
+    /**
+     * when an existing goal is called to edit
+     * @param service passes to set up existing
+     */
+    public void setExistingService(Service service){
+        _selectedService = service;
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -149,23 +166,24 @@ public class ServiceEditFragment extends Fragment {
      * our interface
      */
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
 
         // make sure that the container class implemented our interface. If it did then it can be casted
         // if not then we know it did not therefore throw an error
         try {
-            _hostActivity = (ServiceEditFragment.OnSubmitServiceEdit) context;
+            _hostActivity = (ServiceEditFragment.OnSubmitServiceEdit) activity;
         } catch (ClassCastException e) {
             //they refused to honor the contract!!
-            throw new ClassCastException(context.toString() + " must implement OnSubmitServiceEdit");
+            throw new ClassCastException(activity.toString() + " must implement OnSubmitServiceEdit");
         }
-
     }
 
+
+
     /**
-     * Declare an interface that the activate that creates this fragment must implement. This interface will
-     * handle when a new service has been added
+     * This interface must be implemented by the container Activity
+     * This is how we'll be able to communicate with the parent activity.
      */
     public interface OnSubmitServiceEdit {
         void onServiceEditFinish (Service service);

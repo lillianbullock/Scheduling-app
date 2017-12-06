@@ -25,7 +25,7 @@ public class CustomerViewFragment extends Fragment {
     private Button _backBtn;
     private Button _editCustomerBtn;
 
-    private InteractionWithCustomerViewFragmentListener _hostListener;
+    private InteractionWithCustomerViewFragmentListener _hostActivity;
 
     public CustomerViewFragment() {
         // Required empty public constructor
@@ -63,7 +63,7 @@ public class CustomerViewFragment extends Fragment {
         _setAppointmentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                _hostListener.onSetAppointmentForCustomer(_customer);
+                _hostActivity.onSetAppointmentForCustomer(_customer);
             }
         });
 
@@ -71,7 +71,7 @@ public class CustomerViewFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (_customer != null){
-                    _hostListener.onEditCustomer(_customer);
+                    _hostActivity.onEditCustomer(_customer);
                 } else {
                     Snackbar.make(getActivity().findViewById(R.id.content_frame), "ERROR: Invalid customer", Snackbar.LENGTH_LONG).show();
 
@@ -85,14 +85,15 @@ public class CustomerViewFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        _hostListener.hideActionbar();
+        _hostActivity.hideActionbar();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        _hostListener.showActionbar();
+        _hostActivity.showActionbar();
     }
+
 
     /**
      * Ensures parent activity has implemented the InteractionWithCustomerViewFragment interface
@@ -104,7 +105,7 @@ public class CustomerViewFragment extends Fragment {
 
         //check for implementation by trying to cast to an instance of the interface
         try {
-            _hostListener = (InteractionWithCustomerViewFragmentListener) activity;
+            _hostActivity = (InteractionWithCustomerViewFragmentListener) activity;
         } catch (ClassCastException e) {
             // if fails, interface wasn't implemented
             throw new ClassCastException(activity.toString() + " must implement " +
@@ -113,12 +114,14 @@ public class CustomerViewFragment extends Fragment {
     }
 
     /**
-     * interface to be implemented by parent activity to allow communication
+     * This interface must be implemented by the container Activity
+     * This is how we'll be able to communicate with the parent activity.
      */
     public interface InteractionWithCustomerViewFragmentListener{
-        Customer getViewCustomer();
         void hideActionbar();
         void showActionbar();
+
+        Customer getViewCustomer();
         void onSetAppointmentForCustomer(Customer customer);
         void onEditCustomer(Customer customer);
     }

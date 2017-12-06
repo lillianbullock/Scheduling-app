@@ -1,6 +1,6 @@
 package com.example.evans.ui.EditFragments;
 
-import android.content.Context;
+import android.app.Activity;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.Snackbar;
@@ -19,7 +19,7 @@ import org.joda.time.LocalDate;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * {@link Fragment} subclass to edit customer data.
  */
 public class CustomerEditFragment extends Fragment {
 
@@ -28,8 +28,8 @@ public class CustomerEditFragment extends Fragment {
     private EditText _email;
     private static final String TAG = "CustomerEditFragment";
 
-    private Button _saveBtn;
-    private Button _cancelBtn;
+    private Button _saveBttn;
+    private Button _cancelBttn;
 
     private Customer _selectedCustomer;
     private String   _customerId;
@@ -39,11 +39,9 @@ public class CustomerEditFragment extends Fragment {
     // be able to call the methods that we've demanded to be created
     private OnSubmitCustomerEdit _hostActivity;
 
-
     public CustomerEditFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,13 +55,14 @@ public class CustomerEditFragment extends Fragment {
         _phone = rootView.findViewById(R.id.etxt_phone);
         _email = rootView.findViewById(R.id.etxt_email);
 
-        _saveBtn = rootView.findViewById(R.id.btn_edit_bar_save);
-        _cancelBtn = rootView.findViewById(R.id.btn_edit_bar_cancel);
+        //_setAppointmentBtn = rootView.findViewById(R.id.btn_set_appt);
+        _saveBttn = rootView.findViewById(R.id.btn_edit_bar_save);
+        _cancelBttn = rootView.findViewById(R.id.btn_edit_bar_cancel);
 
         initializeCustomerDetails();
 
         // Create a customer on save click and return it to the host activity
-        _saveBtn.setOnClickListener(new View.OnClickListener() {
+        _saveBttn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -78,7 +77,7 @@ public class CustomerEditFragment extends Fragment {
         });
 
         // Cancel button click
-        _cancelBtn.setOnClickListener(new View.OnClickListener(){
+        _cancelBttn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view){
                 KeyboardControl.closeKeyboard(getActivity());
                 _hostActivity.onCancelCustomerEdit();
@@ -97,7 +96,6 @@ public class CustomerEditFragment extends Fragment {
             String phone = _phone.getText().toString();
             String email = _email.getText().toString();
             LocalDate currentDate = LocalDate.now();
-
 
         // give a default value of N/A if the phone number field is empty
         // it's not a required field
@@ -178,41 +176,34 @@ public class CustomerEditFragment extends Fragment {
         // TODO - Implement
     }
 
-
-
-    /**
-     * Declare an interface that the activate that creates this fragment must implement. This interface will
-     * handle when a new customer has been added
-     */
-    public interface OnSubmitCustomerEdit {
-
-        void onCustomerEditFinish (Customer customer);
-        void onAddAppointmentClickForCustomer(Customer customer);
-        void onCancelCustomerEdit();
-        void hideActionbar();
-        void showActionbar();
-
-    }
-
-
     /**
      * Override onAttach to make sure that the container activity has implemented the callback we specified in
      * our interface
      */
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
 
         // make sure that the container class implemented our interface. If it did then it can be casted
         // if not then we know it did not therefore throw an error
         try {
-            _hostActivity = (OnSubmitCustomerEdit) context;
+            _hostActivity = (OnSubmitCustomerEdit) activity;
         } catch (ClassCastException e) {
             /* they refused to honor the contract!!*/
             Log.e(TAG, "The host activity did not implement OnSubmitCustomerEdit");
-            throw new ClassCastException(context.toString() + " must implement OnSubmitCustomerEdit");
+            throw new ClassCastException(activity.toString() + " must implement OnSubmitCustomerEdit");
         }
-
     }
 
+    /**
+     * This interface must be implemented by the container Activity
+     * This is how we'll be able to communicate with the parent activity.
+     */
+    public interface OnSubmitCustomerEdit {
+        void onCustomerEditFinish (Customer customer);
+        //void onAddAppointmentClickForCustomer(Customer customer);
+        void onCancelCustomerEdit();
+        void hideActionbar();
+        void showActionbar();
+    }
 }

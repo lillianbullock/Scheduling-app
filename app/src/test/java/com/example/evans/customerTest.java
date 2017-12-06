@@ -1,51 +1,55 @@
 package com.example.evans;
 
+import com.example.evans.data.Customer;
+
 import org.junit.Test;
 
-import java.time.LocalDateTime;
+import org.joda.time.LocalDate;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
- * Created by Brooke Nelson on 11/2/2017
+ * Tests for the customer class
+ * Tests the 2 constructors as well as the compareTo
  */
 
 public class customerTest {
-
-    /*
     @Test
-    public void testCons() throws Exception{
+    public void testCons() throws Exception {
+        // default constructor
+        Customer defaultCustomer = new Customer();
+        assertEquals("default Customer id", defaultCustomer.getId(), "");
+        assertEquals("default Customer name", defaultCustomer.getName(), "");
+        assertEquals("default Customer email", defaultCustomer.getEmail(), "");
+        assertEquals("default Customer phone", defaultCustomer.getPhone(), "");
+        assertEquals("default Customer date", defaultCustomer.getDateAddedObject(), LocalDate.now());
+
+        // non-default constructor
         String id = "customerTest";
         String name = "John Doe";
         String email = "email@byui.edu";
-        String phone = "490-123-1111";
-        LocalDateTime dateAdded = LocalDateTime.now();
-        Appointment appointment = new Appointment();
+        String phone = "111-111-1111";
+        LocalDate dateAdded = new LocalDate(1999, 6, 20);
 
-        Customer customer = new Customer(id, name, email, phone, dateAdded, appointment);
+        Customer nonDefCustomer = new Customer(id, name, email, phone, dateAdded);
+        assertEquals("non-default Customer id", nonDefCustomer.getId(), "customerTest");
+        assertEquals("non-default Customer name", nonDefCustomer.getName(), "John Doe");
+        assertEquals("non-default Customer email", nonDefCustomer.getEmail(), "email@byui.edu");
+        assertEquals("non-default Customer phone", nonDefCustomer.getPhone(), "111-111-1111");
+        assertEquals("non-default Customer date", nonDefCustomer.getDateAddedObject(), new LocalDate(1999, 6, 20));
 
-        //Just in case i feel like we need to check the Default to make sure it doesn't have weird values.
-        Customer customer1 = new Customer();
-        // assertNull(customer1);
+        // test compareTo
+        assertEquals("customer compareTo should be less", nonDefCustomer.compareTo(defaultCustomer), -1);
+        assertEquals("customer compareTo should be same", nonDefCustomer.compareTo(nonDefCustomer), 0);
 
-        //First we must check to see if the Appointment itself was not created correctly
-        assertNotNull(customer);
 
-        //Then we need to check the Values that were placed were also correct
-        assertEquals("Getting Id is not right", "customerTest", customer.getId());
-        assertEquals("Getting the Name", "John Doe", customer.getName());
-        assertEquals("Getting the Date", LocalDateTime.now() , customer.getDateAdded());
+        /* TODO test this
+    @Override
+    public int compareTo(@NonNull Object o) {
+        //Customer customer1 = (Customer) o;
 
-        assertNotNull(customer);
-        assertNotNull(appointment);
-
-        assertFalse(appointment.isDue());
-        assertTrue(appointment.isHasPaid());
-        assertTrue(appointment.isSucceed());
+        return this._name.compareTo(((Customer) o)._name);
     }
-    */
+*/
+    }
 }

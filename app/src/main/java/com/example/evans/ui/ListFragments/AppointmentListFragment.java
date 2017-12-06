@@ -23,14 +23,14 @@ import java.util.List;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * {@link Fragment} subclass that lists all relevant appointments
+ * uses the {@link AppointmentAdapter} to display each item.
  */
 public class AppointmentListFragment extends Fragment {
 
     private FloatingActionButton _addFloatingBtn;
     private View _rootView;  // how we can get access to view elements
     private AppointmentListFragmentListener _hostListener;
-
 
     public AppointmentListFragment() {
         // Required empty public constructor
@@ -40,11 +40,10 @@ public class AppointmentListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
-
         // Inflate the layout for this fragment
         _rootView = inflater.inflate(R.layout.fragment_appointment_list, container, false);
 
-        _addFloatingBtn = (FloatingActionButton) _rootView.findViewById(R.id.floating_add_bttn_appointment);
+        _addFloatingBtn = _rootView.findViewById(R.id.floating_add_bttn_appointment);
 
         // Set the onClickListener for the floating button.
         _addFloatingBtn.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +73,7 @@ public class AppointmentListFragment extends Fragment {
 
         super.onCreate(savedInstanceState);
 
-        simpleList = (ListView) _rootView.findViewById(R.id.appointment_list);
+        simpleList = _rootView.findViewById(R.id.appointment_list);
 
         AppointmentAdapter adapter = new AppointmentAdapter(getActivity(), R.layout.customer_adapter, appointmentList);
         simpleList.setAdapter(adapter);
@@ -83,11 +82,12 @@ public class AppointmentListFragment extends Fragment {
     }
 
     /**
-     * We want to make sure that the activity that uses this fragment
-     * has implemented our InteractionWithCustomerFragment interface. We
-     * check for this by trying to cast the activity to an instance of
-     * InteractionWithCustomerFragment, if it fails then that means that the
-     * interface wasn't implemented. We have to say something about that!
+     *OnCreateAppointment()
+     */
+    public void onCreateAppointment() { _hostListener.onAddAppointment(); }
+
+    /**
+     * Ensures parent activity has implemented the InteractionWithAppointmentListFragment interface
      * @param activity: the host activity
      */
     @Override
@@ -101,12 +101,6 @@ public class AppointmentListFragment extends Fragment {
                     "InteractionWithAppointmentFragmentListener");
         }
     }
-
-    /**
-     *OnCreateAppointment()
-     */
-    public void onCreateAppointment() { _hostListener.onAddAppointment(); }
-
 
     /**
      * This interface must be implemented by the container Activity

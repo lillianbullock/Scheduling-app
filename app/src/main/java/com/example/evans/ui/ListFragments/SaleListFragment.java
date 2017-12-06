@@ -17,11 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * Sale List Fragment
- * {@link Fragment} subclass
+ * {@link Fragment} subclass that lists all relevant appointments
+ * uses the {@link SaleAdapter} to display each item.
  */
-
 public class SaleListFragment extends Fragment {
 
     private FloatingActionButton _addFloatingBtn;
@@ -39,7 +37,7 @@ public class SaleListFragment extends Fragment {
         //Set rootView to layout
         _rootView = inflater.inflate(R.layout.fragment_sale_list, contain, false);
 
-        _addFloatingBtn = (FloatingActionButton) _rootView.findViewById(R.id.floating_sale_btn);
+        _addFloatingBtn = _rootView.findViewById(R.id.floating_sale_btn);
 
         // Set the onClickListener for the floating button.
         _addFloatingBtn.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +64,7 @@ public class SaleListFragment extends Fragment {
         //TODO ADD IN WITH FIREBASE
         //saleList = (ArrayList) _hostActivityListener.getSale();
 
-        simpleList = (ListView) _rootView.findViewById(R.id.sale_list);
+        simpleList = _rootView.findViewById(R.id.sale_list);
 
         SaleAdapter adapter = new SaleAdapter(getActivity(), R.layout.sale_adapter, saleList);
         simpleList.setAdapter(adapter);
@@ -74,10 +72,16 @@ public class SaleListFragment extends Fragment {
         return _rootView;
     }
 
+    /**
+     * For now we just want to let the host activity tak care of it by calling it's
+     * onAddCustomer method it better had implemented our interface
+     */
+    public void onCreateSale() {
+        _hostActivityListener.onAddSale();
+    }
 
     /**
-     * Sale Attach, want to make sure that the activity that uses this fragment
-     * has implemented our SaleListFragmentListener interface
+     * Ensures parent activity has implemented the InteractionWithSaleListFragment interface
      * @param activity: the host activity
      */
     @Override
@@ -93,14 +97,6 @@ public class SaleListFragment extends Fragment {
     }
 
     /**
-     * For now we just want to let the host activity tak care of it by calling it's
-     * onAddCustomer method it better had implemented our interface
-     */
-    public void onCreateSale() {
-        _hostActivityListener.onAddSale();
-    }
-
-    /**
      * This interface must be implemented by the container Activity
      * This is how we'll be able to communicate with the parent activity.
      */
@@ -108,6 +104,4 @@ public class SaleListFragment extends Fragment {
         void onAddSale();
         void onClickSale(Sale sale);
     }
-
-
 }

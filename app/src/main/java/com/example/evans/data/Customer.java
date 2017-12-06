@@ -1,8 +1,6 @@
 package com.example.evans.data;
 
-import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 
 import com.google.firebase.database.Exclude;
 
@@ -39,19 +37,16 @@ public class Customer implements Comparable{
     /**
      * This is the same as getDateAdded but it returns a date not a string.
      * This is for us to use in normal code but should be ignored by firebase
-     * @return
+     * @return date the customer was added
      */
     @Exclude
-    public LocalDate getDateAddedDate() { return _dateAdded; }
-
-
+    public LocalDate getDateAddedObject() { return _dateAdded; }
     /**
      * This is the same as setDateAdded but it receives a date not a string.
      * This is for us to use in normal code but should be ignored by firebase
-     * @return
      */
     @Exclude
-    public void setDateAddedDate(LocalDate dateAdded) { this._dateAdded = dateAdded; }
+    public void setDateAddedObject(LocalDate dateAdded) { this._dateAdded = dateAdded; }
 
     public String getDateAdded() {
         return _dateAdded.toString();
@@ -73,16 +68,15 @@ public class Customer implements Comparable{
     public void setPhone(String phone) { this._phone = phone; }
     public String getPhone() { return _phone; }
 
-    public List findAppointments(){
+    //TODO implement this????
+    public List<Appointment> findAppointments(){
         return null;
     }
 
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public int compareTo(@NonNull Object o) {
-        Customer customer1 = (Customer) o;
+        //Customer customer1 = (Customer) o;
 
-        return this._name.compareTo(customer1._name);
+        return this._name.compareTo(((Customer) o)._name);
     }
 }

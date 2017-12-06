@@ -5,8 +5,6 @@
     android:layout_height="match_parent"
     tools:context="com.example.evans.ui.EditFragments.SaleEditFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -87,7 +85,7 @@
             android:id="@+id/txt_service_dollar_sign"
             android:layout_width="18dp"
             android:layout_height="33dp"
-            android:text="@string/dollar_sign"
+            android:text="@string/currency"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBaseline_toBaselineOf="@+id/etxt_sale_price"

@@ -1,9 +1,9 @@
 package com.example.evans.ui.ViewFragments;
 
-import android.content.Context;
+import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +12,7 @@ import com.example.evans.R;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link SalesViewFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link SalesViewFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * {@link android.app.Fragment} subclass to view sales data.
  */
 public class SalesViewFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -29,7 +24,7 @@ public class SalesViewFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+    private OnFragmentInteractionListener _hostActivity;
 
     public SalesViewFragment() {
         // Required empty public constructor
@@ -71,39 +66,51 @@ public class SalesViewFragment extends Fragment {
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+        if (_hostActivity != null) {
+            _hostActivity.onFragmentInteraction(uri);
         }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        _hostActivity = null;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        _hostActivity.hideActionbar();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        _hostActivity.showActionbar();
     }
 
     /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
+     * Ensures parent activity has implemented the InteractionWithSalesViewFragment interface
+     * @param activity: the host activity
+     */
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if (activity instanceof OnFragmentInteractionListener) {
+            _hostActivity = (OnFragmentInteractionListener) activity;
+        } else {
+            throw new RuntimeException(activity.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    /**
+     * This interface must be implemented by the container Activity
+     * This is how we'll be able to communicate with the parent activity.
      */
     public interface OnFragmentInteractionListener {
+        void hideActionbar();
+        void showActionbar();
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }

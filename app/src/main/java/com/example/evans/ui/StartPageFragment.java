@@ -13,15 +13,13 @@ import com.example.evans.data.Goal;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * {@link Fragment} subclass to display on the main screen.
  */
 public class StartPageFragment extends Fragment {
-
 
     public StartPageFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,16 +29,15 @@ public class StartPageFragment extends Fragment {
     }
 
 
+
     /**
      * This interface must be implemented by the container Activity
      * This is how we'll be able to communicate with the parent activity.
      */
     public interface InteractWithStartPageFragment{
-
         void onClickGoalsSeeMore();
         void onClickAppointmentsSeeMore();
         void onClickAppointment(Appointment appointment);
         void onClickGoal(Goal goal);
     }
-
 }
