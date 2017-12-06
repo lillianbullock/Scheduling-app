@@ -79,7 +79,7 @@ public class FinancialReportFragment extends Fragment
         _startDate      = rootView.findViewById(R.id.etxt_fin_rep_start);
         _endDate        = rootView.findViewById(R.id.etxt_fin_rep_end);
         _bttnCalculate  = rootView.findViewById(R.id.bttn_fin_rep_cancel);
-        _mainController = new MainController();
+        _mainController = MainController.getInstance();
 
         _formatter = DateTimeFormat.forPattern("dd, MMMM yyyy");
 

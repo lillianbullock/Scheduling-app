@@ -87,7 +87,7 @@ public class AppointmentEditFragment extends Fragment
         _notes          = rootView.findViewById(R.id.etxt_appointment_note);
         _btnSave        = rootView.findViewById(R.id.btn_edit_bar_save);
         _btnCancel      = rootView.findViewById(R.id.btn_edit_bar_cancel);
-        _maincontroller = new MainController();
+        _maincontroller = MainController.getInstance();
 
         _servicesMap    = _hostActivity.getServices();
 

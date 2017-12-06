@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements
        initializeToolbarAndNavigationDrawer();
 
        // Initialize class variables
-        _mainController = new MainController();
+        _mainController = MainController.getInstance();
 
         // load any saved data from the shared preference
         loadSharedPreference();

@@ -13,9 +13,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This class will hold most of the list data for the application and will contain methods to create, retrieve
- * update and delete goals, sales, services, appointments, customers and expenses. This is the main data source
- * for the user interface in the application.
+ * This singleton class will hold most of the list data for the application and will
+ * contain methods to create, retrieve update and delete goals, sales, services,
+ * appointments, customers and expenses. This is the main data source for the user
+ * interface in the application.
  *
  * License: Private - Class work
  * version: 0.0.1
@@ -24,6 +25,8 @@ import java.util.Map;
 
 
 public class MainController {
+
+    private volatile static MainController instance;
 
     private List<Appointment>       _appointments      = new LinkedList<>();
     private List<Customer>          _customers         = new LinkedList<>();
@@ -36,10 +39,31 @@ public class MainController {
     private static final String TAG = "MainController";
 
 
+
+    /**
+     * Return an instance of MainController
+     * @return an instance on MainController
+     */
+    public static MainController getInstance() {
+
+        if (instance == null){
+
+            // thread safety
+            synchronized (MainController.class) {
+                if (instance == null){
+                    instance = new MainController();
+                }
+            }
+        }
+
+        return instance;
+    }
+
+
     /**
      * Default constructor loads data from firebase
      */
-    public MainController() {
+    private MainController() {
 
         _firebaseManager = new FirebaseManager();
         populateServices();

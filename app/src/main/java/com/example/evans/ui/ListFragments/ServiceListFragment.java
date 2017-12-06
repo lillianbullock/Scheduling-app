@@ -53,7 +53,7 @@ public class ServiceListFragment extends Fragment {
         _rootView = inflater.inflate(R.layout.fragment_service_list, container, false);
         _addFloatingBtn = _rootView.findViewById(R.id.floating_add_btn);
         _addFloatingBtn = _rootView.findViewById(R.id.floating_add_btn);
-        _mainController = new MainController();
+        _mainController = MainController.getInstance();
         _serviceAdapter = new ServiceAdapter(getActivity(), R.layout.service_adapter, _services);
 
         super.onCreate(savedInstanceState);
