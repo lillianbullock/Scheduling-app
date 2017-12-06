@@ -3,8 +3,8 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">#0c419d</item>
-        <item name="colorPrimaryDark">#032476</item>
+        <item name="colorPrimary">#1976d2</item>
+        <item name="colorPrimaryDark">#0d47a1</item>
         <item name="colorAccent">#bb1004</item>
         <item name="android:statusBarColor"> @android:color/transparent </item>
     </style>
