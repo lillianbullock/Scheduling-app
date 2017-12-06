@@ -10,10 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.example.evans.R;
 import com.example.evans.data.Expense;
+import com.example.evans.data.FirebaseManager;
+import com.example.evans.data.OnGetDataListener;
 import com.example.evans.ui.Adapters.ExpenseAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,14 +27,18 @@ import java.util.List;
  * {@link Fragment} subclass that lists all relevant expenses
  * uses the {@link ExpenseAdapter} to display each item.
  */
-public class ExpenseListFragment extends Fragment {
+public class ExpenseListFragment extends Fragment implements OnGetDataListener {
 
     private FloatingActionButton _addFloatingBtn;
     private ExpenseListFragmentListener _hostActivityListener;
+    private View _rootView;
 
+    private ProgressBar _progressBar;
     private ListView _expenseListView;
-    private ArrayList<Expense> _expenseList;
+    private ArrayList<Expense> _expense = new ArrayList<>();
     private ExpenseAdapter _expenseAdapter;
+
+    private OnGetDataListener _onGetDataListener;
 
     public ExpenseListFragment() {
         // Required empty public constructor
@@ -41,13 +50,14 @@ public class ExpenseListFragment extends Fragment {
                              Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        View rootView;
-        rootView = inflater.inflate(R.layout.fragment_expense_list, container, false);
+        _rootView = inflater.inflate(R.layout.fragment_expense_list, container, false);
 
-        _expenseListView = rootView.findViewById(R.id.expense_list);
-        _expenseList = new ArrayList<>(_hostActivityListener.getExpenses());
-        _expenseAdapter = new ExpenseAdapter(getActivity(), R.layout.expense_adapter, _expenseList);
-        _addFloatingBtn = rootView.findViewById(R.id.floating_add_btn_expense);
+        _addFloatingBtn = _rootView.findViewById(R.id.floating_add_btn_expense);
+        _progressBar = _rootView.findViewById(R.id.expense_list_progress_bar);
+        _expenseListView = _rootView.findViewById(R.id.expense_list);
+
+        _expenseAdapter = new ExpenseAdapter(getActivity(), R.layout.expense_adapter, _expense);
+
 
 
         _addFloatingBtn.setOnClickListener(new View.OnClickListener() {
@@ -57,7 +67,7 @@ public class ExpenseListFragment extends Fragment {
             }
         });
 
-        _expenseListView.setAdapter(_expenseAdapter);
+        //_expenseListView.setAdapter(_expenseAdapter);
 
         _expenseListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -67,7 +77,45 @@ public class ExpenseListFragment extends Fragment {
             }
         });
 
-        return rootView;
+        loadExpense();
+
+        return _rootView;
+    }
+
+    public void setExpense(List<Expense> expense){ _expense.addAll(expense); }
+
+    private void loadExpense(){
+        FirebaseManager firebaseManager = new FirebaseManager();
+        firebaseManager.getAllExpenses(this);
+    }
+
+    @Override
+    public void onDataLoadStarted() {
+        _progressBar.setVisibility(ProgressBar.VISIBLE);
+    }
+
+    @Override
+    public void onDataLoadSucceed(DataSnapshot dataSnapshot) {
+
+        _expense.clear();
+
+
+        for(DataSnapshot child: dataSnapshot.getChildren()){
+            _expense.add(child.getValue(Expense.class));
+        }
+
+        _expenseAdapter.addAll(_expense);
+
+        _progressBar.setVisibility(ProgressBar.INVISIBLE);
+
+        ExpenseAdapter expenseAdapter = new ExpenseAdapter(getActivity(), R.layout.expense_adapter, _expense);
+        _expenseListView.setAdapter(_expenseAdapter);
+
+    }
+
+    @Override
+    public void onDataLoadFailed(DatabaseError databaseError) {
+
     }
 
     /**
