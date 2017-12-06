@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.evans.R;
+import com.example.evans.data.MainController;
 import com.example.evans.data.Service;
 import com.example.evans.ui.Adapters.ServiceAdapter;
 
@@ -27,9 +28,9 @@ import java.util.Map;
 public class ServiceListFragment extends Fragment {
 
     private FloatingActionButton _addFloatingBtn;
-    private View _rootView;  // how we can get access to view elements
     private ArrayList<Service> _services = new ArrayList<>();
     private ServiceListFragmentListener _hostActivityListener;
+    private MainController _mainController;
 
     private ServiceAdapter _serviceAdapter;
 
@@ -44,10 +45,15 @@ public class ServiceListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
+        super.onCreate(savedInstanceState);
+
+        View _rootView;
+
         // Inflate the layout for this fragment
         _rootView = inflater.inflate(R.layout.fragment_service_list, container, false);
         _addFloatingBtn = _rootView.findViewById(R.id.floating_add_btn);
-        _addFloatingBtn = (FloatingActionButton) _rootView.findViewById(R.id.floating_add_btn);
+        _addFloatingBtn = _rootView.findViewById(R.id.floating_add_btn);
+        _mainController = new MainController();
         _serviceAdapter = new ServiceAdapter(getActivity(), R.layout.service_adapter, _services);
 
         super.onCreate(savedInstanceState);
@@ -63,14 +69,11 @@ public class ServiceListFragment extends Fragment {
             }
         });
 
-
-        super.onCreate(savedInstanceState);
-
         _listViewService = (ListView) _rootView.findViewById(R.id.service_list);
-
         ServiceAdapter adapter = new ServiceAdapter(getActivity(), R.layout.service_adapter, _services);
-
         _listViewService.setAdapter(adapter);
+
+
 
         _listViewService.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -83,8 +86,11 @@ public class ServiceListFragment extends Fragment {
             }
         });
 
+
+
         return _rootView;
     }
+
 
     public void setServices(Map<String, Service> services) {
 

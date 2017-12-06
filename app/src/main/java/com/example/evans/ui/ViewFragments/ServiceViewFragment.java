@@ -17,7 +17,7 @@ public class ServiceViewFragment extends Fragment {
 
     private Service _service;
     private Button _editServiceBtn;
-    private InteractionWithServiceViewFragmentListener _hostListener;
+    private ServiceListFragmentListener _hostListener;
 
     public ServiceViewFragment() {
         // Required empty public constructor
@@ -60,7 +60,7 @@ public class ServiceViewFragment extends Fragment {
         super.onAttach(activity);
         //check for implementation by trying to cast to an instance of the interface
         try {
-            _hostListener = (InteractionWithServiceViewFragmentListener) activity;
+            _hostListener = (ServiceListFragmentListener) activity;
         } catch (ClassCastException e) {
             // if fails, interface wasn't implemented
             throw new ClassCastException(activity.toString() + " must implement " +
@@ -68,7 +68,7 @@ public class ServiceViewFragment extends Fragment {
         }
     }
 
-    public interface InteractionWithServiceViewFragmentListener{
+    public interface ServiceListFragmentListener {
         void onEditService(Service service);
         void viewWithService(Service service);
     }

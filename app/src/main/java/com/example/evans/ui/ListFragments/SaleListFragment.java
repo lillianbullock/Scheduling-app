@@ -101,7 +101,6 @@ public class SaleListFragment extends Fragment {
      * This is how we'll be able to communicate with the parent activity.
      */
     public interface SaleListFragmentListener {
-        List<Sale> getSale();
         void onAddSale();
         void onClickSale(Sale sale);
     }

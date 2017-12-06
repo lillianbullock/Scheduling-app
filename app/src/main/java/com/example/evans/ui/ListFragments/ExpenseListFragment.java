@@ -101,6 +101,5 @@ public class ExpenseListFragment extends Fragment {
     public interface ExpenseListFragmentListener {
         void onClickExpense(Expense expense);
         void onAddExpense();
-        List<Expense> getExpenses();
     }
 }

@@ -28,7 +28,6 @@ public class CustomerEditFragment extends Fragment {
     private EditText _email;
     private static final String TAG = "CustomerEditFragment";
 
-    private Button _setAppointmentBttn;
     private Button _saveBttn;
     private Button _cancelBttn;
 
@@ -59,7 +58,6 @@ public class CustomerEditFragment extends Fragment {
         //_setAppointmentBtn = rootView.findViewById(R.id.btn_set_appt);
         _saveBttn = rootView.findViewById(R.id.btn_edit_bar_save);
         _cancelBttn = rootView.findViewById(R.id.btn_edit_bar_cancel);
-        _setAppointmentBttn = rootView.findViewById(R.id.btn_set_appt);
 
         initializeCustomerDetails();
 
