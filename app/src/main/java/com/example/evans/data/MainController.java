@@ -46,8 +46,8 @@ public class MainController {
         _firebaseManager = new FirebaseManager();
         populateServices();
         loadAllCustomers();
-        _availableServices = _firebaseManager.getAllServices();
     }
+
 
     /**
      * This function will get populate our map of services with some

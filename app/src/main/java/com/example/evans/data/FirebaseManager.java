@@ -218,29 +218,6 @@ public class FirebaseManager {
 
     }
 
-    public Map<String, Service> getAllServices() {
-        final Map<String, Service> services = new HashMap<>();
-
-        Query servicesQuery = _databaseRoot.child(SERVICES).orderByChild("Title");
-
-        servicesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot child: dataSnapshot.getChildren()){
-                    Service service = child.getValue(Service.class);
-                    services.put(service.getTitle(), service);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w(TAG, "Unable to retrieve services from the database");
-            }
-        });
-
-        return services;
-
-    }
 
     /**
      * Get all the appointments in the database

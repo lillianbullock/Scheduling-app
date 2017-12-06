@@ -61,7 +61,8 @@ public class ServiceListFragment extends Fragment {
         });
 
         _listViewService = (ListView) _rootView.findViewById(R.id.service_list);
-        loadServices();
+        ServiceAdapter adapter = new ServiceAdapter(getActivity(), R.layout.service_adapter, _services);
+        _listViewService.setAdapter(adapter);
 
 
 
@@ -78,19 +79,10 @@ public class ServiceListFragment extends Fragment {
         return _rootView;
     }
 
-    public void loadServices() {
 
-        Map<String, Service> serviceMap = _mainController.getAvailableServices();
+    public void setServices(Map<String, Service> services) {
 
-        _services.addAll(serviceMap.values());
-
-        ServiceAdapter adapter = new ServiceAdapter(getActivity(), R.layout.service_adapter, _services);
-
-        _listViewService.setAdapter(adapter);
-    }
-
-    public void setServices(Map<String, Service> serviceMap){
-        _services = serviceMap;
+        _services.addAll(services.values());
     }
 
     /**

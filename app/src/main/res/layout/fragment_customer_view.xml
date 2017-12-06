@@ -10,6 +10,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <include layout="@layout/view_bar"
+            android:id="@+id/customer_view_bar"
+            />
+
+        <View
+            android:id="@+id/rectangle"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@color/colorPrimary"
+            app:layout_constraintTop_toBottomOf="@id/customer_view_bar"
+            app:layout_constraintStart_toStartOf="parent"
+
+            />
+
+        <View
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:background="@drawable/ic_person_24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/rectangle"/>
+
         <TextView
             android:id="@+id/txt_view_name"
             android:layout_width="wrap_content"
@@ -19,64 +41,73 @@
             android:layout_marginTop="24dp"
             android:labelFor="@id/etxt_name"
             android:text="@string/customer_name"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="@id/rectangle" />
+
+        <View
+            android:id="@+id/icon_phone"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/ic_call_24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_view_name"/>
+
+
 
         <TextView
             android:id="@+id/txt_view_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:labelFor="@id/etxt_phone"
             android:text="@string/customer_phone"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/icon_phone"
             app:layout_constraintTop_toBottomOf="@+id/txt_view_name" />
+
+        <View
+            android:id="@+id/icon_email"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/ic_email_24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_view_phone"/>
 
         <TextView
             android:id="@+id/txt_view_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:labelFor="@id/etxt_email"
             android:text="@string/customer_email"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/icon_email"
             app:layout_constraintTop_toBottomOf="@+id/txt_view_phone" />
 
-        <Button
-            android:id="@+id/btn_set_appt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="24dp"
-            android:text="@string/set_appt"
-            android:background="@color/colorAccent"
-            android:textColor="#ffffff"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_view_email" />
 
-        <Button
-            android:id="@+id/btn_edit_customer"
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/customer_add_appointment_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="24dp"
-            android:background="@color/colorAccent"
-            android:text="@string/button_edit"
-            android:textColor="#ffffff"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_view_email" />
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:clickable="true"
+            android:src="@drawable/ic_event_black_24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/rectangle"
+            app:layout_constraintEnd_toEndOf="parent" />
+
     </android.support.constraint.ConstraintLayout>
 
     <!-- TODO next appointment portion -->

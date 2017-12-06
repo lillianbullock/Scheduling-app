@@ -112,6 +112,8 @@ public class GoalListFragment  extends Fragment implements OnGetDataListener {
     @Override
     public void onDataLoadSucceed(DataSnapshot data) {
 
+        _goals.clear();
+
         for (DataSnapshot child: data.getChildren()){
             _goals.add(child.getValue(Goal.class));
         }

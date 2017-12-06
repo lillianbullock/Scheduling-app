@@ -238,7 +238,7 @@ public class MainActivity extends AppCompatActivity implements
 
 
     @Override
-    public void onSetAppointmentCustomer(Customer customer) {
+    public void onSetAppointmentForCustomer(Customer customer) {
         AppointmentEditFragment frag = new AppointmentEditFragment();
         frag.setCustomer(customer);
         _currentFragment = frag;

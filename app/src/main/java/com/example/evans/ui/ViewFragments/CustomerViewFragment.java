@@ -4,6 +4,7 @@ package com.example.evans.ui.ViewFragments;
 import android.app.Activity;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +14,6 @@ import android.widget.TextView;
 
 import com.example.evans.R;
 import com.example.evans.data.Customer;
-import com.example.evans.ui.KeyboardControl;
 
 /**
  * {@link Fragment} subclass to view the customer data.
@@ -21,8 +21,9 @@ import com.example.evans.ui.KeyboardControl;
 public class CustomerViewFragment extends Fragment {
 
     private Customer _customer;
-    private Button _setAppointmentBtn;
-    private Button _editAppointmentBtn;
+    private FloatingActionButton _setAppointmentBtn;
+    private Button _backBtn;
+    private Button _editCustomerBtn;
 
     private InteractionWithCustomerViewFragmentListener _hostListener;
 
@@ -45,12 +46,13 @@ public class CustomerViewFragment extends Fragment {
         //_customer = new Customer("0", "Customer1", "email1", "000 000 0000", new LocalDateTime());
 
         // collects the views to display the data
-        TextView name = (TextView) view.findViewById(R.id.txt_view_name);
-        TextView email = (TextView) view.findViewById(R.id.txt_view_email);
-        TextView phone = (TextView) view.findViewById(R.id.txt_view_phone);
+        TextView name = view.findViewById(R.id.txt_view_name);
+        TextView email = view.findViewById(R.id.txt_view_email);
+        TextView phone = view.findViewById(R.id.txt_view_phone);
+        _setAppointmentBtn = view.findViewById(R.id.customer_add_appointment_btn);
+        _backBtn = view.findViewById(R.id.btn_view_bar_back);
+        _editCustomerBtn = view.findViewById(R.id.btn_view_bar_edit);
 
-        _setAppointmentBtn = view.findViewById(R.id.btn_set_appt);
-        _editAppointmentBtn = view.findViewById(R.id.btn_edit_customer);
 
         //sets views to the customer data
         name.setText(_customer.getName());
@@ -61,11 +63,11 @@ public class CustomerViewFragment extends Fragment {
         _setAppointmentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                _hostListener.onSetAppointmentCustomer(_customer);
+                _hostListener.onSetAppointmentForCustomer(_customer);
             }
         });
 
-        _editAppointmentBtn.setOnClickListener(new View.OnClickListener() {
+        _setAppointmentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (_customer != null){
@@ -80,7 +82,19 @@ public class CustomerViewFragment extends Fragment {
      return view;
      }
 
-     /**
+    @Override
+    public void onResume() {
+        super.onResume();
+        _hostListener.hideActionbar();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        _hostListener.showActionbar();
+    }
+
+    /**
      * Ensures parent activity has implemented the InteractionWithCustomerViewFragment interface
      * @param activity: the host activity
      */
@@ -103,7 +117,9 @@ public class CustomerViewFragment extends Fragment {
      */
     public interface InteractionWithCustomerViewFragmentListener{
         Customer getViewCustomer();
-        void onSetAppointmentCustomer(Customer customer);
+        void hideActionbar();
+        void showActionbar();
+        void onSetAppointmentForCustomer(Customer customer);
         void onEditCustomer(Customer customer);
     }
 }
