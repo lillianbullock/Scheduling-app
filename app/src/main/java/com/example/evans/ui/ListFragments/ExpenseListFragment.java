@@ -58,8 +58,6 @@ public class ExpenseListFragment extends Fragment implements OnGetDataListener {
 
         _expenseAdapter = new ExpenseAdapter(getActivity(), R.layout.expense_adapter, _expense);
 
-
-
         _addFloatingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,7 +65,6 @@ public class ExpenseListFragment extends Fragment implements OnGetDataListener {
             }
         });
 
-        //_expenseListView.setAdapter(_expenseAdapter);
 
         _expenseListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -105,10 +102,7 @@ public class ExpenseListFragment extends Fragment implements OnGetDataListener {
         }
 
         _expenseAdapter.addAll(_expense);
-
         _progressBar.setVisibility(ProgressBar.INVISIBLE);
-
-        ExpenseAdapter expenseAdapter = new ExpenseAdapter(getActivity(), R.layout.expense_adapter, _expense);
         _expenseListView.setAdapter(_expenseAdapter);
 
     }

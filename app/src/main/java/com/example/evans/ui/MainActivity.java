@@ -39,6 +39,7 @@ import com.example.evans.ui.ListFragments.ServiceListFragment;
 import com.example.evans.ui.ViewFragments.AppointmentViewFragment;
 import com.example.evans.ui.ViewFragments.CustomerViewFragment;
 import com.example.evans.ui.ViewFragments.GoalViewFragment;
+import com.example.evans.ui.ViewFragments.SalesViewFragment;
 import com.example.evans.ui.ViewFragments.ServiceViewFragment;
 
 import org.joda.time.LocalDate;
@@ -178,7 +179,12 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onClickSale(Sale sale) { }
+    public void onClickSale(Sale sale) {
+        SaleEditFragment _frag = new SaleEditFragment();
+        //_frag.(sale);
+        _currentFragment = _frag;
+        loadCurrentFragment(false);
+    }
 
     @Override
     public void onSaleCancel() {
@@ -403,7 +409,10 @@ public class MainActivity extends AppCompatActivity implements
         /******* APPOINTMENT ******/
     @Override
     public void onClickAppointment(Appointment appointment) {
-        //TODO Handle CLick appointment
+        AppointmentViewFragment _frag = new AppointmentViewFragment();
+        _frag.setAppointment(appointment);
+        _currentFragment = _frag;
+        loadCurrentFragment(false);
     }
 
     @Override

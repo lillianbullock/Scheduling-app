@@ -7,11 +7,17 @@ import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.example.evans.R;
 import com.example.evans.data.Customer;
+import com.example.evans.data.FirebaseManager;
+import com.example.evans.data.OnGetDataListener;
 import com.example.evans.ui.Adapters.CustomerAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +27,16 @@ import java.util.List;
  * {@link Fragment} subclass that lists all relevant customers
  * uses the {@link CustomerAdapter} to display each item.
  */
-public class CustomerListFragment extends Fragment {
+public class CustomerListFragment extends Fragment implements OnGetDataListener {
 
     private FloatingActionButton _addFloatingBtn;
     private View _rootView;  // how we can get access to view elements
     private CustomerListFragmentListener _hostActivityListener;
+    private ArrayList<Customer> _customer = new ArrayList<>();
+    private ListView _customerListView;
+    private ProgressBar _progressBar;
+    private CustomerAdapter _customerArrayAdapter;
+    private OnGetDataListener _onGetDataListener;
 
     public CustomerListFragment() {
         // Required empty public constructor
@@ -34,11 +45,15 @@ public class CustomerListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
         // Inflate the layout for this fragment
         _rootView = inflater.inflate(R.layout.fragment_customer_list, container, false);
-
+        _progressBar = _rootView.findViewById(R.id.customer_list_progress_bar);
         _addFloatingBtn = _rootView.findViewById(R.id.floating_add_btn);
+
+        _customerListView = _rootView.findViewById(R.id.customer_list);
+        _customerArrayAdapter = new CustomerAdapter(getActivity(), R.layout.customer_adapter, _customer);
 
         // Set the onClickListener for the floating button.
         _addFloatingBtn.setOnClickListener(new View.OnClickListener() {
@@ -48,30 +63,61 @@ public class CustomerListFragment extends Fragment {
             }
         });
 
-        //setting arrayAdapter
-        ListView simpleList;
-        ArrayList<Customer> customerList = new ArrayList<>();
+        _customerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
+                Customer customer = _customerArrayAdapter.getItem(position);
+                _hostActivityListener.onClickCustomer(customer);
+            }
+        });
 
-        super.onCreate(savedInstanceState);
-
-        Customer test1 = new Customer();
-        test1.setName("testName");
-        customerList.add(test1);
-
-        Customer test2 = new Customer();
-        test2.setName("testName2");
-        customerList.add(test2);
-
-        //TODO put this back when app actually gets data from database (and take out dummy data above)
-        //customerList = (ArrayList) _hostActivityListener.getCustomers();
-
-        simpleList = _rootView.findViewById(R.id.customer_list);
-
-        CustomerAdapter adapter = new CustomerAdapter(getActivity(), R.layout.customer_adapter, customerList);
-        simpleList.setAdapter(adapter);
+        loadCustomer();
 
         return _rootView;
     }
+
+
+    public void setCustomer(List<Customer> customer){
+        _customer.addAll(customer);
+    }
+
+
+    private void loadCustomer(){
+        FirebaseManager firebaseManager = new FirebaseManager();
+        firebaseManager.getAllGoals(this);
+    }
+    
+    @Override
+    public void onDataLoadStarted() {
+        _progressBar.setVisibility(ProgressBar.VISIBLE);
+
+    }
+
+    @Override
+    public void onDataLoadSucceed(DataSnapshot data) {
+
+        _customer.clear();
+
+        for (DataSnapshot child: data.getChildren()){
+            _customer.add(child.getValue(Customer.class));
+        }
+
+        _customerArrayAdapter.addAll(_customer);
+
+        _progressBar.setVisibility(ProgressBar.INVISIBLE);
+
+
+        CustomerAdapter customerAdapter = new CustomerAdapter(getActivity(), R.layout.customer_adapter, _customer);
+        _customerListView.setAdapter(customerAdapter);
+
+    }
+
+    @Override
+    public void onDataLoadFailed(DatabaseError databaseError) {
+
+    }
+
+
 
     /**
      * For now we just want to let the host activity tak care of it by calling it's

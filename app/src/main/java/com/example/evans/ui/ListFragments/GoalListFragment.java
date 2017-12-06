@@ -73,9 +73,6 @@ public class GoalListFragment  extends Fragment implements OnGetDataListener {
             }
         });
 
-        //setting arrayAdapter
-        //ArrayList<Goal> newGoals = new ArrayList<>();
-
 
         loadGoals();
 

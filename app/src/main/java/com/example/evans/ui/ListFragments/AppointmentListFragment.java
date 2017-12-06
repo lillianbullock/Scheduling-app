@@ -8,12 +8,18 @@ import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.example.evans.R;
 import com.example.evans.data.Appointment;
+import com.example.evans.data.FirebaseManager;
+import com.example.evans.data.OnGetDataListener;
 import com.example.evans.data.Service;
 import com.example.evans.ui.Adapters.AppointmentAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
@@ -26,11 +32,19 @@ import java.util.List;
  * {@link Fragment} subclass that lists all relevant appointments
  * uses the {@link AppointmentAdapter} to display each item.
  */
-public class AppointmentListFragment extends Fragment {
+public class AppointmentListFragment extends Fragment implements OnGetDataListener {
 
     private FloatingActionButton _addFloatingBtn;
     private View _rootView;  // how we can get access to view elements
     private AppointmentListFragmentListener _hostListener;
+
+    private ProgressBar _progressBar;
+    private ListView _appointmentListView;
+    private ArrayList<Appointment> _appointment = new ArrayList<>();
+    private AppointmentAdapter _appointmentAdapter;
+
+    private OnGetDataListener _onGetDataListener;
+
 
     public AppointmentListFragment() {
         // Required empty public constructor
@@ -40,10 +54,17 @@ public class AppointmentListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
+        super.onCreate(savedInstanceState);
+
         // Inflate the layout for this fragment
         _rootView = inflater.inflate(R.layout.fragment_appointment_list, container, false);
-
         _addFloatingBtn = _rootView.findViewById(R.id.floating_add_bttn_appointment);
+        _progressBar = _rootView.findViewById(R.id.appointment_list_progress_bar);
+
+        _appointmentListView = _rootView.findViewById(R.id.appointment_list);
+
+        _appointmentAdapter = new AppointmentAdapter(getActivity(), R.layout.appointment_adapter, _appointment);
+
 
         // Set the onClickListener for the floating button.
         _addFloatingBtn.setOnClickListener(new View.OnClickListener() {
@@ -53,32 +74,48 @@ public class AppointmentListFragment extends Fragment {
             }
         });
 
-        //setting arrayAdapter
-        ListView simpleList;
-        ArrayList<Appointment> appointmentList = new ArrayList<>();
+        _appointmentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Appointment appointment = _appointmentAdapter.getItem(position);
+                _hostListener.onClickAppointment(appointment);
+            }
+        });
 
-        Service s1 = new Service("Service1", "", 2.00);
-        Service s2 = new Service("Service2", "", 3.00);
-
-        Appointment test1 = new Appointment("testName", LocalDate.now(), LocalTime.now(), "0",
-                s1);
-        appointmentList.add(test1);
-
-        Appointment test2 = new Appointment("testName2", LocalDate.now(), LocalTime.now(), "0",
-                s2);
-        appointmentList.add(test2);
-
-        //TODO put this back when app actually gets data from database (and take out dummy data above)
-        //appointmentList = (ArrayList) _hostListener.getAppointmentList();
-
-        super.onCreate(savedInstanceState);
-
-        simpleList = _rootView.findViewById(R.id.appointment_list);
-
-        AppointmentAdapter adapter = new AppointmentAdapter(getActivity(), R.layout.customer_adapter, appointmentList);
-        simpleList.setAdapter(adapter);
+        //TODO NULL PointerException in Adapter ISSUES loadAppointment();
 
         return _rootView;
+    }
+
+    public void setAppointment(List<Appointment> appointment){ _appointment.addAll(appointment); }
+
+    private void loadAppointment(){
+        FirebaseManager firebaseManager = new FirebaseManager();
+        firebaseManager.getAllAppointments(this);
+    }
+
+    @Override
+    public void onDataLoadStarted() {
+        _progressBar.setVisibility(ProgressBar.VISIBLE);
+    }
+
+    @Override
+    public void onDataLoadSucceed(DataSnapshot dataSnapshot) {
+        _appointment.clear();
+
+        for(DataSnapshot child: dataSnapshot.getChildren()){
+            _appointment.add(child.getValue(Appointment.class));
+        }
+
+        _appointmentAdapter.addAll(_appointment);
+        _progressBar.setVisibility(ProgressBar.INVISIBLE);
+        _appointmentListView.setAdapter(_appointmentAdapter);
+
+    }
+
+    @Override
+    public void onDataLoadFailed(DatabaseError databaseError) {
+
     }
 
     /**
@@ -110,7 +147,5 @@ public class AppointmentListFragment extends Fragment {
         void onClickAppointment(Appointment appointment);
         void onAddAppointment();
     }
-
-
 
 }
