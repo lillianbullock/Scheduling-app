@@ -76,10 +76,8 @@ public class ServiceListFragment extends Fragment {
 
 
         _listViewService.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getContext(),"This is a Toast test", Toast.LENGTH_SHORT).show();
 
                 Service service = _serviceAdapter.getItem(position);
                 _hostActivityListener.onClickService(service);

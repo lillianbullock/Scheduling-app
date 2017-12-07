@@ -86,7 +86,7 @@ public class CustomerListFragment extends Fragment implements OnGetDataListener 
         FirebaseManager firebaseManager = new FirebaseManager();
         firebaseManager.getAllGoals(this);
     }
-    
+
     @Override
     public void onDataLoadStarted() {
         _progressBar.setVisibility(ProgressBar.VISIBLE);
