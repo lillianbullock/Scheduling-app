@@ -79,6 +79,12 @@ public class GoalListFragment  extends Fragment implements OnGetDataListener {
         return _rootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        _hostActivity.showActionbar();
+    }
+
     public void setGoals(List<Goal> goals){
         _goals.addAll(goals);
     }
@@ -145,6 +151,7 @@ public class GoalListFragment  extends Fragment implements OnGetDataListener {
     public interface GoalsListFragmentListener {
         void viewWithGoal(Goal goal);
         void onClickAddGoal();
+        void showActionbar();
     }
 
     public void onCreateGoal() {

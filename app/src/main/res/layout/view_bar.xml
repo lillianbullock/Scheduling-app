@@ -32,7 +32,6 @@
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
-            android:text="@string/title"
             style="@android:style/TextAppearance.Medium"
             android:textColor="@android:color/white"
             app:layout_constraintStart_toEndOf="@id/btn_view_bar_back"

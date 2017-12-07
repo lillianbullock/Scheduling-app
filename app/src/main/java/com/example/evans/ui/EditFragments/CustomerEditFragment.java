@@ -148,11 +148,6 @@ public class CustomerEditFragment extends Fragment {
     }
 
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        _hostActivity.showActionbar();
-    }
 
     /**
      *  isValid: Return true is the passed email string matches the specified
@@ -190,7 +185,6 @@ public class CustomerEditFragment extends Fragment {
             _hostActivity = (OnSubmitCustomerEdit) activity;
         } catch (ClassCastException e) {
             /* they refused to honor the contract!!*/
-            Log.e(TAG, "The host activity did not implement OnSubmitCustomerEdit");
             throw new ClassCastException(activity.toString() + " must implement OnSubmitCustomerEdit");
         }
     }

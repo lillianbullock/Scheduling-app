@@ -76,6 +76,12 @@ public class CustomerListFragment extends Fragment implements OnGetDataListener 
         return _rootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        _hostActivityListener.showActionbar();
+    }
+
 
     public void setCustomer(List<Customer> customer){
         _customer.addAll(customer);
@@ -150,5 +156,6 @@ public class CustomerListFragment extends Fragment implements OnGetDataListener 
     public interface CustomerListFragmentListener {
         void onClickCustomer(Customer customer);
         void onAddCustomer();
+        void showActionbar();
     }
 }

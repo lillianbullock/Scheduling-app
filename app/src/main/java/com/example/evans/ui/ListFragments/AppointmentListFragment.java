@@ -87,6 +87,12 @@ public class AppointmentListFragment extends Fragment implements OnGetDataListen
         return _rootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        _hostListener.showActionbar();
+    }
+
     public void setAppointment(List<Appointment> appointment){ _appointment.addAll(appointment); }
 
     private void loadAppointment(){
@@ -146,6 +152,7 @@ public class AppointmentListFragment extends Fragment implements OnGetDataListen
     public interface AppointmentListFragmentListener {
         void onClickAppointment(Appointment appointment);
         void onAddAppointment();
+        void showActionbar();
     }
 
 }

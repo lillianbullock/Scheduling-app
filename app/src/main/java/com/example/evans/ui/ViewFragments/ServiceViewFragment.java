@@ -17,7 +17,9 @@ public class ServiceViewFragment extends Fragment {
 
     private Service _service;
     private Button _editServiceBtn;
+    private Button _backBtn;
     private ServiceListFragmentListener _hostListener;
+
 
     public ServiceViewFragment() {
         // Required empty public constructor
@@ -30,11 +32,12 @@ public class ServiceViewFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_service_view,container, false);
 
-        TextView name = (TextView) view.findViewById(R.id.txt_service_view_name);
-        TextView detail = (TextView) view.findViewById(R.id.txt_service_description);
-        TextView price = (TextView) view.findViewById(R.id.txt_service_price);
+        TextView name = view.findViewById(R.id.txt_service_view_name);
+        TextView detail =  view.findViewById(R.id.txt_service_description);
+        TextView price = view.findViewById(R.id.txt_service_price);
 
-        _editServiceBtn = (Button) view.findViewById(R.id.btn_edit_service);
+        _editServiceBtn = view.findViewById(R.id.btn_view_bar_edit);
+        _backBtn = view.findViewById(R.id.btn_view_bar_back);
 
 
         name.setText(_service.getTitle());
@@ -50,9 +53,24 @@ public class ServiceViewFragment extends Fragment {
             }
         });
 
+        _backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                _hostListener.onBackPressed();
+            }
+        });
+
 
         // Inflate the layout for this fragment
         return view;
+    }
+
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        _hostListener.hideActionbar();
     }
 
     @Override
@@ -70,6 +88,8 @@ public class ServiceViewFragment extends Fragment {
 
     public interface ServiceListFragmentListener {
         void onEditService(Service service);
+        void hideActionbar();
+        void onBackPressed();
         void viewWithService(Service service);
     }
 }

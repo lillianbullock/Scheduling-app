@@ -10,6 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <include layout="@layout/view_bar"
+            android:id="@+id/service_view_bar"
+            />
+
         <TextView
             android:id="@+id/txt_service_view_name"
             android:layout_width="wrap_content"
@@ -19,9 +23,8 @@
             android:text="@string/service_title"
             android:textSize="20sp"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/service_view_bar" />
 
         <TextView
             android:id="@+id/txt_service_description"
@@ -51,18 +54,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_service_description"/>
 
-        <Button
-            android:id="@+id/btn_edit_service"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="24dp"
-            android:background="@color/colorAccent"
-            android:text="@string/button_edit"
-            android:textColor="#ffffff"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_service_price" />
         </android.support.constraint.ConstraintLayout>
 
     </FrameLayout>
