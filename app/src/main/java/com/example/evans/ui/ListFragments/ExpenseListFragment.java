@@ -79,6 +79,12 @@ public class ExpenseListFragment extends Fragment implements OnGetDataListener {
         return _rootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        _hostActivityListener.showActionbar();
+    }
+
     public void setExpense(List<Expense> expense){ _expense.addAll(expense); }
 
     private void loadExpense(){
@@ -143,5 +149,6 @@ public class ExpenseListFragment extends Fragment implements OnGetDataListener {
     public interface ExpenseListFragmentListener {
         void onClickExpense(Expense expense);
         void onAddExpense();
+        void showActionbar();
     }
 }

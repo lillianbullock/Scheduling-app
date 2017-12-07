@@ -67,6 +67,20 @@ public class CustomerViewFragment extends Fragment {
             }
         });
 
+        _editCustomerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                _hostActivity.onEditCustomer(_customer);
+            }
+        });
+
+        _backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                _hostActivity.onBackPressed();
+            }
+        });
+
         _setAppointmentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,11 +102,6 @@ public class CustomerViewFragment extends Fragment {
         _hostActivity.hideActionbar();
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        _hostActivity.showActionbar();
-    }
 
     /**
      * Ensures parent activity has implemented the InteractionWithCustomerViewFragment interface
@@ -119,6 +128,7 @@ public class CustomerViewFragment extends Fragment {
     public interface InteractionWithCustomerViewFragmentListener{
         void hideActionbar();
         void showActionbar();
+        void onBackPressed();
 
         Customer getViewCustomer();
         void onSetAppointmentForCustomer(Customer customer);

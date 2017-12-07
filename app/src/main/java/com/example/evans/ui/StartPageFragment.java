@@ -18,6 +18,8 @@ import com.example.evans.data.Goal;
  */
 public class StartPageFragment extends Fragment {
 
+    private StartPageFragmentListener _hostActivity;
+
     public StartPageFragment() {
         // Required empty public constructor
     }
@@ -32,6 +34,21 @@ public class StartPageFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
+        try {
+            _hostActivity = (StartPageFragmentListener) context;
+        } catch (ClassCastException e){
+            /* they refused to honor the contract!!*/
+            throw new ClassCastException(context.toString() + " must implement StartPageFragmentListener");
+        }
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        _hostActivity.showActionbar();
     }
 
     /**

@@ -255,12 +255,6 @@ public class AppointmentEditFragment extends Fragment
         _hostActivity.hideActionbar();
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        _hostActivity.showActionbar();
-    }
-
     /**
      * One job: Populate our services spinner from the data we have in MainController
      */

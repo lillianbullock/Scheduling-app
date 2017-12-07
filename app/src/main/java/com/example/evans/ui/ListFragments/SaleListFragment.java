@@ -78,6 +78,12 @@ public class SaleListFragment extends Fragment implements OnGetDataListener {
         return _rootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        _hostActivityListener.showActionbar();
+    }
+
     public void setSale(List<Sale> sale){
         _sale.addAll(sale);
     }
@@ -145,5 +151,6 @@ public class SaleListFragment extends Fragment implements OnGetDataListener {
     public interface SaleListFragmentListener {
         void onAddSale();
         void onClickSale(Sale sale);
+        void showActionbar();
     }
 }

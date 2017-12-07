@@ -91,6 +91,11 @@ public class ServiceListFragment extends Fragment {
         return _rootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        _hostActivityListener.showActionbar();
+    }
 
     public void setServices(Map<String, Service> services) {
 
@@ -128,5 +133,6 @@ public class ServiceListFragment extends Fragment {
     public interface ServiceListFragmentListener {
         void onClickService(Service service);
         void onAddService();
+        void showActionbar();
     }
 }

@@ -141,11 +141,6 @@ public class ExpenseEditFragment extends Fragment
     }
 
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        _hostActivity.showActionbar();
-    }
 
     @Override
     public void onDateSet(LocalDate date) {

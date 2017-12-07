@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements
         SaleEditFragment.OnSubmitSaleEdit,
         GoalViewFragment.InteractionWithGoalViewFragmentListener,
         ExpenseListFragment.ExpenseListFragmentListener,
+        StartPageFragment.StartPageFragmentListener,
         ExpenseEditFragment.InteractionWithExpenseEditFragmentListener
     {
 
@@ -140,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements
         _frag.setExistingExpense(expense);
         _currentFragment = _frag;
 
-        loadCurrentFragment(false);
+        loadCurrentFragment(true);
     }
 
     @Override
@@ -246,7 +247,7 @@ public class MainActivity extends AppCompatActivity implements
         ServiceViewFragment _frag = new ServiceViewFragment();
         _frag.setService(service);
         _currentFragment = _frag;
-        loadCurrentFragment(false);
+        loadCurrentFragment(true);
     }
 
     @Override
@@ -278,14 +279,6 @@ public class MainActivity extends AppCompatActivity implements
 
     /******** CUSTOMER **********/
     @Override
-    public void onSetAppointmentForCustomer(Customer customer) {
-        AppointmentEditFragment frag = new AppointmentEditFragment();
-        frag.setCustomer(customer);
-        _currentFragment = frag;
-        loadCurrentFragment(true);
-    }
-
-    @Override
     public void onEditCustomer(Customer customer) {
 
         if (customer != null){
@@ -306,7 +299,7 @@ public class MainActivity extends AppCompatActivity implements
             _frag.setCustomer(customer);
             _currentFragment = _frag;
 
-            loadCurrentFragment(false);
+            loadCurrentFragment(true);
     }
 
     @Override
@@ -443,15 +436,15 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 
-    /*@Override
-    public void onAddAppointmentClickForCustomer(Customer customer) {
+    @Override
+    public void onSetAppointmentForCustomer(Customer customer) {
 
         AppointmentEditFragment appointmentEditFragment = new AppointmentEditFragment();
         appointmentEditFragment.setCustomer(customer);
 
         _currentFragment = appointmentEditFragment;
         loadCurrentFragment(false);
-    }*/
+    }
 
     @Override
     public void hideActionbar() {
@@ -463,7 +456,21 @@ public class MainActivity extends AppCompatActivity implements
             getSupportActionBar().show();
         }
 
+    /************************* StartPage Fragment ************************************/
+    @Override
+    public void onClickGoalsSeeMore() {
 
+    }
+
+    @Override
+    public void onClickAppointmentsSeeMore() {
+
+    }
+
+    @Override
+    public void onClickGoal(Goal goal) {
+
+    }
 
     /********************END OF OVERRIDING METHODS FOR FRAGMENTS****************************/
 
@@ -484,6 +491,10 @@ public class MainActivity extends AppCompatActivity implements
         }
 
         transaction.commit();
+    }
+
+    void removeCurrentFragment() {
+        getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.content_frame)).commit();
     }
 
     /**
@@ -617,12 +628,14 @@ public class MainActivity extends AppCompatActivity implements
 
         // I'm pretty sure we don't want to pop off an empty backStack!
         if (getFragmentManager().getBackStackEntryCount() > 0) {
-            getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.content_frame)).commit();
+            removeCurrentFragment();
             getFragmentManager().popBackStack();
         } else {
             super.onBackPressed();
         }
     }
+
+
 
     @Override
     public void onDateSet(LocalDate date) {
