@@ -31,6 +31,7 @@ public class SaleListFragment extends Fragment implements OnGetDataListener {
     private FloatingActionButton _addFloatingBtn;
     private View _rootView;
     private SaleListFragmentListener _hostActivityListener;
+    private static final String TITLE = "Goals";
 
     private ProgressBar _progressBar;
     private ListView _saleListView;
@@ -81,6 +82,7 @@ public class SaleListFragment extends Fragment implements OnGetDataListener {
     @Override
     public void onResume() {
         super.onResume();
+        _hostActivityListener.setAppbarTitle(TITLE);
         _hostActivityListener.showActionbar();
     }
 
@@ -152,5 +154,6 @@ public class SaleListFragment extends Fragment implements OnGetDataListener {
         void onAddSale();
         void onClickSale(Sale sale);
         void showActionbar();
+        void setAppbarTitle(String title);
     }
 }

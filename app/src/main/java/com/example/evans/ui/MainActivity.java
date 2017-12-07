@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements
         ServiceListFragment.ServiceListFragmentListener,
         ServiceViewFragment.ServiceListFragmentListener,
         GoalEditFragment.OnSubmitGoalEdit,
+        FinancialReportFragment.ReportFragmentListener,
         GoalListFragment.GoalsListFragmentListener,
         AppointmentListFragment.AppointmentListFragmentListener,
         AppointmentEditFragment.OnSubmitAppointment,
@@ -81,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements
     private Fragment _currentFragment;
     private DrawerLayout _drawerLayout;
     private ActionBarDrawerToggle _actionBarToggle;
+    private Toolbar _toolbar;
 
 
     private static final int DEFAULTLOADNUMBER = 20;
@@ -94,11 +96,13 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /* Initialize your toolbar and navigation drawer*/
-       initializeToolbarAndNavigationDrawer();
-
-       // Initialize class variables
+        // Initialize class variables
         _mainController = MainController.getInstance();
+        _toolbar = findViewById(R.id.app_toolbar);
+
+        /* Initialize your toolbar and navigation drawer*/
+        initializeToolbarAndNavigationDrawer();
+
 
         // load any saved data from the shared preference
         loadSharedPreference();
@@ -472,6 +476,11 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
+    @Override
+    public void setAppbarTitle(String title){
+        _toolbar.setTitle(title);
+    }
+
     /********************END OF OVERRIDING METHODS FOR FRAGMENTS****************************/
 
     /**
@@ -504,9 +513,9 @@ public class MainActivity extends AppCompatActivity implements
     private void initializeToolbarAndNavigationDrawer() {
 
         // Set the app toolbar programmatically
-        Toolbar toolbar = findViewById(R.id.app_toolbar);
-        toolbar.setTitle(R.string.app_name);
-        setSupportActionBar(toolbar);
+        _toolbar.setTitle(R.string.app_name);
+        _toolbar.setTitleTextColor(getResources().getColor(R.color.colorAccentText));
+        setSupportActionBar(_toolbar);
 
         // Initialize the navigation view (nav bar) and set a click listener for its menu items
         NavigationView navigationView = findViewById(R.id.main_nav_view);
@@ -528,7 +537,11 @@ public class MainActivity extends AppCompatActivity implements
                 _drawerLayout,
                 R.string.open,
                 R.string.close);
+
+        // change the hamburger icon color to the text color
+        _actionBarToggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.colorAccentText));
         _drawerLayout.addDrawerListener(_actionBarToggle);
+
 
         // sync the state of the hamburger (menu) button depending on whether the navigation drawer is
         // open or closed
@@ -569,9 +582,7 @@ public class MainActivity extends AppCompatActivity implements
                 break;
             case R.id.menu_item_service:
                 _drawerLayout.closeDrawer(GravityCompat.START);
-                ServiceListFragment serviceListFragment = new ServiceListFragment();
-                serviceListFragment.setServices(_mainController.getAvailableServices());
-                _currentFragment = serviceListFragment;
+                _currentFragment = new ServiceListFragment();
                 loadCurrentFragment(true);
                 break;
             case R.id.menu_item_sales:

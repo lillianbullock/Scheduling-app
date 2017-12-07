@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,8 @@ public class AppointmentListFragment extends Fragment implements OnGetDataListen
     private FloatingActionButton _addFloatingBtn;
     private View _rootView;  // how we can get access to view elements
     private AppointmentListFragmentListener _hostListener;
+    private static final String TAG = "AppointmentListFragment";
+    private final String TITLE = "Appointments";
 
     private ProgressBar _progressBar;
     private ListView _appointmentListView;
@@ -82,6 +85,8 @@ public class AppointmentListFragment extends Fragment implements OnGetDataListen
             }
         });
 
+        loadAppointment();
+
         //TODO NULL PointerException in Adapter ISSUES loadAppointment();
 
         return _rootView;
@@ -91,6 +96,7 @@ public class AppointmentListFragment extends Fragment implements OnGetDataListen
     public void onResume() {
         super.onResume();
         _hostListener.showActionbar();
+        _hostListener.setAppbarTitle(TITLE);
     }
 
     public void setAppointment(List<Appointment> appointment){ _appointment.addAll(appointment); }
@@ -121,7 +127,7 @@ public class AppointmentListFragment extends Fragment implements OnGetDataListen
 
     @Override
     public void onDataLoadFailed(DatabaseError databaseError) {
-
+        Log.w(TAG, "Unable to load appointments");
     }
 
     /**
@@ -153,6 +159,7 @@ public class AppointmentListFragment extends Fragment implements OnGetDataListen
         void onClickAppointment(Appointment appointment);
         void onAddAppointment();
         void showActionbar();
+        void setAppbarTitle(String title);
     }
 
 }

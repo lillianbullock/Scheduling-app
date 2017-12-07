@@ -36,6 +36,7 @@ public class GoalListFragment  extends Fragment implements OnGetDataListener {
     private ProgressBar _progressBar;
     private GoalAdapter _goalArrayAdapter;
     private OnGetDataListener _onGetDataListener;
+    private static final String TITLE = "Goals";
 
 
     public GoalListFragment() {
@@ -82,6 +83,7 @@ public class GoalListFragment  extends Fragment implements OnGetDataListener {
     @Override
     public void onResume() {
         super.onResume();
+        _hostActivity.setAppbarTitle(TITLE);
         _hostActivity.showActionbar();
     }
 
@@ -152,6 +154,7 @@ public class GoalListFragment  extends Fragment implements OnGetDataListener {
         void viewWithGoal(Goal goal);
         void onClickAddGoal();
         void showActionbar();
+        void setAppbarTitle(String title);
     }
 
     public void onCreateGoal() {

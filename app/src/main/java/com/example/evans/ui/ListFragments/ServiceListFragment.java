@@ -31,6 +31,7 @@ public class ServiceListFragment extends Fragment {
     private ArrayList<Service> _services = new ArrayList<>();
     private ServiceListFragmentListener _hostActivityListener;
     private MainController _mainController;
+    private final String TITLE = "Services";
 
     private ServiceAdapter _serviceAdapter;
 
@@ -84,21 +85,25 @@ public class ServiceListFragment extends Fragment {
             }
         });
 
+        loadServices();
+
 
 
         return _rootView;
+    }
+
+    private void loadServices(){
+        _services.clear();
+        _services.addAll(_mainController.getAvailableServices().values());
     }
 
     @Override
     public void onResume() {
         super.onResume();
         _hostActivityListener.showActionbar();
+        _hostActivityListener.setAppbarTitle(TITLE);
     }
 
-    public void setServices(Map<String, Service> services) {
-
-        _services.addAll(services.values());
-    }
 
     /**
      * For now we just want to let the host activity take care of it by calling it's
@@ -129,6 +134,7 @@ public class ServiceListFragment extends Fragment {
      * This is how we'll be able to communicate with the parent activity.
      */
     public interface ServiceListFragmentListener {
+        void setAppbarTitle(String title);
         void onClickService(Service service);
         void onAddService();
         void showActionbar();

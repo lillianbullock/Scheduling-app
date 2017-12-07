@@ -48,7 +48,10 @@ public class StartPageFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
+        final String TITLE = "Evans";
+
         _hostActivity.showActionbar();
+        _hostActivity.setAppbarTitle(TITLE);
     }
 
     /**
@@ -58,6 +61,7 @@ public class StartPageFragment extends Fragment {
     public interface StartPageFragmentListener {
         void showActionbar();
         void hideActionbar();
+        void setAppbarTitle(String title);
         void onClickGoalsSeeMore();
         void onClickAppointmentsSeeMore();
         void onClickAppointment(Appointment appointment);

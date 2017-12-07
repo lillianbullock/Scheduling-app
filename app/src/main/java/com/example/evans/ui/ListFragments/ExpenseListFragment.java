@@ -14,7 +14,7 @@ import android.widget.ProgressBar;
 
 import com.example.evans.R;
 import com.example.evans.data.Expense;
-import com.example.evans.data.FirebaseManager;
+import com.example.evans.data.MainController;
 import com.example.evans.data.OnGetDataListener;
 import com.example.evans.ui.Adapters.ExpenseAdapter;
 import com.google.firebase.database.DataSnapshot;
@@ -31,12 +31,14 @@ public class ExpenseListFragment extends Fragment implements OnGetDataListener {
 
     private FloatingActionButton _addFloatingBtn;
     private ExpenseListFragmentListener _hostActivityListener;
+    private String TITLE = "Expenses";
     private View _rootView;
 
     private ProgressBar _progressBar;
     private ListView _expenseListView;
     private ArrayList<Expense> _expense = new ArrayList<>();
     private ExpenseAdapter _expenseAdapter;
+    private MainController _mainController = MainController.getInstance();
 
     private OnGetDataListener _onGetDataListener;
 
@@ -83,13 +85,14 @@ public class ExpenseListFragment extends Fragment implements OnGetDataListener {
     public void onResume() {
         super.onResume();
         _hostActivityListener.showActionbar();
+        _hostActivityListener.setAppbarTitle(TITLE);
     }
 
     public void setExpense(List<Expense> expense){ _expense.addAll(expense); }
 
     private void loadExpense(){
-        FirebaseManager firebaseManager = new FirebaseManager();
-        firebaseManager.getAllExpenses(this);
+
+        _mainController.getAllExpenses(this);
     }
 
     @Override
@@ -107,7 +110,7 @@ public class ExpenseListFragment extends Fragment implements OnGetDataListener {
             _expense.add(child.getValue(Expense.class));
         }
 
-        _expenseAdapter.addAll(_expense);
+        // _expenseAdapter.addAll(_expense);
         _progressBar.setVisibility(ProgressBar.INVISIBLE);
         _expenseListView.setAdapter(_expenseAdapter);
 
@@ -150,5 +153,6 @@ public class ExpenseListFragment extends Fragment implements OnGetDataListener {
         void onClickExpense(Expense expense);
         void onAddExpense();
         void showActionbar();
+        void setAppbarTitle(String title);
     }
 }

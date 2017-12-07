@@ -2,6 +2,7 @@ package com.example.evans.ui;
 
 import android.app.Activity;
 import android.app.DialogFragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.Snackbar;
@@ -52,11 +53,13 @@ public class FinancialReportFragment extends Fragment
     private List<Appointment> _appointments;
 
     private MainController _mainController;
+    private ReportFragmentListener _hostActivity;
 
     private double _profitTotal;
     private double _costTotal;
     private LocalDate _selectedStartDate;
     private LocalDate _selectedEndDate;
+    private static final String TITLE = "Financial Report";
 
     private EditText _currentDateEdit;
     private char _current;
@@ -248,6 +251,24 @@ public class FinancialReportFragment extends Fragment
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        _hostActivity.showActionbar();
+        _hostActivity.setAppbarTitle(TITLE);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        try {
+            _hostActivity = (ReportFragmentListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement ReportFragmentListener");
+        }
+    }
+
+    @Override
     public void onDateSet(LocalDate date) {
         _currentDateEdit.setText(_formatter.print(date));
 
@@ -258,6 +279,11 @@ public class FinancialReportFragment extends Fragment
         if(_current == 'b'){
             _selectedEndDate = date;
         }
+    }
+
+    public interface ReportFragmentListener {
+        void showActionbar();
+        void setAppbarTitle(String title);
     }
 
 

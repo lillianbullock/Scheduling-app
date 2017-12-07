@@ -37,6 +37,7 @@ public class CustomerListFragment extends Fragment implements OnGetDataListener 
     private ProgressBar _progressBar;
     private CustomerAdapter _customerArrayAdapter;
     private OnGetDataListener _onGetDataListener;
+    private final String TITLE = "Customers";
 
     public CustomerListFragment() {
         // Required empty public constructor
@@ -79,6 +80,7 @@ public class CustomerListFragment extends Fragment implements OnGetDataListener 
     @Override
     public void onResume() {
         super.onResume();
+        _hostActivityListener.setAppbarTitle(TITLE);
         _hostActivityListener.showActionbar();
     }
 
@@ -157,5 +159,6 @@ public class CustomerListFragment extends Fragment implements OnGetDataListener 
         void onClickCustomer(Customer customer);
         void onAddCustomer();
         void showActionbar();
+        void setAppbarTitle(String title);
     }
 }
