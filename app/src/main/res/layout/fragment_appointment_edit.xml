@@ -180,15 +180,7 @@
             app:layout_constraintBaseline_toBaselineOf="@+id/etxt_price"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="11dp"
-            android:layout_height="wrap_content"
-            android:text="@string/currency"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintBaseline_toBaselineOf="@+id/txt_price"
-            app:layout_constraintStart_toStartOf="@+id/etxt_price" />
+
 
 
         <EditText
