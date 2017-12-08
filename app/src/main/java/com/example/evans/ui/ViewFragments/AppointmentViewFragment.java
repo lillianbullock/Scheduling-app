@@ -63,7 +63,10 @@ public class AppointmentViewFragment extends Fragment {
         email.setText(_customer.getEmail());
         phone.setText(_customer.getPhone());
 
-        service.setText(_appointment.getService().getTitle());
+        if (_appointment != null){
+            service.setText(_appointment.getService().getTitle());
+        }
+
 
         price.setText("$" + Double.toString(_appointment.getService().getPrice()));
         // TODO implement date & time formatting strings

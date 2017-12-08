@@ -105,9 +105,7 @@ public class AppointmentListFragment extends Fragment implements OnGetDataListen
     }
 
     private void loadAppointment(){
-        //_mainController.getAllAppointments(this);
-        FirebaseManager firebaseManager = new FirebaseManager();
-        firebaseManager.getAllAppointments(this);
+        _mainController.getAllAppointments(this);
     }
 
     public void setAppointment(List<Appointment> appointment){ _appointment.addAll(appointment); }
