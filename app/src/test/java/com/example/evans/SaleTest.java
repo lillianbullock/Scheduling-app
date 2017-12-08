@@ -1,36 +1,62 @@
 package com.example.evans;
 
+import com.example.evans.data.Sale;
+import com.example.evans.data.Service;
+
+import org.joda.time.LocalDate;
 import org.junit.Test;
 
-import java.time.LocalDateTime;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 /**
  * Tests for the Sale class
- * Tests the default constructor
- * Created by Brooke Nelson on 11/2/2017.
+ * Tests the default and 2 non-default constructors
+ * Tests compareTo and getReport
  */
-
 public class SaleTest {
-    /*@Test
-    public void testCons() throws Exception{
-        Service service = new Service();
-        Double price = 12.99;
-        LocalDateTime dateTime = LocalDateTime.now();
-        Customer customer = new Customer();
+    // default constructor
+    @Test
+    public void testCons() throws Exception {
+        Sale defaultSale = new Sale();
+        assertEquals("non-default sale id", defaultSale.getId(), "");
+        assertEquals("non-default sale service", defaultSale.getService().getTitle(), "");
+        assertEquals("non-default sale price", defaultSale.getPrice(), 0.00, 0.0);
+        assertEquals("non-default sale date", defaultSale.getDateObject(), LocalDate.now());
+        assertEquals("non-default sale customer id", defaultSale.getCustomerId(), "");
 
-        Sale sale = new Sale(service, price, dateTime, customer);
+        // first non-default constructor
+        Service service1 = new Service();
+        service1.setTitle("service1");
+        Double price1 = 3.00;
+        LocalDate date1 = new LocalDate(2018, 3, 11);
+        String customerID1 = "customer id 1";
 
-        //Just in case i feel like we need to check the Default to make sure it doesn't have weird values.
-        Sale sale1 = new Sale();
-        assertNull(sale1);
+        Sale nonDef1Sale = new Sale(service1, price1, date1, customerID1);
+        assertEquals("non-default sale id", nonDef1Sale.getId(), "");
+        assertEquals("non-default sale service", nonDef1Sale.getService().getTitle(), "service1");
+        assertEquals("non-default sale price", nonDef1Sale.getPrice(), 3.00, 0.0);
+        assertEquals("non-default sale date", nonDef1Sale.getDateObject(), new LocalDate(2018, 3, 11));
+        assertEquals("non-default sale customer id", nonDef1Sale.getCustomerId(), "customer id 1");
 
-        //First we must check to see if the Appointment itself was not created correctly
-        assertNotNull(sale);
+        // second non-default constructor
+        Service service2 = new Service();
+        service2.setTitle("service2");
+        Double price2 = 5.50;
+        LocalDate date2 = new LocalDate(2028, 3, 22);
 
-        //assertEquals(12.99, sale.getPrice());
-    }*/
+        Sale nonDef2Sale = new Sale(service2, price2, date2);
+        assertEquals("non-default sale id", nonDef2Sale.getId(), "");
+        assertEquals("non-default sale service", nonDef2Sale.getService().getTitle(), "service2");
+        assertEquals("non-default sale price", nonDef2Sale.getPrice(), 5.50, 0.0);
+        assertEquals("non-default sale date", nonDef2Sale.getDateObject(), new LocalDate(2028, 3, 22));
+        assertEquals("non-default sale customer id", nonDef2Sale.getCustomerId(), "");
+
+        // testing compareTo
+        assertEquals("should be greater", 1, nonDef2Sale.compareTo(nonDef1Sale));
+        assertEquals("should be less", -1, nonDef1Sale.compareTo(nonDef2Sale));
+
+        //testing getReport (financial interface)
+        assertEquals("get report first sale", nonDef1Sale.getReport(), 3.00, 0.0);
+        assertEquals("get report second sale", nonDef2Sale.getReport(), 5.50, 0.0);
+    }
 }

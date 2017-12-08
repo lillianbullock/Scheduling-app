@@ -9,7 +9,7 @@ import org.joda.time.LocalDate;
 
 /**
  * Class to handle sale information
- * Models each sale that was made in the college.
+ * Models each sale that was made.
  */
 public class Sale implements Comparable, Financial{
     private String _id;
@@ -19,6 +19,7 @@ public class Sale implements Comparable, Financial{
     private String  _customerId;
 
     public Sale(){
+        _id = "";
         _service = new Service();
         _price = 0.0;
         _date = LocalDate.now();
@@ -27,6 +28,7 @@ public class Sale implements Comparable, Financial{
 
     public Sale(Service service, Double price, LocalDate date,
          String customerId){
+        _id = "";
         _service = service;
         _price = price;
         _date = date;
@@ -34,9 +36,11 @@ public class Sale implements Comparable, Financial{
     }
 
     public Sale(Service service, Double price, LocalDate dateTime){
+        _id = "";
         _service = service;
         _price = price;
         _date = dateTime;
+        _customerId = "";
     }
 
     public String getId() { return _id; }
