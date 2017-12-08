@@ -38,8 +38,7 @@ public class CustomerTest {
         assertEquals("non-default Customer date", nonDefCustomer.getDateAddedObject(), new LocalDate(1999, 6, 20));
 
         // test compareTo
-        //TODO somehow compare is returning 8
-        assertEquals("customer compareTo should be less", 1, nonDefCustomer.compareTo(defaultCustomer));
+        assertTrue("customer compareTo should be positive", 0 < nonDefCustomer.compareTo(defaultCustomer));
         assertEquals("customer compareTo should be same", 0, nonDefCustomer.compareTo(nonDefCustomer));
     }
 }

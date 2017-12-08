@@ -12,12 +12,14 @@ public class Service implements Comparable {
     private Double _price;
 
     public Service(){
+        _id = "";
         _title = "";
         _description = "";
         _price = 0.0;
     }
 
     public Service(String title, String description, Double price){
+        _id = "";
         _title = title;
         _description = description;
         _price = price;
@@ -49,7 +51,6 @@ public class Service implements Comparable {
 
     @Override
     public int compareTo(@NonNull Object o) {
-//        Service service1 = (Service) o;
         return this._title.compareTo(((Service) o)._title);
     }
 }
