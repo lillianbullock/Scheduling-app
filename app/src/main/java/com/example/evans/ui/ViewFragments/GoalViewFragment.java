@@ -22,7 +22,9 @@ public class GoalViewFragment extends Fragment {
 
     private Goal _goal;
     private InteractionWithGoalViewFragmentListener _hostActivity;
+    private Button _saveGoalBtn;
     private Button _editGoalBtn;
+
 
     public GoalViewFragment() {
         // Required empty public constructor
@@ -40,14 +42,21 @@ public class GoalViewFragment extends Fragment {
         TextView startD = view.findViewById(R.id.txt_goal_view_start_date);
         TextView endD = view.findViewById(R.id.txt_goal_view_end_date);
 
-        _editGoalBtn = view.findViewById(R.id.btn_edit_goal);
-
+        _saveGoalBtn = view.findViewById(R.id.btn_save_goal);
+        _editGoalBtn = view.findViewById(R.id.btn_view_bar_edit);
         CheckBox _checkBox = view.findViewById(R.id.goal_done_box);
 
         name.setText(_goal.getTitle());
         detail.setText(_goal.getDescription());
         startD.setText(_goal.getStartDate());
         endD.setText(_goal.getDueDate());
+
+        _saveGoalBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                _hostActivity.onSaveGoal(_goal);
+            }
+        });
 
         _editGoalBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,8 +112,9 @@ public class GoalViewFragment extends Fragment {
         void hideActionbar();
         void showActionbar();
 
-        //Goal getViewGoal();
         void onEditGoal(Goal goal);
+        //Goal getViewGoal();
+        void onSaveGoal(Goal goal);
         void viewWithGoal(Goal goal);
     }
 

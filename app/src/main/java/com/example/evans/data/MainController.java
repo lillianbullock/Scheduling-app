@@ -134,6 +134,8 @@ public class MainController {
         appointment.setId(_firebaseManager.getKeyForNewAppointment());
         _appointments.add(appointment);
         _firebaseManager.addAppointment(appointment, appointment.getId());
+
+
     }
 
     /**

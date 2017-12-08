@@ -48,9 +48,9 @@ public class SaleAdapter extends ArrayAdapter<Sale> {
         convertView = inflater.inflate(R.layout.sale_adapter, parent, false);
 
             _viewHolder = new SaleViewHolder();
-            _viewHolder.service = convertView.findViewById(R.id.array_adapter_sales_service);
-            _viewHolder.price = convertView.findViewById(R.id.array_adapter_sales_price);
-            _viewHolder.date = convertView.findViewById(R.id.array_adapter_sales_date);
+            _viewHolder.service = convertView.findViewById(R.id.sales_adapter_title);
+            _viewHolder.price = convertView.findViewById(R.id.sales_adapter_price);
+            _viewHolder.date = convertView.findViewById(R.id.sales_adapter_date);
 
             convertView.setTag(_viewHolder);
 

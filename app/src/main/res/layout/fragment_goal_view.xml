@@ -11,7 +11,7 @@
         android:layout_height="match_parent">
 
         <!-- Include our standard view header -->
-        <include layout="@layout/view_top_bar"
+        <include layout="@layout/view_bar"
             android:id="@+id/goal_view_bar"
             />
 
@@ -67,13 +67,13 @@
             app:layout_constraintTop_toBottomOf="@+id/txt_goal_details" />
 
         <Button
-            android:id="@+id/btn_edit_goal"
+            android:id="@+id/btn_save_goal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginTop="24dp"
             android:background="@color/colorAccent"
-            android:text="@string/button_edit"
+            android:text="@string/button_save"
             android:textColor="#ffffff"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
