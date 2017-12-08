@@ -36,6 +36,7 @@ public class GoalListFragment  extends Fragment implements OnGetDataListener {
     private ProgressBar _progressBar;
     private GoalAdapter _goalArrayAdapter;
     private OnGetDataListener _onGetDataListener;
+    private static final String TITLE = "Goals";
 
 
     public GoalListFragment() {
@@ -73,13 +74,17 @@ public class GoalListFragment  extends Fragment implements OnGetDataListener {
             }
         });
 
-        //setting arrayAdapter
-        ArrayList<Goal> newGoals = new ArrayList<>();
-
 
         loadGoals();
 
         return _rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        _hostActivity.setAppbarTitle(TITLE);
+        _hostActivity.showActionbar();
     }
 
     public void setGoals(List<Goal> goals){
@@ -103,6 +108,8 @@ public class GoalListFragment  extends Fragment implements OnGetDataListener {
 
     @Override
     public void onDataLoadSucceed(DataSnapshot data) {
+
+        _goals.clear();
 
         for (DataSnapshot child: data.getChildren()){
             _goals.add(child.getValue(Goal.class));
@@ -146,7 +153,8 @@ public class GoalListFragment  extends Fragment implements OnGetDataListener {
     public interface GoalsListFragmentListener {
         void viewWithGoal(Goal goal);
         void onClickAddGoal();
-        List<Goal> getGoal(int num);
+        void showActionbar();
+        void setAppbarTitle(String title);
     }
 
     public void onCreateGoal() {

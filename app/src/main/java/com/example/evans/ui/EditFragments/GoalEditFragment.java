@@ -194,11 +194,6 @@ public class GoalEditFragment extends Fragment
         _hostActivity.hideActionbar();
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        _hostActivity.showActionbar();
-    }
 
     /**
      * Override onAttach to make sure that the container activity has implemented the callback we specified in
@@ -223,7 +218,6 @@ public class GoalEditFragment extends Fragment
      */
     public interface OnSubmitGoalEdit {
         void onGoalEditFinish (Goal goal);
-        List<Goal> getGoal();
         void onGoalEditCancel();
         void hideActionbar();
         void showActionbar();

@@ -4,6 +4,7 @@ package com.example.evans.ui.ViewFragments;
 import android.app.Activity;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,8 +21,9 @@ import com.example.evans.data.Customer;
 public class CustomerViewFragment extends Fragment {
 
     private Customer _customer;
-    private Button _setAppointmentBtn;
-    private Button _editAppointmentBtn;
+    private FloatingActionButton _setAppointmentBtn;
+    private Button _backBtn;
+    private Button _editCustomerBtn;
 
     private InteractionWithCustomerViewFragmentListener _hostActivity;
 
@@ -47,8 +49,10 @@ public class CustomerViewFragment extends Fragment {
         TextView name = view.findViewById(R.id.txt_view_name);
         TextView email = view.findViewById(R.id.txt_view_email);
         TextView phone = view.findViewById(R.id.txt_view_phone);
+        _setAppointmentBtn = view.findViewById(R.id.customer_add_appointment_btn);
+        _backBtn = view.findViewById(R.id.btn_view_bar_back);
+        _editCustomerBtn = view.findViewById(R.id.btn_view_bar_edit);
 
-        _setAppointmentBtn = view.findViewById(R.id.btn_set_appt);
 
         //sets views to the customer data
         name.setText(_customer.getName());
@@ -59,11 +63,25 @@ public class CustomerViewFragment extends Fragment {
         _setAppointmentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                _hostActivity.onSetAppointmentCustomer(_customer);
+                _hostActivity.onSetAppointmentForCustomer(_customer);
             }
         });
 
-        _editAppointmentBtn.setOnClickListener(new View.OnClickListener() {
+        _editCustomerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                _hostActivity.onEditCustomer(_customer);
+            }
+        });
+
+        _backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                _hostActivity.onBackPressed();
+            }
+        });
+
+        _setAppointmentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (_customer != null){
@@ -82,12 +100,6 @@ public class CustomerViewFragment extends Fragment {
     public void onResume() {
         super.onResume();
         _hostActivity.hideActionbar();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        _hostActivity.showActionbar();
     }
 
 
@@ -116,9 +128,10 @@ public class CustomerViewFragment extends Fragment {
     public interface InteractionWithCustomerViewFragmentListener{
         void hideActionbar();
         void showActionbar();
+        void onBackPressed();
 
         Customer getViewCustomer();
-        void onSetAppointmentCustomer(Customer customer);
+        void onSetAppointmentForCustomer(Customer customer);
         void onEditCustomer(Customer customer);
     }
 }

@@ -63,7 +63,7 @@
             android:layout_marginTop="10dp"
             android:ems="10"
             android:imeOptions="actionDone"
-            android:inputType="text"
+            android:inputType="number"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toLeftOf="@+id/etxt_expense_name"
             app:layout_constraintTop_toBottomOf="@+id/etxt_expense_name" />

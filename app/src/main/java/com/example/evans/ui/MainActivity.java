@@ -39,6 +39,7 @@ import com.example.evans.ui.ListFragments.ServiceListFragment;
 import com.example.evans.ui.ViewFragments.AppointmentViewFragment;
 import com.example.evans.ui.ViewFragments.CustomerViewFragment;
 import com.example.evans.ui.ViewFragments.GoalViewFragment;
+import com.example.evans.ui.ViewFragments.SalesViewFragment;
 import com.example.evans.ui.ViewFragments.ServiceViewFragment;
 
 import org.joda.time.LocalDate;
@@ -57,9 +58,10 @@ public class MainActivity extends AppCompatActivity implements
         CustomerListFragment.CustomerListFragmentListener,
         CustomerViewFragment.InteractionWithCustomerViewFragmentListener,
         ServiceEditFragment.OnSubmitServiceEdit,
-        ServiceViewFragment.InteractionWithServiceViewFragmentListener,
         ServiceListFragment.ServiceListFragmentListener,
+        ServiceViewFragment.ServiceListFragmentListener,
         GoalEditFragment.OnSubmitGoalEdit,
+        FinancialReportFragment.ReportFragmentListener,
         GoalListFragment.GoalsListFragmentListener,
         AppointmentListFragment.AppointmentListFragmentListener,
         AppointmentEditFragment.OnSubmitAppointment,
@@ -67,11 +69,12 @@ public class MainActivity extends AppCompatActivity implements
         SaleListFragment.SaleListFragmentListener,
         AppointmentViewFragment.InteractionWithAppointmentViewFragmentListener,
         SaleEditFragment.OnSubmitSaleEdit,
-        FinancialReportFragment.InteractionWithFinancialReportFragmentListener,
         GoalViewFragment.InteractionWithGoalViewFragmentListener,
         ExpenseListFragment.ExpenseListFragmentListener,
+        StartPageFragment.StartPageFragmentListener,
         ExpenseEditFragment.InteractionWithExpenseEditFragmentListener
     {
+
 
 
     // Variables
@@ -79,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements
     private Fragment _currentFragment;
     private DrawerLayout _drawerLayout;
     private ActionBarDrawerToggle _actionBarToggle;
+    private Toolbar _toolbar;
 
 
     private static final int DEFAULTLOADNUMBER = 20;
@@ -92,11 +96,13 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /* Initialize your toolbar and navigation drawer*/
-       initializeToolbarAndNavigationDrawer();
+        // Initialize class variables
+        _mainController = MainController.getInstance();
+        _toolbar = findViewById(R.id.app_toolbar);
 
-       // Initialize class variables
-        _mainController = new MainController();
+        /* Initialize your toolbar and navigation drawer*/
+        initializeToolbarAndNavigationDrawer();
+
 
         // load any saved data from the shared preference
         loadSharedPreference();
@@ -135,7 +141,11 @@ public class MainActivity extends AppCompatActivity implements
     /**** EXPENSE *****/
     @Override
     public void onClickExpense(Expense expense) {
+        ExpenseEditFragment _frag = new ExpenseEditFragment();
+        _frag.setExistingExpense(expense);
+        _currentFragment = _frag;
 
+        loadCurrentFragment(true);
     }
 
     @Override
@@ -168,16 +178,18 @@ public class MainActivity extends AppCompatActivity implements
 
     /*** SALE ***/
     @Override
-    public List<Sale> getSale() { return _mainController.getAllSales(); }
-
-    @Override
     public void onAddSale() {
         _currentFragment = new SaleEditFragment();
         loadCurrentFragment(true);
     }
 
     @Override
-    public void onClickSale(Sale sale) { }
+    public void onClickSale(Sale sale) {
+        SaleEditFragment _frag = new SaleEditFragment();
+        //_frag.(sale);
+        _currentFragment = _frag;
+        loadCurrentFragment(false);
+    }
 
     @Override
     public void onSaleCancel() {
@@ -196,15 +208,6 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 
-    @Override
-    public List<Appointment> getAppointmentList() { return _mainController.getFirstNumberAppointments(DEFAULTLOADNUMBER); }
-
-
-    @Override
-    public List<Goal> getGoal() {
-        //TODO Figure out if we need more than one function for week day or year goals
-        return _mainController.getFirstNumberGoals(DEFAULTLOADNUMBER);
-    }
 
 
     /***** SERVICE *******/
@@ -248,11 +251,13 @@ public class MainActivity extends AppCompatActivity implements
         ServiceViewFragment _frag = new ServiceViewFragment();
         _frag.setService(service);
         _currentFragment = _frag;
-        loadCurrentFragment(false);
+        loadCurrentFragment(true);
     }
 
     @Override
     public void onServiceCancel() { onBackPressed(); }
+
+
 
     @Override
     public void onEditService(Service service) {
@@ -278,14 +283,6 @@ public class MainActivity extends AppCompatActivity implements
 
     /******** CUSTOMER **********/
     @Override
-    public void onSetAppointmentCustomer(Customer customer) {
-        AppointmentEditFragment frag = new AppointmentEditFragment();
-        frag.setCustomer(customer);
-        _currentFragment = frag;
-        loadCurrentFragment(true);
-    }
-
-    @Override
     public void onEditCustomer(Customer customer) {
 
         if (customer != null){
@@ -306,7 +303,7 @@ public class MainActivity extends AppCompatActivity implements
             _frag.setCustomer(customer);
             _currentFragment = _frag;
 
-            loadCurrentFragment(false);
+            loadCurrentFragment(true);
     }
 
     @Override
@@ -351,8 +348,6 @@ public class MainActivity extends AppCompatActivity implements
             return null;
         }
 
-    @Override
-    public List<Customer> getCustomerList() { return _mainController.getCustomers(); }
 
 
     /******** GOAL *******/
@@ -397,10 +392,6 @@ public class MainActivity extends AppCompatActivity implements
         _mainController.addNewGoal(goal);
     }
 
-    @Override
-    public List<Goal> getGoal(int num){
-        return _mainController.getGoalsWithLimit(num);
-    }
 
     @Override
     public void viewWithGoal(Goal goal) {
@@ -415,7 +406,10 @@ public class MainActivity extends AppCompatActivity implements
         /******* APPOINTMENT ******/
     @Override
     public void onClickAppointment(Appointment appointment) {
-        //TODO Handle CLick appointment
+        AppointmentViewFragment _frag = new AppointmentViewFragment();
+        _frag.setAppointment(appointment);
+        _currentFragment = _frag;
+        loadCurrentFragment(false);
     }
 
     @Override
@@ -435,16 +429,7 @@ public class MainActivity extends AppCompatActivity implements
             return;
         }
 
-        // Check if the customer was created in the appointment view. The id would be set to "" if it was
-        if (customer.getId().isEmpty()){
-            // check if we have a customer like that already if not add it
-            if (_mainController.getCustomerByName(customer.getName()) == null) {
-                customer = _mainController.addCustomer(customer);
-            }
-        }
 
-        // set the appointment's customerId so we can keep track of which customer had the appointment
-        appointment.setCustomerId(customer.getId());
 
         AppointmentViewFragment _frag = new AppointmentViewFragment();
         _frag.setRelatedCustomer(customer);
@@ -455,15 +440,15 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 
-    /*@Override
-    public void onAddAppointmentClickForCustomer(Customer customer) {
+    @Override
+    public void onSetAppointmentForCustomer(Customer customer) {
 
         AppointmentEditFragment appointmentEditFragment = new AppointmentEditFragment();
         appointmentEditFragment.setCustomer(customer);
 
         _currentFragment = appointmentEditFragment;
         loadCurrentFragment(false);
-    }*/
+    }
 
     @Override
     public void hideActionbar() {
@@ -475,29 +460,26 @@ public class MainActivity extends AppCompatActivity implements
             getSupportActionBar().show();
         }
 
-    /* financial report functions*/
+    /************************* StartPage Fragment ************************************/
     @Override
-    public List<Expense> getExpenses(LocalDate beginDate, LocalDate endDate) {
-        return _mainController.getExpensesBetween(beginDate, endDate);
-    }
+    public void onClickGoalsSeeMore() {
 
-    @Override
-    public List<Sale> getSales(LocalDate beginDate, LocalDate endDate) {
-        return _mainController.getSalesBetween(beginDate, endDate);
     }
-
 
     @Override
-    public List<Expense> getExpenses() {
+    public void onClickAppointmentsSeeMore() {
 
-        return _mainController.getFirstNumberExpenses(DEFAULTLOADNUMBER);
     }
 
-        @Override
-    public List<Appointment> getAppointments(LocalDate beginDate, LocalDate endDate) {
-        return _mainController.getAppointmentsBetween(beginDate, endDate);
+    @Override
+    public void onClickGoal(Goal goal) {
+
     }
 
+    @Override
+    public void setAppbarTitle(String title){
+        _toolbar.setTitle(title);
+    }
 
     /********************END OF OVERRIDING METHODS FOR FRAGMENTS****************************/
 
@@ -520,6 +502,10 @@ public class MainActivity extends AppCompatActivity implements
         transaction.commit();
     }
 
+    void removeCurrentFragment() {
+        getFragmentManager().beginTransaction().remove(getFragmentManager().findFragmentById(R.id.content_frame)).commit();
+    }
+
     /**
      * Helper method to initialize the app bar and setup the navigation drawer. I'm only
      * trying to reduce how much code we have in onCreate
@@ -527,9 +513,9 @@ public class MainActivity extends AppCompatActivity implements
     private void initializeToolbarAndNavigationDrawer() {
 
         // Set the app toolbar programmatically
-        Toolbar toolbar = findViewById(R.id.app_toolbar);
-        toolbar.setTitle(R.string.app_name);
-        setSupportActionBar(toolbar);
+        _toolbar.setTitle(R.string.app_name);
+        _toolbar.setTitleTextColor(getResources().getColor(R.color.colorAccentText));
+        setSupportActionBar(_toolbar);
 
         // Initialize the navigation view (nav bar) and set a click listener for its menu items
         NavigationView navigationView = findViewById(R.id.main_nav_view);
@@ -551,7 +537,11 @@ public class MainActivity extends AppCompatActivity implements
                 _drawerLayout,
                 R.string.open,
                 R.string.close);
+
+        // change the hamburger icon color to the text color
+        _actionBarToggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.colorAccentText));
         _drawerLayout.addDrawerListener(_actionBarToggle);
+
 
         // sync the state of the hamburger (menu) button depending on whether the navigation drawer is
         // open or closed
@@ -582,8 +572,6 @@ public class MainActivity extends AppCompatActivity implements
                 break;
             case R.id.menu_item_goals:
                 _drawerLayout.closeDrawer(GravityCompat.START);
-                GoalListFragment goalListFragment = new GoalListFragment();
-                goalListFragment.setGoals(_mainController.getAllGoals());
                 _currentFragment = new GoalListFragment();
                 loadCurrentFragment(true);
                 break;
@@ -594,9 +582,7 @@ public class MainActivity extends AppCompatActivity implements
                 break;
             case R.id.menu_item_service:
                 _drawerLayout.closeDrawer(GravityCompat.START);
-                ServiceListFragment serviceListFragment = new ServiceListFragment();
-                serviceListFragment.setServices(_mainController.getAvailableServices());
-                _currentFragment = serviceListFragment;
+                _currentFragment = new ServiceListFragment();
                 loadCurrentFragment(true);
                 break;
             case R.id.menu_item_sales:
@@ -645,6 +631,7 @@ public class MainActivity extends AppCompatActivity implements
      */
     @Override
     public void onBackPressed() {
+
         if (_drawerLayout.isDrawerOpen(GravityCompat.START)
                 && getFragmentManager().getBackStackEntryCount() > 0){
             _drawerLayout.closeDrawer(GravityCompat.START);
@@ -652,11 +639,14 @@ public class MainActivity extends AppCompatActivity implements
 
         // I'm pretty sure we don't want to pop off an empty backStack!
         if (getFragmentManager().getBackStackEntryCount() > 0) {
+            removeCurrentFragment();
             getFragmentManager().popBackStack();
         } else {
             super.onBackPressed();
         }
     }
+
+
 
     @Override
     public void onDateSet(LocalDate date) {

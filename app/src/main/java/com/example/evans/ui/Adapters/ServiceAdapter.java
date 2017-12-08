@@ -22,18 +22,19 @@ public class ServiceAdapter extends ArrayAdapter<Service> {
     private  ViewHolder _viewHolder;
     private String currency;
 
-    public ServiceAdapter(Context context, int textViewResourceId, ArrayList<Service> objects) {
-        super(context, textViewResourceId, objects);
-        _serviceList = objects;
-        currency = context.getResources().getString(R.string.currency);
-    }
-
     // use of the viewHolder allows faster loading because the views
     // don't need to be collected for each item in the list view
     static class ViewHolder {
         TextView title;
         TextView price;
     }
+
+    public ServiceAdapter(Context context, int textViewResourceId, ArrayList<Service> objects) {
+        super(context, textViewResourceId, objects);
+        _serviceList = objects;
+        currency = context.getResources().getString(R.string.currency);
+    }
+
 
     @Override
     public int getCount() {

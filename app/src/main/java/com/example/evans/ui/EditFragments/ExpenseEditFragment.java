@@ -34,6 +34,7 @@ public class ExpenseEditFragment extends Fragment
     private Button _saveBtn;
     private Button _cancelBtn;
 
+    private Expense _selectedExpense;
     private LocalDate _setDate;
 
     private InteractionWithExpenseEditFragmentListener _hostActivity;
@@ -56,6 +57,9 @@ public class ExpenseEditFragment extends Fragment
 
         _saveBtn = rootView.findViewById(R.id.btn_edit_bar_save);
         _cancelBtn = rootView.findViewById(R.id.btn_edit_bar_cancel);
+
+
+        initializeExpenseDetails();
 
         // Create a expense and let the host activity know
         _date.setOnClickListener(new View.OnClickListener(){
@@ -91,6 +95,26 @@ public class ExpenseEditFragment extends Fragment
         return rootView;
     }
 
+    /**
+     * to initialize the customer details for edit
+     * */
+    private void initializeExpenseDetails() {
+        if (_selectedExpense != null) {
+            _name.setText(_selectedExpense.getName());
+            _price.setText(_selectedExpense.getPrice().toString());
+            _date.setText(_selectedExpense.getDate());
+        }
+    }
+
+    /**
+     * when an existing expense is called to edit
+     * @param expense passes to set up existing
+     */
+    public void setExistingExpense(Expense expense){
+        _selectedExpense = expense;
+    }
+
+
     private Expense createExpense() {
 
         Expense newExpense = null;
@@ -117,11 +141,6 @@ public class ExpenseEditFragment extends Fragment
     }
 
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        _hostActivity.showActionbar();
-    }
 
     @Override
     public void onDateSet(LocalDate date) {
@@ -157,7 +176,5 @@ public class ExpenseEditFragment extends Fragment
             void onExpenseCancel();
             void hideActionbar();
             void showActionbar();
-
     }
-
 }

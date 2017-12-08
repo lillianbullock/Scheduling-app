@@ -13,14 +13,20 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This class will hold most of the list data for the application and will contain methods to create, retrieve
- * update and delete goals, sales, services, appointments, customers and expenses. This is the main data source
- * for the user interface in the application.
+ * This singleton class will hold most of the list data for the application and will
+ * contain methods to create, retrieve update and delete goals, sales, services,
+ * appointments, customers and expenses. This is the main data source for the user
+ * interface in the application.
  *
  * License: Private - Class work
  * version: 0.0.1
  */
-public class MainController implements OnGetDataListener{
+
+
+
+public class MainController {
+
+    private volatile static MainController instance;
 
     private List<Appointment>       _appointments      = new LinkedList<>();
     private List<Customer>          _customers         = new LinkedList<>();
@@ -33,21 +39,44 @@ public class MainController implements OnGetDataListener{
     private static final String TAG = "MainController";
 
 
+
+    /**
+     * Return an instance of MainController
+     * @return an instance on MainController
+     */
+    public static MainController getInstance() {
+
+        if (instance == null){
+
+            // thread safety
+            synchronized (MainController.class) {
+                if (instance == null){
+                    instance = new MainController();
+                }
+            }
+        }
+
+        return instance;
+    }
+
+
     /**
      * Default constructor loads data from firebase
      */
-    public MainController() {
+    private MainController() {
 
         _firebaseManager = new FirebaseManager();
-        populateData();
+        populateServices();
+        loadAllCustomers();
     }
 
+
     /**
-     * Populate lists and maps with previously stored data
-     * Pull from the cloud or device memory
+     * This function will get populate our map of services with some
+     * previously stored services. Pull from the cloud or device memory
      */
-    private void populateData() {
-        _availableServices = _firebaseManager.getServices(new OnGetDataListener() {
+    private void populateServices() {
+        _firebaseManager.getServices(new OnGetDataListener() {
             @Override
             public void onDataLoadStarted() { }
 
@@ -64,29 +93,33 @@ public class MainController implements OnGetDataListener{
                 Log.w(TAG, "unable to load services from firebase");
             }
         });
-        /*_goals = _firebaseManager.getAllGoals();
-        _expenses = _firebaseManager.getAllExpenses();
-        _allSales = _firebaseManager.getAllSales();
-        _appointments = _firebaseManager.getAllAppointments();
-        _customers = _firebaseManager.getAllCustomers();*/
 
     }
 
 
-    @Override
-    public void onDataLoadStarted() {
+    private void loadAllCustomers() {
 
+        _firebaseManager.getAllCustomers(new OnGetDataListener() {
+            @Override
+            public void onDataLoadStarted() {
+
+            }
+
+            @Override
+            public void onDataLoadSucceed(DataSnapshot dataSnapshot) {
+                for (DataSnapshot child: dataSnapshot.getChildren()){
+                    _customers.add(child.getValue(Customer.class));
+                }
+            }
+
+            @Override
+            public void onDataLoadFailed(DatabaseError databaseError) {
+                Log.w(TAG, "Unable to load all customers from Firebase");
+            }
+        });
     }
 
-    @Override
-    public void onDataLoadSucceed(DataSnapshot data) {
 
-    }
-
-    @Override
-    public void onDataLoadFailed(DatabaseError databaseError) {
-
-    }
 
     /**
      * Add an appointment to the list of appointments.
@@ -118,20 +151,20 @@ public class MainController implements OnGetDataListener{
         _firebaseManager.addService(service, service.getId());
     }
 
-    public List<Expense> getAllExpenses() {
-        return _expenses;
+    public void getAllExpenses(OnGetDataListener onGetDataListener) {
+        _firebaseManager.getAllExpenses(onGetDataListener);
     }
 
-    public List<Customer> getAllCustomers() {
-        return _customers;
+    public void getAllCustomers(OnGetDataListener onGetDataListener) {
+        _firebaseManager.getAllCustomers(onGetDataListener);
     }
 
-    public List<Appointment> getAllAppointments() {
-        return _appointments;
+    public void getAllAppointments(OnGetDataListener onGetDataListener) {
+        _firebaseManager.getAllAppointments(onGetDataListener);
     }
 
-    public List<Goal> getAllGoals(){
-        return _goals;
+    public void getAllGoals(OnGetDataListener onGetDataListener){
+        _firebaseManager.getAllGoals(onGetDataListener);
     }
 
 
@@ -148,9 +181,11 @@ public class MainController implements OnGetDataListener{
             return null;
         }
 
-        // get the id from the database manager. It's auto-generated with
-        // the server's timestamp for multi-user support
-        customer.setId(_firebaseManager.getKeyForNewCustomer());
+        // get the id from the database manager if it wasn't already set.
+        // It's auto-generated with the server's timestamp for multi-user support
+        if (customer.getId().isEmpty()){
+            customer.setId(_firebaseManager.getKeyForNewCustomer());
+        }
 
         _customers.add(customer);
         _firebaseManager.addCustomer(customer, customer.getId());
@@ -216,62 +251,61 @@ public class MainController implements OnGetDataListener{
 
 
 
-    /**
-     * Return a list of all the customers in the customers list
-     * @return List<Customer>
-     */
-    public List<Customer> getCustomers() {
-        return _customers;
-    }
-
 
     /**
      * Return all the appointments for a particular customer
-     * @param customer: The customer that we're looking up appointments for
-     * @return A list of appointments for the customer
+     * @param customer Needed customer for appointment
      */
-    public List<Appointment> getAppointmentsForCustomer(Customer customer) {
+    public void getAppointmentsForCustomer(Customer customer, OnGetDataListener onGetDataListener) {
 
-        return _firebaseManager.getAppointmentsForCustomer(customer);
+        _firebaseManager.getAppointmentsForCustomer(customer, onGetDataListener);
     }
 
     /**
      * Return the first customer that matches the id.
      * Return null if nothing was found
-     * @return Customer
      */
-    public Customer getCustomerById(String id) {
-        return _firebaseManager.getCustomerWithId(id);
+    public void getCustomerById(String id, OnGetDataListener onGetDataListener) {
+        _firebaseManager.getCustomerWithId(id, onGetDataListener);
     }
 
     /**
      * Return the first customer that matches the name. Return null
      * if nothing was found
      * @param name: customer name
-     * @return Customer
      */
-    public Customer getCustomerByName(String name) {
-        return _firebaseManager.getCustomerWithName(name);
+    public void getCustomerByName(String name, OnGetDataListener onGetDataListener) {
+        _firebaseManager.getCustomerWithName(name, onGetDataListener);
     }
 
 
     /**
      * Return a list of goals that are due by a certain date
      * @param date: The month we're looking at
-     * @return A list of goals
      */
-    public List<Goal> getGoalsByDueDate(LocalDate date) {
-        return _firebaseManager.getGoalsWithEndDateBetween(date, date);
+    public void getGoalsByDueDate(LocalDate date, OnGetDataListener onGetDataListener) {
+        _firebaseManager.getGoalsWithEndDateBetween(date, date, onGetDataListener);
     }
 
 
     /**
      * This will return a number of goals
      * @param numGoals number of goal we want
-     * @return Goals are returns with a numLimit
      */
-    public List getGoalsWithLimit(int numGoals){
-        return  _firebaseManager.getGoalsWithLimit(numGoals);
+    public void getGoalsWithLimit(int numGoals, OnGetDataListener onGetDataListener){
+        _firebaseManager.getGoalsWithLimit(numGoals, onGetDataListener);
+    }
+
+    public Customer getCustomerWithName(String name){
+
+        for (Customer customer: _customers){
+            if (customer.getName().equals(name)){
+                return customer;
+            }
+        }
+
+        // didn't find any customer
+        return null;
     }
 
 
@@ -279,14 +313,13 @@ public class MainController implements OnGetDataListener{
     /**
      * Return a list of customers that were added in the last month. This method may be
      * changed later to accept a parameter that specifies the duration to check for
-     * @return List of customers
      */
-    public List<Customer> getNewCustomers() {
+    public void getNewCustomers(OnGetDataListener onGetDataListener) {
         LocalDate today = LocalDate.now();
 
         LocalDate lastMonth = new LocalDate(today.getYear(), today.getMonthOfYear() -1, today.getDayOfMonth());
 
-        return _firebaseManager.getCustomersAddedBetweenDates(lastMonth, today);
+        _firebaseManager.getCustomersAddedBetweenDates(lastMonth, today, onGetDataListener);
     }
 
     /**
@@ -303,8 +336,8 @@ public class MainController implements OnGetDataListener{
      * Return a list of all the sales in the data collection.
      * @return LinkedList<Sale>
      */
-    public List<Sale> getAllSales() {
-        return _allSales;
+    public void getAllSales(OnGetDataListener onGetDataListener) {
+        _firebaseManager.getAllSales(onGetDataListener);
     }
 
 
@@ -313,27 +346,25 @@ public class MainController implements OnGetDataListener{
      * @param numOfCustomers the number of customers to be returned if available
      * @return List of customers
      */
-    public List<Customer> getFirstNumberCustomers(int numOfCustomers){
-        return _firebaseManager.getCustomersWithLimit(numOfCustomers);
+    public void getFirstNumberCustomers(int numOfCustomers, OnGetDataListener onGetDataListener){
+        _firebaseManager.getCustomersWithLimit(numOfCustomers, onGetDataListener);
     }
 
 
     /**
      * Return the number of sales specified in the parameter
      * @param numOfSales the number of sales to be returned if available
-     * @return List of sales
      */
-    public List<Sale> getFirstNumberSales(int numOfSales){
-        return _firebaseManager.getSalesWithLimit(numOfSales);
+    public void getFirstNumberSales(int numOfSales, OnGetDataListener onGetDataListener){
+        _firebaseManager.getSalesWithLimit(numOfSales, onGetDataListener);
     }
 
     /**
      * Return the number of appointments specified in the parameter
      * @param numAppointments the number of appointments to be returned if available
-     * @return List of appointments
      */
-    public List<Appointment> getFirstNumberAppointments(int numAppointments){
-        return _firebaseManager.getAppointmentWithLimit(numAppointments);
+    public void getFirstNumberAppointments(int numAppointments, OnGetDataListener onGetDataListener){
+        _firebaseManager.getAppointmentWithLimit(numAppointments, onGetDataListener);
     }
 
 
@@ -342,10 +373,9 @@ public class MainController implements OnGetDataListener{
      *
      * This will return the most recent goals.
      * @param numGoals the number of goals to be returned if available
-     * @return List of goals
      */
-    public List<Goal> getFirstNumberGoals(int numGoals){
-        return _firebaseManager.getGoalsWithLimit(numGoals);
+    public void getFirstNumberGoals(int numGoals, OnGetDataListener onGetDataListener){
+        _firebaseManager.getGoalsWithLimit(numGoals, onGetDataListener);
     }
 
 
@@ -354,26 +384,29 @@ public class MainController implements OnGetDataListener{
      *
      * This will return the most recent expenses.
      * @param numExpenses the number of expenses to be returned if available
-     * @return List of expenses
      */
-    public List<Expense> getFirstNumberExpenses(int numExpenses){
-        return _firebaseManager.getExpensesWithLimit(numExpenses);
+    public void getFirstNumberExpenses(int numExpenses, OnGetDataListener onGetDataListener){
+        _firebaseManager.getExpensesWithLimit(numExpenses, onGetDataListener);
     }
 
 
     /*getters for financial report*/
-    public List<Appointment> getAppointmentsBetween(LocalDate beginDate, LocalDate endDate) {
-         return  _firebaseManager.getAppointmentsBetween(beginDate, endDate);
+    public void getAppointmentsBetween(LocalDate beginDate, LocalDate endDate, OnGetDataListener onGetDataListener) {
+         _firebaseManager.getAppointmentsBetween(beginDate, endDate, onGetDataListener);
     }
 
     /*Getting Sales between a certain time*/
-    public List<Sale> getSalesBetween(LocalDate beginDate, LocalDate endDate) {
-        return  _firebaseManager.getSalesBetweenDates(beginDate, endDate);
+    public void getSalesBetween(LocalDate beginDate, LocalDate endDate, OnGetDataListener onGetDataListener) {
+        _firebaseManager.getSalesBetweenDates(beginDate, endDate, onGetDataListener);
     }
 
     /*Getting Expenses between a certain time*/
-    public List<Expense> getExpensesBetween(LocalDate beginDate, LocalDate endDate) {
-        return  _firebaseManager.getExpensesBetweenDates(beginDate, endDate);
+    public void getExpensesBetween(LocalDate beginDate, LocalDate endDate, OnGetDataListener onGetDataListener) {
+        _firebaseManager.getExpensesBetweenDates(beginDate, endDate, onGetDataListener);
+    }
+
+    public String getIdForNewCustomer(){
+        return _firebaseManager.getKeyForNewCustomer();
     }
 
 

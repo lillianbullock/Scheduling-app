@@ -18,7 +18,7 @@ import com.example.evans.data.Appointment;
 public class AppointmentAdapter extends ArrayAdapter<Appointment> {
 
     private ArrayList<Appointment> _appointmentList = new ArrayList<>();
-    private ViewHolder _viewHolder;
+
 
     public AppointmentAdapter(Context context, int textViewResourceId, ArrayList<Appointment> objects) {
         super(context, textViewResourceId, objects);
@@ -41,6 +41,8 @@ public class AppointmentAdapter extends ArrayAdapter<Appointment> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        ViewHolder _viewHolder;
+
         if(convertView==null){
             // inflate the layout
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -62,11 +64,32 @@ public class AppointmentAdapter extends ArrayAdapter<Appointment> {
         }
 
         // assign values if the object is not null
-        if (_appointmentList.get(position) != null) {
+        if (_appointmentList.get(position) != null && _viewHolder != null) {
+
+            String unknownCustomer = "Unknown Customer";
+            String unknownService = "Unrecognized Service";
+
+            Appointment currentAppointment = _appointmentList.get(position);
+
+            if (currentAppointment.getId() != null){
+                _viewHolder.title.setText(currentAppointment.getCustomerId());
+            } else {
+                _viewHolder.title.setText(unknownCustomer);
+            }
+
+            if (currentAppointment.getService() != null){
+                _viewHolder.service.setText(currentAppointment.getService().getTitle());
+            } else {
+                _viewHolder.service.setText(unknownService);
+            }
+
+            _viewHolder.dateTime.setText("test date");
+
+            /*
+            //TODO put dateTime in a better format
             _viewHolder.title.setText(_appointmentList.get(position).getTitle());
             _viewHolder.service.setText(_appointmentList.get(position).getService().getTitle());
-            //TODO put dateTime in a better format
-            _viewHolder.dateTime.setText(_appointmentList.get(position).getDate().toString());
+            _viewHolder.dateTime.setText(_appointmentList.get(position).getDate().toString());*/
         }
         return convertView;
     }

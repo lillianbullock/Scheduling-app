@@ -28,7 +28,6 @@ public class CustomerEditFragment extends Fragment {
     private EditText _email;
     private static final String TAG = "CustomerEditFragment";
 
-    private Button _setAppointmentBttn;
     private Button _saveBttn;
     private Button _cancelBttn;
 
@@ -59,7 +58,6 @@ public class CustomerEditFragment extends Fragment {
         //_setAppointmentBtn = rootView.findViewById(R.id.btn_set_appt);
         _saveBttn = rootView.findViewById(R.id.btn_edit_bar_save);
         _cancelBttn = rootView.findViewById(R.id.btn_edit_bar_cancel);
-        _setAppointmentBttn = rootView.findViewById(R.id.btn_set_appt);
 
         initializeCustomerDetails();
 
@@ -150,11 +148,6 @@ public class CustomerEditFragment extends Fragment {
     }
 
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        _hostActivity.showActionbar();
-    }
 
     /**
      *  isValid: Return true is the passed email string matches the specified
@@ -192,7 +185,6 @@ public class CustomerEditFragment extends Fragment {
             _hostActivity = (OnSubmitCustomerEdit) activity;
         } catch (ClassCastException e) {
             /* they refused to honor the contract!!*/
-            Log.e(TAG, "The host activity did not implement OnSubmitCustomerEdit");
             throw new ClassCastException(activity.toString() + " must implement OnSubmitCustomerEdit");
         }
     }
