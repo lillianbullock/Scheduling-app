@@ -40,7 +40,7 @@ public class AppointmentListFragment extends Fragment implements OnGetDataListen
     private View _rootView;  // how we can get access to view elements
 
     private AppointmentListFragmentListener _hostListener;
-    private MainController _mainController;
+    private MainController _mainController = MainController.getInstance();
 
 
     private static final String TAG = "AppointmentListFragment";
@@ -66,7 +66,6 @@ public class AppointmentListFragment extends Fragment implements OnGetDataListen
 
         // Inflate the layout for this fragment
         _rootView = inflater.inflate(R.layout.fragment_appointment_list, container, false);
-        _mainController = MainController.getInstance();
         _addFloatingBtn = _rootView.findViewById(R.id.floating_add_bttn_appointment);
         _progressBar = _rootView.findViewById(R.id.appointment_list_progress_bar);
 
@@ -98,18 +97,17 @@ public class AppointmentListFragment extends Fragment implements OnGetDataListen
         return _rootView;
     }
 
-    private void loadAppointment(){
-
-        _mainController.getAllAppointments(this);
-        /*FirebaseManager firebaseManager = new FirebaseManager();
-        firebaseManager.getAllAppointments(this);*/
-
-    }
     @Override
     public void onResume() {
         super.onResume();
         _hostListener.showActionbar();
         _hostListener.setAppbarTitle(TITLE);
+    }
+
+    private void loadAppointment(){
+        //_mainController.getAllAppointments(this);
+        FirebaseManager firebaseManager = new FirebaseManager();
+        firebaseManager.getAllAppointments(this);
     }
 
     public void setAppointment(List<Appointment> appointment){ _appointment.addAll(appointment); }
@@ -129,7 +127,7 @@ public class AppointmentListFragment extends Fragment implements OnGetDataListen
             _appointment.add(appointment);
         }
 
-        //_appointmentAdapter.addAll(_appointment);
+        _appointmentAdapter.addAll(_appointment);
         _progressBar.setVisibility(ProgressBar.INVISIBLE);
         _appointmentListView.setAdapter(_appointmentAdapter);
 
@@ -171,5 +169,4 @@ public class AppointmentListFragment extends Fragment implements OnGetDataListen
         void showActionbar();
         void setAppbarTitle(String title);
     }
-
 }

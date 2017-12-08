@@ -188,10 +188,16 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onClickSale(Sale sale) {
-        SaleEditFragment _frag = new SaleEditFragment();
-        //_frag.(sale);
-        _currentFragment = _frag;
-        loadCurrentFragment(false);
+        if (sale != null){
+            SaleEditFragment frag = new SaleEditFragment();
+            frag.setExistingSale(sale);
+            _currentFragment = frag;
+            loadCurrentFragment(true);
+
+        } else {
+            Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid sale from mainactivity", Snackbar.LENGTH_LONG).show();
+
+        }
     }
 
     @Override
@@ -202,12 +208,26 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onSaleEditFinish(Sale sale) {
-        if(sale != null){
+
+        if (sale != null) {
+            _mainController.addSale(sale);
+            _currentFragment = new SaleListFragment();
+            loadCurrentFragment(false);
+
+        } else {
+            // If this ever happens then there's an error on our part. A null service should never be returned here
+            _currentFragment = new StartPageFragment();
+            loadCurrentFragment(false);
+            Snackbar.make(findViewById(R.id.content_frame),
+                    "ERROR: Invalid expense information entered, cancelling operation", Snackbar.LENGTH_LONG).show();
+            Log.e(TAG, "NULL expense passed to MainActivity");
+        }
+        /*if(sale != null){
             _mainController.addSale(sale);
 
             // since w're not viewing the sale, we'll just go back to the previous fragment
             onBackPressed();
-        }
+        }*/
     }
 
 
@@ -360,12 +380,24 @@ public class MainActivity extends AppCompatActivity implements
         loadCurrentFragment(true);
     }
 
-
     @Override
     public void onEditGoal(Goal goal) {
         if (goal != null){
             GoalEditFragment frag = new GoalEditFragment();
             frag.setExistingGoal(goal);
+            _currentFragment = frag;
+            loadCurrentFragment(true);
+
+        } else {
+            Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid Goal from mainActivity", Snackbar.LENGTH_LONG).show();
+
+        }
+    }
+
+    @Override
+    public void onSaveGoal(Goal goal) {
+        if (goal != null){
+            GoalListFragment frag = new GoalListFragment();
             _currentFragment = frag;
             loadCurrentFragment(true);
 

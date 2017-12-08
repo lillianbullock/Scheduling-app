@@ -98,8 +98,6 @@ public class CustomerListFragment extends Fragment implements OnGetDataListener 
 
 
     private void loadCustomer(){
-        /*FirebaseManager firebaseManager = new FirebaseManager();
-        firebaseManager.getAllGoals(this);*/
         _mainController.getAllCustomers(this);
     }
 
@@ -117,8 +115,6 @@ public class CustomerListFragment extends Fragment implements OnGetDataListener 
         for (DataSnapshot child: data.getChildren()){
             _customer.add(child.getValue(Customer.class));
         }
-
-        //_customerArrayAdapter.addAll(_customer);
 
         _progressBar.setVisibility(ProgressBar.INVISIBLE);
         _customerListView.setAdapter(_customerArrayAdapter);

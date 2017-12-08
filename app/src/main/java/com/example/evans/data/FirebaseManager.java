@@ -232,7 +232,6 @@ public class FirebaseManager {
                 Log.w(TAG, "Unable to load customers from the database");
             }
         });
-
     }
 
     /**
@@ -264,7 +263,6 @@ public class FirebaseManager {
                 Log.i(TAG, "Firebase query operation cancelled");
             }
         });
-
     }
 
     /**
@@ -294,8 +292,6 @@ public class FirebaseManager {
                 Log.w(TAG, "Query to database for appointments cancelled");
             }
         });
-
-
     }
 
     /**
@@ -380,6 +376,27 @@ public class FirebaseManager {
 
     }
 
+    public void getUnFinishedGoals(final OnGetDataListener onGetDataListener) {
+
+        final String DONE = "done";
+
+        Query unfinishedGoalsQuery = _databaseRoot.child(GOALS).orderByChild(DONE);
+        onGetDataListener.onDataLoadStarted();
+
+        unfinishedGoalsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                onGetDataListener.onDataLoadSucceed(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                onGetDataListener.onDataLoadFailed(databaseError);
+                Log.w(TAG, "Query to database for unfinished goals cancelled");
+            }
+        });
+
+    }
     /**
      * Get goals with the start date specified in the parameter
      * @param startDate the start date that we're looking up
@@ -742,7 +759,6 @@ public class FirebaseManager {
         }
 
         _databaseRoot.child(EXPENSES).child(id).setValue(expense);
-
     }
 
 

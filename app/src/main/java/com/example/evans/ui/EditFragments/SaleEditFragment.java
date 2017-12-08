@@ -48,6 +48,7 @@ public class SaleEditFragment extends Fragment
 
     private Map<String, Service> _servicesMap;
 
+    private Sale _selectedSale;
     private Service _selectedService;
     private LocalDate _selectedDate;
     private Double _price;
@@ -74,16 +75,16 @@ public class SaleEditFragment extends Fragment
         View view = inflater.inflate(R.layout.fragment_sale_edit, container, false);
 
         _date           = view.findViewById(R.id.etxt_sale_date);
-        _serviceSpinner = view.findViewById(R.id.spinner_sale_type);
         _servicePrice   = view.findViewById(R.id.etxt_sale_price);
+
+        _serviceSpinner = view.findViewById(R.id.spinner_sale_type);
+
         _btnSave        = view.findViewById(R.id.btn_edit_bar_save);
         _btnCancel      = view.findViewById(R.id.btn_edit_bar_cancel);
         _servicesMap    = new HashMap<>();
         _servicesMap    = _hostActivity.getServices();
 
-
-
-
+        initializeSaleDetails();
 
         // Set up the spinner for services list
         setupServicesSpinner();
@@ -144,6 +145,17 @@ public class SaleEditFragment extends Fragment
 
         return view;
     }
+
+    private void initializeSaleDetails(){
+        if(_selectedSale != null){
+            _date.setText(_selectedSale.getDate());
+        }
+    }
+
+    public void setExistingSale(Sale sale){
+        _selectedSale = sale;
+    }
+
 
     @Override
     public void onDateSet(LocalDate date) {
