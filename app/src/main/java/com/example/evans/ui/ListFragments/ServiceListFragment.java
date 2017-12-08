@@ -72,25 +72,20 @@ public class ServiceListFragment extends Fragment {
                 onCreateService();
             }
         });
-
         _listViewService = (ListView) _rootView.findViewById(R.id.service_list);
-        ServiceAdapter adapter = new ServiceAdapter(getActivity(), R.layout.service_adapter, _services);
-        _listViewService.setAdapter(adapter);
 
-
+       /* ServiceAdapter adapter = new ServiceAdapter(getActivity(), R.layout.service_adapter, _services);
+        _listViewService.setAdapter(_serviceAdapter);*/
 
         _listViewService.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                 Service service = _serviceAdapter.getItem(position);
                 _hostActivityListener.onClickService(service);
             }
         });
 
         loadServices();
-
-
 
         return _rootView;
     }

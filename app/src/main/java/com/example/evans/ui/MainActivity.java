@@ -54,6 +54,7 @@ import java.util.Map;
  * This class will implement the fragments
  */
 public class MainActivity extends AppCompatActivity implements
+        StartPageFragment.StartPageFragmentListener,
         CustomerEditFragment.OnSubmitCustomerEdit,
         CustomerListFragment.CustomerListFragmentListener,
         CustomerViewFragment.InteractionWithCustomerViewFragmentListener,
@@ -71,7 +72,6 @@ public class MainActivity extends AppCompatActivity implements
         SaleEditFragment.OnSubmitSaleEdit,
         GoalViewFragment.InteractionWithGoalViewFragmentListener,
         ExpenseListFragment.ExpenseListFragmentListener,
-        StartPageFragment.StartPageFragmentListener,
         ExpenseEditFragment.InteractionWithExpenseEditFragmentListener
     {
 
@@ -428,9 +428,6 @@ public class MainActivity extends AppCompatActivity implements
         if (appointment == null || customer == null) {
             return;
         }
-
-
-
         AppointmentViewFragment _frag = new AppointmentViewFragment();
         _frag.setRelatedCustomer(customer);
         _frag.setAppointment(appointment);
@@ -447,7 +444,7 @@ public class MainActivity extends AppCompatActivity implements
         appointmentEditFragment.setCustomer(customer);
 
         _currentFragment = appointmentEditFragment;
-        loadCurrentFragment(false);
+        loadCurrentFragment(true);
     }
 
     @Override
@@ -460,15 +457,21 @@ public class MainActivity extends AppCompatActivity implements
             getSupportActionBar().show();
         }
 
-    /************************* StartPage Fragment ************************************/
+
+        /************************* StartPage Fragment ************************************/
     @Override
     public void onClickGoalsSeeMore() {
+        GoalListFragment goalListFragment = new GoalListFragment();
+
+        _currentFragment = goalListFragment;
+        loadCurrentFragment(false);
 
     }
 
     @Override
     public void onClickAppointmentsSeeMore() {
-
+        _currentFragment = new AppointmentListFragment();
+        loadCurrentFragment(false);
     }
 
     @Override
@@ -480,6 +483,7 @@ public class MainActivity extends AppCompatActivity implements
     public void setAppbarTitle(String title){
         _toolbar.setTitle(title);
     }
+
 
     /********************END OF OVERRIDING METHODS FOR FRAGMENTS****************************/
 
@@ -645,7 +649,6 @@ public class MainActivity extends AppCompatActivity implements
             super.onBackPressed();
         }
     }
-
 
 
     @Override
