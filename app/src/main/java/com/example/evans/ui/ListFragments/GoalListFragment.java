@@ -93,10 +93,8 @@ public class GoalListFragment  extends Fragment implements OnGetDataListener {
 
 
     private void loadGoals(){
-
         FirebaseManager firebaseManager = new FirebaseManager();
         firebaseManager.getAllGoals(this);
-
     }
 
 

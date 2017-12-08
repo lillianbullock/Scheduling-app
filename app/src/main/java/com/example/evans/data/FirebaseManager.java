@@ -358,11 +358,11 @@ public class FirebaseManager {
      * Get all goals that have not been marked as finished
      * @return List of Goals
      */
-    public void getUnFinishedGoals(final OnGetDataListener onGetDataListener) {
+    public void getUnFinishedLimitGoals(int limitNum, final OnGetDataListener onGetDataListener) {
 
         final String DONE = "done";
 
-        Query unfinishedGoalsQuery = _databaseRoot.child(GOALS).orderByChild(DONE);
+        Query unfinishedGoalsQuery = _databaseRoot.child(GOALS).orderByChild(DONE).limitToFirst(limitNum);
         onGetDataListener.onDataLoadStarted();
 
         unfinishedGoalsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -449,7 +449,7 @@ public class FirebaseManager {
     public void getGoalsWithLimit(int numGoals, final OnGetDataListener onGetDataListener) {
 
 
-        Query goalsQuery = _databaseRoot.child(GOALS).limitToFirst(numGoals);
+        Query goalsQuery = _databaseRoot.child(GOALS).limitToLast(numGoals);
         onGetDataListener.onDataLoadStarted();
 
         goalsQuery.addListenerForSingleValueEvent(new ValueEventListener() {

@@ -29,22 +29,6 @@ public class AppointmentViewFragment extends Fragment {
 
     private static final String TAG = "AppointmentView";
 
-    /**
-     * sets the customer and appointment in the class
-     * @param relatedCustomer : customer to be displayed
-     */
-    public void setRelatedCustomer(Customer relatedCustomer) {
-        _customer = relatedCustomer;
-    }
-
-    public void setAppointment(Appointment appointment){
-        if (appointment != null) {
-            _appointment = appointment;
-        } else {
-            Log.e(TAG, "Invalid appointment passed to AppointmentView");
-        }
-    }
-
     public AppointmentViewFragment() {
         // Required empty public constructor
     }
@@ -88,6 +72,22 @@ public class AppointmentViewFragment extends Fragment {
             showedUp.setChecked(_appointment.isAttended());
 
         return view;
+    }
+
+    /**
+     * sets the customer and appointment in the class
+     * @param relatedCustomer : customer to be displayed
+     */
+    public void setRelatedCustomer(Customer relatedCustomer) {
+        _customer = relatedCustomer;
+    }
+
+    public void setAppointment(Appointment appointment){
+        if (appointment != null) {
+            _appointment = appointment;
+        } else {
+            Log.e(TAG, "Invalid appointment passed to AppointmentView");
+        }
     }
 
     @Override
