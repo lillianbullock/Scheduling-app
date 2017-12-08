@@ -24,6 +24,7 @@ import com.example.evans.data.MainController;
 import com.example.evans.data.Sale;
 import com.example.evans.data.Service;
 import com.example.evans.ui.DialogFragements.DatePickerFragment;
+import com.example.evans.ui.DialogFragements.TimePickerFragment;
 import com.example.evans.ui.EditFragments.AppointmentEditFragment;
 import com.example.evans.ui.EditFragments.CustomerEditFragment;
 import com.example.evans.ui.EditFragments.ExpenseEditFragment;
@@ -43,6 +44,7 @@ import com.example.evans.ui.ViewFragments.SalesViewFragment;
 import com.example.evans.ui.ViewFragments.ServiceViewFragment;
 
 import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 
 import java.util.List;
 import java.util.Map;
@@ -70,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements
         SaleListFragment.SaleListFragmentListener,
         AppointmentViewFragment.InteractionWithAppointmentViewFragmentListener,
         SaleEditFragment.OnSubmitSaleEdit,
+        TimePickerFragment.OnTimeSetListener,
         GoalViewFragment.InteractionWithGoalViewFragmentListener,
         ExpenseListFragment.ExpenseListFragmentListener,
         ExpenseEditFragment.InteractionWithExpenseEditFragmentListener
@@ -655,5 +658,10 @@ public class MainActivity extends AppCompatActivity implements
     public void onDateSet(LocalDate date) {
         Snackbar.make(findViewById(R.id.content_frame),
                 "SET DATE CALLED IN PARENT ACTIVITY", Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onTimeSet(LocalTime time) {
+
     }
 }

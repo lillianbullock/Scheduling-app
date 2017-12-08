@@ -125,7 +125,8 @@ public class AppointmentListFragment extends Fragment implements OnGetDataListen
         _appointment.clear();
 
         for(DataSnapshot child: dataSnapshot.getChildren()){
-            _appointment.add(child.getValue(Appointment.class));
+            Appointment appointment = child.getValue(Appointment.class);
+            _appointment.add(appointment);
         }
 
         //_appointmentAdapter.addAll(_appointment);
