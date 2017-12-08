@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import com.example.evans.R;
 import com.example.evans.data.Appointment;
 import com.example.evans.data.FirebaseManager;
+import com.example.evans.data.MainController;
 import com.example.evans.data.OnGetDataListener;
 import com.example.evans.data.Service;
 import com.example.evans.ui.Adapters.AppointmentAdapter;
@@ -37,7 +38,11 @@ public class AppointmentListFragment extends Fragment implements OnGetDataListen
 
     private FloatingActionButton _addFloatingBtn;
     private View _rootView;  // how we can get access to view elements
+
     private AppointmentListFragmentListener _hostListener;
+    private MainController _mainController;
+
+
     private static final String TAG = "AppointmentListFragment";
     private final String TITLE = "Appointments";
 
@@ -87,11 +92,14 @@ public class AppointmentListFragment extends Fragment implements OnGetDataListen
 
         loadAppointment();
 
-        //TODO NULL PointerException in Adapter ISSUES loadAppointment();
-
         return _rootView;
     }
 
+
+    private void loadAppointment(){
+        FirebaseManager firebaseManager = new FirebaseManager();
+        firebaseManager.getAllAppointments(this);
+    }
     @Override
     public void onResume() {
         super.onResume();
@@ -101,11 +109,6 @@ public class AppointmentListFragment extends Fragment implements OnGetDataListen
 
     public void setAppointment(List<Appointment> appointment){ _appointment.addAll(appointment); }
 
-    private void loadAppointment(){
-        FirebaseManager firebaseManager = new FirebaseManager();
-        firebaseManager.getAllAppointments(this);
-    }
-
     @Override
     public void onDataLoadStarted() {
         _progressBar.setVisibility(ProgressBar.VISIBLE);
@@ -113,6 +116,7 @@ public class AppointmentListFragment extends Fragment implements OnGetDataListen
 
     @Override
     public void onDataLoadSucceed(DataSnapshot dataSnapshot) {
+
         _appointment.clear();
 
         for(DataSnapshot child: dataSnapshot.getChildren()){

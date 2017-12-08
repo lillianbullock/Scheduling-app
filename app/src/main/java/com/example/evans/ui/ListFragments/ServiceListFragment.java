@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.evans.R;
@@ -28,13 +29,16 @@ import java.util.Map;
 public class ServiceListFragment extends Fragment {
 
     private FloatingActionButton _addFloatingBtn;
-    private ArrayList<Service> _services = new ArrayList<>();
+    private View _rootView;
+
     private ServiceListFragmentListener _hostActivityListener;
     private MainController _mainController;
+
     private final String TITLE = "Services";
 
+    private ProgressBar _progressBar;
+    private ArrayList<Service> _services = new ArrayList<>();
     private ServiceAdapter _serviceAdapter;
-
     private ListView _listViewService;
 
 
@@ -48,13 +52,12 @@ public class ServiceListFragment extends Fragment {
 
         super.onCreate(savedInstanceState);
 
-        View _rootView;
-
         // Inflate the layout for this fragment
         _rootView = inflater.inflate(R.layout.fragment_service_list, container, false);
         _addFloatingBtn = _rootView.findViewById(R.id.floating_add_btn);
         _addFloatingBtn = _rootView.findViewById(R.id.floating_add_btn);
         _mainController = MainController.getInstance();
+        _progressBar = _rootView.findViewById(R.id.service_list_progress_bar);
         _serviceAdapter = new ServiceAdapter(getActivity(), R.layout.service_adapter, _services);
 
         super.onCreate(savedInstanceState);
