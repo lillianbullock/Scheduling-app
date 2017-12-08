@@ -476,7 +476,7 @@ public class MainActivity extends AppCompatActivity implements
         appointmentEditFragment.setCustomer(customer);
 
         _currentFragment = appointmentEditFragment;
-        loadCurrentFragment(false);
+        loadCurrentFragment(true);
     }
 
     @Override

@@ -151,12 +151,14 @@ public class AppointmentEditFragment extends Fragment
                 // set the selected service so we can use it later
                 Service currentService = _servicesMap.get(adapterView.getSelectedItem().toString());
                 _selectedService = currentService;
+                String currency = getString(R.string.currency);
 
                 Double price = currentService.getPrice();
                 String localePrice =  String.format(Locale.US,"%1.2f", price);
+                String finalPrice = currency + localePrice;
 
                 // display the price to the user
-                _servicePrice.setText(localePrice);
+                _servicePrice.setText(finalPrice);
             }
 
             @Override

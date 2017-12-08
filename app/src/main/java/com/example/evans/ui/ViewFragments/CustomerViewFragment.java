@@ -81,17 +81,6 @@ public class CustomerViewFragment extends Fragment {
             }
         });
 
-        _setAppointmentBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (_customer != null){
-                    _hostActivity.onEditCustomer(_customer);
-                } else {
-                    Snackbar.make(getActivity().findViewById(R.id.content_frame), "ERROR: Invalid customer", Snackbar.LENGTH_LONG).show();
-
-                }
-            }
-     });
 
      return view;
      }
