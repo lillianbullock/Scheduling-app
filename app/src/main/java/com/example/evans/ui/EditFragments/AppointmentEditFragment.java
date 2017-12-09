@@ -56,6 +56,7 @@ public class AppointmentEditFragment extends Fragment
     private EditText _time;
 
     private Spinner _serviceSpinner;
+    private ArrayAdapter<String> adapter;
 
     private Button _btnSave;
     private Button _btnCancel;
@@ -104,6 +105,7 @@ public class AppointmentEditFragment extends Fragment
         // Initialize customer details
         initializeAppointmentDetails();
         initializeCustomerDetails();
+        initializeServiceDetails();
 
         // Onclick listener for the save button
         _btnSave.setOnClickListener(new View.OnClickListener() {
@@ -186,6 +188,7 @@ public class AppointmentEditFragment extends Fragment
         if(_selectedAppointment != null) {
             _date.setText(_selectedAppointment.getDate());
             _time.setText(_selectedAppointment.getTime());
+            //_notes.setText(_selectedAppointment.get)
         }
     }
     private void initializeCustomerDetails() {
@@ -193,6 +196,12 @@ public class AppointmentEditFragment extends Fragment
             _name.setText(_selectedCustomer.getName());
             _email.setText(_selectedCustomer.getEmail());
             _phone.setText(_selectedCustomer.getPhone());
+        }
+    }
+
+    private void initializeServiceDetails(){
+        if(_selectedService != null){
+            _serviceSpinner.setSelection(adapter.getPosition(_selectedService.getTitle()));
         }
     }
 
@@ -239,12 +248,15 @@ public class AppointmentEditFragment extends Fragment
     }
 
     public void setExistingAppointment(Appointment appointment){
-        if(appointment != null){
+        if(appointment != null) {
             _selectedAppointment = appointment;
             _selectedCustomer = _mainController.getCustomerById(_selectedAppointment.getCustomerId());
             setCustomer(_selectedCustomer);
+            _selectedService = _selectedAppointment.getService();
+            setService(_selectedService);
+            _selectedDate = _selectedAppointment.getDateObject();
+            _selectedTime = _selectedAppointment.getTimeObject();
         }
-
     }
 
     public void setCustomer(Customer customer) {
@@ -266,7 +278,7 @@ public class AppointmentEditFragment extends Fragment
      */
     private void setupServicesSpinner() {
         List<String> servicesNames = new ArrayList<>(_hostActivity.getServices().keySet());
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+        adapter = new ArrayAdapter<>(
                 this.getActivity(),
                 android.R.layout.simple_spinner_item,
                 servicesNames);
