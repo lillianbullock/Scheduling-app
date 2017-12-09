@@ -24,6 +24,7 @@ import com.example.evans.data.MainController;
 import com.example.evans.data.Sale;
 import com.example.evans.data.Service;
 import com.example.evans.ui.DialogFragements.DatePickerFragment;
+import com.example.evans.ui.DialogFragements.TimePickerFragment;
 import com.example.evans.ui.EditFragments.AppointmentEditFragment;
 import com.example.evans.ui.EditFragments.CustomerEditFragment;
 import com.example.evans.ui.EditFragments.ExpenseEditFragment;
@@ -43,6 +44,9 @@ import com.example.evans.ui.ViewFragments.SalesViewFragment;
 import com.example.evans.ui.ViewFragments.ServiceViewFragment;
 
 import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.util.List;
 import java.util.Map;
@@ -67,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements
         AppointmentListFragment.AppointmentListFragmentListener,
         AppointmentEditFragment.OnSubmitAppointment,
         DatePickerFragment.OnDateSetListener,
+        TimePickerFragment.OnTimeSetListener,
         SaleListFragment.SaleListFragmentListener,
         AppointmentViewFragment.InteractionWithAppointmentViewFragmentListener,
         SaleEditFragment.OnSubmitSaleEdit,
@@ -136,6 +141,11 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
+    /*****TIME PICKER*******/
+    @Override
+    public void onTimeSet(LocalTime time) {
+        DateTimeFormatter timeFormatter = DateTimeFormat.shortTime();
+    }
 
 
     /**** EXPENSE *****/
