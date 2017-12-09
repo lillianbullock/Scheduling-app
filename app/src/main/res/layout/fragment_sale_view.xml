@@ -10,7 +10,7 @@
         android:layout_height="match_parent">
 
         <!-- Include our standard view header -->
-        <include layout="@layout/view_top_bar"
+        <include layout="@layout/view_bar"
             android:id="@+id/sale_view_bar"
             />
 

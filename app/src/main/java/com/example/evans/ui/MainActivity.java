@@ -604,6 +604,11 @@ public class MainActivity extends AppCompatActivity implements
         // fragment then load it
         switch (menuItem.getItemId()) {
 
+            case R.id.menu_item_home:
+                _drawerLayout.closeDrawer(GravityCompat.START);
+                _currentFragment = new StartPageFragment();
+                loadCurrentFragment(true);
+                break;
             case R.id.menu_item_customers:
                 _drawerLayout.closeDrawer(GravityCompat.START);
                 _currentFragment = new CustomerListFragment();
