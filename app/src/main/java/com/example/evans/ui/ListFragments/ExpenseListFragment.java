@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -105,7 +106,6 @@ public class ExpenseListFragment extends Fragment implements OnGetDataListener {
 
         _expense.clear();
 
-
         for(DataSnapshot child: dataSnapshot.getChildren()){
             _expense.add(child.getValue(Expense.class));
         }
@@ -118,7 +118,7 @@ public class ExpenseListFragment extends Fragment implements OnGetDataListener {
 
     @Override
     public void onDataLoadFailed(DatabaseError databaseError) {
-
+        Log.w("Error in Expense", "Unable to load Expense");
     }
 
     /**

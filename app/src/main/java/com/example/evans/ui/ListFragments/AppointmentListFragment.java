@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import com.example.evans.R;
 import com.example.evans.data.Appointment;
 import com.example.evans.data.FirebaseManager;
+import com.example.evans.data.MainController;
 import com.example.evans.data.OnGetDataListener;
 import com.example.evans.data.Service;
 import com.example.evans.ui.Adapters.AppointmentAdapter;
@@ -37,7 +38,11 @@ public class AppointmentListFragment extends Fragment implements OnGetDataListen
 
     private FloatingActionButton _addFloatingBtn;
     private View _rootView;  // how we can get access to view elements
+
     private AppointmentListFragmentListener _hostListener;
+    private MainController _mainController = MainController.getInstance();
+
+
     private static final String TAG = "AppointmentListFragment";
     private final String TITLE = "Appointments";
 
@@ -77,6 +82,8 @@ public class AppointmentListFragment extends Fragment implements OnGetDataListen
             }
         });
 
+        _appointmentListView.setAdapter(_appointmentAdapter);
+
         _appointmentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -86,8 +93,6 @@ public class AppointmentListFragment extends Fragment implements OnGetDataListen
         });
 
         loadAppointment();
-
-        //TODO NULL PointerException in Adapter ISSUES loadAppointment();
 
         return _rootView;
     }
@@ -99,12 +104,11 @@ public class AppointmentListFragment extends Fragment implements OnGetDataListen
         _hostListener.setAppbarTitle(TITLE);
     }
 
-    public void setAppointment(List<Appointment> appointment){ _appointment.addAll(appointment); }
-
     private void loadAppointment(){
-        FirebaseManager firebaseManager = new FirebaseManager();
-        firebaseManager.getAllAppointments(this);
+        _mainController.getAllAppointments(this);
     }
+
+    public void setAppointment(List<Appointment> appointment){ _appointment.addAll(appointment); }
 
     @Override
     public void onDataLoadStarted() {
@@ -113,10 +117,12 @@ public class AppointmentListFragment extends Fragment implements OnGetDataListen
 
     @Override
     public void onDataLoadSucceed(DataSnapshot dataSnapshot) {
+
         _appointment.clear();
 
         for(DataSnapshot child: dataSnapshot.getChildren()){
-            _appointment.add(child.getValue(Appointment.class));
+            Appointment appointment = child.getValue(Appointment.class);
+            _appointment.add(appointment);
         }
 
         _appointmentAdapter.addAll(_appointment);
@@ -161,5 +167,4 @@ public class AppointmentListFragment extends Fragment implements OnGetDataListen
         void showActionbar();
         void setAppbarTitle(String title);
     }
-
 }

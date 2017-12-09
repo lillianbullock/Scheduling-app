@@ -24,6 +24,7 @@ import com.example.evans.data.MainController;
 import com.example.evans.data.Sale;
 import com.example.evans.data.Service;
 import com.example.evans.ui.DialogFragements.DatePickerFragment;
+import com.example.evans.ui.DialogFragements.TimePickerFragment;
 import com.example.evans.ui.EditFragments.AppointmentEditFragment;
 import com.example.evans.ui.EditFragments.CustomerEditFragment;
 import com.example.evans.ui.EditFragments.ExpenseEditFragment;
@@ -43,6 +44,7 @@ import com.example.evans.ui.ViewFragments.SalesViewFragment;
 import com.example.evans.ui.ViewFragments.ServiceViewFragment;
 
 import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 
 import java.util.List;
 import java.util.Map;
@@ -54,6 +56,7 @@ import java.util.Map;
  * This class will implement the fragments
  */
 public class MainActivity extends AppCompatActivity implements
+        StartPageFragment.StartPageFragmentListener,
         CustomerEditFragment.OnSubmitCustomerEdit,
         CustomerListFragment.CustomerListFragmentListener,
         CustomerViewFragment.InteractionWithCustomerViewFragmentListener,
@@ -69,9 +72,9 @@ public class MainActivity extends AppCompatActivity implements
         SaleListFragment.SaleListFragmentListener,
         AppointmentViewFragment.InteractionWithAppointmentViewFragmentListener,
         SaleEditFragment.OnSubmitSaleEdit,
+        TimePickerFragment.OnTimeSetListener,
         GoalViewFragment.InteractionWithGoalViewFragmentListener,
         ExpenseListFragment.ExpenseListFragmentListener,
-        StartPageFragment.StartPageFragmentListener,
         ExpenseEditFragment.InteractionWithExpenseEditFragmentListener
     {
 
@@ -185,10 +188,16 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onClickSale(Sale sale) {
-        SaleEditFragment _frag = new SaleEditFragment();
-        //_frag.(sale);
-        _currentFragment = _frag;
-        loadCurrentFragment(false);
+        if (sale != null){
+            SaleEditFragment frag = new SaleEditFragment();
+            frag.setExistingSale(sale);
+            _currentFragment = frag;
+            loadCurrentFragment(true);
+
+        } else {
+            Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid sale from mainactivity", Snackbar.LENGTH_LONG).show();
+
+        }
     }
 
     @Override
@@ -199,12 +208,26 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onSaleEditFinish(Sale sale) {
-        if(sale != null){
+
+        if (sale != null) {
+            _mainController.addSale(sale);
+            _currentFragment = new SaleListFragment();
+            loadCurrentFragment(false);
+
+        } else {
+            // If this ever happens then there's an error on our part. A null service should never be returned here
+            _currentFragment = new StartPageFragment();
+            loadCurrentFragment(false);
+            Snackbar.make(findViewById(R.id.content_frame),
+                    "ERROR: Invalid expense information entered, cancelling operation", Snackbar.LENGTH_LONG).show();
+            Log.e(TAG, "NULL expense passed to MainActivity");
+        }
+        /*if(sale != null){
             _mainController.addSale(sale);
 
             // since w're not viewing the sale, we'll just go back to the previous fragment
             onBackPressed();
-        }
+        }*/
     }
 
 
@@ -357,12 +380,24 @@ public class MainActivity extends AppCompatActivity implements
         loadCurrentFragment(true);
     }
 
-
     @Override
     public void onEditGoal(Goal goal) {
         if (goal != null){
             GoalEditFragment frag = new GoalEditFragment();
             frag.setExistingGoal(goal);
+            _currentFragment = frag;
+            loadCurrentFragment(true);
+
+        } else {
+            Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid Goal from mainActivity", Snackbar.LENGTH_LONG).show();
+
+        }
+    }
+
+    @Override
+    public void onSaveGoal(Goal goal) {
+        if (goal != null){
+            GoalListFragment frag = new GoalListFragment();
             _currentFragment = frag;
             loadCurrentFragment(true);
 
@@ -428,9 +463,6 @@ public class MainActivity extends AppCompatActivity implements
         if (appointment == null || customer == null) {
             return;
         }
-
-
-
         AppointmentViewFragment _frag = new AppointmentViewFragment();
         _frag.setRelatedCustomer(customer);
         _frag.setAppointment(appointment);
@@ -447,7 +479,7 @@ public class MainActivity extends AppCompatActivity implements
         appointmentEditFragment.setCustomer(customer);
 
         _currentFragment = appointmentEditFragment;
-        loadCurrentFragment(false);
+        loadCurrentFragment(true);
     }
 
     @Override
@@ -460,15 +492,21 @@ public class MainActivity extends AppCompatActivity implements
             getSupportActionBar().show();
         }
 
-    /************************* StartPage Fragment ************************************/
+
+        /************************* StartPage Fragment ************************************/
     @Override
     public void onClickGoalsSeeMore() {
+        GoalListFragment goalListFragment = new GoalListFragment();
+
+        _currentFragment = goalListFragment;
+        loadCurrentFragment(false);
 
     }
 
     @Override
     public void onClickAppointmentsSeeMore() {
-
+        _currentFragment = new AppointmentListFragment();
+        loadCurrentFragment(false);
     }
 
     @Override
@@ -480,6 +518,7 @@ public class MainActivity extends AppCompatActivity implements
     public void setAppbarTitle(String title){
         _toolbar.setTitle(title);
     }
+
 
     /********************END OF OVERRIDING METHODS FOR FRAGMENTS****************************/
 
@@ -647,10 +686,14 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 
-
     @Override
     public void onDateSet(LocalDate date) {
         Snackbar.make(findViewById(R.id.content_frame),
                 "SET DATE CALLED IN PARENT ACTIVITY", Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onTimeSet(LocalTime time) {
+
     }
 }

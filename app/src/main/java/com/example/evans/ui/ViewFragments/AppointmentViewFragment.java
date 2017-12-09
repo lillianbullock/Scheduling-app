@@ -29,22 +29,6 @@ public class AppointmentViewFragment extends Fragment {
 
     private static final String TAG = "AppointmentView";
 
-    /**
-     * sets the customer and appointment in the class
-     * @param relatedCustomer : customer to be displayed
-     */
-    public void setRelatedCustomer(Customer relatedCustomer) {
-        _customer = relatedCustomer;
-    }
-
-    public void setAppointment(Appointment appointment){
-        if (appointment != null) {
-            _appointment = appointment;
-        } else {
-            Log.e(TAG, "Invalid appointment passed to AppointmentView");
-        }
-    }
-
     public AppointmentViewFragment() {
         // Required empty public constructor
     }
@@ -78,7 +62,12 @@ public class AppointmentViewFragment extends Fragment {
         name.setText(_customer.getName());
         email.setText(_customer.getEmail());
         phone.setText(_customer.getPhone());
-        service.setText(_appointment.getService().getTitle());
+
+        if (_appointment != null){
+            service.setText(_appointment.getService().getTitle());
+        }
+
+
         price.setText("$" + Double.toString(_appointment.getService().getPrice()));
         // TODO implement date & time formatting strings
         date.setText(_appointment.getDate().toString());
@@ -88,6 +77,22 @@ public class AppointmentViewFragment extends Fragment {
             showedUp.setChecked(_appointment.isAttended());
 
         return view;
+    }
+
+    /**
+     * sets the customer and appointment in the class
+     * @param relatedCustomer : customer to be displayed
+     */
+    public void setRelatedCustomer(Customer relatedCustomer) {
+        _customer = relatedCustomer;
+    }
+
+    public void setAppointment(Appointment appointment){
+        if (appointment != null) {
+            _appointment = appointment;
+        } else {
+            Log.e(TAG, "Invalid appointment passed to AppointmentView");
+        }
     }
 
     @Override

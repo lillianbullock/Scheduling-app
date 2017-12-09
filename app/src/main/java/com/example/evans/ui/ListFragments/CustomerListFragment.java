@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.ProgressBar;
 import com.example.evans.R;
 import com.example.evans.data.Customer;
 import com.example.evans.data.FirebaseManager;
+import com.example.evans.data.MainController;
 import com.example.evans.data.OnGetDataListener;
 import com.example.evans.ui.Adapters.CustomerAdapter;
 import com.google.firebase.database.DataSnapshot;
@@ -31,12 +33,17 @@ public class CustomerListFragment extends Fragment implements OnGetDataListener 
 
     private FloatingActionButton _addFloatingBtn;
     private View _rootView;  // how we can get access to view elements
+
     private CustomerListFragmentListener _hostActivityListener;
     private ArrayList<Customer> _customer = new ArrayList<>();
     private ListView _customerListView;
     private ProgressBar _progressBar;
     private CustomerAdapter _customerArrayAdapter;
+
+    private MainController _mainController = MainController.getInstance();
+
     private OnGetDataListener _onGetDataListener;
+
     private final String TITLE = "Customers";
 
     public CustomerListFragment() {
@@ -91,8 +98,7 @@ public class CustomerListFragment extends Fragment implements OnGetDataListener 
 
 
     private void loadCustomer(){
-        FirebaseManager firebaseManager = new FirebaseManager();
-        firebaseManager.getAllGoals(this);
+        _mainController.getAllCustomers(this);
     }
 
     @Override
@@ -110,22 +116,15 @@ public class CustomerListFragment extends Fragment implements OnGetDataListener 
             _customer.add(child.getValue(Customer.class));
         }
 
-        _customerArrayAdapter.addAll(_customer);
-
         _progressBar.setVisibility(ProgressBar.INVISIBLE);
-
-
-        CustomerAdapter customerAdapter = new CustomerAdapter(getActivity(), R.layout.customer_adapter, _customer);
-        _customerListView.setAdapter(customerAdapter);
+        _customerListView.setAdapter(_customerArrayAdapter);
 
     }
 
     @Override
     public void onDataLoadFailed(DatabaseError databaseError) {
-
+        Log.w("Error in Customer", "Unable to load Customer");
     }
-
-
 
     /**
      * For now we just want to let the host activity tak care of it by calling it's

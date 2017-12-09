@@ -16,6 +16,7 @@ public class Appointment implements Comparable, Financial {
     private LocalDate _date;
     private LocalTime _time;
     private String _customerId;
+    private String _customerName;
     private Service _service;
     private Boolean _due;
     private Boolean _attended;
@@ -54,6 +55,19 @@ public class Appointment implements Comparable, Financial {
         this._attended = false;
     }
 
+    public Appointment(String title, LocalDate date, LocalTime time, String customerId,
+                       String customerName, Service service) {
+        this._id = null;
+        this._title = title;
+        this._date = date;
+        this._time = time;
+        this._customerId = customerId;
+        this._customerName = customerName;
+        this._service = service;
+        this._due = false;
+        this._attended = false;
+    }
+
     public String getId() { return _id; }
     public void setId(String id) { _id = id;}
 
@@ -73,6 +87,14 @@ public class Appointment implements Comparable, Financial {
     void setTimeObject(LocalTime time) {_time = time;}
     public String getTime() { return _time.toString(); }
     public void setTime(String timeString) { this._time = LocalTime.parse(timeString); }
+
+    public String getCustomerName() {
+        return _customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this._customerName = customerName;
+    }
 
     public String getCustomerId() { return _customerId; }
     public void setCustomerId(String customerId) { this._customerId = customerId; }

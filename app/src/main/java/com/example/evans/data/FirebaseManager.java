@@ -218,7 +218,7 @@ public class FirebaseManager {
     public void getAllAppointments(final OnGetDataListener onGetDataListener) {
 
         onGetDataListener.onDataLoadStarted();
-        Query allCustomersQuery = _databaseRoot.child(CUSTOMERS);
+        Query allCustomersQuery = _databaseRoot.child(APPOINTMENTS);
 
         allCustomersQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -232,7 +232,6 @@ public class FirebaseManager {
                 Log.w(TAG, "Unable to load customers from the database");
             }
         });
-
     }
 
     /**
@@ -264,7 +263,6 @@ public class FirebaseManager {
                 Log.i(TAG, "Firebase query operation cancelled");
             }
         });
-
     }
 
     /**
@@ -294,8 +292,6 @@ public class FirebaseManager {
                 Log.w(TAG, "Query to database for appointments cancelled");
             }
         });
-
-
     }
 
     /**
@@ -358,6 +354,28 @@ public class FirebaseManager {
      * Get all goals that have not been marked as finished
      * @return List of Goals
      */
+    public void getUnFinishedLimitGoals(int limitNum, final OnGetDataListener onGetDataListener) {
+
+        final String DONE = "done";
+
+        Query unfinishedGoalsQuery = _databaseRoot.child(GOALS).orderByChild(DONE).limitToFirst(limitNum);
+        onGetDataListener.onDataLoadStarted();
+
+        unfinishedGoalsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                onGetDataListener.onDataLoadSucceed(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                onGetDataListener.onDataLoadFailed(databaseError);
+                Log.w(TAG, "Query to database for unfinished goals cancelled");
+            }
+        });
+
+    }
+
     public void getUnFinishedGoals(final OnGetDataListener onGetDataListener) {
 
         final String DONE = "done";
@@ -379,7 +397,6 @@ public class FirebaseManager {
         });
 
     }
-
     /**
      * Get goals with the start date specified in the parameter
      * @param startDate the start date that we're looking up
@@ -449,7 +466,7 @@ public class FirebaseManager {
     public void getGoalsWithLimit(int numGoals, final OnGetDataListener onGetDataListener) {
 
 
-        Query goalsQuery = _databaseRoot.child(GOALS).limitToFirst(numGoals);
+        Query goalsQuery = _databaseRoot.child(GOALS).limitToLast(numGoals);
         onGetDataListener.onDataLoadStarted();
 
         goalsQuery.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -742,7 +759,6 @@ public class FirebaseManager {
         }
 
         _databaseRoot.child(EXPENSES).child(id).setValue(expense);
-
     }
 
 
