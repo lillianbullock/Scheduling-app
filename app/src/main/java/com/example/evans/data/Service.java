@@ -70,4 +70,9 @@ public class Service implements Comparable {
 
         return this._id.equals(service._id);
     }
+    @Override
+    public int hashCode() {
+        return _id.hashCode();
+    }
+
 }

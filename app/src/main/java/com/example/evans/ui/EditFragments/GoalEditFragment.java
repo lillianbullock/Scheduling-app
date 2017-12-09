@@ -30,7 +30,6 @@ public class GoalEditFragment extends Fragment
     private EditText _goalName;
     private EditText _goalStart;
     private EditText _goalEnd;
-    private EditText _goalRepeat;
     private EditText _goalDescription;
     private char current;
     private EditText _currentDateEdit;
@@ -65,7 +64,6 @@ public class GoalEditFragment extends Fragment
         _goalName = view.findViewById(R.id.etxt_goal_name);
         _goalStart= view.findViewById(R.id.etxt_start_date);
         _goalEnd =  view.findViewById(R.id.etxt_end_date);
-        _goalRepeat = view.findViewById(R.id.etxt_repeat_time);
         _goalDescription = view.findViewById(R.id.etxt_goal_details);
 
         _btnSaveGoal = view.findViewById(R.id.btn_edit_bar_save);
@@ -138,13 +136,12 @@ public class GoalEditFragment extends Fragment
         String goalName   = _goalName.getText().toString();
         LocalDate goalStart = _selectedStartDate;
         LocalDate goalEnd   = _selectedEndDate;
-        String goalRepeat = _goalRepeat.getText().toString();
         String goalDescription = _goalDescription.getText().toString();
 
         TimePeriod repeatCycle = TimePeriod.Month;
 
         if(!goalName.isEmpty()) {
-            goal = new Goal(goalName, goalDescription, goalEnd, goalStart, repeatCycle);
+            goal = new Goal(goalName, goalDescription, goalEnd, goalStart);
         }
 
         return goal;

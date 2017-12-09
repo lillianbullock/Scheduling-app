@@ -188,8 +188,8 @@ public class AppointmentEditFragment extends Fragment
         if(_selectedAppointment != null) {
             _date.setText(_selectedAppointment.getDate());
             _time.setText(_selectedAppointment.getTime());
-            //_notes.setText(_selectedAppointment.get)
         }
+
     }
     private void initializeCustomerDetails() {
         if (_selectedCustomer != null) {
@@ -224,24 +224,25 @@ public class AppointmentEditFragment extends Fragment
         String title = _name.getText().toString();
         String phone = _phone.getText().toString();
         String email = _email.getText().toString();
-        String notes = _notes.getText().toString();
+
         if (_selectedCustomer == null) {
             _selectedCustomer = _mainController.getCustomerWithName(title);
 
             if (_selectedCustomer == null){
+                // there's no existing customer, create a new customer
                 String id = _mainController.getIdForNewCustomer();
-                // there's no existing customer, create one then
                 _selectedCustomer = new Customer(id, title, email, phone, LocalDate.now());
                 _mainController.addCustomer(_selectedCustomer);
             }
         }
 
-        // this should be optional
-        if (_notes != null) {
-            notes  = _notes.getText().toString();
-        }
         if (!title.isEmpty() && _selectedService != null) {
             appointment = new Appointment(title, _selectedDate, _selectedTime, _selectedCustomer.getId(), _selectedService);
+
+            // set the id
+            if (_selectedAppointment != null) {
+                appointment.setId(_selectedAppointment.getId());
+            }
         }
 
         return appointment;

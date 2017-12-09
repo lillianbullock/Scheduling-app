@@ -83,4 +83,9 @@ public class Expense implements Comparable, Financial {
         Expense expense = (Expense) obj;
         return this._id.equals(expense._id);
     }
+
+    @Override
+    public int hashCode() {
+        return _id.hashCode();
+    }
 }

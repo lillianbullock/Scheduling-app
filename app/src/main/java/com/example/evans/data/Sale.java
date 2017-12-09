@@ -92,4 +92,9 @@ public class Sale implements Comparable, Financial{
         Sale sale = (Sale) obj;
         return this._id.equals(sale._id);
     }
+
+    @Override
+    public int hashCode() {
+        return _id.hashCode();
+    }
 }
