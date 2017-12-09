@@ -32,19 +32,11 @@ public class Expense implements Comparable, Financial {
     public String getId() { return _id; }
     public void setId(String id) { _id = id;}
 
-    public String getName() {
-        return _name;
-    }
-    public void setName(String name) {
-        this._name = name;
-    }
+    public String getName() { return _name; }
+    public void setName(String name) { this._name = name; }
 
-    public Double getPrice() {
-        return _price;
-    }
-    public void setPrice(Double price) {
-        this._price = price;
-    }
+    public Double getPrice() { return _price; }
+    public void setPrice(Double price) { this._price = price; }
 
     public String getDate() { return _date.toString(); }
     public void setDate(String dateString) { this._date = LocalDate.parse(dateString); }
@@ -56,13 +48,7 @@ public class Expense implements Comparable, Financial {
     @Override
     public int compareTo(@NonNull Object o) {
         Expense expense1 = (Expense) o;
-        if (this._date.isAfter(expense1._date))
-            return 1;
-
-        if (this._date.isBefore(expense1._date))
-            return -1;
-
-        return 0;
+        return this._date.compareTo(expense1._date);
     }
 
     @Override
