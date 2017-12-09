@@ -64,14 +64,26 @@ public class Appointment implements Comparable, Financial {
     public LocalDate getDateObject() {return _date;}
     @Exclude
     public void setDateObject(LocalDate date) {_date = date;}
-    public String getDate() { return _date.toString(); }
+    public String getDate() {
+        if(_date == null){
+            return null;
+        }else{
+            return _date.toString();
+        }
+    }
     public void setDate(String dateString) { this._date = LocalDate.parse(dateString); }
 
     @Exclude
     public LocalTime getTimeObject() {return _time;}
     @Exclude
     void setTimeObject(LocalTime time) {_time = time;}
-    public String getTime() { return _time.toString(); }
+    public String getTime() {
+        if (_time == null) {
+            return null;
+        } else {
+            return _time.toString();
+        }
+    }
     public void setTime(String timeString) { this._time = LocalTime.parse(timeString); }
 
 
