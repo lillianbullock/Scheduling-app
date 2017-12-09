@@ -18,6 +18,7 @@ import com.example.evans.data.Appointment;
 public class AppointmentAdapter extends ArrayAdapter<Appointment> {
 
     private ArrayList<Appointment> _appointmentList = new ArrayList<>();
+    private ViewHolder _viewHolder;
 
 
     public AppointmentAdapter(Context context, int textViewResourceId, ArrayList<Appointment> objects) {
@@ -40,9 +41,6 @@ public class AppointmentAdapter extends ArrayAdapter<Appointment> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
-        ViewHolder _viewHolder;
-
         if(convertView==null){
             // inflate the layout
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -65,16 +63,11 @@ public class AppointmentAdapter extends ArrayAdapter<Appointment> {
 
         // assign values if the object is not null
         if (_appointmentList.get(position) != null && _viewHolder != null) {
-
-
-            Appointment currentAppointment = _appointmentList.get(position);
-
-            _viewHolder.title.setText(currentAppointment.getCustomerName());
-            _viewHolder.service.setText(currentAppointment.getService().getTitle());
-            _viewHolder.dateTime.setText(currentAppointment.getDate());
-
-
+            _viewHolder.title.setText(_appointmentList.get(position).getCustomerName());
+            _viewHolder.service.setText(_appointmentList.get(position).getService().getTitle());
+            _viewHolder.dateTime.setText(_appointmentList.get(position).getDate());
         }
+
         return convertView;
     }
 }

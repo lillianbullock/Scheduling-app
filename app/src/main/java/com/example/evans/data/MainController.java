@@ -365,6 +365,18 @@ public class MainController {
         _firebaseManager.getCustomerWithId(id, onGetDataListener);
     }
 
+
+    public Customer getCustomerById(String id) {
+        for (Customer customer: _customers){
+            if (customer.getId().equals(id)){
+                return customer;
+            }
+        }
+
+        // nothing found
+        return null;
+    }
+
     /**
      * Return the first customer that matches the name. Return null
      * if nothing was found
