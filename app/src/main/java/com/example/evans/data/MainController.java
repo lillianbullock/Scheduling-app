@@ -252,15 +252,22 @@ public class MainController {
     }
 
 
-
+    /**
+     * Update a customer information in the database and in the session's copy
+     * @param oldCustomer the old customer that needs to be replaced
+     * @param newCustomer the new customer that needs to replace the old customer
+     * @return the newCustomer if update was successful, null otherwise
+     */
     public Customer updateCustomer(Customer oldCustomer, Customer newCustomer) {
         int oldCustomerIndex = -1;//  = _customers.indexOf(oldCustomer);
 
-        for (Customer customer: _customers){
+        /*for (Customer customer: _customers){
             if (customer.getId().equals(oldCustomer.getId())){
                 oldCustomerIndex = _customers.indexOf(customer);
             }
-        }
+        }*/
+
+        oldCustomerIndex = _customers.indexOf(oldCustomer);
 
         if (oldCustomerIndex < 0) {
             Log.e(TAG, "updateCustomer: couldn't find old customer");
@@ -350,6 +357,91 @@ public class MainController {
 
         return newExpense;
     }
+
+
+
+    public boolean deleteCustomer(Customer customer){
+
+        if (customer == null || _customers.indexOf(customer) < 0) {
+            // the customer doesn't exist
+            return  false;
+        }
+
+        _firebaseManager.deleteCustomer(customer);
+
+        // use Java 8's remove function which returns true if the
+        // object was found, and false otherwise
+        return _customers.remove(customer);
+    }
+
+    public boolean deleteAppointment(Appointment appointment){
+
+        if (appointment == null || _appointments.indexOf(appointment) < 0) {
+            // the appointment doesn't exist
+            return  false;
+        }
+
+        _firebaseManager.deleteAppointment(appointment);
+
+        // use Java 8's remove function which returns true if the
+        // object was found, and false otherwise
+        return _appointments.remove(appointment);
+    }
+
+    public boolean deleteGoal(Goal goal){
+
+        if (goal == null || _goals.indexOf(goal) < 0) {
+            // the goal doesn't exist
+            return  false;
+        }
+
+        _firebaseManager.deleteGoal(goal);
+
+        // use Java 8's remove function which returns true if the
+        // object was found, and false otherwise
+        return _goals.remove(goal);
+    }
+
+
+    public boolean deleteService(Service service) {
+        if (service == null || _availableServices.indexOf(service) < 0) {
+            // the service doesn't exist
+            return  false;
+        }
+
+        _firebaseManager.deleteService(service);
+
+        // use Java 8's remove function which returns true if the
+        // object was found, and false otherwise
+        return _availableServices.remove(service);
+    }
+
+    public boolean deleteSale(Sale sale){
+        if (sale == null || _allSales.indexOf(sale) < 0) {
+            // the sale doesn't exist
+            return  false;
+        }
+
+        _firebaseManager.deleteSale(sale);
+
+        // use Java 8's remove function which returns true if the
+        // object was found, and false otherwise
+        return _allSales.remove(sale);
+    }
+
+    public boolean deleteExpense(Expense expense){
+        if (expense == null || _expenses.indexOf(expense) < 0) {
+            // the expense doesn't exist
+            return  false;
+        }
+
+        _firebaseManager.deleteExpense(expense);
+
+        // use Java 8's remove function which returns true if the
+        // object was found, and false otherwise
+        return _expenses.remove(expense);
+    }
+
 
 
 
