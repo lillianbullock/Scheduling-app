@@ -68,11 +68,6 @@ public class Customer implements Comparable{
     public void setPhone(String phone) { this._phone = phone; }
     public String getPhone() { return _phone; }
 
-    //TODO implement this????
-    public List<Appointment> findAppointments(){
-        return null;
-    }
-
     @Override
     public int compareTo(@NonNull Object o) {
         Customer customer1 = (Customer) o;

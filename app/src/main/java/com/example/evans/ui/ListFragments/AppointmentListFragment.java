@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 
 import com.example.evans.R;
 import com.example.evans.data.Appointment;
+import com.example.evans.data.Customer;
 import com.example.evans.data.FirebaseManager;
 import com.example.evans.data.MainController;
 import com.example.evans.data.OnGetDataListener;
@@ -122,6 +123,7 @@ public class AppointmentListFragment extends Fragment implements OnGetDataListen
 
         for(DataSnapshot child: dataSnapshot.getChildren()){
             Appointment appointment = child.getValue(Appointment.class);
+            Customer customer = child.getValue(Customer.class);
             _appointment.add(appointment);
         }
 

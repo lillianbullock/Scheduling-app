@@ -24,6 +24,7 @@ public class GoalViewFragment extends Fragment {
     private InteractionWithGoalViewFragmentListener _hostActivity;
     private Button _saveGoalBtn;
     private Button _editGoalBtn;
+    private Button _backGoalBtn;
 
 
     public GoalViewFragment() {
@@ -38,12 +39,13 @@ public class GoalViewFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_goal_view,container, false);
 
         TextView name = view.findViewById(R.id.txt_goal_view_name);
-        TextView detail = view.findViewById(R.id.txt_goal_details); //TODO check this id
+        TextView detail = view.findViewById(R.id.txt_goal_details);
         TextView startD = view.findViewById(R.id.txt_goal_view_start_date);
         TextView endD = view.findViewById(R.id.txt_goal_view_end_date);
 
         _saveGoalBtn = view.findViewById(R.id.btn_save_goal);
         _editGoalBtn = view.findViewById(R.id.btn_view_bar_edit);
+        _backGoalBtn = view.findViewById(R.id.btn_view_bar_back);
         CheckBox _checkBox = view.findViewById(R.id.goal_done_box);
 
         name.setText(_goal.getTitle());
@@ -51,6 +53,12 @@ public class GoalViewFragment extends Fragment {
         startD.setText(_goal.getStartDate());
         endD.setText(_goal.getDueDate());
 
+        _backGoalBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                _hostActivity.onBackPressed();
+            }
+        });
         _saveGoalBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -111,9 +119,8 @@ public class GoalViewFragment extends Fragment {
     public interface InteractionWithGoalViewFragmentListener{
         void hideActionbar();
         void showActionbar();
-
+        void onBackPressed();
         void onEditGoal(Goal goal);
-        //Goal getViewGoal();
         void onSaveGoal(Goal goal);
         void viewWithGoal(Goal goal);
     }

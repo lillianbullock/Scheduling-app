@@ -113,7 +113,7 @@ public class ServiceEditFragment extends Fragment {
 
         String title = _title.getText().toString();
         String description = _description.getText().toString();
-        double price = convertPriceStringToDouble(_price.getText().toString());
+        double price = convertPriceStringToDouble(_price.getText().toString().replaceAll("[^\\d.]+", ""));
 
         newService = new Service(title, description, price);
 

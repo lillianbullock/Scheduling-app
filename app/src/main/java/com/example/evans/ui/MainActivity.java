@@ -40,15 +40,12 @@ import com.example.evans.ui.ListFragments.ServiceListFragment;
 import com.example.evans.ui.ViewFragments.AppointmentViewFragment;
 import com.example.evans.ui.ViewFragments.CustomerViewFragment;
 import com.example.evans.ui.ViewFragments.GoalViewFragment;
-import com.example.evans.ui.ViewFragments.SalesViewFragment;
 import com.example.evans.ui.ViewFragments.ServiceViewFragment;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 
-import java.util.List;
 import java.util.Map;
-
 
 /**
  * This is the MainActivity, it controls all of the Functions that will
@@ -78,8 +75,6 @@ public class MainActivity extends AppCompatActivity implements
         ExpenseEditFragment.InteractionWithExpenseEditFragmentListener
     {
 
-
-
     // Variables
     private MainController _mainController;
     private Fragment _currentFragment;
@@ -87,8 +82,6 @@ public class MainActivity extends AppCompatActivity implements
     private ActionBarDrawerToggle _actionBarToggle;
     private Toolbar _toolbar;
 
-
-    private static final int DEFAULTLOADNUMBER = 20;
     private static final String TAG = "MainActivity";
     private static final String APP_PREFS = "com.example.evans";
     private static final String PREF_LAST_CUS_ID = "Last Used Customer ID";
@@ -105,7 +98,6 @@ public class MainActivity extends AppCompatActivity implements
 
         /* Initialize your toolbar and navigation drawer*/
         initializeToolbarAndNavigationDrawer();
-
 
         // load any saved data from the shared preference
         loadSharedPreference();
@@ -139,9 +131,7 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
-
-
-    /**** EXPENSE *****/
+    /*---------- EXPENSE ----------*/
     @Override
     public void onClickExpense(Expense expense) {
         ExpenseEditFragment _frag = new ExpenseEditFragment();
@@ -179,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
-    /*** SALE ***/
+    /*---------- SALE ----------*/
     @Override
     public void onAddSale() {
         _currentFragment = new SaleEditFragment();
@@ -204,7 +194,6 @@ public class MainActivity extends AppCompatActivity implements
     public void onSaleCancel() {
             onBackPressed();
         }
-
 
     @Override
     public void onSaleEditFinish(Sale sale) {
@@ -233,7 +222,7 @@ public class MainActivity extends AppCompatActivity implements
 
 
 
-    /***** SERVICE *******/
+    /*---------- SERVICE ----------*/
     @Override
     public void onAddService() {
         _currentFragment = new ServiceEditFragment();
@@ -303,8 +292,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 
-
-    /******** CUSTOMER **********/
+    /*---------- CUSTOMER ----------*/
     @Override
     public void onEditCustomer(Customer customer) {
 
@@ -333,9 +321,8 @@ public class MainActivity extends AppCompatActivity implements
     public void onCancelCustomerEdit() { onBackPressed(); }
 
     @Override
-    public void onCustomerEditFinish(Customer customer) {
-
-        if (customer == null) {
+    public void onCustomerEditFinish(Customer oldCustomer, Customer newCustomer) {
+        if (newCustomer == null) {
             Snackbar.make(findViewById(R.id.content_frame),
                     "ERROR: Invalid customer. Operation aborted",
                     Snackbar.LENGTH_LONG)
@@ -348,15 +335,20 @@ public class MainActivity extends AppCompatActivity implements
             return;
         }
 
-        // addCustomer returns the same customer but with a valid id
-        customer = _mainController.addCustomer(customer);
+        if (oldCustomer == null) {
+            // addCustomer returns the same customer but with a valid id
+            Log.i(TAG, "onCustomerEditFinish: calling add customer");
+            newCustomer = _mainController.addCustomer(newCustomer);
+        } else {
+            Log.i(TAG, "onCustomerEditFinish: calling update customer");
+            _mainController.updateCustomer(oldCustomer, newCustomer);
+        }
 
         CustomerViewFragment _frag = new CustomerViewFragment();
-        _frag.setCustomer(customer);
+        _frag.setCustomer(newCustomer);
         _currentFragment = _frag;
 
         loadCurrentFragment(false);
-
     }
 
 
@@ -373,7 +365,7 @@ public class MainActivity extends AppCompatActivity implements
 
 
 
-    /******** GOAL *******/
+    /*---------- GOAL ----------*/
     @Override
     public void onClickAddGoal() {
         _currentFragment = new GoalEditFragment();
@@ -438,7 +430,7 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
-        /******* APPOINTMENT ******/
+    /*---------- APPOINTMENT ----------*/
     @Override
     public void onClickAppointment(Appointment appointment) {
         AppointmentViewFragment _frag = new AppointmentViewFragment();
@@ -508,8 +500,7 @@ public class MainActivity extends AppCompatActivity implements
             getSupportActionBar().show();
         }
 
-
-        /************************* StartPage Fragment ************************************/
+    /*---------- StartPage Fragment ----------*/
     @Override
     public void onClickGoalsSeeMore() {
         GoalListFragment goalListFragment = new GoalListFragment();
@@ -536,7 +527,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 
-    /********************END OF OVERRIDING METHODS FOR FRAGMENTS****************************/
+    /*---------- END OF OVERRIDING METHODS FOR FRAGMENTS ----------*/
 
     /**
      * Load the current fragment.

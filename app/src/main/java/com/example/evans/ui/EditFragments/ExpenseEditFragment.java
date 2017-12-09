@@ -120,7 +120,7 @@ public class ExpenseEditFragment extends Fragment
         Expense newExpense = null;
 
         String name = _name.getText().toString();
-        Double price = Double.parseDouble(_price.getText().toString());
+        Double price = Double.parseDouble(_price.getText().toString().replaceAll("[^\\d.]+", ""));
         LocalDate setDate = _setDate;
 
         //TODO is there a better way to validate these?

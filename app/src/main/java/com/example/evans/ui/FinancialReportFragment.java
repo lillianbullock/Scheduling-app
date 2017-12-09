@@ -119,7 +119,7 @@ public class FinancialReportFragment extends Fragment
             public void onClick(View view) {
 
                 //TODO check if start date is before end date
-                if (!_selectedEndDate.isBefore(_selectedStartDate)){
+                if (_selectedStartDate.isBefore(_selectedEndDate)){
 
                     loadExpenses();
                     loadSales();
@@ -159,7 +159,6 @@ public class FinancialReportFragment extends Fragment
                     _net.setText(Double.toString(netProfit));
 
                 } else {
-
                     Snackbar.make(getActivity().findViewById(R.id.content_frame), "ERROR: End date cannot be before the begin date", Snackbar.LENGTH_SHORT).show();
                 }
 

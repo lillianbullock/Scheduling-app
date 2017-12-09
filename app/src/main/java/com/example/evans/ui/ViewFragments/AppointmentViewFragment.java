@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.evans.R;
 import com.example.evans.data.Appointment;
 import com.example.evans.data.Customer;
+import com.example.evans.data.MainController;
 import com.example.evans.data.Service;
 
 import org.joda.time.LocalDate;
@@ -31,6 +32,7 @@ public class AppointmentViewFragment extends Fragment {
     private Button _editAppointmentBtn;
 
     private InteractionWithAppointmentViewFragmentListener _hostActivity;
+    private MainController _mainController;
 
     private static final String TAG = "AppointmentView";
 
@@ -38,19 +40,30 @@ public class AppointmentViewFragment extends Fragment {
         // Required empty public constructor
     }
 
+    /**
+     * sets the customer and appointment in the class
+     * @param relatedCustomer : customer to be displayed
+     */
+    public void setRelatedCustomer(Customer relatedCustomer) {
+        _customer = relatedCustomer;
+    }
+
+    public void setAppointment(Appointment appointment){
+        if (appointment != null) {
+            _appointment = appointment;
+        } else {
+            Log.e(TAG, "Invalid appointment passed to AppointmentView");
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_appointment_view, container, false);
+        _mainController = MainController.getInstance();
 
-        if (_customer == null) {
-            _customer = new Customer("0", "Customer1", "email1", "000 000 0000", new LocalDate());
-        }
-        if (_appointment == null) {
-            Service dummyService = new Service("Service1", "", 2.00);
-            _appointment = new Appointment("Appointment1", new LocalDate(), new LocalTime(), "0", dummyService);
-        }
+        _customer = _mainController.getCustomerById(_appointment.getCustomerId());
 
         // collects the views that need to be changed to display stuff
         TextView name = view.findViewById(R.id.txt_appt_view_customer_name);
@@ -64,6 +77,14 @@ public class AppointmentViewFragment extends Fragment {
 
         _backAppointmentBtn = view.findViewById(R.id.btn_view_bar_back);
         _editAppointmentBtn = view.findViewById(R.id.btn_view_bar_edit);
+
+        if (_customer == null) {
+            _customer = new Customer("0", "Customer1", "email1", "000 000 0000", new LocalDate());
+        }
+        if (_appointment == null) {
+            Service dummyService = new Service("Service1", "", 2.00);
+            _appointment = new Appointment("Appointment1", new LocalDate(), new LocalTime(), "0", dummyService);
+        }
 
         // sets the views with the data from passed classes
         name.setText(_customer.getName());
@@ -100,22 +121,6 @@ public class AppointmentViewFragment extends Fragment {
         });
 
         return view;
-    }
-
-    /**
-     * sets the customer and appointment in the class
-     * @param relatedCustomer : customer to be displayed
-     */
-    public void setRelatedCustomer(Customer relatedCustomer) {
-        _customer = relatedCustomer;
-    }
-
-    public void setAppointment(Appointment appointment){
-        if (appointment != null) {
-            _appointment = appointment;
-        } else {
-            Log.e(TAG, "Invalid appointment passed to AppointmentView");
-        }
     }
 
     @Override

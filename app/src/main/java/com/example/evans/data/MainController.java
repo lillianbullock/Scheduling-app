@@ -254,10 +254,16 @@ public class MainController {
 
 
     public Customer updateCustomer(Customer oldCustomer, Customer newCustomer) {
+        int oldCustomerIndex = -1;//  = _customers.indexOf(oldCustomer);
 
-        int oldCustomerIndex = _customers.indexOf(oldCustomer);
+        for (Customer customer: _customers){
+            if (customer.getId().equals(oldCustomer.getId())){
+                oldCustomerIndex = _customers.indexOf(customer);
+            }
+        }
 
-        if (oldCustomerIndex < 0 || newCustomer == null) {
+        if (oldCustomerIndex < 0) {
+            Log.e(TAG, "updateCustomer: couldn't find old customer");
             return null;
         }
 
@@ -266,7 +272,6 @@ public class MainController {
         _firebaseManager.updateCustomer(oldCustomer, newCustomer);
 
         return newCustomer;
-
     }
 
     public Appointment updateAppointment(Appointment oldAppointment, Appointment newAppointment) {
@@ -358,6 +363,18 @@ public class MainController {
      */
     public void getCustomerById(String id, OnGetDataListener onGetDataListener) {
         _firebaseManager.getCustomerWithId(id, onGetDataListener);
+    }
+
+
+    public Customer getCustomerById(String id) {
+        for (Customer customer: _customers){
+            if (customer.getId().equals(id)){
+                return customer;
+            }
+        }
+
+        // nothing found
+        return null;
     }
 
     /**
