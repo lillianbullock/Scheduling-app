@@ -58,5 +58,12 @@ public class SaleTest {
         //testing getReport (financial interface)
         assertEquals("get report first sale", nonDef1Sale.getReport(), 3.00, 0.0);
         assertEquals("get report second sale", nonDef2Sale.getReport(), 5.50, 0.0);
+
+        //takes the date from one, and sets the other's date to that
+        String holdDate = nonDef1Sale.getDate();
+        nonDef2Sale.setDate(holdDate);
+        //then makes sure they're the same
+        assertEquals("string date getters and setters", nonDef1Sale.getDateObject(), nonDef2Sale.getDateObject());
+
     }
 }

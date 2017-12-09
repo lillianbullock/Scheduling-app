@@ -40,5 +40,12 @@ public class CustomerTest {
         // test compareTo
         assertTrue("customer compareTo should be positive", 0 < nonDefCustomer.compareTo(defaultCustomer));
         assertEquals("customer compareTo should be same", 0, nonDefCustomer.compareTo(nonDefCustomer));
+
+        //takes the date from one, and sets the other's date to that
+        String holdDate = nonDefCustomer.getDateAdded();
+        defaultCustomer.setDateAdded(holdDate);
+        //then makes sure they're the same
+        assertEquals("string date getters and setters", nonDefCustomer.getDateAddedObject(), defaultCustomer.getDateAddedObject());
+
     }
 }
