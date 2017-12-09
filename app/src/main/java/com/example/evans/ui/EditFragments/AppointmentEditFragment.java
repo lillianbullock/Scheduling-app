@@ -185,9 +185,11 @@ public class AppointmentEditFragment extends Fragment
      * for customer and appointments
      */
     private void initializeAppointmentDetails(){
-        initializeCustomerDetails();
-        _date.setText(_selectedAppointment.getDate());
-       // _time.setText(_selectedAppointment.getTime());
+        if(_selectedAppointment != null) {
+            initializeCustomerDetails();
+            _date.setText(_selectedAppointment.getDate());
+            _time.setText(_selectedAppointment.getTime());
+        }
     }
     private void initializeCustomerDetails() {
         if (_selectedCustomer != null) {

@@ -771,6 +771,9 @@ public class FirebaseManager {
      */
     public void deleteCustomer(Customer customer) {
 
+        if (customer != null){
+            _databaseRoot.child(CUSTOMERS).child(customer.getId()).removeValue();
+        }
     }
 
     /**
@@ -778,7 +781,9 @@ public class FirebaseManager {
      * @param appointment the appointment to be deleted
      */
     public void deleteAppointment(Appointment appointment) {
-
+        if (appointment != null){
+            _databaseRoot.child(CUSTOMERS).child(appointment.getId()).removeValue();
+        }
     }
 
 
@@ -787,15 +792,19 @@ public class FirebaseManager {
      * @param service the service to be deleted
      */
     public void deleteService(Service service) {
-
+        if (service != null){
+            _databaseRoot.child(SERVICES).child(service.getId()).removeValue();
+        }
     }
 
     /**
-     * Delete a single sale from the database
+     * Deletes a single sale from the database
      * @param sale The sale to be deleted
      */
     public void deleteSale(Sale sale){
-
+        if (sale != null){
+            _databaseRoot.child(SALES).child(sale.getId()).removeValue();
+        }
     }
 
     /**
@@ -803,8 +812,22 @@ public class FirebaseManager {
      * @param goal the goal to be deleted
      */
     public void deleteGoal(Goal goal) {
-
+        if (goal != null){
+            _databaseRoot.child(GOALS).child(goal.getId()).removeValue();
+        }
     }
+
+    /**
+     * Deletes an expense from the database
+     * @param expense the expense to be deleted
+     */
+    public void deleteExpense(Expense expense){
+        if (expense != null){
+            _databaseRoot.child(EXPENSES).child(expense.getId()).removeValue();
+        }
+    }
+
+
 
 
     public void updateCustomer(Customer oldCustomer, Customer newCustomer) {
