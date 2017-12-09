@@ -29,6 +29,23 @@ public class Expense implements Comparable, Financial {
         _date = date;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+
+        if (obj == this){
+            return true;
+        }
+
+        if (obj == null || !(obj instanceof Expense)){
+            return false;
+        }
+
+        // typecast obj to Expense
+        Expense expense = (Expense) obj;
+
+        return this._id.equals(expense._id);
+    }
+
     public String getId() { return _id; }
     public void setId(String id) { _id = id;}
 
