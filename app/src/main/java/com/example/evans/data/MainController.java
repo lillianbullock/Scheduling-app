@@ -160,7 +160,7 @@ public class MainController {
         _customers.add(customer);
         _firebaseManager.addCustomer(customer, customer.getId());
 
-        // we're returning the customer because we set the id here
+        // we're returning the customer because we may have set the id here
         return customer;
     }
 
@@ -267,6 +267,7 @@ public class MainController {
             return null;
         }
 
+        newCustomer.setId(oldCustomer.getId());
         _customers.set(oldCustomerIndex, newCustomer);
 
         _firebaseManager.updateCustomer(oldCustomer, newCustomer);
@@ -282,6 +283,7 @@ public class MainController {
             return  null;
         }
 
+        newAppointment.setId(oldAppointment.getId());
         _appointments.set(oldAppointmentIndex, newAppointment);
         _firebaseManager.updateAppointment(oldAppointment, newAppointment);
 
@@ -297,6 +299,7 @@ public class MainController {
             return  null;
         }
 
+        newSale.setId(oldSale.getId());
         _allSales.set(oldSaleIndex, newSale);
         _firebaseManager.updateSale(oldSale, newSale);
 
@@ -311,6 +314,7 @@ public class MainController {
             return null;
         }
 
+        newGoal.setId(oldGoal.getId());
         _goals.set(oldGoalIndex, newGoal);
         _firebaseManager.updateGoal(oldGoal, newGoal);
 
@@ -325,6 +329,7 @@ public class MainController {
             return null;
         }
 
+        newService.setId(oldService.getId());
         _availableServices.set(oldServiceIndex, newService);
         _firebaseManager.updateService(oldService, newService);
 
@@ -339,6 +344,7 @@ public class MainController {
             return null;
         }
 
+        newExpense.setId(oldExpense.getId());
         _expenses.set(oldExpenseIndex, newExpense);
         _firebaseManager.updateExpense(oldExpense, newExpense);
 
