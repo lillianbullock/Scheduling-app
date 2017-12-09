@@ -296,10 +296,9 @@ public class MainActivity extends AppCompatActivity implements
             loadCurrentFragment(true);
 
         } else {
-            Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid customer from mainactivity", Snackbar.LENGTH_LONG).show();
-
+            Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid customer from mainactivity",
+                    Snackbar.LENGTH_LONG).show();
         }
-
     }
 
     @Override
@@ -319,8 +318,8 @@ public class MainActivity extends AppCompatActivity implements
             loadCurrentFragment(true);
 
         } else {
-            Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid customer from mainActivity", Snackbar.LENGTH_LONG).show();
-
+            Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid customer from mainActivity",
+                    Snackbar.LENGTH_LONG).show();
         }
     }
 
@@ -345,7 +344,6 @@ public class MainActivity extends AppCompatActivity implements
                     .show();
 
             _currentFragment = new CustomerViewFragment();
-
             loadCurrentFragment(false);
 
             return;
@@ -395,7 +393,8 @@ public class MainActivity extends AppCompatActivity implements
             loadCurrentFragment(true);
 
         } else {
-            Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid Goal from mainActivity", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid Goal from mainActivity",
+                    Snackbar.LENGTH_LONG).show();
 
         }
     }
@@ -454,7 +453,7 @@ public class MainActivity extends AppCompatActivity implements
         AppointmentViewFragment _frag = new AppointmentViewFragment();
         _frag.setAppointment(appointment);
         _currentFragment = _frag;
-        loadCurrentFragment(false);
+        loadCurrentFragment(true);
     }
 
     @Override
@@ -463,7 +462,7 @@ public class MainActivity extends AppCompatActivity implements
             AppointmentEditFragment frag = new AppointmentEditFragment();
                 frag.setExistingAppointment(appointment);
                 _currentFragment = frag;
-                loadCurrentFragment(true);
+                loadCurrentFragment(false);
 
             } else {
                 Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid Appointment from mainActivity",
@@ -528,14 +527,14 @@ public class MainActivity extends AppCompatActivity implements
         GoalListFragment goalListFragment = new GoalListFragment();
 
         _currentFragment = goalListFragment;
-        loadCurrentFragment(false);
+        loadCurrentFragment(true);
 
     }
 
     @Override
     public void onClickAppointmentsSeeMore() {
         _currentFragment = new AppointmentListFragment();
-        loadCurrentFragment(false);
+        loadCurrentFragment(true);
     }
 
     @Override
