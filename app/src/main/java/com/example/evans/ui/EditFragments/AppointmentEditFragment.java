@@ -193,8 +193,8 @@ public class AppointmentEditFragment extends Fragment
      */
     private void initializeAppointmentDetails(){
         if(_selectedAppointment != null) {
-            _date.setText(_selectedAppointment.getDate());
-            _time.setText(_selectedAppointment.getTime());
+            onDateSet(_selectedAppointment.getDateObject());
+            onTimeSet(_selectedAppointment.getTimeObject());
         }
 
     }
