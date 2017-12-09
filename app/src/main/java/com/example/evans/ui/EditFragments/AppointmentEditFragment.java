@@ -96,6 +96,7 @@ public class AppointmentEditFragment extends Fragment
         _notes          = _rootView.findViewById(R.id.etxt_appointment_note);
         _btnSave        = _rootView.findViewById(R.id.btn_edit_bar_save);
         _btnCancel      = _rootView.findViewById(R.id.btn_edit_bar_cancel);
+
         _maincontroller = MainController.getInstance();
 
         _servicesMap    = _hostActivity.getServices();
@@ -110,7 +111,6 @@ public class AppointmentEditFragment extends Fragment
         _btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 KeyboardControl.closeKeyboard(getActivity());
                 Appointment newAppointment = createAppointment();
 
@@ -181,11 +181,22 @@ public class AppointmentEditFragment extends Fragment
         return _rootView;
     }
 
+    /* Initialize existing information
+     * for customer and appointments
+     */
     private void initializeAppointmentDetails(){
         initializeCustomerDetails();
-
-
+        _date.setText(_selectedAppointment.getDate());
+       // _time.setText(_selectedAppointment.getTime());
     }
+    private void initializeCustomerDetails() {
+        if (_selectedCustomer != null) {
+            _name.setText(_selectedCustomer.getName());
+            _email.setText(_selectedCustomer.getEmail());
+            _phone.setText(_selectedCustomer.getPhone());
+        }
+    }
+
 
     /**
      * Create an appointment
@@ -229,25 +240,19 @@ public class AppointmentEditFragment extends Fragment
     }
 
     public void setExistingAppointment(Appointment appointment){
-        _selectedAppointment = appointment;
-    }
-
-
-    /**
-     * Call the host activity's getCustomerForAppointment and use the customer details
-     * to initialize the customer details for the appointment
-     */
-    private void initializeCustomerDetails() {
-        if (_selectedCustomer != null) {
-            _name.setText(_selectedCustomer.getName());
-            _email.setText(_selectedCustomer.getEmail());
-            _phone.setText(_selectedCustomer.getPhone());
-        }
+        if(appointment != null)
+            _selectedAppointment = appointment;
     }
 
     public void setCustomer(Customer customer) {
         if (customer != null) {
             _selectedCustomer = customer;
+        }
+    }
+
+    public void setService(Service service){
+        if(service != null){
+            _selectedService = service;
         }
     }
 
@@ -311,7 +316,7 @@ public class AppointmentEditFragment extends Fragment
         _time.setText(timeFormatter.print(time));
     }
 
-    
+
     /******* INTERFACE ******/
     /**
      * This interface must be implemented by the container Activity
