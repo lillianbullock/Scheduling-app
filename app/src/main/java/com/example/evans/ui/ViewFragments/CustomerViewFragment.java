@@ -43,8 +43,6 @@ public class CustomerViewFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_customer_view, container, false);
 
-        //_customer = new Customer("0", "Customer1", "email1", "000 000 0000", new LocalDateTime());
-
         // collects the views to display the data
         TextView name = view.findViewById(R.id.txt_view_name);
         TextView email = view.findViewById(R.id.txt_view_email);

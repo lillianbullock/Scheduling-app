@@ -50,7 +50,6 @@ public class AppointmentEditFragment extends Fragment
     private EditText _email;
     private EditText _phone;
 
-
     private EditText _servicePrice;
     private EditText _notes;
     private EditText _date;
@@ -75,7 +74,7 @@ public class AppointmentEditFragment extends Fragment
     private static final int TIME_DIALOG = 2;
 
     private OnSubmitAppointment _hostActivity;
-    private MainController _maincontroller;
+    private MainController _mainController = MainController.getInstance();;
 
     public AppointmentEditFragment() {
         // Required empty public constructor
@@ -97,8 +96,6 @@ public class AppointmentEditFragment extends Fragment
         _btnSave        = _rootView.findViewById(R.id.btn_edit_bar_save);
         _btnCancel      = _rootView.findViewById(R.id.btn_edit_bar_cancel);
 
-        _maincontroller = MainController.getInstance();
-
         _servicesMap    = _hostActivity.getServices();
 
         // Set up the spinner for services list
@@ -106,6 +103,7 @@ public class AppointmentEditFragment extends Fragment
 
         // Initialize customer details
         initializeAppointmentDetails();
+        initializeCustomerDetails();
 
         // Onclick listener for the save button
         _btnSave.setOnClickListener(new View.OnClickListener() {
@@ -186,7 +184,6 @@ public class AppointmentEditFragment extends Fragment
      */
     private void initializeAppointmentDetails(){
         if(_selectedAppointment != null) {
-            initializeCustomerDetails();
             _date.setText(_selectedAppointment.getDate());
             _time.setText(_selectedAppointment.getTime());
         }
@@ -220,13 +217,13 @@ public class AppointmentEditFragment extends Fragment
         String email = _email.getText().toString();
         String notes = _notes.getText().toString();
         if (_selectedCustomer == null) {
-            _selectedCustomer = _maincontroller.getCustomerWithName(title);
+            _selectedCustomer = _mainController.getCustomerWithName(title);
 
             if (_selectedCustomer == null){
-                String id = _maincontroller.getIdForNewCustomer();
+                String id = _mainController.getIdForNewCustomer();
                 // there's no existing customer, create one then
                 _selectedCustomer = new Customer(id, title, email, phone, LocalDate.now());
-                _maincontroller.addCustomer(_selectedCustomer);
+                _mainController.addCustomer(_selectedCustomer);
             }
         }
 
@@ -242,8 +239,12 @@ public class AppointmentEditFragment extends Fragment
     }
 
     public void setExistingAppointment(Appointment appointment){
-        if(appointment != null)
+        if(appointment != null){
             _selectedAppointment = appointment;
+            _selectedCustomer = _mainController.getCustomerById(_selectedAppointment.getCustomerId());
+            setCustomer(_selectedCustomer);
+        }
+
     }
 
     public void setCustomer(Customer customer) {
