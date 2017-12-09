@@ -45,8 +45,6 @@ import com.example.evans.ui.ViewFragments.ServiceViewFragment;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 
 import java.util.List;
 import java.util.Map;
@@ -71,10 +69,10 @@ public class MainActivity extends AppCompatActivity implements
         AppointmentListFragment.AppointmentListFragmentListener,
         AppointmentEditFragment.OnSubmitAppointment,
         DatePickerFragment.OnDateSetListener,
-        TimePickerFragment.OnTimeSetListener,
         SaleListFragment.SaleListFragmentListener,
         AppointmentViewFragment.InteractionWithAppointmentViewFragmentListener,
         SaleEditFragment.OnSubmitSaleEdit,
+        TimePickerFragment.OnTimeSetListener,
         GoalViewFragment.InteractionWithGoalViewFragmentListener,
         ExpenseListFragment.ExpenseListFragmentListener,
         ExpenseEditFragment.InteractionWithExpenseEditFragmentListener
@@ -141,11 +139,6 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
-    /*****TIME PICKER*******/
-    @Override
-    public void onTimeSet(LocalTime time) {
-        DateTimeFormatter timeFormatter = DateTimeFormat.shortTime();
-    }
 
 
     /**** EXPENSE *****/
@@ -697,5 +690,10 @@ public class MainActivity extends AppCompatActivity implements
     public void onDateSet(LocalDate date) {
         Snackbar.make(findViewById(R.id.content_frame),
                 "SET DATE CALLED IN PARENT ACTIVITY", Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onTimeSet(LocalTime time) {
+
     }
 }

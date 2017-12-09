@@ -12,7 +12,7 @@ import org.joda.time.LocalTime;
  */
 public class Appointment implements Comparable, Financial {
     private String _id;
-    private String _title;
+    private String _customerName;
     private LocalDate _date;
     private LocalTime _time;
     private String _customerId;
@@ -22,7 +22,7 @@ public class Appointment implements Comparable, Financial {
     
     public Appointment() {
         _id = null;
-        _title = "";
+        _customerName = "";
         _date = LocalDate.now();
         _time = LocalTime.now();
         _customerId = null;
@@ -31,10 +31,10 @@ public class Appointment implements Comparable, Financial {
         _attended = false;
     }
 
-    public Appointment(String title, LocalDate date, LocalTime time, String customerId, Boolean due,
+    public Appointment(String customerName, LocalDate date, LocalTime time, String customerId, Boolean due,
                 Service service, Boolean attended) {
         this._id = null;
-        this._title = title;
+        this._customerName = customerName;
         this._date = date;
         this._time = time;
         this._customerId = customerId;
@@ -43,9 +43,9 @@ public class Appointment implements Comparable, Financial {
         this._attended = attended;
     }
 
-    public Appointment(String title, LocalDate date, LocalTime time, String customerId, Service service) {
+    public Appointment(String customerName, LocalDate date, LocalTime time, String customerId, Service service) {
         this._id = null;
-        this._title = title;
+        this._customerName = customerName;
         this._date = date;
         this._time = time;
         this._customerId = customerId;
@@ -54,11 +54,12 @@ public class Appointment implements Comparable, Financial {
         this._attended = false;
     }
 
+
     public String getId() { return _id; }
     public void setId(String id) { _id = id;}
 
-    public String getTitle() { return _title; }
-    public void setTitle(String title) { this._title = title; }
+    public String getCustomerName() { return _customerName; }
+    public void setCustomerName(String customerName) { this._customerName = customerName; }
 
     @Exclude //firebase has issues with these, and so exclude them
     public LocalDate getDateObject() {return _date;}
@@ -73,6 +74,7 @@ public class Appointment implements Comparable, Financial {
     void setTimeObject(LocalTime time) {_time = time;}
     public String getTime() { return _time.toString(); }
     public void setTime(String timeString) { this._time = LocalTime.parse(timeString); }
+
 
     public String getCustomerId() { return _customerId; }
     public void setCustomerId(String customerId) { this._customerId = customerId; }

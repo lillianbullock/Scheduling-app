@@ -105,9 +105,7 @@ public class AppointmentListFragment extends Fragment implements OnGetDataListen
     }
 
     private void loadAppointment(){
-        //_mainController.getAllAppointments(this);
-        FirebaseManager firebaseManager = new FirebaseManager();
-        firebaseManager.getAllAppointments(this);
+        _mainController.getAllAppointments(this);
     }
 
     public void setAppointment(List<Appointment> appointment){ _appointment.addAll(appointment); }
@@ -123,7 +121,8 @@ public class AppointmentListFragment extends Fragment implements OnGetDataListen
         _appointment.clear();
 
         for(DataSnapshot child: dataSnapshot.getChildren()){
-            _appointment.add(child.getValue(Appointment.class));
+            Appointment appointment = child.getValue(Appointment.class);
+            _appointment.add(appointment);
         }
 
         _appointmentAdapter.addAll(_appointment);

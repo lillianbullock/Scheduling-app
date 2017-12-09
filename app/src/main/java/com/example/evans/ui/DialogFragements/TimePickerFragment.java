@@ -59,7 +59,7 @@ public class TimePickerFragment extends DialogFragment
             _caller = (OnTimeSetListener) activity;
         } catch (ClassCastException e) {
             Log.e(TAG, "The Calling activity did not implement ReceiveDateValueListener");
-            throw new ClassCastException(activity.toString() + " must implement ReceiveDateValueListener");
+            throw new ClassCastException(activity.toString() + " must implement OnTimeSetListener");
         }
     }
 

@@ -183,7 +183,6 @@ public class AppointmentEditFragment extends Fragment
         // these two fields should be required
         if (_name == null)  {return null;}
         if (_date == null)  {return null;}
-        if (_time == null) {return null;}
         if (_selectedService == null) {
             Log.e(TAG, "Selected service was null");
             return null;
@@ -192,9 +191,7 @@ public class AppointmentEditFragment extends Fragment
         String title = _name.getText().toString();
         String phone = _phone.getText().toString();
         String email = _email.getText().toString();
-        LocalDate date = LocalDate.parse(_date.getText().toString());
-        LocalTime time = LocalTime.parse(_time.getText().toString());
-        String notes;
+        String notes = _notes.getText().toString();
 
         //
         if (_selectedCustomer == null) {
@@ -203,7 +200,7 @@ public class AppointmentEditFragment extends Fragment
             if (_selectedCustomer == null){
                 String id = _maincontroller.getIdForNewCustomer();
                 // there's no existing customer, create one then
-                _selectedCustomer = new Customer(id, title, email, phone, date);
+                _selectedCustomer = new Customer(id, title, email, phone, LocalDate.now());
                 _maincontroller.addCustomer(_selectedCustomer);
             }
         }
@@ -214,7 +211,7 @@ public class AppointmentEditFragment extends Fragment
         }
 
         if (!title.isEmpty() && _selectedService != null) {
-            appointment = new Appointment(title, date, time, _selectedCustomer.getId(), _selectedService);
+            appointment = new Appointment(title, _selectedDate, _selectedTime, _selectedCustomer.getId(), _selectedService);
         }
 
         // return appointment;

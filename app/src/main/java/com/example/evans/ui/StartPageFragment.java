@@ -70,7 +70,7 @@ public class StartPageFragment extends Fragment implements OnGetDataListener {
         _goalProgressBar = _rootView.findViewById(R.id.goal_start_page_progress_bar);
         _appointmentProgressBar = _rootView.findViewById(R.id.appointment_start_page_progress_bar);
 
-        load();
+        loadData();
 
        _appointmentSeeMorebtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,36 +90,54 @@ public class StartPageFragment extends Fragment implements OnGetDataListener {
         return _rootView;
     }
 
-    private void load(){
+    private void loadData(){
         FirebaseManager firebaseManager = new FirebaseManager();
         firebaseManager.getUnFinishedLimitGoals(10, this);
-        firebaseManager.getAppointmentWithLimit(5, this);
+
+
+        firebaseManager.getAppointmentWithLimit(5, new OnGetDataListener() {
+            @Override
+            public void onDataLoadStarted() {
+                _appointmentProgressBar.setVisibility(ProgressBar.VISIBLE);
+            }
+
+            @Override
+            public void onDataLoadSucceed(DataSnapshot dataSnapshot) {
+                _appointment.clear();
+
+                for (DataSnapshot child: dataSnapshot.getChildren()){
+                    _appointment.add(child.getValue(Appointment.class));
+                }
+
+                AppointmentAdapter appointmentAdapter = new AppointmentAdapter(getActivity(), R.layout.appointment_adapter, _appointment);
+                _appointmentListViewStartPage.setAdapter(appointmentAdapter);
+                _appointmentProgressBar.setVisibility(ProgressBar.INVISIBLE);
+            }
+
+            @Override
+            public void onDataLoadFailed(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
     public void onDataLoadStarted() {
         _goalProgressBar.setVisibility(ProgressBar.VISIBLE);
-        _appointmentProgressBar.setVisibility(ProgressBar.VISIBLE);
     }
 
     @Override
     public void onDataLoadSucceed(DataSnapshot data) {
 
         _goals.clear();
-        _appointment.clear();
 
         for (DataSnapshot child: data.getChildren()){
             _goals.add(child.getValue(Goal.class));
         }
 
-        _appointmentAdapter.addAll(_appointment);
         _goalAdapter.addAll(_goals);
 
         _goalProgressBar.setVisibility(ProgressBar.INVISIBLE);
-        _appointmentProgressBar.setVisibility(ProgressBar.INVISIBLE);
-
-        AppointmentAdapter appointmentAdapter = new AppointmentAdapter(getActivity(), R.layout.appointment_adapter, _appointment);
-        _appointmentListViewStartPage.setAdapter(appointmentAdapter);
 
         GoalAdapter goalAdapter = new GoalAdapter(getActivity(), R.layout.goal_adapter, _goals);
         _goalListViewStartPage.setAdapter(goalAdapter);

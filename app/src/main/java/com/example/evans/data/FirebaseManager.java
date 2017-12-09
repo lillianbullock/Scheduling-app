@@ -218,7 +218,7 @@ public class FirebaseManager {
     public void getAllAppointments(final OnGetDataListener onGetDataListener) {
 
         onGetDataListener.onDataLoadStarted();
-        Query allCustomersQuery = _databaseRoot.child(CUSTOMERS);
+        Query allCustomersQuery = _databaseRoot.child(APPOINTMENTS);
 
         allCustomersQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
