@@ -55,23 +55,6 @@ public class Appointment implements Comparable, Financial {
     }
 
     @Override
-    public boolean equals(Object obj) {
-
-        if (obj == this){
-            return true;
-        }
-
-        if (obj == null || !(obj instanceof Appointment)){
-            return false;
-        }
-
-        // typecast obj to Appointment
-        Appointment appointment = (Appointment) obj;
-
-        return this._id.equals(appointment._id);
-    }
-
-    @Override
     public int hashCode() {
         return _id.hashCode();
     }
@@ -123,18 +106,25 @@ public class Appointment implements Comparable, Financial {
 
     @Override
     public int compareTo(@NonNull Object o) {
-        Appointment appointment2 = (Appointment) o;
-        if (this._date.isAfter(appointment2._date))
-            return 1;
-
-        if (this._date.isBefore(appointment2._date))
-            return -1;
-
-        return 0;
+        return this._date.compareTo(((Appointment) o)._date);
     }
 
     @Override
-    public double getReport() {
-        return (_service.getPrice());
+    public double getReport() { return (_service.getPrice()); }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (obj == this) {
+            return true;
+        }
+
+        if (obj == null || !(obj instanceof Appointment)){
+            return false;
+        }
+
+        // typecast obj to Appointment
+        Appointment appointment = (Appointment) obj;
+        return this._id.equals(appointment._id);
     }
 }

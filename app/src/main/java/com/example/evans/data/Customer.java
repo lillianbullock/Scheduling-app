@@ -35,27 +35,9 @@ public class Customer implements Comparable{
     }
 
     @Override
-    public boolean equals(Object obj) {
-
-        if (obj == this){
-            return true;
-        }
-
-        if (obj == null || !(obj instanceof Customer)){
-            return false;
-        }
-
-        // typecast obj to Customer
-        Customer customer = (Customer) obj;
-
-        return this._id.equals(customer._id);
-    }
-
-    @Override
     public int hashCode() {
         return _id.hashCode();
     }
-
 
     /**
      * This is the same as getDateAdded but it returns a date not a string.
@@ -102,4 +84,22 @@ public class Customer implements Comparable{
         }
         return comp;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (obj == this){
+            return true;
+        }
+
+        if (obj == null || !(obj instanceof Customer)){
+            return false;
+        }
+
+        // typecast obj to Customer
+        Customer customer = (Customer) obj;
+
+        return this._id.equals(customer._id);
+    }
+
 }

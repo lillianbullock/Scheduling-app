@@ -12,9 +12,9 @@
         android:layout_height="match_parent">
 
         <!-- Include our standard view header -->
-        <include layout="@layout/view_bar"
+        <include
             android:id="@+id/appointment_view_bar"
-            />
+            layout="@layout/view_bar" />
 
         <!-- Customer name -->
         <TextView
@@ -27,7 +27,20 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/appointment_view_bar"/>
+            app:layout_constraintTop_toBottomOf="@id/appointment_view_bar" />
+
+        <!-- Customer phone -->
+        <TextView
+            android:id="@+id/txt_appt_view_customer_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/customer_phone"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_appt_view_customer_name" />
 
         <!-- Customer email -->
         <TextView
@@ -40,20 +53,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_appt_view_customer_name" />
-
-        <!-- Customer phone -->
-        <TextView
-            android:id="@+id/txt_appt_view_customer_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="24dp"
-            android:text="@string/customer_phone"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_appt_view_customer_name" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_appt_view_customer_phone" />
 
         <!-- Appointment Date -->
         <TextView
@@ -78,7 +78,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_appt_view_customer_phone" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_appt_view_customer_email" />
 
         <!-- Service type -->
         <TextView
@@ -117,21 +117,6 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_appointment_view_service" />
-
-
-        <!-- Notes -->
-        <TextView
-            android:id="@+id/txt_appointment_view_notes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:text="@string/appointment_notes"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chk_showed_up" />
-
 
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>

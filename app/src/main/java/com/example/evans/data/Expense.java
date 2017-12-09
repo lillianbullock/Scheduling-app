@@ -29,28 +29,6 @@ public class Expense implements Comparable, Financial {
         _date = date;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-
-        if (obj == this){
-            return true;
-        }
-
-        if (obj == null || !(obj instanceof Expense)){
-            return false;
-        }
-
-        // typecast obj to Expense
-        Expense expense = (Expense) obj;
-
-        return this._id.equals(expense._id);
-    }
-
-    @Override
-    public int hashCode() {
-        return _id.hashCode();
-    }
-
     public String getId() { return _id; }
     public void setId(String id) { _id = id;}
 
@@ -89,4 +67,25 @@ public class Expense implements Comparable, Financial {
 
     @Override
     public double getReport() { return _price; }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (obj == this){
+            return true;
+        }
+
+        if (obj == null || !(obj instanceof Expense)){
+            return false;
+        }
+
+        // typecast obj to Expense
+        Expense expense = (Expense) obj;
+        return this._id.equals(expense._id);
+    }
+
+    @Override
+    public int hashCode() {
+        return _id.hashCode();
+    }
 }
