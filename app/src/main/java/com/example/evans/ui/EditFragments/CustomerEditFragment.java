@@ -137,17 +137,8 @@ public class CustomerEditFragment extends Fragment {
      * @param customer passes to set up existing
      */
     public void setExistingCustomer(Customer customer){
-
         _selectedCustomer = customer;
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        _hostActivity.hideActionbar();
-    }
-
-
 
     /**
      *  isValid: Return true is the passed email string matches the specified
@@ -158,17 +149,6 @@ public class CustomerEditFragment extends Fragment {
         String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
 
         return (email.matches(EMAIL_REGEX));
-    }
-
-    /**
-     * Construct a new customer and pass it to the host activity by calling it's
-     * onAddAppointmentClick function. The host activity should know what to do.
-     * We're assuming that it will call another fragment to add an appointment
-     * with the customer data received.
-     */
-    public void onSetAppointmentClick() {
-
-        // TODO - Implement
     }
 
     /**
@@ -195,9 +175,15 @@ public class CustomerEditFragment extends Fragment {
      */
     public interface OnSubmitCustomerEdit {
         void onCustomerEditFinish (Customer customer);
-        //void onAddAppointmentClickForCustomer(Customer customer);
         void onCancelCustomerEdit();
         void hideActionbar();
         void showActionbar();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        _hostActivity.hideActionbar();
+    }
+
 }

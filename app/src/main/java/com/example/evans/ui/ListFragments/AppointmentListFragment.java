@@ -125,7 +125,6 @@ public class AppointmentListFragment extends Fragment implements OnGetDataListen
             _appointment.add(appointment);
         }
 
-        _appointmentAdapter.addAll(_appointment);
         _progressBar.setVisibility(ProgressBar.INVISIBLE);
         _appointmentListView.setAdapter(_appointmentAdapter);
 
