@@ -71,6 +71,10 @@ public class Appointment implements Comparable, Financial {
         return this._id.equals(appointment._id);
     }
 
+    @Override
+    public int hashCode() {
+        return _id.hashCode();
+    }
 
     public String getId() { return _id; }
     public void setId(String id) { _id = id;}

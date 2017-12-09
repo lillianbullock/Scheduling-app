@@ -51,6 +51,11 @@ public class Customer implements Comparable{
         return this._id.equals(customer._id);
     }
 
+    @Override
+    public int hashCode() {
+        return _id.hashCode();
+    }
+
 
     /**
      * This is the same as getDateAdded but it returns a date not a string.

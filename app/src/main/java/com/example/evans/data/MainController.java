@@ -68,6 +68,7 @@ public class MainController {
 
         _firebaseManager = new FirebaseManager();
         populateServices();
+        loadAllAppointments();
         loadAllCustomers();
     }
 
@@ -96,6 +97,28 @@ public class MainController {
 
     }
 
+
+    private void loadAllAppointments() {
+
+        _firebaseManager.getAllAppointments(new OnGetDataListener() {
+            @Override
+            public void onDataLoadStarted() {
+
+            }
+
+            @Override
+            public void onDataLoadSucceed(DataSnapshot dataSnapshot) {
+                for (DataSnapshot child: dataSnapshot.getChildren()){
+                    _appointments.add(child.getValue(Appointment.class));
+                }
+            }
+
+            @Override
+            public void onDataLoadFailed(DatabaseError databaseError) {
+                Log.w(TAG, "Failed to load appointments from the database");
+            }
+        });
+    }
 
     private void loadAllCustomers() {
 
@@ -232,8 +255,6 @@ public class MainController {
         appointment.setId(_firebaseManager.getKeyForNewAppointment());
         _appointments.add(appointment);
         _firebaseManager.addAppointment(appointment, appointment.getId());
-
-
     }
 
     /**
