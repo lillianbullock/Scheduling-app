@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
@@ -25,6 +26,10 @@ public class AppointmentViewFragment extends Fragment {
 
     private Appointment _appointment;
     private Customer _customer;
+
+    private Button _backAppointmentBtn;
+    private Button _editAppointmentBtn;
+
     private InteractionWithAppointmentViewFragmentListener _hostActivity;
 
     private static final String TAG = "AppointmentView";
@@ -59,23 +64,42 @@ public class AppointmentViewFragment extends Fragment {
         TextView time = view.findViewById(R.id.txt_appointment_view_time);
         CheckBox showedUp = view.findViewById(R.id.chk_showed_up);
 
+        _backAppointmentBtn = view.findViewById(R.id.btn_view_bar_back);
+        _editAppointmentBtn = view.findViewById(R.id.btn_view_bar_edit);
+
         // sets the views with the data from passed classes
         name.setText(_customer.getName());
         email.setText(_customer.getEmail());
         phone.setText(_customer.getPhone());
 
+
+        price.setText("$" + Double.toString(_appointment.getService().getPrice()));
+        // TODO implement date & time formatting strings
+        date.setText(_appointment.getDate());
+        time.setText(_appointment.getDate());
+
+
+        if (_appointment.isAttended() != null)
+            showedUp.setChecked(_appointment.isAttended());
+
+
         if (_appointment != null){
             service.setText(_appointment.getService().getTitle());
         }
 
+        _backAppointmentBtn.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                _hostActivity.onBackPressed();
+            }
+        }));
 
-        price.setText("$" + Double.toString(_appointment.getService().getPrice()));
-        // TODO implement date & time formatting strings
-        date.setText(_appointment.getDate().toString());
-        time.setText(_appointment.getDate().toString());
-        // TODO implement this properly
-        if (_appointment.isAttended() != null)
-            showedUp.setChecked(_appointment.isAttended());
+        _editAppointmentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                _hostActivity.onEditAppointment(_appointment);
+            }
+        });
 
         return view;
     }
@@ -134,6 +158,9 @@ public class AppointmentViewFragment extends Fragment {
     public interface InteractionWithAppointmentViewFragmentListener{
         void hideActionbar();
         void showActionbar();
+        void onBackPressed();
+
+        void onEditAppointment(Appointment appointment);
         //Appointment getViewAppointment();
     }
 }

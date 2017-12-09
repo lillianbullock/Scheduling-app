@@ -113,7 +113,7 @@ public class GoalListFragment  extends Fragment implements OnGetDataListener {
             _goals.add(child.getValue(Goal.class));
         }
 
-        _goalArrayAdapter.addAll(_goals);
+       // _goalArrayAdapter.addAll(_goals);
 
         _progressBar.setVisibility(ProgressBar.INVISIBLE);
 

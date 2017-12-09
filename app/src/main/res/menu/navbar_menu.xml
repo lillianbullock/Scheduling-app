@@ -5,6 +5,16 @@
 
     <group>
         <item
+            android:id="@+id/menu_item_home"
+            android:checkable="true"
+            android:title="Home"
+            android:icon="@drawable/ic_home_24dp"
+            />
+
+    </group>
+
+    <group>
+        <item
             android:id="@+id/menu_item_customers"
             android:checkable="true"
             android:title="@string/menu_customers"
@@ -59,14 +69,12 @@
 
 
     <group>
-        <item android:title="@string/label_app">
-            <menu>
-                <item
+        <menu>
+            <item
                     android:id="@+id/exit_app"
                     android:title="@string/exit"
                     android:icon="@drawable/ic_exit"/>
-            </menu>
-        </item>
+        </menu>
     </group>
 
 

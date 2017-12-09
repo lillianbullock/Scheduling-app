@@ -110,7 +110,6 @@ public class ExpenseListFragment extends Fragment implements OnGetDataListener {
             _expense.add(child.getValue(Expense.class));
         }
 
-        // _expenseAdapter.addAll(_expense);
         _progressBar.setVisibility(ProgressBar.INVISIBLE);
         _expenseListView.setAdapter(_expenseAdapter);
 

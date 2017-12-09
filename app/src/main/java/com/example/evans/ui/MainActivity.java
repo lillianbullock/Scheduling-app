@@ -438,6 +438,22 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
+    public void onEditAppointment(Appointment appointment) {
+
+        if (appointment != null){
+            AppointmentEditFragment frag = new AppointmentEditFragment();
+                frag.setExistingAppointment(appointment);
+                _currentFragment = frag;
+                loadCurrentFragment(true);
+
+            } else {
+                Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid Appointment from mainActivity",
+                        Snackbar.LENGTH_LONG).show();
+
+            }
+        }
+
+    @Override
     public void onAppointmentEditCancel() { onBackPressed(); }
 
     @Override
@@ -593,6 +609,11 @@ public class MainActivity extends AppCompatActivity implements
         // fragment then load it
         switch (menuItem.getItemId()) {
 
+            case R.id.menu_item_home:
+                _drawerLayout.closeDrawer(GravityCompat.START);
+                _currentFragment = new StartPageFragment();
+                loadCurrentFragment(true);
+                break;
             case R.id.menu_item_customers:
                 _drawerLayout.closeDrawer(GravityCompat.START);
                 _currentFragment = new CustomerListFragment();

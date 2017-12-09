@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * This singleton class will hold most of the list data for the application and will
@@ -31,7 +32,7 @@ public class MainController {
     private List<Appointment>       _appointments      = new LinkedList<>();
     private List<Customer>          _customers         = new LinkedList<>();
     private List<Goal>              _goals             = new LinkedList<>();
-    private Map<String, Service>    _availableServices = new HashMap<>();
+    private List<Service>           _availableServices = new LinkedList<>();
     private List<Sale>              _allSales          = new LinkedList<>();
     private List<Expense>           _expenses          = new LinkedList<>();
     private FirebaseManager         _firebaseManager   = null;
@@ -83,8 +84,7 @@ public class MainController {
             @Override
             public void onDataLoadSucceed(DataSnapshot dataSnapshot) {
                 for (DataSnapshot child: dataSnapshot.getChildren()){
-                    Service service = child.getValue(Service.class);
-                    _availableServices.put(service.getTitle(), service);
+                    _availableServices.add(child.getValue(Service.class));
                 }
             }
 
@@ -120,38 +120,6 @@ public class MainController {
     }
 
 
-
-    /**
-     * Add an appointment to the list of appointments.
-     * No validation is carried out in this function
-     * @param appointment: valid appointment to be added to the list
-     */
-    public void addAppointment(Appointment appointment) {
-        if (appointment == null) {
-            return;
-        }
-
-        appointment.setId(_firebaseManager.getKeyForNewAppointment());
-        _appointments.add(appointment);
-        _firebaseManager.addAppointment(appointment, appointment.getId());
-
-
-    }
-
-    /**
-     * Add a new service to the list of services that is offered
-     */
-    public void addService(String title, Service service){
-        if (service == null){
-            return;
-        }
-
-        // We're using the title as the key
-        service.setId(service.getTitle());
-
-        _availableServices.put(title, service);
-        _firebaseManager.addService(service, service.getId());
-    }
 
     public void getAllExpenses(OnGetDataListener onGetDataListener) {
         _firebaseManager.getAllExpenses(onGetDataListener);
@@ -251,6 +219,127 @@ public class MainController {
         _firebaseManager.addExpense(expense, expense.getId());
     }
 
+    /**
+     * Add an appointment to the list of appointments.
+     * No validation is carried out in this function
+     * @param appointment: valid appointment to be added to the list
+     */
+    public void addAppointment(Appointment appointment) {
+        if (appointment == null) {
+            return;
+        }
+
+        appointment.setId(_firebaseManager.getKeyForNewAppointment());
+        _appointments.add(appointment);
+        _firebaseManager.addAppointment(appointment, appointment.getId());
+
+
+    }
+
+    /**
+     * Add a new service to the list of services that is offered
+     */
+    public void addService(String title, Service service){
+        if (service == null){
+            return;
+        }
+
+        // We're using the title as the key
+        service.setId(service.getTitle());
+
+        _availableServices.add(service);
+        _firebaseManager.addService(service, service.getId());
+    }
+
+
+
+    public Customer updateCustomer(Customer oldCustomer, Customer newCustomer) {
+
+        int oldCustomerIndex = _customers.indexOf(oldCustomer);
+
+        if (oldCustomerIndex < 0 || newCustomer == null) {
+            return null;
+        }
+
+        _customers.set(oldCustomerIndex, newCustomer);
+
+        _firebaseManager.updateCustomer(oldCustomer, newCustomer);
+
+        return newCustomer;
+
+    }
+
+    public Appointment updateAppointment(Appointment oldAppointment, Appointment newAppointment) {
+
+        int oldAppointmentIndex = _appointments.indexOf(oldAppointment);
+
+        if (oldAppointmentIndex < 0 || newAppointment == null) {
+            return  null;
+        }
+
+        _appointments.set(oldAppointmentIndex, newAppointment);
+        _firebaseManager.updateAppointment(oldAppointment, newAppointment);
+
+        return newAppointment;
+
+    }
+
+    public Sale updateSale(Sale oldSale, Sale newSale) {
+
+        int oldSaleIndex = _allSales.indexOf(oldSale);
+
+        if (oldSaleIndex < 0 || newSale == null) {
+            return  null;
+        }
+
+        _allSales.set(oldSaleIndex, newSale);
+        _firebaseManager.updateSale(oldSale, newSale);
+
+        return newSale;
+
+    }
+
+    public Goal updateGoal(Goal oldGoal, Goal newGoal) {
+        int oldGoalIndex = _goals.indexOf(oldGoal);
+
+        if (oldGoalIndex < 0 || newGoal == null) {
+            return null;
+        }
+
+        _goals.set(oldGoalIndex, newGoal);
+        _firebaseManager.updateGoal(oldGoal, newGoal);
+
+        return newGoal;
+    }
+
+    public Service updateService(Service oldService, Service newService) {
+
+        int oldServiceIndex = _availableServices.indexOf(oldService);
+
+        if (oldServiceIndex < 0 || newService == null) {
+            return null;
+        }
+
+        _availableServices.set(oldServiceIndex, newService);
+        _firebaseManager.updateService(oldService, newService);
+
+        return newService;
+    }
+
+    public Expense updateExpense(Expense oldExpense, Expense newExpense) {
+
+        int oldExpenseIndex = _expenses.indexOf(oldExpense);
+
+        if (oldExpenseIndex < 0 || newExpense == null) {
+            return null;
+        }
+
+        _expenses.set(oldExpenseIndex, newExpense);
+        _firebaseManager.updateExpense(oldExpense, newExpense);
+
+        return newExpense;
+    }
+
 
 
 
@@ -325,11 +414,23 @@ public class MainController {
     }
 
     /**
-     * Return a list of all the services in the data list.
-     * This is a list of the the kind of services that the company offers
-     * @return LinkedList<Service>
+     * Return a map of all the services in the data list.
+     *
+     * This is a compatibility method that we may get rid of in a future release
+     * @return Map of services
      */
     public Map<String, Service> getAvailableServices() {
+
+        Map<String, Service> serviceMap = new TreeMap<>();
+
+        for (Service service: _availableServices){
+            serviceMap.put(service.getTitle(), service);
+        }
+
+        return serviceMap;
+    }
+
+    public List<Service> getAvailableServicesList() {
         return _availableServices;
     }
 
