@@ -809,26 +809,39 @@ public class FirebaseManager {
 
     public void updateCustomer(Customer oldCustomer, Customer newCustomer) {
 
+        if (oldCustomer != null && newCustomer != null){
+            _databaseRoot.child(CUSTOMERS).child(oldCustomer.getId()).setValue(newCustomer);
+        }
     }
 
     public void updateAppointment(Appointment oldAppointment, Appointment newAppointment) {
-
+        if (oldAppointment != null && newAppointment != null){
+            _databaseRoot.child(APPOINTMENTS).child(oldAppointment.getId()).setValue(newAppointment);
+        }
     }
 
     public void updateSale(Sale oldSale, Sale newSale) {
-
+        if (oldSale != null && newSale != null){
+            _databaseRoot.child(SALES).child(oldSale.getId()).setValue(newSale);
+        }
     }
 
     public void updateGoal(Goal oldGoal, Goal newGoal) {
-
+        if (oldGoal != null && newGoal != null){
+            _databaseRoot.child(GOALS).child(oldGoal.getId()).setValue(newGoal);
+        }
     }
 
     public void updateService(Service oldService, Service newService) {
-
+        if (oldService != null && newService != null){
+            _databaseRoot.child(SERVICES).child(oldService.getId()).setValue(newService);
+        }
     }
 
     public void updateExpense(Expense oldExpense, Expense newExpense) {
-
+        if (oldExpense != null && newExpense != null){
+            _databaseRoot.child(EXPENSES).child(oldExpense.getId()).setValue(newExpense);
+        }
     }
 
 
