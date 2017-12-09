@@ -151,9 +151,15 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onExpenseEditFinish(Expense expense) {
-        if (expense != null) {
-            _mainController.addExpense(expense);
+    public void onExpenseEditFinish(Expense oldExpense, Expense newExpense) {
+        if (newExpense != null) {
+            if (oldExpense == null) {
+                // addCustomer returns the same customer but with a valid id
+                _mainController.addExpense(newExpense);
+            } else {
+                _mainController.updateExpense(oldExpense, newExpense);
+            }
+
             _currentFragment = new ExpenseListFragment();
             loadCurrentFragment(false);
 
@@ -196,10 +202,16 @@ public class MainActivity extends AppCompatActivity implements
         }
 
     @Override
-    public void onSaleEditFinish(Sale sale) {
+    public void onSaleEditFinish(Sale oldSale, Sale newSale) {
 
-        if (sale != null) {
-            _mainController.addSale(sale);
+        if (newSale != null) {
+            if (oldSale == null) {
+                _mainController.addSale(newSale);
+            } else {
+                _mainController.updateSale(oldSale, newSale);
+            }
+
+            //_mainController.addSale(sale);
             _currentFragment = new SaleListFragment();
             loadCurrentFragment(false);
 
@@ -235,20 +247,24 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onServiceEditFinish(Service service) {
+    public void onServiceEditFinish(Service oldService, Service newService) {
 
-        if (service != null) {
-            _mainController.addService(service.getTitle(), service);
+        if (newService != null) {
+            if (oldService == null) {
+                // addCustomer returns the same customer but with a valid id
+                _mainController.addService(oldService.getTitle(), newService);
+            } else {
+                _mainController.updateService(oldService, newService);
+            }
             _currentFragment = new ServiceViewFragment();
 
             ServiceViewFragment _frag = new ServiceViewFragment();
-            _frag.setService(service);
+            _frag.setService(newService);
             _currentFragment = _frag;
 
             loadCurrentFragment(false);
 
         } else {
-
             // If this ever happens then there's an error on our part. A null service should never be return here
             _currentFragment = new StartPageFragment();
             loadCurrentFragment(false);
@@ -337,10 +353,8 @@ public class MainActivity extends AppCompatActivity implements
 
         if (oldCustomer == null) {
             // addCustomer returns the same customer but with a valid id
-            Log.i(TAG, "onCustomerEditFinish: calling add customer");
             newCustomer = _mainController.addCustomer(newCustomer);
         } else {
-            Log.i(TAG, "onCustomerEditFinish: calling update customer");
             _mainController.updateCustomer(oldCustomer, newCustomer);
         }
 
@@ -405,18 +419,22 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onGoalEditFinish(Goal goal) {
-        if (goal == null) {
+    public void onGoalEditFinish(Goal oldGoal, Goal newGoal) {
+        if (newGoal == null) {
             return;
         }
 
         //Connecting thee GoalViewFragment on finish
         GoalViewFragment _frag = new GoalViewFragment();
-        _frag.setGoal(goal);
+        _frag.setGoal(newGoal);
         _currentFragment = _frag;
 
         loadCurrentFragment(false);
-        _mainController.addNewGoal(goal);
+        if (oldGoal == null) {
+            _mainController.addNewGoal(newGoal);
+        } else {
+            _mainController.updateGoal(oldGoal, newGoal);
+        }
     }
 
 
@@ -465,17 +483,22 @@ public class MainActivity extends AppCompatActivity implements
 
 
     @Override
-    public void onAppointmentEditFinish(Customer customer, Appointment appointment) {
+    public void onAppointmentEditFinish(Customer customer, Appointment oldAppointment, Appointment newAppointment) {
 
-        if (appointment == null || customer == null) {
+        if (newAppointment == null || customer == null) {
             return;
         }
         AppointmentViewFragment _frag = new AppointmentViewFragment();
         _frag.setRelatedCustomer(customer);
-        _frag.setAppointment(appointment);
+        _frag.setAppointment(newAppointment);
         _currentFragment = _frag;
         loadCurrentFragment(false);
-        _mainController.addAppointment(appointment);
+
+        if (oldAppointment == null) {
+            _mainController.addAppointment(newAppointment);
+        } else {
+            _mainController.updateAppointment(oldAppointment, newAppointment);
+        }
     }
 
 

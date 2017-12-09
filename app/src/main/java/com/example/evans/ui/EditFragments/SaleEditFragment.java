@@ -98,7 +98,7 @@ public class SaleEditFragment extends Fragment
                 Sale newSale = createSale();
 
                 if (newSale != null){
-                    _hostActivity.onSaleEditFinish(newSale);
+                    _hostActivity.onSaleEditFinish(_selectedSale, newSale);
                 } else {
                     Snackbar.make(getActivity().findViewById(R.id.content_frame),
                             "ERROR: Invalid Sale data. Please review your input", Snackbar.LENGTH_LONG).show();
@@ -232,7 +232,7 @@ public class SaleEditFragment extends Fragment
      * This is how we'll be able to communicate with the parent activity.
      */
     public interface OnSubmitSaleEdit {
-        void onSaleEditFinish (Sale sale);
+        void onSaleEditFinish (Sale oldSale, Sale newSale);
         void onSaleCancel();
         Map<String, Service> getServices();
         void hideActionbar();
