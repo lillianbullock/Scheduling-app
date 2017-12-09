@@ -57,6 +57,25 @@ public class Goal implements Comparable {
         _repeat = false;
     }
 
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (obj == this){
+            return true;
+        }
+
+        if (obj == null || !(obj instanceof Goal)){
+            return false;
+        }
+
+        // typecast obj to Goal
+        Goal goal = (Goal) obj;
+
+        return this._id.equals(goal._id);
+    }
+
+
     public String getId() { return _id; }
     public void setId(String id) { _id = id;}
 
