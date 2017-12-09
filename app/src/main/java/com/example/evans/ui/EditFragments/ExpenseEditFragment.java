@@ -79,7 +79,7 @@ public class ExpenseEditFragment extends Fragment
                 Expense expense = createExpense();
 
                 if (expense != null) {
-                    _hostActivity.onExpenseEditFinish(expense);
+                    _hostActivity.onExpenseEditFinish(_selectedExpense, expense);
                 }
             }
         });
@@ -172,7 +172,7 @@ public class ExpenseEditFragment extends Fragment
      * This is how we'll be able to communicate with the parent activity.
      */
     public interface InteractionWithExpenseEditFragmentListener {
-            void onExpenseEditFinish (Expense expense);
+            void onExpenseEditFinish (Expense oldExpense, Expense newExpense);
             void onExpenseCancel();
             void hideActionbar();
             void showActionbar();

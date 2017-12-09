@@ -72,7 +72,7 @@ public class ServiceEditFragment extends Fragment {
                 Service service = createService();
 
                 if (service != null) {
-                    _hostActivity.onServiceEditFinish(service);
+                    _hostActivity.onServiceEditFinish(_selectedService, service);
                 } else {
                     Snackbar.make(getActivity().findViewById(R.id.content_frame),
                             "Invalid service: Title and price cannot be empty", Snackbar.LENGTH_LONG).show();
@@ -181,7 +181,7 @@ public class ServiceEditFragment extends Fragment {
      * This is how we'll be able to communicate with the parent activity.
      */
     public interface OnSubmitServiceEdit {
-        void onServiceEditFinish (Service service);
+        void onServiceEditFinish (Service oldService, Service newService);
         void onServiceCancel();
         void hideActionbar();
         void showActionbar();

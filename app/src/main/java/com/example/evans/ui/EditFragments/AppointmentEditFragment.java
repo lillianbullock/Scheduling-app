@@ -50,13 +50,13 @@ public class AppointmentEditFragment extends Fragment
     private EditText _email;
     private EditText _phone;
 
-
     private EditText _servicePrice;
     private EditText _notes;
     private EditText _date;
     private EditText _time;
 
     private Spinner _serviceSpinner;
+    private ArrayAdapter<String> adapter;
 
     private Button _btnSave;
     private Button _btnCancel;
@@ -75,7 +75,7 @@ public class AppointmentEditFragment extends Fragment
     private static final int TIME_DIALOG = 2;
 
     private OnSubmitAppointment _hostActivity;
-    private MainController _maincontroller;
+    private MainController _mainController = MainController.getInstance();;
 
     public AppointmentEditFragment() {
         // Required empty public constructor
@@ -97,8 +97,6 @@ public class AppointmentEditFragment extends Fragment
         _btnSave        = _rootView.findViewById(R.id.btn_edit_bar_save);
         _btnCancel      = _rootView.findViewById(R.id.btn_edit_bar_cancel);
 
-        _maincontroller = MainController.getInstance();
-
         _servicesMap    = _hostActivity.getServices();
 
         // Set up the spinner for services list
@@ -106,6 +104,8 @@ public class AppointmentEditFragment extends Fragment
 
         // Initialize customer details
         initializeAppointmentDetails();
+        initializeCustomerDetails();
+        initializeServiceDetails();
 
         // Onclick listener for the save button
         _btnSave.setOnClickListener(new View.OnClickListener() {
@@ -115,7 +115,7 @@ public class AppointmentEditFragment extends Fragment
                 Appointment newAppointment = createAppointment();
 
                 if (newAppointment != null){
-                    _hostActivity.onAppointmentEditFinish(_selectedCustomer, newAppointment);
+                    _hostActivity.onAppointmentEditFinish(_selectedCustomer, _selectedAppointment, newAppointment);
                 } else {
                     Snackbar.make(getActivity().findViewById(R.id.content_frame),
                             "ERROR: Invalid customer data. Please review your input", Snackbar.LENGTH_LONG).show();
@@ -186,9 +186,9 @@ public class AppointmentEditFragment extends Fragment
      */
     private void initializeAppointmentDetails(){
         if(_selectedAppointment != null) {
-            initializeCustomerDetails();
             _date.setText(_selectedAppointment.getDate());
             _time.setText(_selectedAppointment.getTime());
+            //_notes.setText(_selectedAppointment.get)
         }
     }
     private void initializeCustomerDetails() {
@@ -196,6 +196,12 @@ public class AppointmentEditFragment extends Fragment
             _name.setText(_selectedCustomer.getName());
             _email.setText(_selectedCustomer.getEmail());
             _phone.setText(_selectedCustomer.getPhone());
+        }
+    }
+
+    private void initializeServiceDetails(){
+        if(_selectedService != null){
+            _serviceSpinner.setSelection(adapter.getPosition(_selectedService.getTitle()));
         }
     }
 
@@ -220,13 +226,13 @@ public class AppointmentEditFragment extends Fragment
         String email = _email.getText().toString();
         String notes = _notes.getText().toString();
         if (_selectedCustomer == null) {
-            _selectedCustomer = _maincontroller.getCustomerWithName(title);
+            _selectedCustomer = _mainController.getCustomerWithName(title);
 
             if (_selectedCustomer == null){
-                String id = _maincontroller.getIdForNewCustomer();
+                String id = _mainController.getIdForNewCustomer();
                 // there's no existing customer, create one then
                 _selectedCustomer = new Customer(id, title, email, phone, LocalDate.now());
-                _maincontroller.addCustomer(_selectedCustomer);
+                _mainController.addCustomer(_selectedCustomer);
             }
         }
 
@@ -242,8 +248,15 @@ public class AppointmentEditFragment extends Fragment
     }
 
     public void setExistingAppointment(Appointment appointment){
-        if(appointment != null)
+        if(appointment != null) {
             _selectedAppointment = appointment;
+            _selectedCustomer = _mainController.getCustomerById(_selectedAppointment.getCustomerId());
+            setCustomer(_selectedCustomer);
+            _selectedService = _selectedAppointment.getService();
+            setService(_selectedService);
+            _selectedDate = _selectedAppointment.getDateObject();
+            _selectedTime = _selectedAppointment.getTimeObject();
+        }
     }
 
     public void setCustomer(Customer customer) {
@@ -265,7 +278,7 @@ public class AppointmentEditFragment extends Fragment
      */
     private void setupServicesSpinner() {
         List<String> servicesNames = new ArrayList<>(_hostActivity.getServices().keySet());
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+        adapter = new ArrayAdapter<>(
                 this.getActivity(),
                 android.R.layout.simple_spinner_item,
                 servicesNames);
@@ -325,7 +338,7 @@ public class AppointmentEditFragment extends Fragment
      * This is how we'll be able to communicate with the parent activity.
      */
     public interface OnSubmitAppointment {
-        void onAppointmentEditFinish (Customer customer, Appointment appointment);
+        void onAppointmentEditFinish (Customer customer, Appointment oldAppointment, Appointment newAppointment);
         void onAppointmentEditCancel();
         Map<String, Service> getServices();
         void hideActionbar();

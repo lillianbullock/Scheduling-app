@@ -81,7 +81,7 @@ public class GoalEditFragment extends Fragment
                 Goal newGoal = createGoal();
 
                 if(newGoal != null){
-                    _hostActivity.onGoalEditFinish(newGoal);
+                    _hostActivity.onGoalEditFinish(_selectedGoal, newGoal);
                 } else{
                     Snackbar.make(getActivity().findViewById(R.id.content_frame),
                             "ERROR: Invalid Goal data. Please review your input", Snackbar.LENGTH_LONG).show();
@@ -214,7 +214,7 @@ public class GoalEditFragment extends Fragment
      * This is how we'll be able to communicate with the parent activity.
      */
     public interface OnSubmitGoalEdit {
-        void onGoalEditFinish (Goal goal);
+        void onGoalEditFinish (Goal oldGoal, Goal newGoal);
         void onGoalEditCancel();
         void hideActionbar();
         void showActionbar();
