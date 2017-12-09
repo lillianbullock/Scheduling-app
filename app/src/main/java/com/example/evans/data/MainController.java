@@ -160,7 +160,7 @@ public class MainController {
         _customers.add(customer);
         _firebaseManager.addCustomer(customer, customer.getId());
 
-        // we're returning the customer because we set the id here
+        // we're returning the customer because we may have set the id here
         return customer;
     }
 
