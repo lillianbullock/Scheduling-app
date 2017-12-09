@@ -38,7 +38,7 @@ public class GoalViewFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_goal_view,container, false);
 
         TextView name = view.findViewById(R.id.txt_goal_view_name);
-        TextView detail = view.findViewById(R.id.txt_goal_details); //TODO check this id
+        TextView detail = view.findViewById(R.id.txt_goal_details);
         TextView startD = view.findViewById(R.id.txt_goal_view_start_date);
         TextView endD = view.findViewById(R.id.txt_goal_view_end_date);
 

@@ -264,10 +264,6 @@ public class AppointmentEditFragment extends Fragment
 
         List<Service> newTest = new ArrayList<>();
 
-        //TODO this was in here, and we don't think it has a purpose
-        /*for(Service service: _hostActivity.getServices().values()){
-        }*/
-
         List<String> servicesNames = new ArrayList<>(_hostActivity.getServices().keySet());
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this.getActivity(),

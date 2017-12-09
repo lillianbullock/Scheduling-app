@@ -70,7 +70,7 @@ public class CustomerEditFragment extends Fragment {
                 Customer customer = createCustomer();
 
                 if (customer != null) {
-                    _hostActivity.onCustomerEditFinish(customer);
+                    _hostActivity.onCustomerEditFinish(_selectedCustomer, customer);
                 }
 
             }
@@ -194,7 +194,7 @@ public class CustomerEditFragment extends Fragment {
      * This is how we'll be able to communicate with the parent activity.
      */
     public interface OnSubmitCustomerEdit {
-        void onCustomerEditFinish (Customer customer);
+        void onCustomerEditFinish (Customer oldCustomer, Customer newCustomer);
         //void onAddAppointmentClickForCustomer(Customer customer);
         void onCancelCustomerEdit();
         void hideActionbar();

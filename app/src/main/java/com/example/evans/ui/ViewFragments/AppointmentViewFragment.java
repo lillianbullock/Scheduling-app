@@ -39,13 +39,14 @@ public class AppointmentViewFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_appointment_view, container, false);
 
-        //todo put error messages bc these should not be implemented to null
         if (_customer == null) {
             _customer = new Customer("0", "Customer1", "email1", "000 000 0000", new LocalDate());
+            Log.e(TAG, "onCreateView: customer passed was null");
         }
         if (_appointment == null) {
             Service dummyService = new Service("Service1", "", 2.00);
             _appointment = new Appointment("Appointment1", new LocalDate(), new LocalTime(), "0", dummyService);
+            Log.e(TAG, "onCreateView: appointment passed was null");
         }
 
         // collects the views that need to be changed to display stuff
