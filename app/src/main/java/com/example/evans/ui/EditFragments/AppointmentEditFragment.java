@@ -114,11 +114,18 @@ public class AppointmentEditFragment extends Fragment
                 KeyboardControl.closeKeyboard(getActivity());
                 Appointment newAppointment = createAppointment();
 
+
                 if (newAppointment != null){
-                    _hostActivity.onAppointmentEditFinish(_selectedCustomer, _selectedAppointment, newAppointment);
-                } else {
+                    if(newAppointment.getDate() != null && newAppointment.getTime() != null){
+                        _hostActivity.onAppointmentEditFinish(_selectedCustomer, _selectedAppointment, newAppointment);
+                    } else {
+                        Snackbar.make(getActivity().findViewById(R.id.content_frame),
+                                "ERROR: Invalid data, Please review your input", Snackbar.LENGTH_LONG).show();
+                    }
+                }
+                else{
                     Snackbar.make(getActivity().findViewById(R.id.content_frame),
-                            "ERROR: Invalid customer data. Please review your input", Snackbar.LENGTH_LONG).show();
+                            "Error: Make an Appointment", Snackbar.LENGTH_LONG).show();
                 }
             }
         });
