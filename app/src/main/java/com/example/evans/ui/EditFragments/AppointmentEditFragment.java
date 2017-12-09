@@ -44,22 +44,31 @@ public class AppointmentEditFragment extends Fragment
         implements DatePickerFragment.OnDateSetListener,
                    TimePickerFragment.OnTimeSetListener {
 
+    View _rootView;
+
     private EditText _name;
     private EditText _email;
-
     private EditText _phone;
-    private EditText _date;
-    private EditText _time;
-    private Spinner _serviceSpinner;
+
+
     private EditText _servicePrice;
     private EditText _notes;
+    private EditText _date;
+    private EditText _time;
+
+    private Spinner _serviceSpinner;
+
     private Button _btnSave;
     private Button _btnCancel;
+
     private Map<String, Service> _servicesMap;
-    private Service _selectedService;
+
     private LocalDate _selectedDate;
     private LocalTime _selectedTime;
+
+    private Service _selectedService;
     private Customer _selectedCustomer;
+    private Appointment _selectedAppointment;
 
     private static final String TAG  = "AppointmentEditFragment";
     private static final int DATE_DIALOG = 1;
@@ -75,18 +84,18 @@ public class AppointmentEditFragment extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView =inflater.inflate(R.layout.fragment_appointment_edit, container, false);
+        _rootView =inflater.inflate(R.layout.fragment_appointment_edit, container, false);
 
-        _name           = rootView.findViewById(R.id.etxt_customer_name);
-        _phone          = rootView.findViewById(R.id.etxt_customer_phone);
-        _email          = rootView.findViewById(R.id.etxt_customer_email);
-        _date           = rootView.findViewById(R.id.etxt_appointment_date);
-        _time           = rootView.findViewById(R.id.etxt_appointment_time);
-        _serviceSpinner = rootView.findViewById(R.id.spinner_sales_type);
-        _servicePrice   = rootView.findViewById(R.id.etxt_price);
-        _notes          = rootView.findViewById(R.id.etxt_appointment_note);
-        _btnSave        = rootView.findViewById(R.id.btn_edit_bar_save);
-        _btnCancel      = rootView.findViewById(R.id.btn_edit_bar_cancel);
+        _name           = _rootView.findViewById(R.id.etxt_customer_name);
+        _phone          = _rootView.findViewById(R.id.etxt_customer_phone);
+        _email          = _rootView.findViewById(R.id.etxt_customer_email);
+        _date           = _rootView.findViewById(R.id.etxt_appointment_date);
+        _time           = _rootView.findViewById(R.id.etxt_appointment_time);
+        _serviceSpinner = _rootView.findViewById(R.id.spinner_sales_type);
+        _servicePrice   = _rootView.findViewById(R.id.etxt_price);
+        _notes          = _rootView.findViewById(R.id.etxt_appointment_note);
+        _btnSave        = _rootView.findViewById(R.id.btn_edit_bar_save);
+        _btnCancel      = _rootView.findViewById(R.id.btn_edit_bar_cancel);
         _maincontroller = MainController.getInstance();
 
         _servicesMap    = _hostActivity.getServices();
@@ -95,7 +104,7 @@ public class AppointmentEditFragment extends Fragment
         setupServicesSpinner();
 
         // Initialize customer details
-        initializeCustomerDetails();
+        initializeAppointmentDetails();
 
         // Onclick listener for the save button
         _btnSave.setOnClickListener(new View.OnClickListener() {
@@ -169,7 +178,13 @@ public class AppointmentEditFragment extends Fragment
 
 
         // return the inflated layout for this fragment
-        return rootView;
+        return _rootView;
+    }
+
+    private void initializeAppointmentDetails(){
+        initializeCustomerDetails();
+
+
     }
 
     /**
@@ -187,13 +202,10 @@ public class AppointmentEditFragment extends Fragment
             Log.e(TAG, "Selected service was null");
             return null;
         }
-
         String title = _name.getText().toString();
         String phone = _phone.getText().toString();
         String email = _email.getText().toString();
         String notes = _notes.getText().toString();
-
-        //
         if (_selectedCustomer == null) {
             _selectedCustomer = _maincontroller.getCustomerWithName(title);
 
@@ -209,29 +221,17 @@ public class AppointmentEditFragment extends Fragment
         if (_notes != null) {
             notes  = _notes.getText().toString();
         }
-
         if (!title.isEmpty() && _selectedService != null) {
             appointment = new Appointment(title, _selectedDate, _selectedTime, _selectedCustomer.getId(), _selectedService);
         }
 
-        // return appointment;
         return appointment;
     }
 
-
-    @Override
-    public void onDateSet(LocalDate date) {
-        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd, MMMM yyyy");
-        _selectedDate = date;
-        _date.setText(formatter.print(date));
+    public void setExistingAppointment(Appointment appointment){
+        _selectedAppointment = appointment;
     }
 
-    @Override
-    public void onTimeSet(LocalTime time) {
-        DateTimeFormatter timeFormatter = DateTimeFormat.shortTime();
-        _selectedTime = time;
-        _time.setText(timeFormatter.print(time));
-    }
 
     /**
      * Call the host activity's getCustomerForAppointment and use the customer details
@@ -251,23 +251,12 @@ public class AppointmentEditFragment extends Fragment
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        _hostActivity.hideActionbar();
-    }
-
     /**
-     * One job: Populate our services spinner from the data we have in MainController
+     * One job:
+     * Populate our services spinner from the data
+     * we have in MainController
      */
     private void setupServicesSpinner() {
-
-        List<Service> newTest = new ArrayList<>();
-
-        //TODO this was in here, and we don't think it has a purpose
-        /*for(Service service: _hostActivity.getServices().values()){
-        }*/
-
         List<String> servicesNames = new ArrayList<>(_hostActivity.getServices().keySet());
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this.getActivity(),
@@ -278,6 +267,8 @@ public class AppointmentEditFragment extends Fragment
         _serviceSpinner.setAdapter(adapter);
     }
 
+
+    /********************** FUNCTIONS TO ERROR CHECK *******************/
     /**
      *  isValid: Return true is the passed email string matches the specified
      *  regEx pattern, false otherwise
@@ -305,6 +296,23 @@ public class AppointmentEditFragment extends Fragment
         }
     }
 
+    /********** DATE AND TIME HANDLE*************/
+    @Override
+    public void onDateSet(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd, MMMM yyyy");
+        _selectedDate = date;
+        _date.setText(formatter.print(date));
+    }
+
+    @Override
+    public void onTimeSet(LocalTime time) {
+        DateTimeFormatter timeFormatter = DateTimeFormat.shortTime();
+        _selectedTime = time;
+        _time.setText(timeFormatter.print(time));
+    }
+
+    
+    /******* INTERFACE ******/
     /**
      * This interface must be implemented by the container Activity
      * This is how we'll be able to communicate with the parent activity.
@@ -316,4 +324,11 @@ public class AppointmentEditFragment extends Fragment
         void hideActionbar();
         void showActionbar();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        _hostActivity.hideActionbar();
+    }
+
 }
