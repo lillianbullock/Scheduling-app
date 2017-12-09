@@ -77,5 +77,19 @@ public class GoalTest {
         // testing compareTo
         assertEquals("should be greater", 1, nonDef1Goal.compareTo(nonDef2Goal));
         assertEquals("should be less", -1, nonDef2Goal.compareTo(nonDef1Goal));
+
+        //takes the date from one, and sets the other's date to that
+        String holdDueDate = nonDef1Goal.getDueDate();
+        nonDef2Goal.setDueDate(holdDueDate);
+        //then makes sure they're the same
+        assertEquals("string date getters and setters", nonDef1Goal.getDueDateObject(), nonDef2Goal.getDueDateObject());
+
+        //takes the date from one, and sets the other's date to that
+        String holdStartDate = nonDef1Goal.getStartDate();
+        nonDef2Goal.setStartDate(holdStartDate);
+        //then makes sure they're the same
+        assertEquals("string date getters and setters", nonDef1Goal.getStartDateObject(), nonDef2Goal.getStartDateObject());
+
+
     }
 }

@@ -16,13 +16,13 @@ import static org.junit.Assert.*;
 public class SaleTest {
     // default constructor
     @Test
-    public void testCons() throws Exception {
+    public void test() throws Exception {
         Sale defaultSale = new Sale();
-        assertEquals("non-default sale id", defaultSale.getId(), "");
-        assertEquals("non-default sale service", defaultSale.getService().getTitle(), "");
-        assertEquals("non-default sale price", defaultSale.getPrice(), 0.00, 0.0);
-        assertEquals("non-default sale date", defaultSale.getDateObject(), LocalDate.now());
-        assertEquals("non-default sale customer id", defaultSale.getCustomerId(), "");
+        assertEquals("default sale id", defaultSale.getId(), "");
+        assertEquals("default sale service", defaultSale.getService().getTitle(), "");
+        assertEquals("default sale price", defaultSale.getPrice(), 0.00, 0.0);
+        assertEquals("default sale date", defaultSale.getDateObject(), LocalDate.now());
+        assertEquals("default sale customer id", defaultSale.getCustomerId(), "");
 
         // first non-default constructor
         Service service1 = new Service();
@@ -58,5 +58,12 @@ public class SaleTest {
         //testing getReport (financial interface)
         assertEquals("get report first sale", nonDef1Sale.getReport(), 3.00, 0.0);
         assertEquals("get report second sale", nonDef2Sale.getReport(), 5.50, 0.0);
+
+        //takes the date from one, and sets the other's date to that
+        String holdDate = nonDef1Sale.getDate();
+        nonDef2Sale.setDate(holdDate);
+        //then makes sure they're the same
+        assertEquals("string date getters and setters", nonDef1Sale.getDateObject(), nonDef2Sale.getDateObject());
+
     }
 }

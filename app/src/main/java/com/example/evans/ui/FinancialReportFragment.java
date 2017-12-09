@@ -121,11 +121,9 @@ public class FinancialReportFragment extends Fragment
                 //TODO check if start date is before end date
                 if (!_selectedEndDate.isBefore(_selectedStartDate)){
 
-
                     loadExpenses();
                     loadSales();
                     loadAppointments();
-
 
                     _costTotal = 0.0;
                     _profitTotal = 0.0;

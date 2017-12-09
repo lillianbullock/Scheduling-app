@@ -75,8 +75,13 @@ public class Customer implements Comparable{
 
     @Override
     public int compareTo(@NonNull Object o) {
-        //Customer customer1 = (Customer) o;
+        Customer customer1 = (Customer) o;
 
-        return this._name.compareTo(((Customer) o)._name);
+        int comp = this._name.compareTo(customer1._name);
+        // if name is same compare dateAdded
+        if (comp == 0) {
+            this._dateAdded.compareTo(customer1.getDateAddedObject());
+        }
+        return comp;
     }
 }
