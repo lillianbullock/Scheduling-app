@@ -191,7 +191,7 @@ public class AppointmentEditFragment extends Fragment
         String title = _name.getText().toString();
         String phone = _phone.getText().toString();
         String email = _email.getText().toString();
-        String notes;
+        String notes = _notes.getText().toString();
 
         //
         if (_selectedCustomer == null) {

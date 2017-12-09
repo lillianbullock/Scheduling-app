@@ -66,30 +66,14 @@ public class AppointmentAdapter extends ArrayAdapter<Appointment> {
         // assign values if the object is not null
         if (_appointmentList.get(position) != null && _viewHolder != null) {
 
-            String unknownCustomer = "Unknown Customer";
-            String unknownService = "Unrecognized Service";
 
             Appointment currentAppointment = _appointmentList.get(position);
 
-            if (currentAppointment.getId() != null){
-                _viewHolder.title.setText(currentAppointment.getCustomerId());
-            } else {
-                _viewHolder.title.setText(unknownCustomer);
-            }
+            _viewHolder.title.setText(currentAppointment.getCustomerName());
+            _viewHolder.service.setText(currentAppointment.getService().getTitle());
+            _viewHolder.dateTime.setText(currentAppointment.getDate());
 
-            if (currentAppointment.getService() != null){
-                _viewHolder.service.setText(currentAppointment.getService().getTitle());
-            } else {
-                _viewHolder.service.setText(unknownService);
-            }
 
-            _viewHolder.dateTime.setText("test date");
-
-            /*
-            //TODO put dateTime in a better format
-            _viewHolder.title.setText(_appointmentList.get(position).getTitle());
-            _viewHolder.service.setText(_appointmentList.get(position).getService().getTitle());
-            _viewHolder.dateTime.setText(_appointmentList.get(position).getDate().toString());*/
         }
         return convertView;
     }
