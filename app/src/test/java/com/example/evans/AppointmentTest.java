@@ -41,8 +41,6 @@ public class AppointmentTest {
         service1.setPrice(2.50);
         Boolean attended1 = true;
 
-        //TODO test the string date/time getters and setters
-
         Appointment nonDef1Appt = new Appointment(title1, date1, time1, id1, due1, service1, attended1);
         assertEquals("appointment constructor1 id", nonDef1Appt.getId(), null);
         assertEquals("appointment constructor1 title", nonDef1Appt.getTitle(), "Hair cut");
@@ -79,5 +77,18 @@ public class AppointmentTest {
         //testing getReport
         assertEquals("appointment getReport #1", nonDef1Appt.getReport(), 2.50, 0);
         assertEquals("appointment getReport #2", nonDef2Appt.getReport(), 3.00, 0);
+
+        //takes the date from one, and sets the other's date to that
+        String holdDate = nonDef1Appt.getDate();
+        nonDef2Appt.setDate(holdDate);
+        //then makes sure they're the same
+        assertEquals("string date getters and setters", nonDef1Appt.getDateObject(), nonDef2Appt.getDateObject());
+
+        //takes the time from one, and sets the other's time to that
+        String holdTime = nonDef1Appt.getTime();
+        nonDef2Appt.setTime(holdTime);
+        //then makes sure they're the same
+        assertEquals("string date getters and setters", nonDef1Appt.getTimeObject(), nonDef2Appt.getTimeObject());
+
     }
 }

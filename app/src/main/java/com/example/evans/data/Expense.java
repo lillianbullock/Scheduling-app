@@ -16,12 +16,14 @@ public class Expense implements Comparable, Financial {
     private LocalDate _date;
 
     public Expense(){
+        _id = "";
         _name = "";
         _price = 0.0;
         _date = LocalDate.now();
     }
 
     public Expense(String name, Double price, LocalDate date){
+        _id = "";
         _name = name;
         _price = price;
         _date = date;
