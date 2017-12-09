@@ -54,6 +54,23 @@ public class Appointment implements Comparable, Financial {
         this._attended = false;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+
+        if (obj == this){
+            return true;
+        }
+
+        if (obj == null || !(obj instanceof Appointment)){
+            return false;
+        }
+
+        // typecast obj to Appointment
+        Appointment appointment = (Appointment) obj;
+
+        return this._id.equals(appointment._id);
+    }
+
 
     public String getId() { return _id; }
     public void setId(String id) { _id = id;}
