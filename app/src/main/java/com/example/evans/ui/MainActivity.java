@@ -265,7 +265,6 @@ public class MainActivity extends AppCompatActivity implements
             loadCurrentFragment(false);
 
         } else {
-
             // If this ever happens then there's an error on our part. A null service should never be return here
             _currentFragment = new StartPageFragment();
             loadCurrentFragment(false);
