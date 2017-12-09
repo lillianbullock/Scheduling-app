@@ -807,5 +807,30 @@ public class FirebaseManager {
     }
 
 
+    public void updateCustomer(Customer oldCustomer, Customer newCustomer) {
+
+    }
+
+    public void updateAppointment(Appointment oldAppointment, Appointment newAppointment) {
+
+    }
+
+    public void updateSale(Sale oldSale, Sale newSale) {
+
+    }
+
+    public void updateGoal(Goal oldGoal, Goal newGoal) {
+
+    }
+
+    public void updateService(Service oldService, Service newService) {
+
+    }
+
+    public void updateExpense(Expense oldExpense, Expense newExpense) {
+
+    }
+
+
 
 }
