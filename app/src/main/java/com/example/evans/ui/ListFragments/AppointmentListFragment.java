@@ -54,10 +54,7 @@ public class AppointmentListFragment extends Fragment implements OnGetDataListen
 
     private OnGetDataListener _onGetDataListener;
 
-
-    public AppointmentListFragment() {
-        // Required empty public constructor
-    }
+    public AppointmentListFragment() { /* Required empty public constructor*/ }
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
@@ -73,7 +70,6 @@ public class AppointmentListFragment extends Fragment implements OnGetDataListen
         _appointmentListView = _rootView.findViewById(R.id.appointment_list);
 
         _appointmentAdapter = new AppointmentAdapter(getActivity(), R.layout.appointment_adapter, _appointment);
-
 
         // Set the onClickListener for the floating button.
         _addFloatingBtn.setOnClickListener(new View.OnClickListener() {

@@ -85,8 +85,8 @@ public class SaleEditFragment extends Fragment
         _servicesMap    = new HashMap<>();
         _servicesMap    = _hostActivity.getServices();
 
+        //
         initializeSaleDetails();
-
         // Set up the spinner for services list
         setupServicesSpinner();
 
@@ -134,11 +134,8 @@ public class SaleEditFragment extends Fragment
                 Service currentService = _servicesMap.get(adapterView.getSelectedItem().toString());
                 _selectedService = currentService;
 
-                String currency = getString(R.string.currency);
-
                 Double price = currentService.getPrice();
-                String localePrice =  String.format(Locale.US,"%1.2f", price);
-                String finalPrice = currency + localePrice;
+                String finalPrice = getString(R.string.currency) + String.format(Locale.US,"%1.2f", price);
 
                 // display the price to the user
                 _servicePrice.setText(finalPrice);
@@ -155,14 +152,13 @@ public class SaleEditFragment extends Fragment
 
     private void initializeSaleDetails(){
         if(_selectedSale != null){
-            _date.setText(_selectedSale.getDate());
+            onDateSet(_selectedSale.getDateObject());
         }
     }
 
     public void setExistingSale(Sale sale){
         _selectedSale = sale;
     }
-
 
     @Override
     public void onDateSet(LocalDate date) {
@@ -180,6 +176,7 @@ public class SaleEditFragment extends Fragment
 
         String date = _date.getText().toString();
 
+        //removes all characters but numbers and periods
         _price = Double.parseDouble(_servicePrice.getText().toString().replaceAll("[^\\d.]+", ""));
 
         if(_selectedService != null && _date != null){

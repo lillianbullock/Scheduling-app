@@ -34,24 +34,6 @@ public class Customer implements Comparable{
         _dateAdded = dateAdded;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-
-        if (obj == this){
-            return true;
-        }
-
-        if (obj == null || !(obj instanceof Customer)){
-            return false;
-        }
-
-        // typecast obj to Customer
-        Customer customer = (Customer) obj;
-
-        return this._id.equals(customer._id);
-    }
-
-
     /**
      * This is the same as getDateAdded but it returns a date not a string.
      * This is for us to use in normal code but should be ignored by firebase
@@ -97,4 +79,22 @@ public class Customer implements Comparable{
         }
         return comp;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (obj == this){
+            return true;
+        }
+
+        if (obj == null || !(obj instanceof Customer)){
+            return false;
+        }
+
+        // typecast obj to Customer
+        Customer customer = (Customer) obj;
+
+        return this._id.equals(customer._id);
+    }
+
 }

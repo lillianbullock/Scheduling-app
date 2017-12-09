@@ -93,7 +93,7 @@ public class AppointmentEditFragment extends Fragment
         _time           = _rootView.findViewById(R.id.etxt_appointment_time);
         _serviceSpinner = _rootView.findViewById(R.id.spinner_sales_type);
         _servicePrice   = _rootView.findViewById(R.id.etxt_price);
-        _notes          = _rootView.findViewById(R.id.etxt_appointment_note);
+        //_notes          = _rootView.findViewById(R.id.etxt_appointment_note);
         _btnSave        = _rootView.findViewById(R.id.btn_edit_bar_save);
         _btnCancel      = _rootView.findViewById(R.id.btn_edit_bar_cancel);
 

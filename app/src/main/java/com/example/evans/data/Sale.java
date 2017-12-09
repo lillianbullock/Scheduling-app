@@ -43,26 +43,6 @@ public class Sale implements Comparable, Financial{
         _customerId = "";
     }
 
-
-
-    @Override
-    public boolean equals(Object obj) {
-
-        if (obj == this){
-            return true;
-        }
-
-        if (obj == null || !(obj instanceof Sale)){
-            return false;
-        }
-
-        // typecast obj to Sale
-        Sale sale = (Sale) obj;
-
-        return this._id.equals(sale._id);
-    }
-
-
     public String getId() { return _id; }
     public void setId(String id) { _id = id;}
 
@@ -95,5 +75,21 @@ public class Sale implements Comparable, Financial{
     @Override
     public double getReport() {
         return _price;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (obj == this){
+            return true;
+        }
+
+        if (obj == null || !(obj instanceof Sale)){
+            return false;
+        }
+
+        // typecast obj to Sale
+        Sale sale = (Sale) obj;
+        return this._id.equals(sale._id);
     }
 }

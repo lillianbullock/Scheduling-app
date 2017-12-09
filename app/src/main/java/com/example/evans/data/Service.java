@@ -25,23 +25,6 @@ public class Service implements Comparable {
         _price = price;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-
-        if (obj == this){
-            return true;
-        }
-
-        if (obj == null || !(obj instanceof Service)){
-            return false;
-        }
-
-        // typecast obj to Service
-        Service service = (Service) obj;
-
-        return this._id.equals(service._id);
-    }
-
     public String getId() { return _id; }
     public void setId(String id) { _id = id;}
 
@@ -69,5 +52,22 @@ public class Service implements Comparable {
     @Override
     public int compareTo(@NonNull Object o) {
         return this._title.compareTo(((Service) o)._title);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (obj == this){
+            return true;
+        }
+
+        if (obj == null || !(obj instanceof Service)){
+            return false;
+        }
+
+        // typecast obj to Service
+        Service service = (Service) obj;
+
+        return this._id.equals(service._id);
     }
 }

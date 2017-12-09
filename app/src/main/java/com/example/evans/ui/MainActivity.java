@@ -454,7 +454,7 @@ public class MainActivity extends AppCompatActivity implements
         AppointmentViewFragment _frag = new AppointmentViewFragment();
         _frag.setAppointment(appointment);
         _currentFragment = _frag;
-        loadCurrentFragment(false);
+        loadCurrentFragment(true);
     }
 
     @Override
