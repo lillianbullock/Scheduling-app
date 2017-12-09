@@ -459,7 +459,6 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onEditAppointment(Appointment appointment) {
-
         if (appointment != null){
             AppointmentEditFragment frag = new AppointmentEditFragment();
                 frag.setExistingAppointment(appointment);
