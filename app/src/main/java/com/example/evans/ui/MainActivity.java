@@ -337,9 +337,11 @@ public class MainActivity extends AppCompatActivity implements
 
         if (oldCustomer == null) {
             // addCustomer returns the same customer but with a valid id
+            Log.i(TAG, "onCustomerEditFinish: calling add customer");
             newCustomer = _mainController.addCustomer(newCustomer);
         } else {
-            //TODO replace(oldCustomer, newCustomer);
+            Log.i(TAG, "onCustomerEditFinish: calling update customer");
+            _mainController.updateCustomer(oldCustomer, newCustomer);
         }
 
         CustomerViewFragment _frag = new CustomerViewFragment();
