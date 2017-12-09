@@ -1,9 +1,7 @@
 package com.example.evans.ui.ListFragments;
 
 import android.app.Activity;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -20,7 +18,6 @@ import com.example.evans.data.Service;
 import com.example.evans.ui.Adapters.ServiceAdapter;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 /**
  * {@link Fragment} subclass that lists all relevant appointments

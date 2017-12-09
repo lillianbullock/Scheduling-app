@@ -80,18 +80,6 @@
             app:layout_constraintBaseline_toBaselineOf="@+id/etxt_sale_price"
             app:layout_constraintStart_toStartOf="parent" />
 
-
-        <TextView
-            android:id="@+id/txt_service_dollar_sign"
-            android:layout_width="18dp"
-            android:layout_height="33dp"
-            android:text="@string/currency"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintBaseline_toBaselineOf="@+id/etxt_sale_price"
-            app:layout_constraintStart_toStartOf="@+id/etxt_sale_price" />
-
-
         <EditText
             android:id="@+id/etxt_sale_price"
             android:layout_width="0dp"

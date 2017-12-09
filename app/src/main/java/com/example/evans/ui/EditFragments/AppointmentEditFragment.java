@@ -275,7 +275,7 @@ public class AppointmentEditFragment extends Fragment
     }
 
 
-    /********************** FUNCTIONS TO ERROR CHECK *******************/
+    /*---------- FUNCTIONS TO ERROR CHECK ----------*/
     /**
      *  isValid: Return true is the passed email string matches the specified
      *  regEx pattern, false otherwise
@@ -303,7 +303,7 @@ public class AppointmentEditFragment extends Fragment
         }
     }
 
-    /********** DATE AND TIME HANDLE*************/
+    /*---------- DATE AND TIME HANDLE ----------*/
     @Override
     public void onDateSet(LocalDate date) {
         DateTimeFormatter formatter = DateTimeFormat.forPattern("dd, MMMM yyyy");

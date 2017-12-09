@@ -31,7 +31,7 @@ public class SaleListFragment extends Fragment implements OnGetDataListener {
     private FloatingActionButton _addFloatingBtn;
     private View _rootView;
     private SaleListFragmentListener _hostActivityListener;
-    private static final String TITLE = "Goals";
+    private static final String TITLE = "Sales";
 
     private ProgressBar _progressBar;
     private ListView _saleListView;
@@ -92,7 +92,7 @@ public class SaleListFragment extends Fragment implements OnGetDataListener {
 
     private void loadSale(){
         FirebaseManager firebaseManager = new FirebaseManager();
-        firebaseManager.getAllExpenses(this);
+        firebaseManager.getAllSales(this);
     }
 
     @Override
@@ -110,7 +110,7 @@ public class SaleListFragment extends Fragment implements OnGetDataListener {
             _sale.add(child.getValue(Sale.class));
         }
 
-       // _saleAdapter.addAll(_sale);
+        //_saleAdapter.addAll(_sale);
         _progressBar.setVisibility(ProgressBar.INVISIBLE);
         _saleListView.setAdapter(_saleAdapter);
 
