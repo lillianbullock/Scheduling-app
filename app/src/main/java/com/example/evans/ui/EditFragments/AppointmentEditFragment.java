@@ -115,7 +115,7 @@ public class AppointmentEditFragment extends Fragment
                 Appointment newAppointment = createAppointment();
 
                 if (newAppointment != null){
-                    _hostActivity.onAppointmentEditFinish(_selectedCustomer, newAppointment);
+                    _hostActivity.onAppointmentEditFinish(_selectedCustomer, _selectedAppointment, newAppointment);
                 } else {
                     Snackbar.make(getActivity().findViewById(R.id.content_frame),
                             "ERROR: Invalid customer data. Please review your input", Snackbar.LENGTH_LONG).show();
@@ -323,7 +323,7 @@ public class AppointmentEditFragment extends Fragment
      * This is how we'll be able to communicate with the parent activity.
      */
     public interface OnSubmitAppointment {
-        void onAppointmentEditFinish (Customer customer, Appointment appointment);
+        void onAppointmentEditFinish (Customer customer, Appointment oldAppointment, Appointment newAppointment);
         void onAppointmentEditCancel();
         Map<String, Service> getServices();
         void hideActionbar();
