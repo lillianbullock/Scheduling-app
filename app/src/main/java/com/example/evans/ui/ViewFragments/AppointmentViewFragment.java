@@ -95,7 +95,7 @@ public class AppointmentViewFragment extends Fragment {
         price.setText("$" + Double.toString(_appointment.getService().getPrice()));
         // TODO implement date & time formatting strings
         date.setText(_appointment.getDate());
-        time.setText(_appointment.getDate());
+        time.setText(_appointment.getTime());
 
 
         if (_appointment.isAttended() != null)
