@@ -39,6 +39,7 @@
     <string name="customer_email">Email</string>
     <string name="customer_phone">Phone</string>
     <string name="customer_other_info">Other information</string>
+    <string name="button_see_all_appt">Appointments</string>
 
     <string name="goal_name">Name</string>
     <string name="goal_start_date">Start Date</string>

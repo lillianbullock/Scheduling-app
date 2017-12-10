@@ -66,7 +66,6 @@ public class ExpenseListFragment extends Fragment implements OnGetDataListener {
             }
         });
 
-
         _expenseListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

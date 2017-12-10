@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
 
 import com.example.evans.R;
 import com.example.evans.data.Appointment;
@@ -21,8 +22,11 @@ import com.example.evans.data.Customer;
 import com.example.evans.data.Expense;
 import com.example.evans.data.Goal;
 import com.example.evans.data.MainController;
+import com.example.evans.data.OnGetDataListener;
 import com.example.evans.data.Sale;
 import com.example.evans.data.Service;
+import com.example.evans.ui.Adapters.AppointmentAdapter;
+import com.example.evans.ui.Adapters.GoalAdapter;
 import com.example.evans.ui.DialogFragements.DatePickerFragment;
 import com.example.evans.ui.DialogFragements.TimePickerFragment;
 import com.example.evans.ui.EditFragments.AppointmentEditFragment;
@@ -41,10 +45,14 @@ import com.example.evans.ui.ViewFragments.AppointmentViewFragment;
 import com.example.evans.ui.ViewFragments.CustomerViewFragment;
 import com.example.evans.ui.ViewFragments.GoalViewFragment;
 import com.example.evans.ui.ViewFragments.ServiceViewFragment;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -73,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements
         GoalViewFragment.InteractionWithGoalViewFragmentListener,
         ExpenseListFragment.ExpenseListFragmentListener,
         ExpenseEditFragment.InteractionWithExpenseEditFragmentListener
-    {
+{
 
     // Variables
     private MainController _mainController;
@@ -81,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements
     private DrawerLayout _drawerLayout;
     private ActionBarDrawerToggle _actionBarToggle;
     private Toolbar _toolbar;
-
+    
     private static final String TAG = "MainActivity";
 
     @Override
@@ -286,6 +294,36 @@ public class MainActivity extends AppCompatActivity implements
             Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid customer from mainActivity",
                     Snackbar.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    public void onListAppointments(Customer customer) {
+        final AppointmentListFragment frag = new AppointmentListFragment();
+        final List<Appointment> customerAppointments = new ArrayList<>();
+
+        _mainController.getAppointmentsForCustomer(customer, new OnGetDataListener() {
+            @Override
+            public void onDataLoadStarted() { }
+
+            @Override
+            public void onDataLoadSucceed(DataSnapshot data) {
+                customerAppointments.clear();
+
+                for (DataSnapshot child: data.getChildren()){
+                    customerAppointments.add(child.getValue(Appointment.class));
+                }
+
+                frag.setAppointmentsList(customerAppointments);
+
+                _currentFragment = frag;
+                loadCurrentFragment(true);
+            }
+
+            @Override
+            public void onDataLoadFailed(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -679,4 +717,6 @@ public class MainActivity extends AppCompatActivity implements
     public void onTimeSet(LocalTime time) {
 
     }
+
+
 }
