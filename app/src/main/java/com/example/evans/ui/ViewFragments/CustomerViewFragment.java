@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -117,7 +116,6 @@ public class CustomerViewFragment extends Fragment {
         void showActionbar();
         void onBackPressed();
 
-        Customer getViewCustomer();
         void onSetAppointmentForCustomer(Customer customer);
         void onEditCustomer(Customer customer);
     }

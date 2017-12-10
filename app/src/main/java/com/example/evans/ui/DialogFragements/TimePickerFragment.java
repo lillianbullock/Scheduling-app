@@ -29,7 +29,6 @@ public class TimePickerFragment extends DialogFragment
         Calendar calendar = Calendar.getInstance();
         int hour = calendar.get(Calendar.HOUR_OF_DAY); // USE Calendar.Hour if this doesn't work
         int minute = calendar.get(Calendar.MINUTE);
-        int seconds = 0;
 
         return new TimePickerDialog(getActivity(), this, hour, minute, false);
     }

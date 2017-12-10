@@ -7,9 +7,8 @@
         <item
             android:id="@+id/menu_item_home"
             android:checkable="true"
-            android:title="Home"
             android:icon="@drawable/ic_home_24dp"
-            />
+            android:title="@string/home" />
 
     </group>
 

@@ -41,8 +41,6 @@ public class ExpenseListFragment extends Fragment implements OnGetDataListener {
     private ExpenseAdapter _expenseAdapter;
     private MainController _mainController = MainController.getInstance();
 
-    private OnGetDataListener _onGetDataListener;
-
     public ExpenseListFragment() {
         // Required empty public constructor
     }

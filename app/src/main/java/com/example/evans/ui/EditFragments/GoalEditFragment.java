@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import com.example.evans.R;
 import com.example.evans.data.Goal;
-import com.example.evans.data.TimePeriod;
 import com.example.evans.ui.DialogFragements.DatePickerFragment;
 import com.example.evans.ui.KeyboardControl;
 
@@ -153,8 +152,6 @@ public class GoalEditFragment extends Fragment
         LocalDate goalStart = _selectedStartDate;
         LocalDate goalEnd   = _selectedEndDate;
         String goalDescription = _goalDescription.getText().toString();
-
-        TimePeriod repeatCycle = TimePeriod.Month;
 
         if(!goalName.isEmpty()) {
             goal = new Goal(goalName, goalDescription, goalEnd, goalStart);

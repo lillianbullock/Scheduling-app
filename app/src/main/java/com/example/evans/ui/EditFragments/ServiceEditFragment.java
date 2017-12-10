@@ -2,21 +2,20 @@ package com.example.evans.ui.EditFragments;
 
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.evans.R;
 import com.example.evans.data.Service;
 import com.example.evans.ui.KeyboardControl;
+
+import java.util.Locale;
 
 
 /**
@@ -32,9 +31,6 @@ public class ServiceEditFragment extends Fragment {
 
     private Button _saveBtn;
     private Button _cancelBtn;
-
-    // for closing the keyboard
-    private static final int DONE = EditorInfo.IME_ACTION_DONE;
 
     // define a new instance of OnSubmitServiceEdit that would hold an instance of the host activity and will
     // be able to call the methods that we've demanded to be created
@@ -93,7 +89,7 @@ public class ServiceEditFragment extends Fragment {
     }
 
 
-    private void closeKeyboard() {
+    /*private void closeKeyboard() {
 
         try {
             InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -101,7 +97,7 @@ public class ServiceEditFragment extends Fragment {
         } catch (Exception e) {
             // Do nothing
         }
-    }
+    }*/
 
     private Service createService() {
 
@@ -109,16 +105,11 @@ public class ServiceEditFragment extends Fragment {
             return null;
         }
 
-        Service newService = null;
-
         String title = _title.getText().toString();
         String description = _description.getText().toString();
         double price = convertPriceStringToDouble(_price.getText().toString().replaceAll("[^\\d.]+", ""));
 
-        newService = new Service(title, description, price);
-
-        return newService;
-
+        return new Service(title, description, price);
     }
 
     /**
@@ -135,7 +126,7 @@ public class ServiceEditFragment extends Fragment {
 
         if (_selectedService != null) {
             _title.setText(_selectedService.getTitle());
-            _price.setText(_selectedService.getPrice().toString());
+            _price.setText(String.format(Locale.US,"%1.2f", _selectedService.getPrice()));
             _description.setText(_selectedService.getDescription());
         }
     }

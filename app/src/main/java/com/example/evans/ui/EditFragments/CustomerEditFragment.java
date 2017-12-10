@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,8 +31,6 @@ public class CustomerEditFragment extends Fragment {
     private Button _cancelBttn;
 
     private Customer _selectedCustomer;
-    private String   _customerId;
-
 
     // define a new instance of OnSubmitCustomerEdit that would hold an instance of the host activity and will
     // be able to call the methods that we've demanded to be created
@@ -128,7 +125,7 @@ public class CustomerEditFragment extends Fragment {
             _name.setText(_selectedCustomer.getName());
             _email.setText(_selectedCustomer.getEmail());
             _phone.setText(_selectedCustomer.getPhone());
-            _customerId = _selectedCustomer.getId();
+            //_customerId = _selectedCustomer.getId();
         }
     }
 

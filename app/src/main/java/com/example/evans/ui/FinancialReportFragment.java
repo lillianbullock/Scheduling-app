@@ -1,37 +1,34 @@
 package com.example.evans.ui;
 
-import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
-
-import com.example.evans.R;
 
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import java.util.List;
+import java.util.Locale;
 
 import com.example.evans.data.Appointment;
-import com.example.evans.data.FirebaseManager;
 import com.example.evans.data.MainController;
 import com.example.evans.data.OnGetDataListener;
 import com.example.evans.data.Sale;
 import com.example.evans.data.Expense;
 import com.example.evans.ui.DialogFragements.DatePickerFragment;
+import com.example.evans.R;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.Exclude;
-
 
 /**
  * {@link Fragment} subclass that creates a financial report.
@@ -154,9 +151,13 @@ public class FinancialReportFragment extends Fragment
 
                     double netProfit = _profitTotal - _costTotal;
 
-                    _profit.setText(Double.toString(_profitTotal));
+                    _profit.setText(String.format(Locale.US,"$%1.2f", _profitTotal));
+                    _cost.setText(String.format(Locale.US,"$%1.2f", _costTotal));
+                    _net.setText(String.format(Locale.US,"$%1.2f", netProfit));
+
+                    /*_profit.setText(Double.toString(_profitTotal));
                     _cost.setText(Double.toString(_costTotal));
-                    _net.setText(Double.toString(netProfit));
+                    _net.setText(Double.toString(netProfit));*/
 
                 } else {
                     Snackbar.make(getActivity().findViewById(R.id.content_frame), "ERROR: End date cannot be before the begin date", Snackbar.LENGTH_SHORT).show();
@@ -191,9 +192,7 @@ public class FinancialReportFragment extends Fragment
 
             }
         });
-
     }
-
 
     private void loadAppointments() {
 
@@ -282,8 +281,4 @@ public class FinancialReportFragment extends Fragment
         void showActionbar();
         void setAppbarTitle(String title);
     }
-
-
-
-
 }

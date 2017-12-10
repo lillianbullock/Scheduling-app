@@ -14,7 +14,6 @@ import android.widget.ProgressBar;
 
 import com.example.evans.R;
 import com.example.evans.data.Customer;
-import com.example.evans.data.FirebaseManager;
 import com.example.evans.data.MainController;
 import com.example.evans.data.OnGetDataListener;
 import com.example.evans.ui.Adapters.CustomerAdapter;
@@ -41,8 +40,6 @@ public class CustomerListFragment extends Fragment implements OnGetDataListener 
     private CustomerAdapter _customerArrayAdapter;
 
     private MainController _mainController = MainController.getInstance();
-
-    private OnGetDataListener _onGetDataListener;
 
     private final String TITLE = "Customers";
 

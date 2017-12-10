@@ -19,13 +19,10 @@ import com.example.evans.R;
 import com.example.evans.data.Appointment;
 import com.example.evans.data.Customer;
 import com.example.evans.data.MainController;
-import com.example.evans.data.OnGetDataListener;
 import com.example.evans.data.Service;
 import com.example.evans.ui.DialogFragements.DatePickerFragment;
 import com.example.evans.ui.DialogFragements.TimePickerFragment;
 import com.example.evans.ui.KeyboardControl;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
@@ -44,14 +41,13 @@ public class AppointmentEditFragment extends Fragment
         implements DatePickerFragment.OnDateSetListener,
                    TimePickerFragment.OnTimeSetListener {
 
-    View _rootView;
+    private View _rootView;
 
     private EditText _name;
     private EditText _email;
     private EditText _phone;
 
     private EditText _servicePrice;
-    private EditText _notes;
     private EditText _date;
     private EditText _time;
 
@@ -71,11 +67,9 @@ public class AppointmentEditFragment extends Fragment
     private Appointment _selectedAppointment;
 
     private static final String TAG  = "AppointmentEditFragment";
-    private static final int DATE_DIALOG = 1;
-    private static final int TIME_DIALOG = 2;
 
     private OnSubmitAppointment _hostActivity;
-    private MainController _mainController = MainController.getInstance();;
+    private MainController _mainController = MainController.getInstance();
 
     public AppointmentEditFragment() {
         // Required empty public constructor
@@ -179,7 +173,7 @@ public class AppointmentEditFragment extends Fragment
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                _servicePrice.setText("$0.00");
+                _servicePrice.setText(getString(R.string.default_money));
             }
         });
 
@@ -193,8 +187,8 @@ public class AppointmentEditFragment extends Fragment
      */
     private void initializeAppointmentDetails(){
         if(_selectedAppointment != null) {
-            _date.setText(_selectedAppointment.getDate());
-            _time.setText(_selectedAppointment.getTime());
+            onDateSet(_selectedAppointment.getDateObject());
+            onTimeSet(_selectedAppointment.getTimeObject());
         }
 
     }
@@ -340,7 +334,7 @@ public class AppointmentEditFragment extends Fragment
     }
 
 
-    /******* INTERFACE ******/
+    /*---------- INTERFACE ----------*/
     /**
      * This interface must be implemented by the container Activity
      * This is how we'll be able to communicate with the parent activity.

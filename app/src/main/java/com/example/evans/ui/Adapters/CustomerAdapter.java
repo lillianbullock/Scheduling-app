@@ -31,11 +31,6 @@ public class CustomerAdapter extends ArrayAdapter<Customer> {
     }
 
     @Override
-    public int getCount() {
-        return super.getCount();
-    }
-
-    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if (convertView == null) {

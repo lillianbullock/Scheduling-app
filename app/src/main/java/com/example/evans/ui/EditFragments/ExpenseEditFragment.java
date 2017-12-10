@@ -20,6 +20,8 @@ import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.util.Locale;
+
 /**
  * {@link Fragment} subclass to edit expense data.
  */
@@ -101,7 +103,7 @@ public class ExpenseEditFragment extends Fragment
     private void initializeExpenseDetails() {
         if (_selectedExpense != null) {
             _name.setText(_selectedExpense.getName());
-            _price.setText(_selectedExpense.getPrice().toString());
+            _price.setText(String.format(Locale.US,"%1.2f", _selectedExpense.getPrice()));
             onDateSet(_selectedExpense.getDateObject());
         }
     }

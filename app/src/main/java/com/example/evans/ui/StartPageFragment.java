@@ -32,8 +32,8 @@ public class StartPageFragment extends Fragment implements OnGetDataListener {
     private StartPageFragmentListener _hostActivity;
     private View _rootView;
 
-    private FloatingActionButton _appointmentSeeMorebtn;
-    private FloatingActionButton _goalSeeMorebtn;
+    private FloatingActionButton _appointmentSeeMoreBttn;
+    private FloatingActionButton _goalSeeMoreBttn;
     private ProgressBar _goalProgressBar;
     private ProgressBar _appointmentProgressBar;
 
@@ -46,8 +46,6 @@ public class StartPageFragment extends Fragment implements OnGetDataListener {
     private ArrayList<Appointment> _appointment = new ArrayList<>();
     private ArrayList<Goal> _goals = new ArrayList<>();
 
-    private OnGetDataListener _onGetDataListener;
-
     public StartPageFragment() {
         // Required empty public constructor
     }
@@ -58,8 +56,8 @@ public class StartPageFragment extends Fragment implements OnGetDataListener {
         // Inflate the layout for this fragment
         _rootView = inflater.inflate(R.layout.fragment_start_page, container, false);
 
-        _appointmentSeeMorebtn = _rootView.findViewById(R.id.btn_appointment_see_more);
-        _goalSeeMorebtn = _rootView.findViewById(R.id.btn_goal_see_more);
+        _appointmentSeeMoreBttn = _rootView.findViewById(R.id.btn_appointment_see_more);
+        _goalSeeMoreBttn = _rootView.findViewById(R.id.btn_goal_see_more);
 
         _appointmentListViewStartPage = _rootView.findViewById(R.id.appointment_list_view_start_page);
         _goalListViewStartPage = _rootView.findViewById(R.id.goal_list_view_start_page);
@@ -72,14 +70,14 @@ public class StartPageFragment extends Fragment implements OnGetDataListener {
 
         loadData();
 
-       _appointmentSeeMorebtn.setOnClickListener(new View.OnClickListener() {
+       _appointmentSeeMoreBttn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 _hostActivity.onClickAppointmentsSeeMore();
             }
         });
 
-        _goalSeeMorebtn.setOnClickListener(new View.OnClickListener() {
+        _goalSeeMoreBttn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 _hostActivity.onClickGoalsSeeMore();
@@ -177,7 +175,5 @@ public class StartPageFragment extends Fragment implements OnGetDataListener {
         void setAppbarTitle(String title);
         void onClickGoalsSeeMore();
         void onClickAppointmentsSeeMore();
-        void onClickAppointment(Appointment appointment);
-        void onClickGoal(Goal goal);
     }
 }
