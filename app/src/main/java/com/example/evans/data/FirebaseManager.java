@@ -380,7 +380,7 @@ public class FirebaseManager {
 
         final String DONE = "done";
 
-        Query unfinishedGoalsQuery = _databaseRoot.child(GOALS).orderByChild(DONE);
+        Query unfinishedGoalsQuery = _databaseRoot.child(GOALS).orderByChild(DONE).equalTo(false);
         onGetDataListener.onDataLoadStarted();
 
         unfinishedGoalsQuery.addListenerForSingleValueEvent(new ValueEventListener() {

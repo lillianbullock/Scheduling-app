@@ -102,7 +102,7 @@ public class ExpenseEditFragment extends Fragment
         if (_selectedExpense != null) {
             _name.setText(_selectedExpense.getName());
             _price.setText(_selectedExpense.getPrice().toString());
-            _date.setText(_selectedExpense.getDate());
+            onDateSet(_selectedExpense.getDateObject());
         }
     }
 
@@ -111,7 +111,11 @@ public class ExpenseEditFragment extends Fragment
      * @param expense passes to set up existing
      */
     public void setExistingExpense(Expense expense){
-        _selectedExpense = expense;
+
+        if (expense != null){
+            _selectedExpense = expense;
+
+        }
     }
 
 
@@ -148,6 +152,8 @@ public class ExpenseEditFragment extends Fragment
         _setDate = date;
         _date.setText(formatter.print(date));
     }
+
+
 
     /**
      * Ensures parent activity has implemented the InteractionWithCustomerViewFragment interface
