@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Manages our connection with Google Firebase. Handles create, update and delete operations.
+ * Manages the connection with Google Firebase. Handles create, update and delete operations.
  */
 public class FirebaseManager {
 
@@ -99,9 +99,9 @@ public class FirebaseManager {
     }
 
     /**
-     * Return the first customer found with the id
-     * @param customerId the customer id that we're looking up
-     * @return a customer with the id, null otherwise
+     * Query firebase for the first customer with the id
+     * @param customerId the customer id to query
+     * @param onGetDataListener the listener that will be called when the data is succeeded or failed
      */
     public void getCustomerWithId(String customerId, final OnGetDataListener onGetDataListener) {
 
@@ -128,9 +128,9 @@ public class FirebaseManager {
     }
 
     /**
-     * Return the first customer found with the given name
-     * @param customerName the name of the customer to look up
-     * @return a customer with the name, null if no matching customer exist
+     * Query firebase for the first computer with the given name in the parameter
+     * @param customerName the name to query for
+     * @param onGetDataListener the listener that will be called when the data is succeeded or failed
      */
     public void getCustomerWithName(String customerName, final OnGetDataListener onGetDataListener) {
 
@@ -156,10 +156,10 @@ public class FirebaseManager {
     }
 
 
-
     /**
-     * Return a list of customers limited to the specified number
-     * @param numCustomers the number of customers to retrieve
+     * Query firebase for a list of customers limited to the number specified in the parameter
+     * @param numCustomers the limit of customers to pull
+     * @param onGetDataListener the listener that will be called when the data is succeeded or failed
      */
     public void getCustomersWithLimit(int numCustomers, final OnGetDataListener onGetDataListener) {
 
@@ -181,9 +181,10 @@ public class FirebaseManager {
 
     }
 
+
     /**
-     * Get all the services in the database
-     * @return List of Services
+     * Query firebase for all services
+     * @param dataListener the listener that will be called when the data is succeeded or failed
      */
     public void getServices(final OnGetDataListener dataListener) {
 
@@ -208,9 +209,10 @@ public class FirebaseManager {
     }
 
 
+
     /**
-     * Get all the appointments in the database
-     * @return list of appointments
+     * Query firebase for all appointments
+     * @param onGetDataListener the listener that will be called when the data is succeeded or failed
      */
     public void getAllAppointments(final OnGetDataListener onGetDataListener) {
 
@@ -231,10 +233,11 @@ public class FirebaseManager {
         });
     }
 
+
     /**
-     * Returns a list off appointments for the specified customer
-     * @param customer the customer to lookup
-     * @return list of appointments. Return null if none is found
+     * Query firebase for all appointments for the customer in the parameter
+     * @param customer the customer to look up appointments for
+     * @param onGetDataListener the listener that will be called when the data is succeeded or failed
      */
     public void getAppointmentsForCustomer(Customer customer, final OnGetDataListener onGetDataListener) {
 
@@ -262,11 +265,12 @@ public class FirebaseManager {
         });
     }
 
+
     /**
-     * Return a list of appointments between the specified dates - inclusive
+     * Query firebase for appointments between the specified dates - inclusive
      * @param startDate the date to start from
-     * @param endDate the date to end at
-     * @return List of Appointments
+     * @param endDate the end date
+     * @param onGetDataListener the listener that will be called when the data is succeeded or failed
      */
     public void getAppointmentsBetween(LocalDate startDate, LocalDate endDate, final OnGetDataListener onGetDataListener){
 
@@ -291,10 +295,12 @@ public class FirebaseManager {
         });
     }
 
+
+
     /**
-     * Return a list of appointments limited to the specified number
-     * @param numOfAppointments the number of appointments to get
-     * @return List of Appointments
+     * Query firebase for a limited list of appointments
+     * @param numOfAppointments the limit of appointments to pull
+     * @param onGetDataListener the listener that will be called when the data is succeeded or failed
      */
     public void getAppointmentWithLimit(int numOfAppointments, final OnGetDataListener onGetDataListener){
 
@@ -320,6 +326,10 @@ public class FirebaseManager {
     /**
      * Returns all the goals in the database
      * @return List of Goals
+     */
+    /**
+     * Query firebase for all goals
+     * @param onGetDataListener the listener that will be called when the data is succeeded or failed
      */
     public void getAllGoals(final OnGetDataListener onGetDataListener) {
 
@@ -347,9 +357,11 @@ public class FirebaseManager {
 
     }
 
+
     /**
-     * Get all goals that have not been marked as finished
-     * @return List of Goals
+     * Query firebase for a limited number of unfinished goals
+     * @param limitNum the number of goals to retrieve
+     * @param onGetDataListener the listener that will be called when the data is succeeded or failed
      */
     public void getUnFinishedLimitGoals(int limitNum, final OnGetDataListener onGetDataListener) {
 
@@ -373,6 +385,10 @@ public class FirebaseManager {
 
     }
 
+    /**
+     * Query firebase for all unfinished goals
+     * @param onGetDataListener the listener that will be called when the data is succeeded or failed
+     */
     public void getUnFinishedGoals(final OnGetDataListener onGetDataListener) {
 
         final String DONE = "done";
@@ -398,6 +414,12 @@ public class FirebaseManager {
      * Get goals with the start date specified in the parameter
      * @param startDate the start date that we're looking up
      * @return List of Goals
+     */
+    /**
+     * Query firebase for goals between the start and end date specified in the parameter
+     * @param startDate the start date
+     * @param endDate the end date
+     * @param onGetDataListener the listener that will be called when the data is succeeded or failed
      */
     public void getGoalsWithStartDateBetween(LocalDate startDate, LocalDate endDate, final OnGetDataListener onGetDataListener) {
 
@@ -429,6 +451,12 @@ public class FirebaseManager {
      * @param startDate the end date to start looking up
      * @return List of Goals
      */
+    /**
+     * Query firebase for goals with end dates between the specified parameters
+     * @param startDate the start date
+     * @param endDate the end date to end the query at
+     * @param onGetDataListener the listener that will be called when the data is succeeded or failed
+     */
     public void getGoalsWithEndDateBetween(LocalDate startDate, LocalDate endDate, final OnGetDataListener onGetDataListener) {
 
         final String DATE = "dueDate";
@@ -455,10 +483,11 @@ public class FirebaseManager {
     }
 
 
+
     /**
-     * Return a list of goals limited to the specified number
-     * @return list of Goals
+     * Query firebase for a list of goals limited to the specified number
      * @param numGoals the number of goals to retrieve
+     * @param onGetDataListener the listener that will be called when the data is succeeded or failed
      */
     public void getGoalsWithLimit(int numGoals, final OnGetDataListener onGetDataListener) {
 
@@ -484,8 +513,8 @@ public class FirebaseManager {
 
 
     /**
-     * Return all the expenses in the database
-     * @return List of Expenses
+     * Query firebase for a all expenses
+     * @param onGetDataListener the listener that will be called when the data is succeeded or failed
      */
     public void getAllExpenses(final OnGetDataListener onGetDataListener) {
 
@@ -509,11 +538,12 @@ public class FirebaseManager {
 
     }
 
+
     /**
-     * Return a list of expenses between the specified dates - inclusive
+     * Query firebase for expenses between the specified dates - inclusive
      * @param startDate the date to start from
-     * @param endDate the date to end at
-     * @return List of Expenses
+     * @param endDate the date to end
+     * @param onGetDataListener the listener that will be called when the data is succeeded or failed
      */
     public  void getExpensesBetweenDates(LocalDate startDate, LocalDate endDate, final OnGetDataListener onGetDataListener) {
 
@@ -540,10 +570,11 @@ public class FirebaseManager {
     }
 
 
+
     /**
-     * Return a list of expenses limited to the specified number
-     * @return List of expenses
-     * @param numExpenses the number of expenses to retrieve
+     * Query firebase for a limited amount of expenses
+     * @param numExpenses the number of expenses to query for
+     * @param onGetDataListener the listener that will be called when the data is succeeded or failed
      */
     public void getExpensesWithLimit(int numExpenses, final OnGetDataListener onGetDataListener) {
 
@@ -569,9 +600,10 @@ public class FirebaseManager {
     }
 
 
+
     /**
-     * Return all the sales in the database
-     * @return List of Sales
+     * Query firebase for a all sales
+     * @param onGetDataListener the listener that will be called when the data is succeeded or failed
      */
     public void getAllSales(final OnGetDataListener onGetDataListener) {
 
@@ -595,11 +627,12 @@ public class FirebaseManager {
 
     }
 
+
     /**
-     * Return a list of sales between two dates - inclusive
+     * Query firebase for a sales between the dates specified in the parameter
      * @param startDate the date to start from
-     * @param endDate the date to end the query at
-     * @return List of Sales between the dates
+     * @param endDate the date to end at
+     * @param onGetDataListener the listener that will be called when the data is succeeded or failed
      */
     public void getSalesBetweenDates(LocalDate startDate, LocalDate endDate, final OnGetDataListener onGetDataListener){
 
@@ -622,14 +655,14 @@ public class FirebaseManager {
                 Log.w(TAG, "Query to database for sales cancelled");
             }
         });
-
-
     }
 
 
-    /**
-     * Return a list of sales limited to the specified number
-     * @param numSales the number of sales to retrieve
+     /**
+     *  Query firebase for a list of sales limited to the specified number
+     *
+     * @param numSales the number of sales to get
+     * @param onGetDataListener the listener that will be called when the data is succeeded or failed
      */
     public void getSalesWithLimit(int numSales, final OnGetDataListener onGetDataListener) {
 
@@ -654,23 +687,44 @@ public class FirebaseManager {
 
     }
 
+    /**
+     * Returns an auto-generated key from firebase for a new customer that can be used as an id.
+     * @return key
+     */
     public String getKeyForNewCustomer() {
         return _databaseRoot.child(CUSTOMERS).push().getKey();
     }
 
+
+    /**
+     * Returns an auto-generated key from firebase for a new sale that can be used as an id.
+     * @return key
+     */
     public String getKeyForNewSale() {
         return _databaseRoot.child(SALES).push().getKey();
     }
 
 
+    /**
+     * Returns an auto-generated key from firebase for a new appointment that can be used as an id.
+     * @return key
+     */
     public String getKeyForNewAppointment() {
         return _databaseRoot.child(APPOINTMENTS).push().getKey();
     }
 
+    /**
+     * Returns an auto-generated key from firebase for a new goal that can be used as an id.
+     * @return key
+     */
     public String getKeyForNewGoal() {
         return _databaseRoot.child(GOALS).push().getKey();
     }
 
+    /**
+     * Returns an auto-generated key from firebase for a new expense that can be used as an id.
+     * @return key
+     */
     public String getKeyForNewExpense() {
         return _databaseRoot.child(EXPENSES).push().getKey();
     }
@@ -757,7 +811,7 @@ public class FirebaseManager {
 
     /* Delete operations */
 
-    //TODO implement the delete from database functions
+
     /**
      * Deletes a single customer from the database
      * @param customer the customer to be deleted
@@ -821,8 +875,11 @@ public class FirebaseManager {
     }
 
 
-
-
+    /**
+     * Update a customer on firebase with a new customer
+     * @param oldCustomer the old customer to be overwritten
+     * @param newCustomer the new customer
+     */
     public void updateCustomer(Customer oldCustomer, Customer newCustomer) {
 
         if (oldCustomer != null && newCustomer != null){
@@ -830,36 +887,68 @@ public class FirebaseManager {
         }
     }
 
+    /**
+     * Update an appointment on firebase with a new appointment
+     * @param oldAppointment the old appointment to be overwritten
+     * @param newAppointment the new appointment
+     */
     public void updateAppointment(Appointment oldAppointment, Appointment newAppointment) {
         if (oldAppointment != null && newAppointment != null){
             _databaseRoot.child(APPOINTMENTS).child(oldAppointment.getId()).setValue(newAppointment);
         }
     }
 
+    /**
+     * Update an appointment on firebase with the same appointment
+     *
+     * This is for cases when the appointment was just slightly modified and
+     * did not warrant creating a new appointment object
+     * @param newAppointment the appointment to be updated
+     */
     public void updateAppointment(Appointment newAppointment) {
         if (newAppointment != null){
             _databaseRoot.child(APPOINTMENTS).child(newAppointment.getId()).setValue(newAppointment);
         }
     }
 
+    /**
+     * Update a sale on firebase with a new sale
+     * @param newSale the old sale to be overwritten
+     * @param oldSale the new sale
+     */
     public void updateSale(Sale oldSale, Sale newSale) {
         if (oldSale != null && newSale != null){
             _databaseRoot.child(SALES).child(oldSale.getId()).setValue(newSale);
         }
     }
 
+    /**
+     * Update a goal on firebase with a new goal
+     * @param oldGoal the old goal to be overwritten
+     * @param newGoal the new goal
+     */
     public void updateGoal(Goal oldGoal, Goal newGoal) {
         if (oldGoal != null && newGoal != null){
             _databaseRoot.child(GOALS).child(oldGoal.getId()).setValue(newGoal);
         }
     }
 
+    /**
+     * Update a service on firebase with a new service
+     * @param oldService the old service to be overwritten
+     * @param newService the new service
+     */
     public void updateService(Service oldService, Service newService) {
         if (oldService != null && newService != null){
             _databaseRoot.child(SERVICES).child(oldService.getId()).setValue(newService);
         }
     }
 
+    /**
+     * Update an expense on firebase with a new expense
+     * @param oldExpense the old expenses to be overwritten
+     * @param newExpense the new expense
+     */
     public void updateExpense(Expense oldExpense, Expense newExpense) {
         if (oldExpense != null && newExpense != null){
             _databaseRoot.child(EXPENSES).child(oldExpense.getId()).setValue(newExpense);
