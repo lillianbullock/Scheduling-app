@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
 
 import com.example.evans.R;
 import com.example.evans.data.Appointment;
@@ -24,6 +25,8 @@ import com.example.evans.data.MainController;
 import com.example.evans.data.OnGetDataListener;
 import com.example.evans.data.Sale;
 import com.example.evans.data.Service;
+import com.example.evans.ui.Adapters.AppointmentAdapter;
+import com.example.evans.ui.Adapters.GoalAdapter;
 import com.example.evans.ui.DialogFragements.DatePickerFragment;
 import com.example.evans.ui.DialogFragements.TimePickerFragment;
 import com.example.evans.ui.EditFragments.AppointmentEditFragment;
@@ -88,7 +91,6 @@ public class MainActivity extends AppCompatActivity implements
     private Toolbar _toolbar;
     private static final String TAG = "MainActivity";
 
-    /*---------OnCreate---------*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
