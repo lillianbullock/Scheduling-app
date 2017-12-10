@@ -76,7 +76,7 @@ public class GoalViewFragment extends Fragment {
         _checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onCheckBox(_goal);
+                onCheckBox();
             }
         });
 
@@ -84,8 +84,8 @@ public class GoalViewFragment extends Fragment {
         return view;
     }
 
-    public void onCheckBox(Goal goal){
-        goal.setDone(true);
+    public void onCheckBox(){
+        _goal.setDone(true);
     }
 
     @Override

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -56,6 +57,7 @@ public class AppointmentEditFragment extends Fragment
 
     private Button _btnSave;
     private Button _btnCancel;
+    private CheckBox _appointmentCheckBox;
 
     private Map<String, Service> _servicesMap;
 
@@ -87,19 +89,24 @@ public class AppointmentEditFragment extends Fragment
         _time           = _rootView.findViewById(R.id.etxt_appointment_time);
         _serviceSpinner = _rootView.findViewById(R.id.spinner_sales_type);
         _servicePrice   = _rootView.findViewById(R.id.etxt_price);
-        //_notes          = _rootView.findViewById(R.id.etxt_appointment_note);
         _btnSave        = _rootView.findViewById(R.id.btn_edit_bar_save);
         _btnCancel      = _rootView.findViewById(R.id.btn_edit_bar_cancel);
+        _appointmentCheckBox = _rootView.findViewById(R.id.chk_showed_up);
 
         _servicesMap    = _hostActivity.getServices();
 
         // Set up the spinner for services list
         setupServicesSpinner();
 
-        // Initialize customer details
+        // Initialize Appointments, Customer, and Service data details
         initializeAppointmentDetails();
         initializeCustomerDetails();
         initializeServiceDetails();
+
+        //Control the Checkbox to say if customer has come or not
+        if (_selectedAppointment.isAttended() != false)
+            _appointmentCheckBox.setChecked(_selectedAppointment.isAttended());
+
 
         // Onclick listener for the save button
         _btnSave.setOnClickListener(new View.OnClickListener() {
@@ -108,7 +115,6 @@ public class AppointmentEditFragment extends Fragment
                 KeyboardControl.closeKeyboard(getActivity());
                 Appointment newAppointment = createAppointment();
 
-
                 if (newAppointment != null){
                     if(newAppointment.getDate() != null && newAppointment.getTime() != null){
                         _hostActivity.onAppointmentEditFinish(_selectedCustomer, _selectedAppointment, newAppointment);
@@ -116,10 +122,6 @@ public class AppointmentEditFragment extends Fragment
                         Snackbar.make(getActivity().findViewById(R.id.content_frame),
                                 "ERROR: Invalid data, Please review your input", Snackbar.LENGTH_LONG).show();
                     }
-                }
-                else{
-                    Snackbar.make(getActivity().findViewById(R.id.content_frame),
-                            "Error: Make an Appointment", Snackbar.LENGTH_LONG).show();
                 }
             }
         });
@@ -174,6 +176,17 @@ public class AppointmentEditFragment extends Fragment
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 _servicePrice.setText(getString(R.string.default_money));
+            }
+        });
+
+        _appointmentCheckBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(_appointmentCheckBox.isChecked()){
+                    _selectedAppointment.setAttended(true);
+                }else{
+                    _selectedAppointment.setAttended(false);
+                }
             }
         });
 
@@ -237,13 +250,25 @@ public class AppointmentEditFragment extends Fragment
             }
         }
 
-        if (!title.isEmpty() && _selectedService != null) {
+       /* if (!title.isEmpty() && _selectedService != null) {
             appointment = new Appointment(title, _selectedDate, _selectedTime, _selectedCustomer.getId(), _selectedService);
 
             // set the id
             if (_selectedAppointment != null) {
                 appointment.setId(_selectedAppointment.getId());
             }
+        }*/
+
+        if (!title.isEmpty() && _selectedService != null) {
+            // Email isn't required but if it's not empty then check to make sure it's a valid email
+            if (email.isEmpty() || (!email.isEmpty() && isValidEmail(email))) {
+                appointment = new Appointment(title, _selectedDate, _selectedTime, _selectedCustomer.getId(), _selectedService);
+            } else {
+                Snackbar.make(getActivity().findViewById(R.id.content_frame), "ERROR: Invalid email", Snackbar.LENGTH_LONG).show();
+            }
+
+        } else {
+            Snackbar.make(getActivity().findViewById(R.id.content_frame), "ERROR: Name cannot be empty", Snackbar.LENGTH_LONG).show();
         }
 
         return appointment;
@@ -295,10 +320,13 @@ public class AppointmentEditFragment extends Fragment
      *  isValid: Return true is the passed email string matches the specified
      *  regEx pattern, false otherwise
      */
-    public static boolean isValidEmail(String email) {
+    private boolean isValidEmail(String email) {
+
         String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
-        return email.matches(EMAIL_REGEX);
+
+        return (email.matches(EMAIL_REGEX));
     }
+
 
     /**
      * Override onAttach to make sure that the container activity has implemented the callback we specified in

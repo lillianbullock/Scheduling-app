@@ -125,7 +125,6 @@ public class CustomerEditFragment extends Fragment {
             _name.setText(_selectedCustomer.getName());
             _email.setText(_selectedCustomer.getEmail());
             _phone.setText(_selectedCustomer.getPhone());
-            //_customerId = _selectedCustomer.getId();
         }
     }
 

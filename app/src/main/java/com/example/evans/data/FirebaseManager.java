@@ -836,6 +836,12 @@ public class FirebaseManager {
         }
     }
 
+    public void updateAppointment(Appointment newAppointment) {
+        if (newAppointment != null){
+            _databaseRoot.child(APPOINTMENTS).child(newAppointment.getId()).setValue(newAppointment);
+        }
+    }
+
     public void updateSale(Sale oldSale, Sale newSale) {
         if (oldSale != null && newSale != null){
             _databaseRoot.child(SALES).child(oldSale.getId()).setValue(newSale);
