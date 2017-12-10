@@ -41,30 +41,6 @@ public class Goal implements Comparable {
         this._done = false;
     }
 
-
-    @Override
-    public boolean equals(Object obj) {
-
-        if (obj == this){
-            return true;
-        }
-
-        if (obj == null || !(obj instanceof Goal)){
-            return false;
-        }
-
-        // typecast obj to Goal
-        Goal goal = (Goal) obj;
-
-        return this._id.equals(goal._id);
-    }
-
-    @Override
-    public int hashCode() {
-        return _id.hashCode();
-    }
-
-
     public String getId() { return _id; }
     public void setId(String id) { _id = id;}
 
@@ -101,13 +77,28 @@ public class Goal implements Comparable {
     @Exclude
     public int compareTo(@NonNull Object o) {
         Goal goal1 = (Goal) o;
-        if (this._dueDate.isAfter(goal1._dueDate))
-            return 1;
+        return this._dueDate.compareTo(goal1._dueDate);
+    }
 
-        if (this._dueDate.isBefore(goal1._dueDate))
-            return -1;
+    @Override
+    public boolean equals(Object obj) {
 
-        return 0;
+        if (obj == this){
+            return true;
+        }
+
+        if (obj == null || !(obj instanceof Goal)){
+            return false;
+        }
+
+        // typecast obj to Goal
+        Goal goal = (Goal) obj;
+        return this._id.equals(goal._id);
+    }
+
+    @Override
+    public int hashCode() {
+        return _id.hashCode();
     }
 }
 

@@ -63,13 +63,7 @@ public class Sale implements Comparable, Financial{
     @Override
     public int compareTo(@NonNull Object o) {
         Sale sale1 = (Sale) o;
-        if (this._date.isAfter(sale1._date))
-            return 1;
-
-        if (this._date.isBefore(sale1._date))
-            return -1;
-
-        return 0;
+        return this._date.compareTo(sale1._date);
     }
 
     @Override

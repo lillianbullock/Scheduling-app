@@ -34,11 +34,6 @@ public class Customer implements Comparable{
         _dateAdded = dateAdded;
     }
 
-    @Override
-    public int hashCode() {
-        return _id.hashCode();
-    }
-
     /**
      * This is the same as getDateAdded but it returns a date not a string.
      * This is for us to use in normal code but should be ignored by firebase
@@ -53,13 +48,8 @@ public class Customer implements Comparable{
     @Exclude
     public void setDateAddedObject(LocalDate dateAdded) { this._dateAdded = dateAdded; }
 
-    public String getDateAdded() {
-        return _dateAdded.toString();
-    }
-
-    public  void setDateAdded(String dateString) {
-        this._dateAdded = LocalDate.parse(dateString);
-    }
+    public String getDateAdded() { return _dateAdded.toString(); }
+    public  void setDateAdded(String dateString) { this._dateAdded = LocalDate.parse(dateString); }
 
     public void setId(String id) { this._id = id; }
     public String getId() { return _id; }
@@ -102,4 +92,8 @@ public class Customer implements Comparable{
         return this._id.equals(customer._id);
     }
 
+    @Override
+    public int hashCode() {
+        return _id.hashCode();
+    }
 }

@@ -44,8 +44,8 @@ public class ExpenseTest {
         assertEquals("non-default 2 expense date", new LocalDate(4242, 5, 22), nonDef2Expense.getDateObject());
 
         // testing compareTo
-        assertEquals("should be greater", 1, nonDef2Expense.compareTo(nonDef1Expense));
-        assertEquals("should be less", -1, nonDef1Expense.compareTo(nonDef2Expense));
+        assertTrue("should be greater",0 < nonDef2Expense.compareTo(nonDef1Expense));
+        assertTrue("should be less",0 > nonDef1Expense.compareTo(nonDef2Expense));
 
         //testing getReport (financial interface)
         assertEquals("get report first expense", nonDef1Expense.getReport(), 5.00, 0.0);

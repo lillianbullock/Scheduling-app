@@ -20,18 +20,18 @@ public class AppointmentTest {
 
         // default constructor
         Appointment defaultAppt = new Appointment();
-        assertEquals("default appointment id", defaultAppt.getId(), null);
-        assertEquals("default appointment title", defaultAppt.getTitle(), "");
-        assertEquals("default appointment date", defaultAppt.getDateObject(), LocalDate.now());
+        assertEquals("default appointment id", null, defaultAppt.getId());
+        assertEquals("default appointment title", "", defaultAppt.getCustomerName());
+        assertEquals("default appointment date", LocalDate.now(), defaultAppt.getDateObject());
         // this runs a bit later than the constructor and so gets a different time
         //assertEquals("default appointment time", defaultAppt.getTimeObject(), LocalTime.now());
-        assertEquals("default appointment customer id", defaultAppt.getCustomerId(), null);
-        assertEquals("default appointment due", defaultAppt.isDue(), false);
-        assertEquals("default appointment service", defaultAppt.getService(), null);
-        assertEquals("default appointment attended", defaultAppt.isAttended(), false);
+        assertEquals("default appointment customer id", null, defaultAppt.getCustomerId());
+        assertEquals("default appointment due", false, defaultAppt.isDue());
+        assertEquals("default appointment service", null, defaultAppt.getService());
+        assertEquals("default appointment attended", false, defaultAppt.isAttended());
 
         // first non default constructor
-        String title1 = "Hair cut";
+        String name1 = "Hair cut";
         LocalDate date1 = new LocalDate(2345, 2, 5);
         LocalTime time1 = new LocalTime(12, 32, 12);
         String id1 = "customerID1";
@@ -41,18 +41,18 @@ public class AppointmentTest {
         service1.setPrice(2.50);
         Boolean attended1 = true;
 
-        Appointment nonDef1Appt = new Appointment(title1, date1, time1, id1, due1, service1, attended1);
-        assertEquals("appointment constructor1 id", nonDef1Appt.getId(), null);
-        assertEquals("appointment constructor1 title", nonDef1Appt.getTitle(), "Hair cut");
-        assertEquals("appointment constructor1 date", nonDef1Appt.getDateObject(), new LocalDate(2345, 2, 5));
-        assertEquals("appointment constructor1 time", nonDef1Appt.getTimeObject(), new LocalTime(12, 32, 12));
-        assertEquals("appointment constructor1 customer id", nonDef1Appt.getCustomerId(), "customerID1");
-        assertEquals("appointment constructor1 due", nonDef1Appt.isDue(), due1);
-        assertEquals("appointment constructor1 service", nonDef1Appt.getService().getTitle(), "service1");
-        assertEquals("appointment constructor1 attended", nonDef1Appt.isAttended(), attended1);
+        Appointment nonDef1Appt = new Appointment(name1, date1, time1, id1, due1, service1, attended1);
+        assertEquals("appointment constructor1 id", null, nonDef1Appt.getId());
+        assertEquals("appointment constructor1 title", "Hair cut", nonDef1Appt.getCustomerName());
+        assertEquals("appointment constructor1 date", new LocalDate(2345, 2, 5), nonDef1Appt.getDateObject());
+        assertEquals("appointment constructor1 time", new LocalTime(12, 32, 12), nonDef1Appt.getTimeObject());
+        assertEquals("appointment constructor1 customer id", "customerID1", nonDef1Appt.getCustomerId());
+        assertEquals("appointment constructor1 due", due1, nonDef1Appt.isDue());
+        assertEquals("appointment constructor1 service", "service1", nonDef1Appt.getService().getTitle());
+        assertEquals("appointment constructor1 attended", attended1, nonDef1Appt.isAttended());
 
         // second non default constructor
-        String title2 = "Hair Dye";
+        String name2 = "John Doe";
         LocalDate date2 = new LocalDate(1998, 4, 6);
         LocalTime time2 = new LocalTime(13, 12, 43);
         String id2 = "customerID2";
@@ -60,23 +60,23 @@ public class AppointmentTest {
         service2.setTitle("service2");
         service2.setPrice(3.00);
 
-        Appointment nonDef2Appt = new Appointment(title2, date2, time2, id2, service2);
-        assertEquals("appointment constructor2 id", nonDef2Appt.getId(), null);
-        assertEquals("appointment constructor2 title", nonDef2Appt.getTitle(), "Hair Dye");
-        assertEquals("appointment constructor2 date", nonDef2Appt.getDateObject(), new LocalDate(1998, 4, 6));
-        assertEquals("appointment constructor2 time", nonDef2Appt.getTimeObject(), new LocalTime(13, 12, 43));
-        assertEquals("appointment constructor2 customer id", nonDef2Appt.getCustomerId(), "customerID2");
-        assertEquals("appointment constructor2 due", nonDef2Appt.isDue(), false);
-        assertEquals("appointment constructor2 service", nonDef2Appt.getService().getTitle(), "service2");
-        assertEquals("appointment constructor2 attended", nonDef2Appt.isAttended(), false);
+        Appointment nonDef2Appt = new Appointment(name2, date2, time2, id2, service2);
+        assertEquals("appointment constructor2 id", null, nonDef2Appt.getId());
+        assertEquals("appointment constructor2 title", "John Doe", nonDef2Appt.getCustomerName());
+        assertEquals("appointment constructor2 date", new LocalDate(1998, 4, 6), nonDef2Appt.getDateObject());
+        assertEquals("appointment constructor2 time", new LocalTime(13, 12, 43), nonDef2Appt.getTimeObject());
+        assertEquals("appointment constructor2 customer id", "customerID2", nonDef2Appt.getCustomerId());
+        assertEquals("appointment constructor2 due", false, nonDef2Appt.isDue());
+        assertEquals("appointment constructor2 service", "service2", nonDef2Appt.getService().getTitle());
+        assertEquals("appointment constructor2 attended", false, nonDef2Appt.isAttended());
 
         //testing compareTo
-        assertEquals("appointment compareTo should be less", nonDef2Appt.compareTo(nonDef1Appt), -1);
-        assertEquals("appointment compareTo should be same", nonDef2Appt.compareTo(nonDef2Appt), 0);
+        assertTrue("appointment compareTo should return negative", 0 > nonDef2Appt.compareTo(nonDef1Appt));
+        assertEquals("appointment compareTo should return 0", 0, nonDef2Appt.compareTo(nonDef2Appt));
 
         //testing getReport
-        assertEquals("appointment getReport #1", nonDef1Appt.getReport(), 2.50, 0);
-        assertEquals("appointment getReport #2", nonDef2Appt.getReport(), 3.00, 0);
+        assertEquals("appointment getReport #1", 2.50, nonDef1Appt.getReport(), 0);
+        assertEquals("appointment getReport #2", 3.00, nonDef2Appt.getReport(), 0);
 
         //takes the date from one, and sets the other's date to that
         String holdDate = nonDef1Appt.getDate();

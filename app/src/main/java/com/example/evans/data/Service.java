@@ -28,26 +28,14 @@ public class Service implements Comparable {
     public String getId() { return _id; }
     public void setId(String id) { _id = id;}
 
-    public String getTitle() {
-        return _title;
-    }
-    public void setTitle(String title) {
-        this._title = title;
-    }
+    public String getTitle() { return _title; }
+    public void setTitle(String title) { this._title = title; }
 
-    public String getDescription() {
-        return _description;
-    }
-    public void setDescription(String description) {
-        this._description = description;
-    }
+    public String getDescription() { return _description; }
+    public void setDescription(String description) { this._description = description; }
 
-    public Double getPrice() {
-        return _price;
-    }
-    public void setPrice(Double price) {
-        this._price = price;
-    }
+    public Double getPrice() { return _price; }
+    public void setPrice(Double price) { this._price = price; }
 
     @Override
     public int compareTo(@NonNull Object o) {
