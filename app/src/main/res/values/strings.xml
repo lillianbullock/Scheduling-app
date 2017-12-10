@@ -41,6 +41,9 @@
     <string name="customer_other_info">Other information</string>
     <string name="button_see_all_appt">Appointments</string>
 
+    <string name="appointments">Appointments</string>
+    <string name="goals">Goals</string>
+
     <string name="goal_name">Name</string>
     <string name="goal_start_date">Start Date</string>
     <string name="goal_end_date">End Date</string>
