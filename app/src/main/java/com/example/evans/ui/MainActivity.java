@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements
         ExpenseEditFragment.InteractionWithExpenseEditFragmentListener
     {
 
-    // Variables
+        // Variables
     private MainController _mainController;
     private Fragment _currentFragment;
     private DrawerLayout _drawerLayout;
@@ -186,6 +186,11 @@ public class MainActivity extends AppCompatActivity implements
             }
 
             _mainController.updateAppointment(appointment);
+        }
+
+        @Override
+        public void onListAppointments(Customer customer) {
+
         }
 
     /*---------- CUSTOMER ----------*/
