@@ -35,13 +35,15 @@ public class GoalEditFragment extends Fragment
 
     private Goal _selectedGoal;
 
+    private static char BEGIN_DATE_SELECT = 'a';
+    private static char END_DATE_SELECT = 'b';
+
     private LocalDate _selectedStartDate;
     private LocalDate _selectedEndDate;
 
     private Button _btnSaveGoal;
     private Button _btnCancelGoal;
 
-    private DateTimeFormatter _formatter;
 
     private OnSubmitGoalEdit _hostActivity;
 
@@ -58,7 +60,6 @@ public class GoalEditFragment extends Fragment
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_goal_edit, container, false);
 
-        _formatter = DateTimeFormat.forPattern("dd, MMMM yyyy");
 
         _goalName = view.findViewById(R.id.etxt_goal_name);
         _goalStart= view.findViewById(R.id.etxt_start_date);
@@ -98,12 +99,11 @@ public class GoalEditFragment extends Fragment
         _goalStart.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                current = 'a';
+                current = BEGIN_DATE_SELECT;
                 DialogFragment dateFragment = new DatePickerFragment();
                 dateFragment.setTargetFragment(GoalEditFragment.this, 0);
                 dateFragment.show(getFragmentManager(), "DatePicker");
 
-                _currentDateEdit = _goalStart;
             }
         });
 
@@ -111,16 +111,32 @@ public class GoalEditFragment extends Fragment
         _goalEnd.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                current = 'b';
+                current = END_DATE_SELECT;
                 DialogFragment dateFragment = new DatePickerFragment();
                 dateFragment.setTargetFragment(GoalEditFragment.this, 0);
                 dateFragment.show(getFragmentManager(), "DatePicker");
 
-                _currentDateEdit = _goalEnd;
             }
         });
 
         return view;
+    }
+
+    /**
+     * to initialize the customer details for edit
+     */
+    private void initializeGoalDetails() {
+
+        if (_selectedGoal != null) {
+            _goalName.setText(_selectedGoal.getTitle());
+            _goalDescription.setText(_selectedGoal.getDescription());
+
+            current = BEGIN_DATE_SELECT;
+            onDateSet(_selectedGoal.getStartDateObject());
+
+            current = END_DATE_SELECT;
+            onDateSet(_selectedGoal.getDueDateObject());
+        }
     }
 
     public Goal createGoal(){
@@ -146,29 +162,24 @@ public class GoalEditFragment extends Fragment
 
     @Override
     public void onDateSet(LocalDate date) {
-        _currentDateEdit.setText(_formatter.print(date));
 
-       if(current == 'a') {
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd, MMMM yyyy");
+
+
+        if(current == BEGIN_DATE_SELECT) {
+            _currentDateEdit = _goalStart;
             _selectedStartDate = date;
-       }
-
-       if(current == 'b'){
-            _selectedEndDate = date;
-       }
-    }
-
-    /**
-     * to initialize the customer details for edit
-     */
-    private void initializeGoalDetails() {
-
-        if (_selectedGoal != null) {
-            _goalName.setText(_selectedGoal.getTitle());
-            _goalDescription.setText(_selectedGoal.getDescription());
-            _goalStart.setText(_selectedGoal.getStartDate());
-            _goalEnd.setText(_selectedGoal.getDueDate());
         }
+
+        if(current == END_DATE_SELECT){
+            _selectedEndDate = date;
+            _currentDateEdit = _goalEnd;
+        }
+
+        _currentDateEdit.setText(formatter.print(date));
     }
+
+
 
     /**
      * when an existing goal is called to edit

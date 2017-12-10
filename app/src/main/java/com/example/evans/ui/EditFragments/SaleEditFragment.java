@@ -45,6 +45,7 @@ public class SaleEditFragment extends Fragment
 
     private Button _btnSave;
     private Button _btnCancel;
+    ArrayAdapter<String> _adapter;
 
     private Map<String, Service> _servicesMap;
 
@@ -84,10 +85,11 @@ public class SaleEditFragment extends Fragment
         _servicesMap    = new HashMap<>();
         _servicesMap    = _hostActivity.getServices();
 
-        //
-        initializeSaleDetails();
+
         // Set up the spinner for services list
         setupServicesSpinner();
+
+        initializeSaleDetails();
 
         _btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,12 +151,30 @@ public class SaleEditFragment extends Fragment
         return view;
     }
 
+    /**
+     * Populate our services spinner from the data we have in MainController
+     */
+    private void setupServicesSpinner() {
+
+        List<String> servicesNames = new ArrayList<>(_hostActivity.getServices().keySet());
+        _adapter = new ArrayAdapter<>( this.getActivity(),
+                android.R.layout.simple_spinner_item, servicesNames);
+
+        _adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        _serviceSpinner.setAdapter(_adapter);
+    }
+
     private void initializeSaleDetails(){
         if(_selectedSale != null){
             //String finalPrice = String.format(Locale.US,"$%1.2f", _selectedSale.getPrice().toString());
             _servicePrice.setText(_selectedSale.getPrice().toString());
 
             onDateSet(_selectedSale.getDateObject());
+
+            if (_selectedSale.getService() != null){
+                _serviceSpinner.setSelection(_adapter.getPosition(_selectedSale.getService().getTitle()));
+            }
+
         }
     }
 
@@ -195,18 +215,6 @@ public class SaleEditFragment extends Fragment
     }
 
 
-    /**
-     * Populate our services spinner from the data we have in MainController
-     */
-    private void setupServicesSpinner() {
-
-        List<String> servicesNames = new ArrayList<>(_hostActivity.getServices().keySet());
-        ArrayAdapter<String> adapter = new ArrayAdapter<>( this.getActivity(),
-                android.R.layout.simple_spinner_item, servicesNames);
-
-        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        _serviceSpinner.setAdapter(adapter);
-    }
 
     /**
      * Override onAttach to make sure that the container activity has implemented the callback we specified in

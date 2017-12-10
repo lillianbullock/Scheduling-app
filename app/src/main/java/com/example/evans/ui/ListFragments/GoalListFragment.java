@@ -93,7 +93,7 @@ public class GoalListFragment  extends Fragment implements OnGetDataListener {
 
     private void loadGoals(){
         FirebaseManager firebaseManager = new FirebaseManager();
-        firebaseManager.getUnFinishedGoals(this);
+        firebaseManager.getAllGoals(this);
     }
 
 
@@ -109,10 +109,10 @@ public class GoalListFragment  extends Fragment implements OnGetDataListener {
         _goals.clear();
 
         for (DataSnapshot child: data.getChildren()){
+            Goal goal = child.getValue(Goal.class);
             _goals.add(child.getValue(Goal.class));
         }
 
-       // _goalArrayAdapter.addAll(_goals);
 
         _progressBar.setVisibility(ProgressBar.INVISIBLE);
 
