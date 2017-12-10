@@ -43,31 +43,6 @@ public class Sale implements Comparable, Financial{
         _customerId = "";
     }
 
-
-
-    @Override
-    public boolean equals(Object obj) {
-
-        if (obj == this){
-            return true;
-        }
-
-        if (obj == null || !(obj instanceof Sale)){
-            return false;
-        }
-
-        // typecast obj to Sale
-        Sale sale = (Sale) obj;
-
-        return this._id.equals(sale._id);
-    }
-
-    @Override
-    public int hashCode() {
-        return _id.hashCode();
-    }
-
-
     public String getId() { return _id; }
     public void setId(String id) { _id = id;}
 
@@ -88,17 +63,32 @@ public class Sale implements Comparable, Financial{
     @Override
     public int compareTo(@NonNull Object o) {
         Sale sale1 = (Sale) o;
-        if (this._date.isAfter(sale1._date))
-            return 1;
-
-        if (this._date.isBefore(sale1._date))
-            return -1;
-
-        return 0;
+        return this._date.compareTo(sale1._date);
     }
 
     @Override
     public double getReport() {
         return _price;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (obj == this){
+            return true;
+        }
+
+        if (obj == null || !(obj instanceof Sale)){
+            return false;
+        }
+
+        // typecast obj to Sale
+        Sale sale = (Sale) obj;
+        return this._id.equals(sale._id);
+    }
+
+    @Override
+    public int hashCode() {
+        return _id.hashCode();
     }
 }

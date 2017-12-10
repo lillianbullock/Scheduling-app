@@ -54,28 +54,6 @@ public class Appointment implements Comparable, Financial {
         this._attended = false;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-
-        if (obj == this){
-            return true;
-        }
-
-        if (obj == null || !(obj instanceof Appointment)){
-            return false;
-        }
-
-        // typecast obj to Appointment
-        Appointment appointment = (Appointment) obj;
-
-        return this._id.equals(appointment._id);
-    }
-
-    @Override
-    public int hashCode() {
-        return _id.hashCode();
-    }
-
     public String getId() { return _id; }
     public void setId(String id) { _id = id;}
 
@@ -86,14 +64,26 @@ public class Appointment implements Comparable, Financial {
     public LocalDate getDateObject() {return _date;}
     @Exclude
     public void setDateObject(LocalDate date) {_date = date;}
-    public String getDate() { return _date.toString(); }
+    public String getDate() {
+        if(_date == null){
+            return null;
+        }else{
+            return _date.toString();
+        }
+    }
     public void setDate(String dateString) { this._date = LocalDate.parse(dateString); }
 
     @Exclude
     public LocalTime getTimeObject() {return _time;}
     @Exclude
     void setTimeObject(LocalTime time) {_time = time;}
-    public String getTime() { return _time.toString(); }
+    public String getTime() {
+        if (_time == null) {
+            return null;
+        } else {
+            return _time.toString();
+        }
+    }
     public void setTime(String timeString) { this._time = LocalTime.parse(timeString); }
 
 
@@ -111,18 +101,31 @@ public class Appointment implements Comparable, Financial {
 
     @Override
     public int compareTo(@NonNull Object o) {
-        Appointment appointment2 = (Appointment) o;
-        if (this._date.isAfter(appointment2._date))
-            return 1;
-
-        if (this._date.isBefore(appointment2._date))
-            return -1;
-
-        return 0;
+        return this._date.compareTo(((Appointment) o)._date);
     }
 
     @Override
-    public double getReport() {
-        return (_service.getPrice());
+    public double getReport() { return (_service.getPrice()); }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (obj == this) {
+            return true;
+        }
+
+        if (obj == null || !(obj instanceof Appointment)){
+            return false;
+        }
+
+        // typecast obj to Appointment
+        Appointment appointment = (Appointment) obj;
+        return this._id.equals(appointment._id);
     }
+
+    @Override
+    public int hashCode() {
+        return _id.hashCode();
+    }
+
 }

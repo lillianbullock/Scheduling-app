@@ -19,6 +19,8 @@ import com.example.evans.data.Service;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 /**
  * {@link Fragment} subclass to view appointment data.
@@ -93,10 +95,14 @@ public class AppointmentViewFragment extends Fragment {
 
 
         price.setText("$" + Double.toString(_appointment.getService().getPrice()));
-        // TODO implement date & time formatting strings
-        date.setText(_appointment.getDate());
-        time.setText(_appointment.getTime());
 
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd, MMMM yyyy");
+        date.setText(formatter.print(_appointment.getDateObject()));
+        //date.setText(_appointment.getDate());
+
+        DateTimeFormatter timeFormatter = DateTimeFormat.shortTime();
+        time.setText(timeFormatter.print(_appointment.getTimeObject()));
+        //time.setText(_appointment.getTime());
 
         if (_appointment.isAttended() != null)
             showedUp.setChecked(_appointment.isAttended());

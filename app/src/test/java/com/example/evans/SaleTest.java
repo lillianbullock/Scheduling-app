@@ -18,11 +18,11 @@ public class SaleTest {
     @Test
     public void test() throws Exception {
         Sale defaultSale = new Sale();
-        assertEquals("default sale id", defaultSale.getId(), "");
-        assertEquals("default sale service", defaultSale.getService().getTitle(), "");
-        assertEquals("default sale price", defaultSale.getPrice(), 0.00, 0.0);
-        assertEquals("default sale date", defaultSale.getDateObject(), LocalDate.now());
-        assertEquals("default sale customer id", defaultSale.getCustomerId(), "");
+        assertEquals("default sale id", "", defaultSale.getId());
+        assertEquals("default sale service", "", defaultSale.getService().getTitle());
+        assertEquals("default sale price", 0.00, defaultSale.getPrice(), 0.0);
+        assertEquals("default sale date", LocalDate.now(), defaultSale.getDateObject());
+        assertEquals("default sale customer id", "", defaultSale.getCustomerId());
 
         // first non-default constructor
         Service service1 = new Service();
@@ -32,11 +32,11 @@ public class SaleTest {
         String customerID1 = "customer id 1";
 
         Sale nonDef1Sale = new Sale(service1, price1, date1, customerID1);
-        assertEquals("non-default sale id", nonDef1Sale.getId(), "");
-        assertEquals("non-default sale service", nonDef1Sale.getService().getTitle(), "service1");
-        assertEquals("non-default sale price", nonDef1Sale.getPrice(), 3.00, 0.0);
-        assertEquals("non-default sale date", nonDef1Sale.getDateObject(), new LocalDate(2018, 3, 11));
-        assertEquals("non-default sale customer id", nonDef1Sale.getCustomerId(), "customer id 1");
+        assertEquals("non-default sale id", "", nonDef1Sale.getId());
+        assertEquals("non-default sale service", "service1", nonDef1Sale.getService().getTitle());
+        assertEquals("non-default sale price", 3.00, nonDef1Sale.getPrice(), 0.0);
+        assertEquals("non-default sale date", new LocalDate(2018, 3, 11), nonDef1Sale.getDateObject());
+        assertEquals("non-default sale customer id", "customer id 1", nonDef1Sale.getCustomerId());
 
         // second non-default constructor
         Service service2 = new Service();
@@ -45,19 +45,19 @@ public class SaleTest {
         LocalDate date2 = new LocalDate(2028, 3, 22);
 
         Sale nonDef2Sale = new Sale(service2, price2, date2);
-        assertEquals("non-default sale id", nonDef2Sale.getId(), "");
-        assertEquals("non-default sale service", nonDef2Sale.getService().getTitle(), "service2");
-        assertEquals("non-default sale price", nonDef2Sale.getPrice(), 5.50, 0.0);
-        assertEquals("non-default sale date", nonDef2Sale.getDateObject(), new LocalDate(2028, 3, 22));
-        assertEquals("non-default sale customer id", nonDef2Sale.getCustomerId(), "");
+        assertEquals("non-default sale id", "", nonDef2Sale.getId());
+        assertEquals("non-default sale service", "service2", nonDef2Sale.getService().getTitle());
+        assertEquals("non-default sale price", 5.50, nonDef2Sale.getPrice(), 0.0);
+        assertEquals("non-default sale date", new LocalDate(2028, 3, 22), nonDef2Sale.getDateObject());
+        assertEquals("non-default sale customer id", "", nonDef2Sale.getCustomerId());
 
         // testing compareTo
-        assertEquals("should be greater", 1, nonDef2Sale.compareTo(nonDef1Sale));
-        assertEquals("should be less", -1, nonDef1Sale.compareTo(nonDef2Sale));
+        assertTrue("should return a positive number", 0 < nonDef2Sale.compareTo(nonDef1Sale));
+        assertTrue("should return a negative number", 0 > nonDef1Sale.compareTo(nonDef2Sale));
 
         //testing getReport (financial interface)
-        assertEquals("get report first sale", nonDef1Sale.getReport(), 3.00, 0.0);
-        assertEquals("get report second sale", nonDef2Sale.getReport(), 5.50, 0.0);
+        assertEquals("get report first sale", 3.00, nonDef1Sale.getReport(), 0.0);
+        assertEquals("get report second sale", 5.50, nonDef2Sale.getReport(), 0.0);
 
         //takes the date from one, and sets the other's date to that
         String holdDate = nonDef1Sale.getDate();

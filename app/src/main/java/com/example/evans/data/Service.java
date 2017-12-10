@@ -25,6 +25,23 @@ public class Service implements Comparable {
         _price = price;
     }
 
+    public String getId() { return _id; }
+    public void setId(String id) { _id = id;}
+
+    public String getTitle() { return _title; }
+    public void setTitle(String title) { this._title = title; }
+
+    public String getDescription() { return _description; }
+    public void setDescription(String description) { this._description = description; }
+
+    public Double getPrice() { return _price; }
+    public void setPrice(Double price) { this._price = price; }
+
+    @Override
+    public int compareTo(@NonNull Object o) {
+        return this._title.compareTo(((Service) o)._title);
+    }
+
     @Override
     public boolean equals(Object obj) {
 
@@ -41,38 +58,9 @@ public class Service implements Comparable {
 
         return this._id.equals(service._id);
     }
-
     @Override
     public int hashCode() {
         return _id.hashCode();
     }
 
-    public String getId() { return _id; }
-    public void setId(String id) { _id = id;}
-
-    public String getTitle() {
-        return _title;
-    }
-    public void setTitle(String title) {
-        this._title = title;
-    }
-
-    public String getDescription() {
-        return _description;
-    }
-    public void setDescription(String description) {
-        this._description = description;
-    }
-
-    public Double getPrice() {
-        return _price;
-    }
-    public void setPrice(Double price) {
-        this._price = price;
-    }
-
-    @Override
-    public int compareTo(@NonNull Object o) {
-        return this._title.compareTo(((Service) o)._title);
-    }
 }

@@ -20,8 +20,6 @@ public class Goal implements Comparable {
     private String _description;
     private LocalDate _dueDate;
     private LocalDate _startDate;
-    private Boolean _repeat;
-    private TimePeriod _repeatCycle;
     private Boolean _done;
 
     public Goal() {
@@ -30,19 +28,8 @@ public class Goal implements Comparable {
         _description = "";
         _dueDate = LocalDate.now();
         _startDate = LocalDate.now();
-        setRepeatCycle(null);
+        _done = null;
         _done = false;
-    }
-
-    public Goal(String title, String description, LocalDate dueDate,
-         LocalDate startDate, TimePeriod repeatCycle) {
-        this._id = "";
-        this._title = title;
-        this._description = description;
-        this._dueDate = dueDate;
-        this._startDate = startDate;
-        this._done = false;
-        setRepeatCycle(repeatCycle);
     }
 
     public Goal(String title, String description, LocalDate dueDate,
@@ -53,33 +40,7 @@ public class Goal implements Comparable {
         this._dueDate = dueDate;
         this._startDate = startDate;
         this._done = false;
-        _repeatCycle = null;
-        _repeat = false;
     }
-
-
-    @Override
-    public boolean equals(Object obj) {
-
-        if (obj == this){
-            return true;
-        }
-
-        if (obj == null || !(obj instanceof Goal)){
-            return false;
-        }
-
-        // typecast obj to Goal
-        Goal goal = (Goal) obj;
-
-        return this._id.equals(goal._id);
-    }
-
-    @Override
-    public int hashCode() {
-        return _id.hashCode();
-    }
-
 
     public String getId() { return _id; }
     public void setId(String id) { _id = id;}
@@ -100,18 +61,6 @@ public class Goal implements Comparable {
     public String getDueDate() { return _dueDate.toString(); }
     public void setDueDate(String dueDateString) { this._dueDate = LocalDate.parse(dueDateString); }
 
-    public Boolean isRepeat() { return _repeat; }
-    public TimePeriod getRepeatCycle() { return _repeatCycle; }
-    /**
-     * sets the repeat cycle to the passed value and sets _isRepeat based on that
-     * @param repeatCycle: TimePeriod that is how often the goal repeats
-     */
-    public void setRepeatCycle(TimePeriod repeatCycle) {
-        _repeatCycle = repeatCycle;
-        if (_repeatCycle == null) {
-            _repeat = false;
-        } else _repeat = true;
-    }
 
     public Boolean isDone() { return _done; }
     public void setDone(Boolean done) {this._done = done; }
@@ -129,13 +78,28 @@ public class Goal implements Comparable {
     @Exclude
     public int compareTo(@NonNull Object o) {
         Goal goal1 = (Goal) o;
-        if (this._dueDate.isAfter(goal1._dueDate))
-            return 1;
+        return this._dueDate.compareTo(goal1._dueDate);
+    }
 
-        if (this._dueDate.isBefore(goal1._dueDate))
-            return -1;
+    @Override
+    public boolean equals(Object obj) {
 
-        return 0;
+        if (obj == this){
+            return true;
+        }
+
+        if (obj == null || !(obj instanceof Goal)){
+            return false;
+        }
+
+        // typecast obj to Goal
+        Goal goal = (Goal) obj;
+        return this._id.equals(goal._id);
+    }
+
+    @Override
+    public int hashCode() {
+        return _id.hashCode();
     }
 }
 

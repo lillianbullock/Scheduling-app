@@ -17,11 +17,11 @@ public class CustomerTest {
     public void test() throws Exception {
         // default constructor
         Customer defaultCustomer = new Customer();
-        assertEquals("default Customer id", defaultCustomer.getId(), "");
-        assertEquals("default Customer name", defaultCustomer.getName(), "");
-        assertEquals("default Customer email", defaultCustomer.getEmail(), "");
-        assertEquals("default Customer phone", defaultCustomer.getPhone(), "");
-        assertEquals("default Customer date", defaultCustomer.getDateAddedObject(), LocalDate.now());
+        assertEquals("default Customer id", "", defaultCustomer.getId());
+        assertEquals("default Customer name", "", defaultCustomer.getName());
+        assertEquals("default Customer email", "", defaultCustomer.getEmail());
+        assertEquals("default Customer phone", "", defaultCustomer.getPhone());
+        assertEquals("default Customer date", LocalDate.now(), defaultCustomer.getDateAddedObject());
 
         // non-default constructor
         String id = "customerTest";
@@ -31,15 +31,15 @@ public class CustomerTest {
         LocalDate dateAdded = new LocalDate(1999, 6, 20);
 
         Customer nonDefCustomer = new Customer(id, name, email, phone, dateAdded);
-        assertEquals("non-default Customer id", nonDefCustomer.getId(), "customerTest");
-        assertEquals("non-default Customer name", nonDefCustomer.getName(), "John Doe");
-        assertEquals("non-default Customer email", nonDefCustomer.getEmail(), "email@byui.edu");
-        assertEquals("non-default Customer phone", nonDefCustomer.getPhone(), "111-111-1111");
-        assertEquals("non-default Customer date", nonDefCustomer.getDateAddedObject(), new LocalDate(1999, 6, 20));
+        assertEquals("non-default Customer id", "customerTest", nonDefCustomer.getId());
+        assertEquals("non-default Customer name", "John Doe", nonDefCustomer.getName());
+        assertEquals("non-default Customer email", "email@byui.edu", nonDefCustomer.getEmail());
+        assertEquals("non-default Customer phone", "111-111-1111", nonDefCustomer.getPhone());
+        assertEquals("non-default Customer date", new LocalDate(1999, 6, 20), nonDefCustomer.getDateAddedObject());
 
         // test compareTo
-        assertTrue("customer compareTo should be positive", 0 < nonDefCustomer.compareTo(defaultCustomer));
-        assertEquals("customer compareTo should be same", 0, nonDefCustomer.compareTo(nonDefCustomer));
+        assertTrue("customer compareTo should be positive (greater)", 0 < nonDefCustomer.compareTo(defaultCustomer));
+        assertEquals("customer compareTo should be zero (same)", 0, nonDefCustomer.compareTo(nonDefCustomer));
 
         //takes the date from one, and sets the other's date to that
         String holdDate = nonDefCustomer.getDateAdded();
