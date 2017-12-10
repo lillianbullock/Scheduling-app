@@ -223,7 +223,7 @@ public class MainActivity extends AppCompatActivity implements
         if (newService != null) {
             if (oldService == null) {
                 // addCustomer returns the same customer but with a valid id
-                _mainController.addService(oldService.getTitle(), newService);
+                _mainController.addService(newService);
             } else {
                 _mainController.updateService(oldService, newService);
             }
