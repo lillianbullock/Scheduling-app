@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import com.example.evans.R;
 import com.example.evans.data.Expense;
@@ -64,7 +65,7 @@ public class ExpenseAdapter extends ArrayAdapter<Expense> {
 
         if (_expenseList.get(position) != null) {
             viewHolder.title.setText(_expenseList.get(position).getName());
-            viewHolder.price.setText(_expenseList.get(position).getPrice().toString());
+            viewHolder.price.setText(String.format(Locale.US,"%1.2f", _expenseList.get(position).getPrice()));
             viewHolder.date.setText(formatter.print(_expenseList.get(position).getDateObject()));
         }
 

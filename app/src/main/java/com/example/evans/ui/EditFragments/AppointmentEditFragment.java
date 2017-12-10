@@ -173,7 +173,7 @@ public class AppointmentEditFragment extends Fragment
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                _servicePrice.setText("$0.00");
+                _servicePrice.setText(getString(R.string.default_money));
             }
         });
 

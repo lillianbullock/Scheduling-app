@@ -134,7 +134,7 @@ public class SaleEditFragment extends Fragment
                 _selectedService = currentService;
 
                 Double price = currentService.getPrice();
-                String finalPrice = getString(R.string.currency) + String.format(Locale.US,"%1.2f", price);
+                String finalPrice = String.format(Locale.US,"$%1.2f", price);
 
                 // display the price to the user
                 _servicePrice.setText(finalPrice);
@@ -142,7 +142,7 @@ public class SaleEditFragment extends Fragment
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                _servicePrice.setText("$0.00");
+                _servicePrice.setText(getString(R.string.default_money));
             }
         });
 
