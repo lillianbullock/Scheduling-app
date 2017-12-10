@@ -208,6 +208,39 @@ public class MainActivity extends AppCompatActivity implements
             }
         }
 
+    @Override
+    public void onListAppointments(Customer customer) {
+        final AppointmentListFragment frag = new AppointmentListFragment();
+        final List<Appointment> customerAppointments = new ArrayList<>();
+
+        // get the appointments for the selected customer
+        _mainController.getAppointmentsForCustomer(customer, new OnGetDataListener() {
+            @Override
+            public void onDataLoadStarted() { }
+
+            @Override
+            public void onDataLoadSucceed(DataSnapshot data) {
+                customerAppointments.clear();
+
+                for (DataSnapshot child: data.getChildren()){
+                    customerAppointments.add(child.getValue(Appointment.class));
+                }
+
+                frag.setAppointmentsList(customerAppointments);
+
+                _currentFragment = frag;
+                loadCurrentFragment(true);
+            }
+
+            @Override
+            public void onDataLoadFailed(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    @Override
+    public void onClickCustomer(Customer customer) {
         @Override
         public void onClickCustomer(Customer customer) {
             CustomerViewFragment _frag = new CustomerViewFragment();
@@ -681,7 +714,7 @@ public class MainActivity extends AppCompatActivity implements
             super.onBackPressed();
         }
     }
-        
+
     @Override
     public void onDateSet(LocalDate date) {
         Snackbar.make(findViewById(R.id.content_frame),
