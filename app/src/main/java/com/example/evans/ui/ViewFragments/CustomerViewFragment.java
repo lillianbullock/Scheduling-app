@@ -33,7 +33,7 @@ public class CustomerViewFragment extends Fragment {
 
     /**
      * sets the customer within the class
-     * @param customer
+     * @param customer customer to be displayed
      */
     public void setCustomer(Customer customer) { _customer = customer; }
 
