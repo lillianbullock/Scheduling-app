@@ -43,10 +43,14 @@ public class AppointmentListFragment extends Fragment implements OnGetDataListen
 
     private ProgressBar _progressBar;
     private ListView _appointmentListView;
-    private ArrayList<Appointment> _appointment = new ArrayList<>();
+    private ArrayList<Appointment> _appointmentList = new ArrayList<>();
     private AppointmentAdapter _appointmentAdapter;
 
     public AppointmentListFragment() { /* Required empty public constructor*/ }
+
+    public void setAppointmentsList(List<Appointment> customerAppointments) {
+        _appointmentList = (ArrayList) customerAppointments;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
@@ -61,7 +65,7 @@ public class AppointmentListFragment extends Fragment implements OnGetDataListen
 
         _appointmentListView = _rootView.findViewById(R.id.appointment_list);
 
-        _appointmentAdapter = new AppointmentAdapter(getActivity(), R.layout.appointment_adapter, _appointment);
+        _appointmentAdapter = new AppointmentAdapter(getActivity(), R.layout.appointment_adapter, _appointmentList);
 
         // Set the onClickListener for the floating button.
         _addFloatingBtn.setOnClickListener(new View.OnClickListener() {
@@ -94,10 +98,11 @@ public class AppointmentListFragment extends Fragment implements OnGetDataListen
     }
 
     private void loadAppointment(){
-        _mainController.getAllAppointments(this);
+        if (_appointmentList.isEmpty())
+            _mainController.getAllAppointments(this);
     }
 
-    public void setAppointment(List<Appointment> appointment){ _appointment.addAll(appointment); }
+    public void setAppointment(List<Appointment> appointment){ _appointmentList.addAll(appointment); }
 
     @Override
     public void onDataLoadStarted() {
@@ -107,11 +112,11 @@ public class AppointmentListFragment extends Fragment implements OnGetDataListen
     @Override
     public void onDataLoadSucceed(DataSnapshot dataSnapshot) {
 
-        _appointment.clear();
+        _appointmentList.clear();
 
         for(DataSnapshot child: dataSnapshot.getChildren()){
             Appointment appointment = child.getValue(Appointment.class);
-            _appointment.add(appointment);
+            _appointmentList.add(appointment);
         }
 
         _progressBar.setVisibility(ProgressBar.INVISIBLE);

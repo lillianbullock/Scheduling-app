@@ -20,9 +20,10 @@ import com.example.evans.data.Customer;
 public class CustomerViewFragment extends Fragment {
 
     private Customer _customer;
-    private FloatingActionButton _setAppointmentBtn;
-    private Button _backBtn;
-    private Button _editCustomerBtn;
+    private FloatingActionButton _setAppointmentBttn;
+    private Button _backBttn;
+    private Button _editCustomerBttn;
+    private Button _seeAllAppointmentsBttn;
 
     private InteractionWithCustomerViewFragmentListener _hostActivity;
 
@@ -46,9 +47,10 @@ public class CustomerViewFragment extends Fragment {
         TextView name = view.findViewById(R.id.txt_view_name);
         TextView email = view.findViewById(R.id.txt_view_email);
         TextView phone = view.findViewById(R.id.txt_view_phone);
-        _setAppointmentBtn = view.findViewById(R.id.customer_add_appointment_btn);
-        _backBtn = view.findViewById(R.id.btn_view_bar_back);
-        _editCustomerBtn = view.findViewById(R.id.btn_view_bar_edit);
+        _setAppointmentBttn = view.findViewById(R.id.customer_add_appointment_btn);
+        _backBttn = view.findViewById(R.id.btn_view_bar_back);
+        _editCustomerBttn = view.findViewById(R.id.btn_view_bar_edit);
+        _seeAllAppointmentsBttn = view.findViewById(R.id.bttn_see_all_appt);
 
 
         //sets views to the customer data
@@ -57,21 +59,28 @@ public class CustomerViewFragment extends Fragment {
         phone.setText(_customer.getPhone());
 
         // Take Customer that we have and Connect it to the edit for appointmentFragment
-        _setAppointmentBtn.setOnClickListener(new View.OnClickListener() {
+        _setAppointmentBttn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 _hostActivity.onSetAppointmentForCustomer(_customer);
             }
         });
 
-        _editCustomerBtn.setOnClickListener(new View.OnClickListener() {
+        _editCustomerBttn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 _hostActivity.onEditCustomer(_customer);
             }
         });
 
-        _backBtn.setOnClickListener(new View.OnClickListener() {
+        _seeAllAppointmentsBttn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                _hostActivity.onListAppointments(_customer);
+            }
+        });
+
+        _backBttn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 _hostActivity.onBackPressed();
@@ -117,5 +126,6 @@ public class CustomerViewFragment extends Fragment {
 
         void onSetAppointmentForCustomer(Customer customer);
         void onEditCustomer(Customer customer);
+        void onListAppointments(Customer customer);
     }
 }

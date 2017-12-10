@@ -90,5 +90,15 @@ public class AppointmentTest {
         //then makes sure they're the same
         assertEquals("string date getters and setters", nonDef1Appt.getTimeObject(), nonDef2Appt.getTimeObject());
 
+        nonDef1Appt.setId("idOfObject");
+        nonDef2Appt.setId("idOfObject2");
+        //they have different id's
+        assertFalse("equals should return false", nonDef1Appt.equals(nonDef2Appt));
+        assertFalse("different id should return different hash", nonDef1Appt.hashCode() == nonDef2Appt.hashCode());
+
+        nonDef2Appt.setId("idOfObject");
+        //they now have the same id
+        assertTrue("equals should return true", nonDef1Appt.equals(nonDef2Appt));
+        assertTrue("same id should return the same hash", nonDef1Appt.hashCode() == nonDef2Appt.hashCode());
     }
 }

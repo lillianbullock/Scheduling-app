@@ -35,6 +35,18 @@ public class ServiceTest {
         // testing compareTo
         assertTrue("should return a negative number", 0 > defaultService.compareTo(nonDefService));
         assertTrue("should return a positive number", 0 < nonDefService.compareTo(defaultService));
+
+        nonDefService.setId("idOfObject");
+        defaultService.setId("idOfObject2");
+        //they have different id's
+        assertFalse("equals should return false", nonDefService.equals(defaultService));
+        assertFalse("different id should return different hash", nonDefService.hashCode() == defaultService.hashCode());
+
+        defaultService.setId("idOfObject");
+        //they now have the same id
+        assertTrue("equals should return true", nonDefService.equals(defaultService));
+        assertTrue("same id should return the same hash", nonDefService.hashCode() == defaultService.hashCode());
+
     }
 }
 

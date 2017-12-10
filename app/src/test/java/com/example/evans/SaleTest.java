@@ -65,5 +65,16 @@ public class SaleTest {
         //then makes sure they're the same
         assertEquals("string date getters and setters", nonDef1Sale.getDateObject(), nonDef2Sale.getDateObject());
 
+        nonDef1Sale.setId("idOfObject");
+        nonDef2Sale.setId("idOfObject2");
+        //they have different id's
+        assertFalse("equals should return false", nonDef1Sale.equals(nonDef2Sale));
+        assertFalse("different id should return different hash", nonDef1Sale.hashCode() == nonDef2Sale.hashCode());
+
+        nonDef2Sale.setId("idOfObject");
+        //they now have the same id
+        assertTrue("equals should return true", nonDef1Sale.equals(nonDef2Sale));
+        assertTrue("same id should return the same hash", nonDef1Sale.hashCode() == nonDef2Sale.hashCode());
+
     }
 }

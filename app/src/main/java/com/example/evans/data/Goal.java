@@ -28,7 +28,6 @@ public class Goal implements Comparable {
         _description = "";
         _dueDate = LocalDate.now();
         _startDate = LocalDate.now();
-        _done = null;
         _done = false;
     }
 

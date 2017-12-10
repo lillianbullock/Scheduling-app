@@ -47,5 +47,15 @@ public class CustomerTest {
         //then makes sure they're the same
         assertEquals("string date getters and setters", nonDefCustomer.getDateAddedObject(), defaultCustomer.getDateAddedObject());
 
+        nonDefCustomer.setId("idOfObject");
+        defaultCustomer.setId("idOfObject2");
+        //they have different id's
+        assertFalse("equals should return false", nonDefCustomer.equals(defaultCustomer));
+        assertFalse("different id should return different hash", nonDefCustomer.hashCode() == defaultCustomer.hashCode());
+
+        defaultCustomer.setId("idOfObject");
+        //they now have the same id
+        assertTrue("equals should return true", nonDefCustomer.equals(defaultCustomer));
+        assertTrue("same id should return the same hash", nonDefCustomer.hashCode() == defaultCustomer.hashCode());
     }
 }
