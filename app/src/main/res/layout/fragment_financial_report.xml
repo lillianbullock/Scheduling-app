@@ -28,6 +28,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:ems="10"
+                android:clickable="true"
+                android:focusable="false"
                 android:hint="@string/fin_rep_start_date"
                 android:inputType="datetime"
                 app:layout_constraintEnd_toStartOf="@+id/etxt_fin_rep_end"
@@ -52,6 +54,17 @@
                 app:layout_constraintStart_toEndOf="@+id/etxt_fin_rep_start"
                 app:layout_constraintTop_toTopOf="parent" />
         </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/financial_report_progress_bar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <Button
             android:id="@+id/bttn_fin_rep_cancel"

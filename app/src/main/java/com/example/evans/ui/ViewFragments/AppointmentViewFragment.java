@@ -136,12 +136,6 @@ public class AppointmentViewFragment extends Fragment {
         _hostActivity.hideActionbar();
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        _hostActivity.showActionbar();
-    }
-
     /**
      * Ensures parent activity has implemented the InteractionWithAppointmentViewFragment interface.
      *
