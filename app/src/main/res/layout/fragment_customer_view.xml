@@ -67,7 +67,7 @@
             android:layout_marginTop="24dp"
             android:labelFor="@id/etxt_phone"
             android:text="@string/customer_phone"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toEndOf="@id/icon_phone"
             app:layout_constraintTop_toBottomOf="@+id/txt_view_name" />
@@ -90,7 +90,7 @@
             android:layout_marginTop="24dp"
             android:labelFor="@id/etxt_email"
             android:text="@string/customer_email"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toEndOf="@id/icon_email"
             app:layout_constraintTop_toBottomOf="@+id/txt_view_phone" />
