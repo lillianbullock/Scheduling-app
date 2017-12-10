@@ -57,5 +57,15 @@ public class ExpenseTest {
         //then makes sure they're the same
         assertEquals("string date getters and setters", nonDef1Expense.getDateObject(), nonDef2Expense.getDateObject());
 
+        nonDef1Expense.setId("idOfObject");
+        nonDef2Expense.setId("idOfObject2");
+        //they have different id's
+        assertFalse("equals should return false", nonDef1Expense.equals(nonDef2Expense));
+        assertFalse("different id should return different hash", nonDef1Expense.hashCode() == nonDef2Expense.hashCode());
+
+        nonDef2Expense.setId("idOfObject");
+        //they now have the same id
+        assertTrue("equals should return true", nonDef1Expense.equals(nonDef2Expense));
+        assertTrue("same id should return the same hash", nonDef1Expense.hashCode() == nonDef2Expense.hashCode());
     }
 }
