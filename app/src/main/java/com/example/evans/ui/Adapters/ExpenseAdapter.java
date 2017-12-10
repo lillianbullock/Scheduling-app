@@ -8,9 +8,13 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import com.example.evans.R;
 import com.example.evans.data.Expense;
+
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 /**
  * {@link ArrayAdapter<>} extension that displays the expense data in a list view
@@ -28,11 +32,6 @@ public class ExpenseAdapter extends ArrayAdapter<Expense> {
         TextView title;
         TextView price;
         TextView date;
-    }
-
-    @Override
-    public int getCount() {
-        return super.getCount();
     }
 
     @Override
@@ -62,10 +61,12 @@ public class ExpenseAdapter extends ArrayAdapter<Expense> {
 
         // set the values for the views if the current item in our list of services
         // is not null
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd, MMMM yyyy");
+
         if (_expenseList.get(position) != null) {
             viewHolder.title.setText(_expenseList.get(position).getName());
-            viewHolder.price.setText(_expenseList.get(position).getPrice().toString());
-            viewHolder.date.setText(_expenseList.get(position).getDate().toString());
+            viewHolder.price.setText(String.format(Locale.US,"%1.2f", _expenseList.get(position).getPrice()));
+            viewHolder.date.setText(formatter.print(_expenseList.get(position).getDateObject()));
         }
 
         return convertView;

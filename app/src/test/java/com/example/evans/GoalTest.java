@@ -1,7 +1,6 @@
 package com.example.evans;
 
 import com.example.evans.data.Goal;
-import com.example.evans.data.TimePeriod;
 
 import org.joda.time.LocalDate;
 import org.junit.Test;
@@ -30,7 +29,6 @@ public class GoalTest {
         String description1 = "This goal we want to do";
         LocalDate dueDate1 = new LocalDate(2018, 1, 5);
         LocalDate startDate1 = new LocalDate(2017, 7, 11);
-        TimePeriod repeatCycle1 = TimePeriod.Month;
 
         Goal nonDef1Goal = new Goal(title1, description1, dueDate1, startDate1);
         assertEquals("non-default goal id", "", nonDef1Goal.getId());

@@ -14,7 +14,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.example.evans.R;
 import com.example.evans.data.Sale;
@@ -135,7 +134,7 @@ public class SaleEditFragment extends Fragment
                 _selectedService = currentService;
 
                 Double price = currentService.getPrice();
-                String finalPrice = getString(R.string.currency) + String.format(Locale.US,"%1.2f", price);
+                String finalPrice = String.format(Locale.US,"$%1.2f", price);
 
                 // display the price to the user
                 _servicePrice.setText(finalPrice);
@@ -143,7 +142,7 @@ public class SaleEditFragment extends Fragment
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                _servicePrice.setText("$0.00");
+                _servicePrice.setText(getString(R.string.default_money));
             }
         });
 
@@ -174,7 +173,7 @@ public class SaleEditFragment extends Fragment
         if(_selectedDate == null) {return null;}
         if(_servicePrice == null) {return null;}
 
-        String date = _date.getText().toString();
+        //String date = _date.getText().toString();
 
         //removes all characters but numbers and periods
         _price = Double.parseDouble(_servicePrice.getText().toString().replaceAll("[^\\d.]+", ""));

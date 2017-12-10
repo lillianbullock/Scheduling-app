@@ -38,8 +38,6 @@ public class SaleListFragment extends Fragment implements OnGetDataListener {
     private ArrayList<Sale> _sale = new ArrayList<>();
     private SaleAdapter _saleAdapter;
 
-    private OnGetDataListener _onGetDataListener;
-
     public SaleListFragment(){
         //Required empty public construction
     }

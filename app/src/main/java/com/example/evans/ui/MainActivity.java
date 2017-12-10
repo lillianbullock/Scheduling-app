@@ -83,9 +83,6 @@ public class MainActivity extends AppCompatActivity implements
     private Toolbar _toolbar;
 
     private static final String TAG = "MainActivity";
-    private static final String APP_PREFS = "com.example.evans";
-    private static final String PREF_LAST_CUS_ID = "Last Used Customer ID";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,35 +96,9 @@ public class MainActivity extends AppCompatActivity implements
         /* Initialize your toolbar and navigation drawer*/
         initializeToolbarAndNavigationDrawer();
 
-        // load any saved data from the shared preference
-        loadSharedPreference();
-
         // Initialize and launch the start page fragment
         _currentFragment = new StartPageFragment();
         loadCurrentFragment(false);
-
-    }
-
-    /**
-     * Save our last assigned customer id
-     */
-    @Override
-    protected void onStop() {
-        super.onStop();
-        saveSharedPreference();
-    }
-
-    /**
-     * Load saved shared preference
-     */
-    private void loadSharedPreference() {
-
-    }
-
-    /**
-     * Save light data to shared preference
-     */
-    private void saveSharedPreference() {
 
     }
 
@@ -191,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements
             loadCurrentFragment(true);
 
         } else {
-            Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid sale from mainactivity", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid sale from main activity", Snackbar.LENGTH_LONG).show();
 
         }
     }
@@ -296,16 +267,10 @@ public class MainActivity extends AppCompatActivity implements
             loadCurrentFragment(true);
 
         } else {
-            Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid customer from mainactivity",
+            Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid customer from main activity",
                     Snackbar.LENGTH_LONG).show();
         }
     }
-
-    @Override
-    public void viewWithService(Service service) {
-
-    }
-
 
     /*---------- CUSTOMER ----------*/
     @Override
@@ -370,13 +335,6 @@ public class MainActivity extends AppCompatActivity implements
         loadCurrentFragment(true);
     }
 
-    @Override
-    public Customer getViewCustomer() {
-            return null;
-        }
-
-
-
     /*---------- GOAL ----------*/
     @Override
     public void onClickAddGoal() {
@@ -402,8 +360,7 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onSaveGoal(Goal goal) {
         if (goal != null){
-            GoalListFragment frag = new GoalListFragment();
-            _currentFragment = frag;
+            _currentFragment = new GoalListFragment();
             loadCurrentFragment(true);
 
         } else {
@@ -524,9 +481,7 @@ public class MainActivity extends AppCompatActivity implements
     /*---------- StartPage Fragment ----------*/
     @Override
     public void onClickGoalsSeeMore() {
-        GoalListFragment goalListFragment = new GoalListFragment();
-
-        _currentFragment = goalListFragment;
+        _currentFragment = new GoalListFragment();
         loadCurrentFragment(true);
 
     }
@@ -535,11 +490,6 @@ public class MainActivity extends AppCompatActivity implements
     public void onClickAppointmentsSeeMore() {
         _currentFragment = new AppointmentListFragment();
         loadCurrentFragment(true);
-    }
-
-    @Override
-    public void onClickGoal(Goal goal) {
-
     }
 
     @Override

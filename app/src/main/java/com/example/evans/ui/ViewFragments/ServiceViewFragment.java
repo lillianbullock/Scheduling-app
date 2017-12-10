@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.example.evans.R;
 import com.example.evans.data.Service;
 
+import java.util.Locale;
+
 public class ServiceViewFragment extends Fragment {
 
     private Service _service;
@@ -42,9 +44,8 @@ public class ServiceViewFragment extends Fragment {
 
         name.setText(_service.getTitle());
         detail.setText(_service.getDescription());
-        price.setText("$" + _service.getPrice().toString());
 
-        //TODO display the price text for service
+        price.setText(String.format(Locale.US,"$%1.2f", _service.getPrice()));
 
         _editServiceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,6 +91,5 @@ public class ServiceViewFragment extends Fragment {
         void onEditService(Service service);
         void hideActionbar();
         void onBackPressed();
-        void viewWithService(Service service);
     }
 }

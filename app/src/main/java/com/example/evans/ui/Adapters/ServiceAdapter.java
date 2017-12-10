@@ -35,12 +35,6 @@ public class ServiceAdapter extends ArrayAdapter<Service> {
         currency = context.getResources().getString(R.string.currency);
     }
 
-
-    @Override
-    public int getCount() {
-        return super.getCount();
-    }
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 

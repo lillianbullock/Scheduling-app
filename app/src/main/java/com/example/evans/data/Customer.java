@@ -6,8 +6,6 @@ import com.google.firebase.database.Exclude;
 
 import org.joda.time.LocalDate;
 
-import java.util.List;
-
 /**
  * Class to handle customer information
  */

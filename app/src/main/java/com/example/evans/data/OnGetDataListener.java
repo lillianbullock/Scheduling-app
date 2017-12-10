@@ -9,14 +9,6 @@ import com.google.firebase.database.DatabaseError;
  */
 
 public interface OnGetDataListener {
-    //strings are all static
-    String SERVICES = "Services";
-    String CUSTOMERS = "Customers";
-    String APPOINTMENTS = "Appointments";
-    String GOALS = "Goals";
-    String SALES = "Sales";
-    String EXPENSES = "Expenses";
-
     //interface functions are public
     void onDataLoadStarted();
     void onDataLoadSucceed(DataSnapshot dataSnapshot);

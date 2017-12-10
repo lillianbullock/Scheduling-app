@@ -35,11 +35,6 @@ public class AppointmentAdapter extends ArrayAdapter<Appointment> {
     }
 
     @Override
-    public int getCount() {
-        return super.getCount();
-    }
-
-    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if(convertView==null){
             // inflate the layout

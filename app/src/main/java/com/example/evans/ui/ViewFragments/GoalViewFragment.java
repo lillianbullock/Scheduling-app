@@ -122,7 +122,6 @@ public class GoalViewFragment extends Fragment {
         void onBackPressed();
         void onEditGoal(Goal goal);
         void onSaveGoal(Goal goal);
-        void viewWithGoal(Goal goal);
     }
 
 }
