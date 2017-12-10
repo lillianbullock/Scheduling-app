@@ -119,7 +119,7 @@ public class AppointmentListFragment extends Fragment implements OnGetDataListen
 
         for(DataSnapshot child: dataSnapshot.getChildren()){
             Appointment appointment = child.getValue(Appointment.class);
-            Customer customer = child.getValue(Customer.class);
+            //Customer customer = child.getValue(Customer.class);
             _appointment.add(appointment);
         }
 

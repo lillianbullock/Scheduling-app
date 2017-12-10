@@ -75,7 +75,7 @@ public class AppointmentEditFragment extends Fragment
     private static final int TIME_DIALOG = 2;
 
     private OnSubmitAppointment _hostActivity;
-    private MainController _mainController = MainController.getInstance();;
+    private MainController _mainController = MainController.getInstance();
 
     public AppointmentEditFragment() {
         // Required empty public constructor
@@ -340,7 +340,7 @@ public class AppointmentEditFragment extends Fragment
     }
 
 
-    /******* INTERFACE ******/
+    /*---------- INTERFACE ----------*/
     /**
      * This interface must be implemented by the container Activity
      * This is how we'll be able to communicate with the parent activity.

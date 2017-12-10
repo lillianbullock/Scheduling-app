@@ -18,7 +18,7 @@ public class ServiceTest {
         Service defaultService = new Service();
         assertEquals("default Service id", "", defaultService.getId());
         assertEquals("default Service title", "", defaultService.getTitle());
-        assertEquals("default service descrption", "", defaultService.getDescription());
+        assertEquals("default service description", "", defaultService.getDescription());
         assertEquals("default Service price", 0.0, defaultService.getPrice(), 0.00);
 
         // first non-default constructor

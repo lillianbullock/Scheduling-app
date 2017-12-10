@@ -59,7 +59,7 @@ public class ServiceListFragment extends Fragment {
 
         super.onCreate(savedInstanceState);
 
-        _listViewService = (ListView) _rootView.findViewById(R.id.service_list);
+        _listViewService = _rootView.findViewById(R.id.service_list);
         _listViewService.setAdapter(_serviceAdapter);
 
         // Set the onClickListener for the floating button.
@@ -69,7 +69,7 @@ public class ServiceListFragment extends Fragment {
                 onCreateService();
             }
         });
-        _listViewService = (ListView) _rootView.findViewById(R.id.service_list);
+        _listViewService = _rootView.findViewById(R.id.service_list);
 
 
         _listViewService.setOnItemClickListener(new AdapterView.OnItemClickListener() {

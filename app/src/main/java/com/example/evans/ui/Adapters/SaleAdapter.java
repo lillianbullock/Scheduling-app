@@ -1,6 +1,7 @@
 package com.example.evans.ui.Adapters;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,11 @@ import android.widget.TextView;
 import com.example.evans.R;
 import com.example.evans.data.Sale;
 
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * {@link ArrayAdapter<>} extension that displays the sales data in a list view
@@ -57,11 +62,11 @@ public class SaleAdapter extends ArrayAdapter<Sale> {
         }else{
             _viewHolder = (SaleViewHolder) convertView.getTag();
         }
-
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd, MMMM yyyy");
         if(_salesList.get(position) != null) {
             _viewHolder.service.setText(_salesList.get(position).getService().getTitle());
-            _viewHolder.price.setText(_salesList.get(position).getPrice().toString());
-            _viewHolder.date.setText(_salesList.get(position).getDate().toString());
+            _viewHolder.price.setText(String.format(Locale.US,"%1.2f", _salesList.get(position).getPrice()));
+            _viewHolder.date.setText(formatter.print(_salesList.get(position).getDateObject()));
         }
 
         return convertView;

@@ -138,8 +138,6 @@ public class GoalEditFragment extends Fragment
         LocalDate goalEnd   = _selectedEndDate;
         String goalDescription = _goalDescription.getText().toString();
 
-        TimePeriod repeatCycle = TimePeriod.Month;
-
         if(!goalName.isEmpty()) {
             goal = new Goal(goalName, goalDescription, goalEnd, goalStart);
         }

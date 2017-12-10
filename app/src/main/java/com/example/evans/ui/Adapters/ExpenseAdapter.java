@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import com.example.evans.R;
 import com.example.evans.data.Expense;
 
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 /**
  * {@link ArrayAdapter<>} extension that displays the expense data in a list view
  */
@@ -62,10 +65,12 @@ public class ExpenseAdapter extends ArrayAdapter<Expense> {
 
         // set the values for the views if the current item in our list of services
         // is not null
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd, MMMM yyyy");
+
         if (_expenseList.get(position) != null) {
             viewHolder.title.setText(_expenseList.get(position).getName());
             viewHolder.price.setText(_expenseList.get(position).getPrice().toString());
-            viewHolder.date.setText(_expenseList.get(position).getDate().toString());
+            viewHolder.date.setText(formatter.print(_expenseList.get(position).getDateObject()));
         }
 
         return convertView;

@@ -18,6 +18,8 @@ import com.example.evans.R;
 import com.example.evans.data.Service;
 import com.example.evans.ui.KeyboardControl;
 
+import java.util.Locale;
+
 
 /**
  * {@link Fragment} subclass to edit service data.
@@ -109,13 +111,11 @@ public class ServiceEditFragment extends Fragment {
             return null;
         }
 
-        Service newService = null;
-
         String title = _title.getText().toString();
         String description = _description.getText().toString();
         double price = convertPriceStringToDouble(_price.getText().toString().replaceAll("[^\\d.]+", ""));
 
-        newService = new Service(title, description, price);
+        Service newService = new Service(title, description, price);
 
         return newService;
 
@@ -135,7 +135,7 @@ public class ServiceEditFragment extends Fragment {
 
         if (_selectedService != null) {
             _title.setText(_selectedService.getTitle());
-            _price.setText(_selectedService.getPrice().toString());
+            _price.setText(String.format(Locale.US,"%1.2f", _selectedService.getPrice()));
             _description.setText(_selectedService.getDescription());
         }
     }

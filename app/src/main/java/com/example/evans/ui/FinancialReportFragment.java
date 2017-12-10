@@ -20,6 +20,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import java.util.List;
+import java.util.Locale;
 
 import com.example.evans.data.Appointment;
 import com.example.evans.data.FirebaseManager;
@@ -154,9 +155,13 @@ public class FinancialReportFragment extends Fragment
 
                     double netProfit = _profitTotal - _costTotal;
 
-                    _profit.setText(Double.toString(_profitTotal));
+                    _profit.setText(String.format(Locale.US,"$%1.2f", _profitTotal));
+                    _cost.setText(String.format(Locale.US,"$%1.2f", _costTotal));
+                    _net.setText(String.format(Locale.US,"$%1.2f", netProfit));
+
+                    /*_profit.setText(Double.toString(_profitTotal));
                     _cost.setText(Double.toString(_costTotal));
-                    _net.setText(Double.toString(netProfit));
+                    _net.setText(Double.toString(netProfit));*/
 
                 } else {
                     Snackbar.make(getActivity().findViewById(R.id.content_frame), "ERROR: End date cannot be before the begin date", Snackbar.LENGTH_SHORT).show();

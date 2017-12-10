@@ -280,15 +280,7 @@ public class MainController {
      * @return the newCustomer if update was successful, null otherwise
      */
     public Customer updateCustomer(Customer oldCustomer, Customer newCustomer) {
-        int oldCustomerIndex = -1;//  = _customers.indexOf(oldCustomer);
-
-        /*for (Customer customer: _customers){
-            if (customer.getId().equals(oldCustomer.getId())){
-                oldCustomerIndex = _customers.indexOf(customer);
-            }
-        }*/
-
-        oldCustomerIndex = _customers.indexOf(oldCustomer);
+        int oldCustomerIndex = _customers.indexOf(oldCustomer);
 
         if (oldCustomerIndex < 0) {
             Log.e(TAG, "updateCustomer: couldn't find old customer");

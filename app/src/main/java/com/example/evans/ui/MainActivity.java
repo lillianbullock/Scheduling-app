@@ -191,7 +191,7 @@ public class MainActivity extends AppCompatActivity implements
             loadCurrentFragment(true);
 
         } else {
-            Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid sale from mainactivity", Snackbar.LENGTH_LONG).show();
+            Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid sale from main activity", Snackbar.LENGTH_LONG).show();
 
         }
     }
@@ -296,7 +296,7 @@ public class MainActivity extends AppCompatActivity implements
             loadCurrentFragment(true);
 
         } else {
-            Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid customer from mainactivity",
+            Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid customer from main activity",
                     Snackbar.LENGTH_LONG).show();
         }
     }

@@ -22,6 +22,8 @@ import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.util.Locale;
+
 /**
  * {@link Fragment} subclass to view appointment data.
  */
@@ -93,8 +95,7 @@ public class AppointmentViewFragment extends Fragment {
         email.setText(_customer.getEmail());
         phone.setText(_customer.getPhone());
 
-
-        price.setText("$" + Double.toString(_appointment.getService().getPrice()));
+        price.setText(String.format(Locale.US,"$%1.2f", _appointment.getService().getPrice()));
 
         DateTimeFormatter formatter = DateTimeFormat.forPattern("dd, MMMM yyyy");
         date.setText(formatter.print(_appointment.getDateObject()));
