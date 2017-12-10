@@ -301,6 +301,7 @@ public class MainActivity extends AppCompatActivity implements
         final AppointmentListFragment frag = new AppointmentListFragment();
         final List<Appointment> customerAppointments = new ArrayList<>();
 
+        // get the appointments for the selected customer
         _mainController.getAppointmentsForCustomer(customer, new OnGetDataListener() {
             @Override
             public void onDataLoadStarted() { }
