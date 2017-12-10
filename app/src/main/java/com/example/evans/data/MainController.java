@@ -66,9 +66,15 @@ public class MainController {
     private MainController() {
 
         _firebaseManager = new FirebaseManager();
-        populateServices();
+
+        // we're keeping a local copy of the data on Firebase for now
+        // this may change
+        loadAllServices();
         loadAllAppointments();
         loadAllCustomers();
+        loadAllGoals();
+        loadAllExpenses();
+        loadAllSales();
     }
 
 
@@ -76,7 +82,7 @@ public class MainController {
      * This function will get populate our map of services with some
      * previously stored services. Pull from the cloud or device memory
      */
-    private void populateServices() {
+    private void loadAllServices() {
         _firebaseManager.getServices(new OnGetDataListener() {
             @Override
             public void onDataLoadStarted() { }
@@ -137,6 +143,69 @@ public class MainController {
             @Override
             public void onDataLoadFailed(DatabaseError databaseError) {
                 Log.w(TAG, "Unable to load all customers from Firebase");
+            }
+        });
+    }
+
+    private void loadAllGoals() {
+        _firebaseManager.getAllGoals(new OnGetDataListener() {
+            @Override
+            public void onDataLoadStarted() {
+
+            }
+
+            @Override
+            public void onDataLoadSucceed(DataSnapshot dataSnapshot) {
+                for (DataSnapshot child: dataSnapshot.getChildren()){
+                    _goals.add(child.getValue(Goal.class));
+                }
+            }
+
+            @Override
+            public void onDataLoadFailed(DatabaseError databaseError) {
+                Log.w(TAG, "Unable to load all goals from Firebase");
+            }
+        });
+    }
+
+    private void loadAllExpenses() {
+        _firebaseManager.getAllExpenses(new OnGetDataListener() {
+            @Override
+            public void onDataLoadStarted() {
+
+            }
+
+            @Override
+            public void onDataLoadSucceed(DataSnapshot dataSnapshot) {
+                for (DataSnapshot child: dataSnapshot.getChildren()){
+                    _expenses.add(child.getValue(Expense.class));
+                }
+            }
+
+            @Override
+            public void onDataLoadFailed(DatabaseError databaseError) {
+                Log.w(TAG, "Unable to load all expenses from Firebase");
+            }
+        });
+    }
+
+    private void loadAllSales() {
+        _firebaseManager.getAllSales(new OnGetDataListener() {
+            @Override
+            public void onDataLoadStarted() {
+
+            }
+
+            @Override
+            public void onDataLoadSucceed(DataSnapshot dataSnapshot) {
+                for (DataSnapshot child: dataSnapshot.getChildren()){
+                    _allSales.add(child.getValue(Sale.class));
+                }
+            }
+
+            @Override
+            public void onDataLoadFailed(DatabaseError databaseError) {
+                Log.w(TAG, "Unable to load all sales from Firebase");
             }
         });
     }

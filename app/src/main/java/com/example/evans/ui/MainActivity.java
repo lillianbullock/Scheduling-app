@@ -264,7 +264,7 @@ public class MainActivity extends AppCompatActivity implements
             ServiceEditFragment frag = new ServiceEditFragment();
             frag.setExistingService(service);
             _currentFragment = frag;
-            loadCurrentFragment(true);
+            loadCurrentFragment(false);
 
         } else {
             Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid customer from main activity",
@@ -280,7 +280,7 @@ public class MainActivity extends AppCompatActivity implements
             CustomerEditFragment frag = new CustomerEditFragment();
             frag.setExistingCustomer(customer);
             _currentFragment = frag;
-            loadCurrentFragment(true);
+            loadCurrentFragment(false);
 
         } else {
             Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid customer from mainActivity",
@@ -348,7 +348,7 @@ public class MainActivity extends AppCompatActivity implements
             GoalEditFragment frag = new GoalEditFragment();
             frag.setExistingGoal(goal);
             _currentFragment = frag;
-            loadCurrentFragment(true);
+            loadCurrentFragment(false);
 
         } else {
             Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid Goal from mainActivity",
