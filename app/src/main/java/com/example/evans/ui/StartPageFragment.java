@@ -46,8 +46,6 @@ public class StartPageFragment extends Fragment implements OnGetDataListener {
     private ArrayList<Appointment> _appointment = new ArrayList<>();
     private ArrayList<Goal> _goals = new ArrayList<>();
 
-    private OnGetDataListener _onGetDataListener;
-
     public StartPageFragment() {
         // Required empty public constructor
     }
@@ -182,7 +180,5 @@ public class StartPageFragment extends Fragment implements OnGetDataListener {
         void setAppbarTitle(String title);
         void onClickGoalsSeeMore();
         void onClickAppointmentsSeeMore();
-        void onClickAppointment(Appointment appointment);
-        void onClickGoal(Goal goal);
     }
 }

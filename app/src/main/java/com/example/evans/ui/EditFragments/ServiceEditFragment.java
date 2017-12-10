@@ -2,15 +2,12 @@ package com.example.evans.ui.EditFragments;
 
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -34,9 +31,6 @@ public class ServiceEditFragment extends Fragment {
 
     private Button _saveBtn;
     private Button _cancelBtn;
-
-    // for closing the keyboard
-    private static final int DONE = EditorInfo.IME_ACTION_DONE;
 
     // define a new instance of OnSubmitServiceEdit that would hold an instance of the host activity and will
     // be able to call the methods that we've demanded to be created
@@ -95,7 +89,7 @@ public class ServiceEditFragment extends Fragment {
     }
 
 
-    private void closeKeyboard() {
+    /*private void closeKeyboard() {
 
         try {
             InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -103,7 +97,7 @@ public class ServiceEditFragment extends Fragment {
         } catch (Exception e) {
             // Do nothing
         }
-    }
+    }*/
 
     private Service createService() {
 
@@ -115,10 +109,7 @@ public class ServiceEditFragment extends Fragment {
         String description = _description.getText().toString();
         double price = convertPriceStringToDouble(_price.getText().toString().replaceAll("[^\\d.]+", ""));
 
-        Service newService = new Service(title, description, price);
-
-        return newService;
-
+        return new Service(title, description, price);
     }
 
     /**

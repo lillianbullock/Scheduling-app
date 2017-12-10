@@ -1,7 +1,6 @@
 package com.example.evans.ui.Adapters;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,11 +36,6 @@ public class SaleAdapter extends ArrayAdapter<Sale> {
         super(context, textViewResourceId, objects);
         //Set arrayList to something that is not null
         _salesList = objects;
-    }
-
-    @Override
-    public int getCount() {
-        return super.getCount();
     }
 
     @Override

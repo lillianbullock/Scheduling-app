@@ -91,6 +91,5 @@ public class ServiceViewFragment extends Fragment {
         void onEditService(Service service);
         void hideActionbar();
         void onBackPressed();
-        void viewWithService(Service service);
     }
 }

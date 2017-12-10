@@ -34,11 +34,6 @@ public class ExpenseAdapter extends ArrayAdapter<Expense> {
     }
 
     @Override
-    public int getCount() {
-        return super.getCount();
-    }
-
-    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
         ViewHolder viewHolder;

@@ -7,7 +7,6 @@ import com.google.firebase.database.DatabaseError;
 
 import org.joda.time.LocalDate;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -308,7 +307,6 @@ public class MainController {
         _firebaseManager.updateAppointment(oldAppointment, newAppointment);
 
         return newAppointment;
-
     }
 
     public Sale updateSale(Sale oldSale, Sale newSale) {

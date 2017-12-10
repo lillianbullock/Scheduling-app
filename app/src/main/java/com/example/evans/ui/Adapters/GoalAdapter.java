@@ -1,7 +1,6 @@
 package com.example.evans.ui.Adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,11 +35,6 @@ public class GoalAdapter extends ArrayAdapter<Goal> {
 
     public GoalAdapter(Context context, int textViewResourceId){
         super(context, textViewResourceId);
-    }
-
-    @Override
-    public int getCount() {
-        return super.getCount();
     }
 
     @Override

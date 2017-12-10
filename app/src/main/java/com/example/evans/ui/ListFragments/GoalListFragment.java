@@ -35,7 +35,6 @@ public class GoalListFragment  extends Fragment implements OnGetDataListener {
     ListView _goalListView;
     private ProgressBar _progressBar;
     private GoalAdapter _goalArrayAdapter;
-    private OnGetDataListener _onGetDataListener;
     private static final String TITLE = "Goals";
 
 

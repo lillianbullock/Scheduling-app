@@ -1,19 +1,16 @@
 package com.example.evans.ui;
 
-import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
-
-import com.example.evans.R;
 
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
@@ -23,16 +20,15 @@ import java.util.List;
 import java.util.Locale;
 
 import com.example.evans.data.Appointment;
-import com.example.evans.data.FirebaseManager;
 import com.example.evans.data.MainController;
 import com.example.evans.data.OnGetDataListener;
 import com.example.evans.data.Sale;
 import com.example.evans.data.Expense;
 import com.example.evans.ui.DialogFragements.DatePickerFragment;
+import com.example.evans.R;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.Exclude;
-
 
 /**
  * {@link Fragment} subclass that creates a financial report.

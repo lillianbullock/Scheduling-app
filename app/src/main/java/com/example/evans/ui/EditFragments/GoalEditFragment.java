@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import com.example.evans.R;
 import com.example.evans.data.Goal;
-import com.example.evans.data.TimePeriod;
 import com.example.evans.ui.DialogFragements.DatePickerFragment;
 import com.example.evans.ui.KeyboardControl;
 

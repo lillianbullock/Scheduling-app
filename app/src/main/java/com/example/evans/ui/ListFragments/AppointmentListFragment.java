@@ -15,17 +15,11 @@ import android.widget.ProgressBar;
 
 import com.example.evans.R;
 import com.example.evans.data.Appointment;
-import com.example.evans.data.Customer;
-import com.example.evans.data.FirebaseManager;
 import com.example.evans.data.MainController;
 import com.example.evans.data.OnGetDataListener;
-import com.example.evans.data.Service;
 import com.example.evans.ui.Adapters.AppointmentAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-
-import org.joda.time.LocalDate;
-import org.joda.time.LocalTime;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,8 +45,6 @@ public class AppointmentListFragment extends Fragment implements OnGetDataListen
     private ListView _appointmentListView;
     private ArrayList<Appointment> _appointment = new ArrayList<>();
     private AppointmentAdapter _appointmentAdapter;
-
-    private OnGetDataListener _onGetDataListener;
 
     public AppointmentListFragment() { /* Required empty public constructor*/ }
 
@@ -119,7 +111,6 @@ public class AppointmentListFragment extends Fragment implements OnGetDataListen
 
         for(DataSnapshot child: dataSnapshot.getChildren()){
             Appointment appointment = child.getValue(Appointment.class);
-            //Customer customer = child.getValue(Customer.class);
             _appointment.add(appointment);
         }
 

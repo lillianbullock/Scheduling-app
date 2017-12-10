@@ -12,10 +12,7 @@ import com.google.firebase.database.ValueEventListener;
 import org.joda.time.LocalDate;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * Manages our connection with Google Firebase. Handles create, update and delete operations.

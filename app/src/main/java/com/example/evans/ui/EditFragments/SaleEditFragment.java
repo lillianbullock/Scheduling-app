@@ -14,7 +14,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.example.evans.R;
 import com.example.evans.data.Sale;
@@ -174,7 +173,7 @@ public class SaleEditFragment extends Fragment
         if(_selectedDate == null) {return null;}
         if(_servicePrice == null) {return null;}
 
-        String date = _date.getText().toString();
+        //String date = _date.getText().toString();
 
         //removes all characters but numbers and periods
         _price = Double.parseDouble(_servicePrice.getText().toString().replaceAll("[^\\d.]+", ""));
