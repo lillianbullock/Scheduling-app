@@ -139,7 +139,9 @@ public class SaleEditFragment extends Fragment
                 String finalPrice = String.format(Locale.US,"$%1.2f", price);
 
                 // display the price to the user
-                //_servicePrice.setText(finalPrice);
+                if(_servicePrice == null){
+                    _servicePrice.setText(finalPrice);
+                }
             }
 
             @Override
@@ -166,13 +168,11 @@ public class SaleEditFragment extends Fragment
 
     private void initializeSaleDetails(){
         if(_selectedSale != null){
-            //String finalPrice = String.format(Locale.US,"$%1.2f", _selectedSale.getPrice().toString());
-            _servicePrice.setText(_selectedSale.getPrice().toString());
-
             onDateSet(_selectedSale.getDateObject());
 
             if (_selectedSale.getService() != null){
                 _serviceSpinner.setSelection(_adapter.getPosition(_selectedSale.getService().getTitle()));
+                _servicePrice.setText(_selectedSale.getPrice().toString());
             }
 
         }
