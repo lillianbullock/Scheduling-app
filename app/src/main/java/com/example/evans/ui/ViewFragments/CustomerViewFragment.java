@@ -122,7 +122,6 @@ public class CustomerViewFragment extends Fragment {
      */
     public interface InteractionWithCustomerViewFragmentListener{
         void hideActionbar();
-        void showActionbar();
         void onBackPressed();
 
         void onSetAppointmentForCustomer(Customer customer);

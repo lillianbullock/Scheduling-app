@@ -11,11 +11,13 @@ import android.view.ViewGroup;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -44,6 +46,11 @@ public class FinancialReportFragment extends Fragment
     private EditText _startDate;
     private EditText _endDate;
     private Button   _bttnCalculate;
+    ProgressBar _progressBar;
+
+    private boolean _expensesLoaded = false;
+    private boolean _salesLoaded = false;
+    private boolean _appointmentsLoaded = false;
 
     private List<Expense> _expenses;
     private List<Sale> _sales;
@@ -79,6 +86,7 @@ public class FinancialReportFragment extends Fragment
         _startDate      = rootView.findViewById(R.id.etxt_fin_rep_start);
         _endDate        = rootView.findViewById(R.id.etxt_fin_rep_end);
         _bttnCalculate  = rootView.findViewById(R.id.bttn_fin_rep_cancel);
+        _progressBar    = rootView.findViewById(R.id.financial_report_progress_bar);
         _mainController = MainController.getInstance();
 
         _formatter = DateTimeFormat.forPattern("dd, MMMM yyyy");
@@ -115,72 +123,86 @@ public class FinancialReportFragment extends Fragment
             @Override
             public void onClick(View view) {
 
-                //TODO check if start date is before end date
-                if (_selectedStartDate.isBefore(_selectedEndDate)){
+                if (_selectedEndDate != null && _selectedEndDate != null){
 
                     loadExpenses();
                     loadSales();
                     loadAppointments();
-
-                    _costTotal = 0.0;
-                    _profitTotal = 0.0;
-
-                    if (_expenses != null) {
-                        for (Expense element : _expenses) {
-                            _costTotal += element.getReport();
-                        }
-                    } else {
-                        Log.w(TAG, "expenses list returned from database is null");
-                    }
-
-                    if (_sales != null) {
-                        for (Sale element : _sales) {
-                            _profitTotal += element.getReport();
-                        }
-                    } else {
-                        Log.w(TAG, "sales list returned from database is null");
-                    }
-
-                    if (_appointments != null) {
-                        for (Appointment element : _appointments) {
-                            _profitTotal += element.getReport();
-                        }
-                    } else {
-                        Log.w(TAG, "appointment list returned from database is null");
-                    }
-
-                    double netProfit = _profitTotal - _costTotal;
-
-                    _profit.setText(String.format(Locale.US,"$%1.2f", _profitTotal));
-                    _cost.setText(String.format(Locale.US,"$%1.2f", _costTotal));
-                    _net.setText(String.format(Locale.US,"$%1.2f", netProfit));
-
-                    /*_profit.setText(Double.toString(_profitTotal));
-                    _cost.setText(Double.toString(_costTotal));
-                    _net.setText(Double.toString(netProfit));*/
-
                 } else {
-                    Snackbar.make(getActivity().findViewById(R.id.content_frame), "ERROR: End date cannot be before the begin date", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(getActivity().findViewById(R.id.content_frame), "ERROR: Please select both start and end date", Snackbar.LENGTH_SHORT).show();
                 }
-
             }
         });
 
         return rootView;
     }
 
+    private void calculateFinancialData() {
+
+        //TODO check if start date is before end date
+        if (_selectedStartDate.isBefore(_selectedEndDate)){
+
+            _costTotal = 0.0;
+            _profitTotal = 0.0;
+
+            if (_expenses != null) {
+                for (Expense element : _expenses) {
+                    _costTotal += element.getReport();
+                }
+            } else {
+                Log.w(TAG, "expenses list returned from database is null");
+            }
+
+            if (_sales != null) {
+                for (Sale element : _sales) {
+                    _profitTotal += element.getReport();
+                }
+            } else {
+                Log.w(TAG, "sales list returned from database is null");
+            }
+
+            if (_appointments != null) {
+                for (Appointment element : _appointments) {
+                    _profitTotal += element.getReport();
+                }
+            } else {
+                Log.w(TAG, "appointment list returned from database is null");
+            }
+
+            double netProfit = _profitTotal - _costTotal;
+
+            _profit.setText(String.format(Locale.US,"$%1.2f", _profitTotal));
+            _cost.setText(String.format(Locale.US,"$%1.2f", _costTotal));
+            _net.setText(String.format(Locale.US,"$%1.2f", netProfit));
+
+
+        } else {
+            Snackbar.make(getActivity().findViewById(R.id.content_frame), "ERROR: End date cannot be before the begin date", Snackbar.LENGTH_SHORT).show();
+        }
+
+    }
+
+
     private void loadSales() {
 
         _mainController.getSalesBetween(_selectedStartDate, _selectedEndDate, new OnGetDataListener() {
             @Override
             public void onDataLoadStarted() {
-
+                _sales = new ArrayList<>();
+                _salesLoaded = false;
+                _progressBar.setVisibility(ProgressBar.VISIBLE);
             }
 
             @Override
             public void onDataLoadSucceed(DataSnapshot dataSnapshot) {
                 for (DataSnapshot child: dataSnapshot.getChildren()){
                     _sales.add(child.getValue(Sale.class));
+                }
+                _salesLoaded = true;
+                _progressBar.setVisibility(ProgressBar.INVISIBLE);
+
+                if (_appointmentsLoaded && _expensesLoaded){
+                    calculateFinancialData();
                 }
             }
 
@@ -199,13 +221,21 @@ public class FinancialReportFragment extends Fragment
         _mainController.getSalesBetween(_selectedStartDate, _selectedEndDate, new OnGetDataListener() {
             @Override
             public void onDataLoadStarted() {
-
+                _appointments = new ArrayList<>();
+                _appointmentsLoaded = false;
+                _progressBar.setVisibility(ProgressBar.VISIBLE);
             }
 
             @Override
             public void onDataLoadSucceed(DataSnapshot dataSnapshot) {
                 for (DataSnapshot child: dataSnapshot.getChildren()){
                     _appointments.add(child.getValue(Appointment.class));
+                }
+                _appointmentsLoaded = true;
+                _progressBar.setVisibility(ProgressBar.INVISIBLE);
+
+                if (_salesLoaded && _expensesLoaded){
+                    calculateFinancialData();
                 }
             }
 
@@ -226,13 +256,21 @@ public class FinancialReportFragment extends Fragment
         _mainController.getExpensesBetween(_selectedStartDate, _selectedEndDate, new OnGetDataListener() {
             @Override
             public void onDataLoadStarted() {
-
+                _expenses = new ArrayList<>();
+                _expensesLoaded = false;
+                _progressBar.setVisibility(ProgressBar.VISIBLE);
             }
 
             @Override
             public void onDataLoadSucceed(DataSnapshot dataSnapshot) {
                 for (DataSnapshot child: dataSnapshot.getChildren()){
                     _expenses.add(child.getValue(Expense.class));
+                }
+                _expensesLoaded = false;
+                _progressBar.setVisibility(ProgressBar.INVISIBLE);
+
+                if (_appointmentsLoaded && _salesLoaded){
+                    calculateFinancialData();
                 }
             }
 

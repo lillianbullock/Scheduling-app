@@ -395,6 +395,21 @@ public class MainController {
         return newAppointment;
     }
 
+    public Appointment updateAppointment(Appointment newAppointment) {
+
+        if (newAppointment == null) {
+            return  null;
+        }
+        int index = _appointments.indexOf(newAppointment);
+
+        String id = newAppointment.getId();
+        _appointments.set(index, newAppointment);
+
+        _firebaseManager.updateAppointment(newAppointment);
+
+        return newAppointment;
+    }
+
     public Sale updateSale(Sale oldSale, Sale newSale) {
 
         int oldSaleIndex = _allSales.indexOf(oldSale);

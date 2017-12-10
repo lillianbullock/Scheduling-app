@@ -516,6 +516,31 @@ public class MainActivity extends AppCompatActivity implements
             getSupportActionBar().show();
         }
 
+    /**
+    * Override onBackPress so that we can go back to the previous fragment if we added it
+    * to the back stack.
+    */
+    @Override
+    public void onAppointmentBackPressed(Appointment appointment) {
+
+        if (_drawerLayout.isDrawerOpen(GravityCompat.START)
+                && getFragmentManager().getBackStackEntryCount() > 0){
+
+            _drawerLayout.closeDrawer(GravityCompat.START);
+        }
+
+        // I'm pretty sure we don't want to pop off an empty backStack!
+        if (getFragmentManager().getBackStackEntryCount() > 0) {
+            removeCurrentFragment();
+            getFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+        }
+
+        _mainController.updateAppointment(appointment);
+    }
+
+
     /*---------- StartPage Fragment ----------*/
     @Override
     public void onClickGoalsSeeMore() {

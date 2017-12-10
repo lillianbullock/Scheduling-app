@@ -3,6 +3,7 @@ package com.example.evans.ui.ViewFragments;
 import android.app.Activity;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.evans.R;
 import com.example.evans.data.Appointment;
@@ -34,6 +36,7 @@ public class AppointmentViewFragment extends Fragment {
 
     private Button _backAppointmentBtn;
     private Button _editAppointmentBtn;
+    private CheckBox _checkAppointmentBox;
 
     private InteractionWithAppointmentViewFragmentListener _hostActivity;
     private MainController _mainController;
@@ -77,8 +80,8 @@ public class AppointmentViewFragment extends Fragment {
         TextView price = view.findViewById(R.id.txt_appointment_view_price);
         TextView date = view.findViewById(R.id.txt_appointment_view_date);
         TextView time = view.findViewById(R.id.txt_appointment_view_time);
-        CheckBox showedUp = view.findViewById(R.id.chk_showed_up);
 
+        _checkAppointmentBox = view.findViewById(R.id.chk_showed_up);
         _backAppointmentBtn = view.findViewById(R.id.btn_view_bar_back);
         _editAppointmentBtn = view.findViewById(R.id.btn_view_bar_edit);
 
@@ -99,14 +102,12 @@ public class AppointmentViewFragment extends Fragment {
 
         DateTimeFormatter formatter = DateTimeFormat.forPattern("dd, MMMM yyyy");
         date.setText(formatter.print(_appointment.getDateObject()));
-        //date.setText(_appointment.getDate());
 
         DateTimeFormatter timeFormatter = DateTimeFormat.shortTime();
         time.setText(timeFormatter.print(_appointment.getTimeObject()));
-        //time.setText(_appointment.getTime());
 
-        if (_appointment.isAttended() != null)
-            showedUp.setChecked(_appointment.isAttended());
+        if (_appointment.isAttended() != false)
+            _checkAppointmentBox.setChecked(_appointment.isAttended());
 
 
         if (_appointment != null){
@@ -116,7 +117,7 @@ public class AppointmentViewFragment extends Fragment {
         _backAppointmentBtn.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                _hostActivity.onBackPressed();
+                _hostActivity.onAppointmentBackPressed(_appointment);
             }
         }));
 
@@ -127,6 +128,17 @@ public class AppointmentViewFragment extends Fragment {
             }
         });
 
+        _checkAppointmentBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (_checkAppointmentBox.isChecked()) {
+                    _appointment.setAttended(true);
+                } else {
+                    _appointment.setAttended(false);
+                }
+            }
+        });
+
         return view;
     }
 
@@ -134,12 +146,6 @@ public class AppointmentViewFragment extends Fragment {
     public void onResume() {
         super.onResume();
         _hostActivity.hideActionbar();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        _hostActivity.showActionbar();
     }
 
     /**
@@ -168,9 +174,7 @@ public class AppointmentViewFragment extends Fragment {
     public interface InteractionWithAppointmentViewFragmentListener{
         void hideActionbar();
         void showActionbar();
-        void onBackPressed();
-
+        void onAppointmentBackPressed(Appointment anew);
         void onEditAppointment(Appointment appointment);
-        //Appointment getViewAppointment();
     }
 }
