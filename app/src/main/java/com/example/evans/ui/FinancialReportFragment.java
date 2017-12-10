@@ -191,9 +191,7 @@ public class FinancialReportFragment extends Fragment
 
             }
         });
-
     }
-
 
     private void loadAppointments() {
 
@@ -282,8 +280,4 @@ public class FinancialReportFragment extends Fragment
         void showActionbar();
         void setAppbarTitle(String title);
     }
-
-
-
-
 }
