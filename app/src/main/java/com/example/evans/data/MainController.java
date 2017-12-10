@@ -265,10 +265,24 @@ public class MainController {
      * Add a new service to the list of services that is offered
      */
     public void addService(String title, Service service){
+
         if (service == null){
             return;
         }
+        // We're using the title as the key
+        service.setId(service.getTitle());
+        _services.add(service);
+        _firebaseManager.addService(service, service.getId());
+    }
 
+    /**
+     * Add a new service to the list of services that is offered
+     */
+    public void addService(Service service){
+
+        if (service == null){
+            return;
+        }
         // We're using the title as the key
         service.setId(service.getTitle());
         _services.add(service);
