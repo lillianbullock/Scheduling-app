@@ -680,6 +680,23 @@ public class MainController {
     }
 
     /**
+     * gets a customer from the database
+     * @param name search parameter
+     * @return found customer
+     */
+    public Customer getCustomerByName(String name){
+
+        for (Customer customer: _customers){
+            if (customer.getName().equals(name)){
+                return customer;
+            }
+        }
+
+        // didn't find any customer
+        return null;
+    }
+
+    /**
      * Return a list of goals that are due by a certain date
      * @param date The month we're looking at
      * @param onGetDataListener listener because there is a delay on the reply
@@ -696,25 +713,6 @@ public class MainController {
     public void getGoalsWithLimit(int numGoals, OnGetDataListener onGetDataListener){
         _firebaseManager.getGoalsWithLimit(numGoals, onGetDataListener);
     }
-
-    /**
-     * gets a customer from the database
-     * @param name search parameter
-     * @return found customer
-     */
-    public Customer getCustomerWithName(String name){
-
-        for (Customer customer: _customers){
-            if (customer.getName().equals(name)){
-                return customer;
-            }
-        }
-
-        // didn't find any customer
-        return null;
-    }
-
-
 
     /**
      * Return a list of customers that were added in the last month
@@ -742,11 +740,6 @@ public class MainController {
         }
 
         return serviceMap;
-    }
-
-    //todo we need this function???
-    public List<Service> getAvailableServicesList() {
-        return _services;
     }
 
     /**

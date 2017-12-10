@@ -240,7 +240,7 @@ public class AppointmentEditFragment extends Fragment
         String email = _email.getText().toString();
 
         if (_selectedCustomer == null) {
-            _selectedCustomer = _mainController.getCustomerWithName(title);
+            _selectedCustomer = _mainController.getCustomerByName(title);
 
             if (_selectedCustomer == null){
                 // there's no existing customer, create a new customer
@@ -249,15 +249,6 @@ public class AppointmentEditFragment extends Fragment
                 _mainController.addCustomer(_selectedCustomer);
             }
         }
-
-       /* if (!title.isEmpty() && _selectedService != null) {
-            appointment = new Appointment(title, _selectedDate, _selectedTime, _selectedCustomer.getId(), _selectedService);
-
-            // set the id
-            if (_selectedAppointment != null) {
-                appointment.setId(_selectedAppointment.getId());
-            }
-        }*/
 
         if (!title.isEmpty() && _selectedService != null) {
             // Email isn't required but if it's not empty then check to make sure it's a valid email
