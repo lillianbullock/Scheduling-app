@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements
 
     private static final String TAG = "MainActivity";
 
+    /*---------OnCreate---------*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,429 +100,412 @@ public class MainActivity extends AppCompatActivity implements
         // Initialize and launch the start page fragment
         _currentFragment = new StartPageFragment();
         loadCurrentFragment(false);
-
-    }
-
-    /*---------- EXPENSE ----------*/
-    @Override
-    public void onClickExpense(Expense expense) {
-        ExpenseEditFragment _frag = new ExpenseEditFragment();
-        _frag.setExistingExpense(expense);
-        _currentFragment = _frag;
-
-        loadCurrentFragment(true);
-    }
-
-    @Override
-    public void onExpenseCancel() { onBackPressed(); }
-
-        @Override
-    public void onAddExpense() {
-        _currentFragment = new ExpenseEditFragment();
-        loadCurrentFragment(true);
-    }
-
-    @Override
-    public void onExpenseEditFinish(Expense oldExpense, Expense newExpense) {
-        if (newExpense != null) {
-            if (oldExpense == null) {
-                // addCustomer returns the same customer but with a valid id
-                _mainController.addExpense(newExpense);
-            } else {
-                _mainController.updateExpense(oldExpense, newExpense);
-            }
-
-            _currentFragment = new ExpenseListFragment();
-            loadCurrentFragment(false);
-
-        } else {
-
-            // If this ever happens then there's an error on our part. A null service should never be returned here
-            _currentFragment = new StartPageFragment();
-            loadCurrentFragment(false);
-            Snackbar.make(findViewById(R.id.content_frame),
-                    "ERROR: Invalid expense information entered, cancelling operation", Snackbar.LENGTH_LONG).show();
-            Log.e(TAG, "NULL expense passed to MainActivity");
-        }
-
-    }
-
-    /*---------- SALE ----------*/
-    @Override
-    public void onAddSale() {
-        _currentFragment = new SaleEditFragment();
-        loadCurrentFragment(true);
-    }
-
-    @Override
-    public void onClickSale(Sale sale) {
-        if (sale != null){
-            SaleEditFragment frag = new SaleEditFragment();
-            frag.setExistingSale(sale);
-            _currentFragment = frag;
-            loadCurrentFragment(true);
-
-        } else {
-            Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid sale from main activity", Snackbar.LENGTH_LONG).show();
-
-        }
-    }
-
-    @Override
-    public void onSaleCancel() {
-            onBackPressed();
-        }
-
-    @Override
-    public void onSaleEditFinish(Sale oldSale, Sale newSale) {
-
-        if (newSale != null) {
-            if (oldSale == null) {
-                _mainController.addSale(newSale);
-            } else {
-                _mainController.updateSale(oldSale, newSale);
-            }
-
-            //_mainController.addSale(sale);
-            _currentFragment = new SaleListFragment();
-            loadCurrentFragment(false);
-
-        } else {
-            // If this ever happens then there's an error on our part. A null service should never be returned here
-            _currentFragment = new StartPageFragment();
-            loadCurrentFragment(false);
-            Snackbar.make(findViewById(R.id.content_frame),
-                    "ERROR: Invalid expense information entered, cancelling operation", Snackbar.LENGTH_LONG).show();
-            Log.e(TAG, "NULL expense passed to MainActivity");
-        }
-        /*if(sale != null){
-            _mainController.addSale(sale);
-
-            // since w're not viewing the sale, we'll just go back to the previous fragment
-            onBackPressed();
-        }*/
-    }
-
-
-
-
-    /*---------- SERVICE ----------*/
-    @Override
-    public void onAddService() {
-        _currentFragment = new ServiceEditFragment();
-        loadCurrentFragment(true);
-    }
-
-    @Override
-    public Map<String, Service> getServices () {
-        return _mainController.getAvailableServices();
-    }
-
-    @Override
-    public void onServiceEditFinish(Service oldService, Service newService) {
-
-        if (newService != null) {
-            if (oldService == null) {
-                // addCustomer returns the same customer but with a valid id
-                _mainController.addService(newService);
-            } else {
-                _mainController.updateService(oldService, newService);
-            }
-            _currentFragment = new ServiceViewFragment();
-
-            ServiceViewFragment _frag = new ServiceViewFragment();
-            _frag.setService(newService);
-            _currentFragment = _frag;
-
-            loadCurrentFragment(false);
-
-        } else {
-            // If this ever happens then there's an error on our part. A null service should never be return here
-            _currentFragment = new StartPageFragment();
-            loadCurrentFragment(false);
-            Snackbar.make(findViewById(R.id.content_frame),
-                    "ERROR: Invalid service information entered, cancelling operation", Snackbar.LENGTH_LONG).show();
-            Log.e(TAG, "NULL service passed to MainActivity");
-        }
-    }
-
-    @Override
-    public void onClickService(Service service) {
-        ServiceViewFragment _frag = new ServiceViewFragment();
-        _frag.setService(service);
-        _currentFragment = _frag;
-        loadCurrentFragment(true);
-    }
-
-    @Override
-    public void onServiceCancel() { onBackPressed(); }
-
-
-
-    @Override
-    public void onEditService(Service service) {
-        if (service != null){
-            ServiceEditFragment frag = new ServiceEditFragment();
-            frag.setExistingService(service);
-            _currentFragment = frag;
-            loadCurrentFragment(false);
-
-        } else {
-            Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid customer from main activity",
-                    Snackbar.LENGTH_LONG).show();
-        }
-    }
-
-    /*---------- CUSTOMER ----------*/
-    @Override
-    public void onEditCustomer(Customer customer) {
-
-        if (customer != null){
-            CustomerEditFragment frag = new CustomerEditFragment();
-            frag.setExistingCustomer(customer);
-            _currentFragment = frag;
-            loadCurrentFragment(false);
-
-        } else {
-            Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid customer from mainActivity",
-                    Snackbar.LENGTH_LONG).show();
-        }
-    }
-
-    @Override
-    public void onClickCustomer(Customer customer) {
-            CustomerViewFragment _frag = new CustomerViewFragment();
-            _frag.setCustomer(customer);
-            _currentFragment = _frag;
-
-            loadCurrentFragment(true);
-    }
-
-    @Override
-    public void onCancelCustomerEdit() { onBackPressed(); }
-
-    @Override
-    public void onCustomerEditFinish(Customer oldCustomer, Customer newCustomer) {
-        if (newCustomer == null) {
-            Snackbar.make(findViewById(R.id.content_frame),
-                    "ERROR: Invalid customer. Operation aborted",
-                    Snackbar.LENGTH_LONG)
-                    .show();
-
-            _currentFragment = new CustomerViewFragment();
-            loadCurrentFragment(false);
-
-            return;
-        }
-
-        if (oldCustomer == null) {
-            // addCustomer returns the same customer but with a valid id
-            newCustomer = _mainController.addCustomer(newCustomer);
-        } else {
-            _mainController.updateCustomer(oldCustomer, newCustomer);
-        }
-
-        CustomerViewFragment _frag = new CustomerViewFragment();
-        _frag.setCustomer(newCustomer);
-        _currentFragment = _frag;
-
-        loadCurrentFragment(false);
-    }
-
-
-    @Override
-    public void onAddCustomer() {
-        _currentFragment = new CustomerEditFragment();
-        loadCurrentFragment(true);
-    }
-
-    /*---------- GOAL ----------*/
-    @Override
-    public void onClickAddGoal() {
-        _currentFragment = new GoalEditFragment();
-        loadCurrentFragment(true);
-    }
-
-    @Override
-    public void onEditGoal(Goal goal) {
-        if (goal != null){
-            GoalEditFragment frag = new GoalEditFragment();
-            frag.setExistingGoal(goal);
-            _currentFragment = frag;
-            loadCurrentFragment(false);
-
-        } else {
-            Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid Goal from mainActivity",
-                    Snackbar.LENGTH_LONG).show();
-
-        }
-    }
-
-    @Override
-    public void onSaveGoal(Goal goal) {
-        if (goal != null){
-            _currentFragment = new GoalListFragment();
-            loadCurrentFragment(true);
-
-        } else {
-            Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid Goal from main activity",
-                    Snackbar.LENGTH_LONG).show();
-        }
-    }
-
-    @Override
-    public void onGoalEditCancel() {
-        onBackPressed();
-    }
-
-    @Override
-    public void onGoalEditFinish(Goal oldGoal, Goal newGoal) {
-        if (newGoal == null) {
-            return;
-        }
-
-        //Connecting thee GoalViewFragment on finish
-        GoalViewFragment _frag = new GoalViewFragment();
-        _frag.setGoal(newGoal);
-        _currentFragment = _frag;
-
-        loadCurrentFragment(false);
-        if (oldGoal == null) {
-            _mainController.addNewGoal(newGoal);
-        } else {
-            _mainController.updateGoal(oldGoal, newGoal);
-        }
-    }
-
-
-    @Override
-    public void viewWithGoal(Goal goal) {
-        GoalViewFragment _frag = new GoalViewFragment();
-        _frag.setGoal(goal);
-        _currentFragment = _frag;
-
-        loadCurrentFragment(true);
-
     }
 
     /*---------- APPOINTMENT ----------*/
-    @Override
-    public void onClickAppointment(Appointment appointment) {
-        AppointmentViewFragment _frag = new AppointmentViewFragment();
-        _frag.setAppointment(appointment);
-        _currentFragment = _frag;
-        loadCurrentFragment(true);
-    }
+        @Override
+        public void onClickAppointment(Appointment appointment) {
+            AppointmentViewFragment _frag = new AppointmentViewFragment();
+            _frag.setAppointment(appointment);
+            _currentFragment = _frag;
+            loadCurrentFragment(true);
+        }
 
-    @Override
-    public void onEditAppointment(Appointment appointment) {
-        if (appointment != null){
-            AppointmentEditFragment frag = new AppointmentEditFragment();
+        @Override
+        public void onEditAppointment(Appointment appointment) {
+            if (appointment != null) {
+                AppointmentEditFragment frag = new AppointmentEditFragment();
                 frag.setExistingAppointment(appointment);
+                _currentFragment = frag;
+                loadCurrentFragment(false);
+            } else {
+                Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid Appointment from mainActivity",
+                        Snackbar.LENGTH_LONG).show();
+            }
+        }
+
+        @Override
+        public void onAppointmentEditCancel() { onBackPressed(); }
+
+        @Override
+        public void onAddAppointment() {
+            _currentFragment = new AppointmentEditFragment();
+            loadCurrentFragment(true);
+        }
+
+        @Override
+        public void onAppointmentEditFinish(Customer customer, Appointment oldAppointment, Appointment newAppointment) {
+
+            if (newAppointment == null || customer == null) {
+                return;
+            }
+
+            AppointmentViewFragment _frag = new AppointmentViewFragment();
+            _frag.setRelatedCustomer(customer);
+            _frag.setAppointment(newAppointment);
+            _currentFragment = _frag;
+            loadCurrentFragment(false);
+
+            if (oldAppointment == null) {
+                _mainController.addAppointment(newAppointment);
+            } else {
+                _mainController.updateAppointment(oldAppointment, newAppointment);
+            }
+        }
+
+        @Override
+        public void onSetAppointmentForCustomer(Customer customer) {
+
+            AppointmentEditFragment appointmentEditFragment = new AppointmentEditFragment();
+            appointmentEditFragment.setCustomer(customer);
+
+            _currentFragment = appointmentEditFragment;
+            loadCurrentFragment(true);
+        }
+
+
+        /**
+         * Override onBackPress for the Appointment so that we can go back to the previous fragment if we added it
+         * to the back stack.
+         */
+        @Override
+        public void onAppointmentBackPressed(Appointment appointment) {
+
+            if (_drawerLayout.isDrawerOpen(GravityCompat.START)
+                    && getFragmentManager().getBackStackEntryCount() > 0){
+
+                _drawerLayout.closeDrawer(GravityCompat.START);
+            }
+
+            // I'm pretty sure we don't want to pop off an empty backStack!
+            if (getFragmentManager().getBackStackEntryCount() > 0) {
+                removeCurrentFragment();
+                getFragmentManager().popBackStack();
+            } else {
+                super.onBackPressed();
+            }
+
+            _mainController.updateAppointment(appointment);
+        }
+
+    /*---------- CUSTOMER ----------*/
+        @Override
+        public void onEditCustomer(Customer customer) {
+
+            if (customer != null){
+                CustomerEditFragment frag = new CustomerEditFragment();
+                frag.setExistingCustomer(customer);
+                _currentFragment = frag;
+                loadCurrentFragment(false);
+            } else {
+                Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid customer from mainActivity",
+                        Snackbar.LENGTH_LONG).show();
+            }
+        }
+
+        @Override
+        public void onClickCustomer(Customer customer) {
+            CustomerViewFragment _frag = new CustomerViewFragment();
+            _frag.setCustomer(customer);
+            _currentFragment = _frag;
+            loadCurrentFragment(true);
+        }
+
+        @Override
+        public void onCancelCustomerEdit() { onBackPressed(); }
+
+        @Override
+        public void onCustomerEditFinish(Customer oldCustomer, Customer newCustomer) {
+            if (newCustomer == null) {
+                Snackbar.make(findViewById(R.id.content_frame),
+                        "ERROR: Invalid customer. Operation aborted",
+                        Snackbar.LENGTH_LONG)
+                        .show();
+
+                _currentFragment = new CustomerViewFragment();
+                loadCurrentFragment(false);
+
+                return;
+            }
+
+            if (oldCustomer == null) {
+                // addCustomer returns the same customer but with a valid id
+                newCustomer = _mainController.addCustomer(newCustomer);
+            } else {
+                _mainController.updateCustomer(oldCustomer, newCustomer);
+            }
+
+            CustomerViewFragment _frag = new CustomerViewFragment();
+            _frag.setCustomer(newCustomer);
+            _currentFragment = _frag;
+
+            loadCurrentFragment(false);
+        }
+
+        @Override
+        public void onAddCustomer() {
+            _currentFragment = new CustomerEditFragment();
+            loadCurrentFragment(true);
+        }
+
+    /*---------- EXPENSE ----------*/
+        @Override
+        public void onClickExpense(Expense expense) {
+            ExpenseEditFragment _frag = new ExpenseEditFragment();
+            _frag.setExistingExpense(expense);
+            _currentFragment = _frag;
+            loadCurrentFragment(true);
+        }
+
+        @Override
+        public void onExpenseCancel() { onBackPressed(); }
+
+        @Override
+        public void onAddExpense() {
+            _currentFragment = new ExpenseEditFragment();
+            loadCurrentFragment(true);
+        }
+
+        @Override
+        public void onExpenseEditFinish(Expense oldExpense, Expense newExpense) {
+            if (newExpense != null) {
+                if (oldExpense == null) {
+                    // addCustomer returns the same customer but with a valid id
+                    _mainController.addExpense(newExpense);
+                } else {
+                    _mainController.updateExpense(oldExpense, newExpense);
+                }
+
+                _currentFragment = new ExpenseListFragment();
+                loadCurrentFragment(false);
+
+            } else {
+
+                // If this ever happens then there's an error on our part. A null service should never be returned here
+                _currentFragment = new StartPageFragment();
+                loadCurrentFragment(false);
+                Snackbar.make(findViewById(R.id.content_frame),
+                        "ERROR: Invalid expense information entered, cancelling operation", Snackbar.LENGTH_LONG).show();
+                Log.e(TAG, "NULL expense passed to MainActivity");
+            }
+
+        }
+
+    /*---------- GOAL ----------*/
+        @Override
+        public void onClickAddGoal() {
+            _currentFragment = new GoalEditFragment();
+            loadCurrentFragment(true);
+        }
+
+        @Override
+        public void onEditGoal(Goal goal) {
+            if (goal != null){
+                GoalEditFragment frag = new GoalEditFragment();
+                frag.setExistingGoal(goal);
                 _currentFragment = frag;
                 loadCurrentFragment(false);
 
             } else {
-                Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid Appointment from mainActivity",
+                Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid Goal from mainActivity",
                         Snackbar.LENGTH_LONG).show();
 
             }
         }
 
-    @Override
-    public void onAppointmentEditCancel() { onBackPressed(); }
+        @Override
+        public void onSaveGoal(Goal goal) {
+            if (goal != null){
+                _currentFragment = new GoalListFragment();
+                loadCurrentFragment(true);
 
-    @Override
-    public void onAddAppointment() {
-        _currentFragment = new AppointmentEditFragment();
-        loadCurrentFragment(true);
-    }
-
-
-    @Override
-    public void onAppointmentEditFinish(Customer customer, Appointment oldAppointment, Appointment newAppointment) {
-
-        if (newAppointment == null || customer == null) {
-            return;
+            } else {
+                Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid Goal from main activity",
+                        Snackbar.LENGTH_LONG).show();
+            }
         }
-        AppointmentViewFragment _frag = new AppointmentViewFragment();
-        _frag.setRelatedCustomer(customer);
-        _frag.setAppointment(newAppointment);
-        _currentFragment = _frag;
-        loadCurrentFragment(false);
 
-        if (oldAppointment == null) {
-            _mainController.addAppointment(newAppointment);
-        } else {
-            _mainController.updateAppointment(oldAppointment, newAppointment);
+        @Override
+        public void onGoalEditCancel() {
+            onBackPressed();
         }
-    }
+
+        @Override
+        public void onGoalEditFinish(Goal oldGoal, Goal newGoal) {
+            if (newGoal == null) {
+                return;
+            }
+
+            //Connecting thee GoalViewFragment on finish
+            GoalViewFragment _frag = new GoalViewFragment();
+            _frag.setGoal(newGoal);
+            _currentFragment = _frag;
+
+            loadCurrentFragment(false);
+            if (oldGoal == null) {
+                _mainController.addNewGoal(newGoal);
+            } else {
+                _mainController.updateGoal(oldGoal, newGoal);
+            }
+        }
 
 
-    @Override
-    public void onSetAppointmentForCustomer(Customer customer) {
+        @Override
+        public void viewWithGoal(Goal goal) {
+            GoalViewFragment _frag = new GoalViewFragment();
+            _frag.setGoal(goal);
+            _currentFragment = _frag;
 
-        AppointmentEditFragment appointmentEditFragment = new AppointmentEditFragment();
-        appointmentEditFragment.setCustomer(customer);
+            loadCurrentFragment(true);
 
-        _currentFragment = appointmentEditFragment;
-        loadCurrentFragment(true);
-    }
+        }
 
-    @Override
-    public void hideActionbar() {
-        getSupportActionBar().hide();
-    }
 
-    @Override
-    public void showActionbar() {
+    /*---------- SALE ----------*/
+        @Override
+        public void onAddSale() {
+            _currentFragment = new SaleEditFragment();
+            loadCurrentFragment(true);
+        }
+
+        @Override
+        public void onClickSale(Sale sale) {
+            if (sale != null){
+                SaleEditFragment frag = new SaleEditFragment();
+                frag.setExistingSale(sale);
+                _currentFragment = frag;
+                loadCurrentFragment(true);
+
+            } else {
+                Snackbar.make(findViewById(R.id.content_frame),
+                        "ERROR: Invalid sale from main activity", Snackbar.LENGTH_LONG).show();
+            }
+        }
+
+        @Override
+        public void onSaleCancel() {
+            onBackPressed();
+        }
+
+        @Override
+        public void onSaleEditFinish(Sale oldSale, Sale newSale) {
+
+            if (newSale != null) {
+                if (oldSale == null) {
+                    _mainController.addSale(newSale);
+                } else {
+                    _mainController.updateSale(oldSale, newSale);
+                }
+                _currentFragment = new SaleListFragment();
+                loadCurrentFragment(false);
+
+            } else {
+                // If this ever happens then there's an error on our part.
+                // A null service should never be returned here
+                _currentFragment = new StartPageFragment();
+                loadCurrentFragment(false);
+                Snackbar.make(findViewById(R.id.content_frame),
+                        "ERROR: Invalid expense information entered, cancelling operation",
+                        Snackbar.LENGTH_LONG).show();
+                Log.e(TAG, "NULL expense passed to MainActivity");
+            }
+
+        }
+
+    /*---------- SERVICE ----------*/
+        @Override
+        public void onAddService() {
+            _currentFragment = new ServiceEditFragment();
+            loadCurrentFragment(true);
+        }
+
+        @Override
+        public Map<String, Service> getServices () {
+            return _mainController.getAvailableServices();
+        }
+
+        @Override
+        public void onServiceEditFinish(Service oldService, Service newService) {
+
+            if (newService != null) {
+                if (oldService == null) {
+                    // addCustomer returns the same customer but with a valid id
+                    _mainController.addService(newService);
+                } else {
+                    _mainController.updateService(oldService, newService);
+                }
+                _currentFragment = new ServiceViewFragment();
+
+                ServiceViewFragment _frag = new ServiceViewFragment();
+                _frag.setService(newService);
+                _currentFragment = _frag;
+
+                loadCurrentFragment(false);
+
+            } else {
+                // If this ever happens then there's an error on our part. A null service should never be return here
+                _currentFragment = new StartPageFragment();
+                loadCurrentFragment(false);
+                Snackbar.make(findViewById(R.id.content_frame),
+                        "ERROR: Invalid service information entered, cancelling operation", Snackbar.LENGTH_LONG).show();
+                Log.e(TAG, "NULL service passed to MainActivity");
+            }
+        }
+
+        @Override
+        public void onClickService(Service service) {
+            ServiceViewFragment _frag = new ServiceViewFragment();
+            _frag.setService(service);
+            _currentFragment = _frag;
+            loadCurrentFragment(true);
+        }
+
+        @Override
+        public void onServiceCancel() { onBackPressed(); }
+
+        @Override
+        public void onEditService(Service service) {
+            if (service != null){
+                ServiceEditFragment frag = new ServiceEditFragment();
+                frag.setExistingService(service);
+                _currentFragment = frag;
+                loadCurrentFragment(false);
+
+            } else {
+                Snackbar.make(findViewById(R.id.content_frame), "ERROR: Invalid customer from main activity",
+                        Snackbar.LENGTH_LONG).show();
+            }
+        }
+
+        /*---------- StartPage Fragment ----------*/
+        @Override
+        public void onClickGoalsSeeMore() {
+            _currentFragment = new GoalListFragment();
+            loadCurrentFragment(true);
+
+        }
+
+        @Override
+        public void onClickAppointmentsSeeMore() {
+            _currentFragment = new AppointmentListFragment();
+            loadCurrentFragment(true);
+        }
+
+        @Override
+        public void setAppbarTitle(String title){
+            _toolbar.setTitle(title);
+        }
+
+
+        @Override
+        public void hideActionbar() {
+            getSupportActionBar().hide();
+        }
+
+        @Override
+        public void showActionbar() {
             getSupportActionBar().show();
         }
-
-    /**
-    * Override onBackPress so that we can go back to the previous fragment if we added it
-    * to the back stack.
-    */
-    @Override
-    public void onAppointmentBackPressed(Appointment appointment) {
-
-        if (_drawerLayout.isDrawerOpen(GravityCompat.START)
-                && getFragmentManager().getBackStackEntryCount() > 0){
-
-            _drawerLayout.closeDrawer(GravityCompat.START);
-        }
-
-        // I'm pretty sure we don't want to pop off an empty backStack!
-        if (getFragmentManager().getBackStackEntryCount() > 0) {
-            removeCurrentFragment();
-            getFragmentManager().popBackStack();
-        } else {
-            super.onBackPressed();
-        }
-
-        _mainController.updateAppointment(appointment);
-    }
-
-
-    /*---------- StartPage Fragment ----------*/
-    @Override
-    public void onClickGoalsSeeMore() {
-        _currentFragment = new GoalListFragment();
-        loadCurrentFragment(true);
-
-    }
-
-    @Override
-    public void onClickAppointmentsSeeMore() {
-        _currentFragment = new AppointmentListFragment();
-        loadCurrentFragment(true);
-    }
-
-    @Override
-    public void setAppbarTitle(String title){
-        _toolbar.setTitle(title);
-    }
-
 
     /*---------- END OF OVERRIDING METHODS FOR FRAGMENTS ----------*/
 
@@ -692,8 +676,7 @@ public class MainActivity extends AppCompatActivity implements
             super.onBackPressed();
         }
     }
-
-
+        
     @Override
     public void onDateSet(LocalDate date) {
         Snackbar.make(findViewById(R.id.content_frame),

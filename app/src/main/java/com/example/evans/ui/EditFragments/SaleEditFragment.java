@@ -139,9 +139,8 @@ public class SaleEditFragment extends Fragment
                 String finalPrice = String.format(Locale.US,"$%1.2f", price);
 
                 // display the price to the user
-                if(_servicePrice == null){
-                    _servicePrice.setText(finalPrice);
-                }
+                _servicePrice.setText(finalPrice);
+
             }
 
             @Override
