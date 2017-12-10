@@ -109,8 +109,7 @@ public class StartPageFragment extends Fragment implements OnGetDataListener {
                     _appointment.add(child.getValue(Appointment.class));
                 }
 
-                AppointmentAdapter appointmentAdapter = new AppointmentAdapter(getActivity(), R.layout.appointment_adapter, _appointment);
-                _appointmentListViewStartPage.setAdapter(appointmentAdapter);
+                _appointmentListViewStartPage.setAdapter(_appointmentAdapter);
                 _appointmentProgressBar.setVisibility(ProgressBar.INVISIBLE);
             }
 
@@ -135,12 +134,8 @@ public class StartPageFragment extends Fragment implements OnGetDataListener {
             _goals.add(child.getValue(Goal.class));
         }
 
-        _goalAdapter.addAll(_goals);
-
         _goalProgressBar.setVisibility(ProgressBar.INVISIBLE);
-
-        GoalAdapter goalAdapter = new GoalAdapter(getActivity(), R.layout.goal_adapter, _goals);
-        _goalListViewStartPage.setAdapter(goalAdapter);
+        _goalListViewStartPage.setAdapter(_goalAdapter);
 
     }
 

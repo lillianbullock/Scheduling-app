@@ -692,7 +692,6 @@ public class FirebaseManager {
         if(customer == null){
             return;
         }
-
         _databaseRoot.child(CUSTOMERS).child(customerId).setValue(customer);
     }
 
@@ -702,7 +701,6 @@ public class FirebaseManager {
      * @param appointment the appointment to be added
      */
     public void addAppointment(Appointment appointment, String id) {
-
         if(appointment == null){
             return;
         }
@@ -715,7 +713,6 @@ public class FirebaseManager {
      * @param service the service to be added
      */
     public void addService(Service service, String id) {
-
         if (service == null){
             return;
         }
@@ -757,7 +754,6 @@ public class FirebaseManager {
         if(expense == null){
             return;
         }
-
         _databaseRoot.child(EXPENSES).child(id).setValue(expense);
     }
 

@@ -32,7 +32,7 @@ public class MainController {
     private List<Appointment>       _appointments      = new LinkedList<>();
     private List<Customer>          _customers         = new LinkedList<>();
     private List<Goal>              _goals             = new LinkedList<>();
-    private List<Service>           _availableServices = new LinkedList<>();
+    private List<Service>           _services          = new LinkedList<>();
     private List<Sale>              _allSales          = new LinkedList<>();
     private List<Expense>           _expenses          = new LinkedList<>();
     private FirebaseManager         _firebaseManager   = null;
@@ -85,7 +85,7 @@ public class MainController {
             @Override
             public void onDataLoadSucceed(DataSnapshot dataSnapshot) {
                 for (DataSnapshot child: dataSnapshot.getChildren()){
-                    _availableServices.add(child.getValue(Service.class));
+                    _services.add(child.getValue(Service.class));
                 }
             }
 
@@ -158,6 +158,10 @@ public class MainController {
 
     public void getAllGoals(OnGetDataListener onGetDataListener){
         _firebaseManager.getAllGoals(onGetDataListener);
+    }
+
+    public void getAllService(OnGetDataListener onGetDataListener){
+      //  _firebaseManager.getAllServices(onGetDataListener);
     }
 
 
@@ -267,8 +271,7 @@ public class MainController {
 
         // We're using the title as the key
         service.setId(service.getTitle());
-
-        _availableServices.add(service);
+        _services.add(service);
         _firebaseManager.addService(service, service.getId());
     }
 
@@ -351,14 +354,14 @@ public class MainController {
 
     public Service updateService(Service oldService, Service newService) {
 
-        int oldServiceIndex = _availableServices.indexOf(oldService);
+        int oldServiceIndex = _services.indexOf(oldService);
 
         if (oldServiceIndex < 0 || newService == null) {
             return null;
         }
 
         newService.setId(oldService.getId());
-        _availableServices.set(oldServiceIndex, newService);
+        _services.set(oldServiceIndex, newService);
         _firebaseManager.updateService(oldService, newService);
 
         return newService;
@@ -425,7 +428,7 @@ public class MainController {
 
 
     public boolean deleteService(Service service) {
-        if (service == null || _availableServices.indexOf(service) < 0) {
+        if (service == null || _services.indexOf(service) < 0) {
             // the service doesn't exist
             return  false;
         }
@@ -434,7 +437,7 @@ public class MainController {
 
         // use Java 8's remove function which returns true if the
         // object was found, and false otherwise
-        return _availableServices.remove(service);
+        return _services.remove(service);
     }
 
     public boolean deleteSale(Sale sale){
@@ -559,7 +562,7 @@ public class MainController {
 
         Map<String, Service> serviceMap = new TreeMap<>();
 
-        for (Service service: _availableServices){
+        for (Service service: _services){
             serviceMap.put(service.getTitle(), service);
         }
 
@@ -567,7 +570,7 @@ public class MainController {
     }
 
     public List<Service> getAvailableServicesList() {
-        return _availableServices;
+        return _services;
     }
 
 
