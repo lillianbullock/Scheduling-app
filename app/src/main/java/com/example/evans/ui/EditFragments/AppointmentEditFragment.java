@@ -104,8 +104,10 @@ public class AppointmentEditFragment extends Fragment
         initializeServiceDetails();
 
         //Control the Checkbox to say if customer has come or not
-        if (_selectedAppointment.isAttended() != false)
+        if (_selectedAppointment != null && _selectedAppointment.isAttended()){
+
             _appointmentCheckBox.setChecked(_selectedAppointment.isAttended());
+        }
 
 
         // Onclick listener for the save button
