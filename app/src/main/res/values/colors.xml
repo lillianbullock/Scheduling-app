@@ -4,4 +4,6 @@
     <color name="colorAccent">#C1251A</color>
     <color name="colorPrimaryDark">#0d47a1</color>
     <color name="colorAccentText">#ffffff</color>
+    <color name="AppBackgroundColor">#FAFAFA</color>
+    <color name="cardColor">#EFF0F0 </color>
 </resources>

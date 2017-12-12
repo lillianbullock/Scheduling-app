@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.evans.ui.FinancialReportFragment"
-    android:background="#ffffff">
+    android:background="@color/AppBackgroundColor">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"

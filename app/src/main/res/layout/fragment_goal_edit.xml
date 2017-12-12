@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.evans.ui.EditFragments.GoalEditFragment"
-    android:background="#ffffff">
+    android:background="@color/AppBackgroundColor">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"

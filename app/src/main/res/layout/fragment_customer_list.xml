@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.evans.ui.ListFragments.CustomerListFragment"
-    android:background="#ffffff">
+    android:background="@color/AppBackgroundColor">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -35,7 +35,15 @@
         <ListView
             android:id="@+id/customer_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:divider="@null"
+            android:dividerHeight="2dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
         </ListView>
 
     </android.support.constraint.ConstraintLayout>

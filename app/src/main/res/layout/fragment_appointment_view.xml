@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.evans.ui.ViewFragments.AppointmentViewFragment"
-    android:background="#ffffff">
+    android:background="@color/AppBackgroundColor">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -24,8 +24,9 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:text="@string/customer_name"
+            android:drawableStart="@drawable/ic_person_black_24dp"
+            android:drawablePadding="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/appointment_view_bar" />
 
@@ -37,8 +38,9 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:text="@string/customer_phone"
+            android:drawableStart="@drawable/ic_phone_black_24dp"
+            android:drawablePadding="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_appt_view_customer_name" />
 
@@ -50,8 +52,9 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:text="@string/customer_email"
+            android:drawableStart="@drawable/ic_email_black_24dp"
+            android:drawablePadding="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_appt_view_customer_phone" />
 
@@ -63,8 +66,9 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:text="@string/appointment_date"
+            android:drawableStart="@drawable/ic_date_black_24dp"
+            android:drawablePadding="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_appt_view_customer_email" />
 
@@ -72,13 +76,14 @@
             android:id="@+id/txt_appointment_view_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:text="@string/appointment_time"
+            android:drawableStart="@drawable/ic_time_black_24dp"
+            android:drawablePadding="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_appt_view_customer_email" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_appointment_view_date" />
 
         <!-- Service type -->
         <TextView
@@ -88,10 +93,11 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:text="@string/appointment_service"
+            android:drawableStart="@drawable/ic_grain_black"
+            android:drawablePadding="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_appointment_view_date" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_appointment_view_time" />
 
         <!-- Price  -->
         <TextView
@@ -101,8 +107,9 @@
             android:layout_marginEnd="16dp"
             android:layout_marginTop="24dp"
             android:text="@string/service_price"
+            android:drawableStart="@drawable/ic_dollar_black_24dp"
+            android:drawablePadding="8dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txt_appointment_view_time" />
 

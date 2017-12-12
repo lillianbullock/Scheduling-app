@@ -34,7 +34,6 @@
                 android:layout_gravity="center"
                 android:layout_marginRight="16dp"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
                 android:text="@string/default_string"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 app:layout_constraintRight_toRightOf="parent"
